@@ -99,6 +99,14 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "team.aliens.dms.kmp"
             packageVersion = "1.0.0"
+
+            windows {
+                iconFile.set(project.file("src/main/res/icons/ic_logo_image.png"))
+            }
+
+            macOS {
+                iconFile.set(project.file("src/main/res/icons/ic_logo_image.png"))
+            }
         }
     }
 }
