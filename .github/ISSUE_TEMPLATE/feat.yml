@@ -14,7 +14,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        - [] todo
+       ## To-do
+        - [ ] todo
   
   - type: textarea
     attributes:
