@@ -1,7 +1,7 @@
 name: 🚨 Bug report
 description: 버그가 발생했나요?? 💣
 title: "[Bug]: "
-labels: 버그
+labels: 👾bug
 body:
 
   - type: dropdown
