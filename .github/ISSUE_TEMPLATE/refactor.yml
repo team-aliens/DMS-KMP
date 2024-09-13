@@ -1,0 +1,20 @@
+name: "⚒️ Refactoring"
+description: "코드를 변경해야 하나요? ♻️"
+title: "[Refactor]: "
+labels: refactor
+body:
+
+  - type: textarea
+    attributes:
+      label: Describe
+      description: |
+        변경해야 될 코드에 대해 설명해주세요.
+      placeholder: |
+        한 함수에서 처리하고 있어서 가독성이 떨어져요
+
+  - type: textarea
+    attributes:
+      label: Additional
+      description: |
+        추가로 할 말을 작성해 주세요.
+        
