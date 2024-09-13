@@ -10,12 +10,11 @@ body:
         [Explain] 설명을 작성해주세요.
       placeholder: |
         로그인 비즈로직 작성
-        
+  
   - type: textarea
     attributes:
       label: To-do
-      placeholder: |
-        - [ ] todo
+      value: "- [ ] Task 1\n- [ ] Task 2"
       description: |
         해야 할 일을 작성해주세요. 🗒️
   
