@@ -1,5 +1,5 @@
 name: 🚨 Bug report
-description: 버그가 발생했나요??
+description: 버그가 발생했나요?? 💣
 title: "[Bug]: "
 labels: 버그
 body:
@@ -26,6 +26,14 @@ body:
 
   - type: textarea
     attributes:
+      label: Ui
+      description: |
+        이곳에서 제가 버그를 발견했어요!!
+      placeholder: |
+        [사진/영상] 파일을 여기로 드래그하여 등록해주세요.
+
+  - type: textarea
+    attributes:
       label: Additional
       description: |
-        추가로 할말을 작성해 주세요
+        추가로 할 말을 작성해 주세요.
