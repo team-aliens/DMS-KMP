@@ -1,0 +1,18 @@
+name: "🙋🏻 Feedback"
+description: "이런식으로 변경하면 어떨까요? 💫"
+title: "[Feedback]: "
+body: 
+
+  - type: textarea
+    attributes:
+      label: Describe
+      description: |
+        어느 부분을 수정하면 좋을까요?
+      placeholder: |
+        코루틴을 사용하면 더 효율적일거 같아요.
+
+  - type: textarea
+    attributes:
+      label: Additional
+      description: |
+        추가로 할 말을 작성해 주세요.
