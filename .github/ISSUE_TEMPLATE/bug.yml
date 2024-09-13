@@ -26,7 +26,7 @@ body:
 
   - type: textarea
     attributes:
-      label: Ui
+      label: UI
       description: |
         이곳에서 제가 버그를 발견했어요!!
       placeholder: |
