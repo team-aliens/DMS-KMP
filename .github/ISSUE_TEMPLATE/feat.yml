@@ -1,0 +1,23 @@
+name: "⚡️ Feat"
+description: "기능을 추가할래요. ✨"
+labels: feat
+body: 
+
+  - type: textarea
+    attributes:
+      label: Describe
+      description: |
+        [Explain] 설명을 작성해주세요.
+      placeholder: |
+        로그인 비즈로직 작성
+        
+  - type: markdown
+    attributes:
+      value: |
+        - [] todo
+  
+  - type: textarea
+    attributes:
+      label: Additional
+      description: |
+        [추가사항] 별도로 알려줘야 할 사항이나 추가사항을 작성해주세요  
