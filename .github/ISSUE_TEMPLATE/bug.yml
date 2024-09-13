@@ -10,6 +10,7 @@ body:
       label: 어디분야에서 문제가 발생하나요?
       multiple: true
       options:
+        - All
         - Android
         - Ios
         - Window
