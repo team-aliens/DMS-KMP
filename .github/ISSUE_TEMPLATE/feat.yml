@@ -1,6 +1,9 @@
 name: "⚡️ Feat"
 description: "기능을 추가할래요. ✨"
+title: "[Feat]: "
+assignees: parkuiery
 labels: feat
+projects: DMS 스프린트
 body: 
 
   - type: textarea
