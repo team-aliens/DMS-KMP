@@ -11,11 +11,13 @@ body:
       placeholder: |
         로그인 비즈로직 작성
         
-  - type: markdown
+  - type: textarea
     attributes:
-      value: |
-       ## To-do
+      label: To-do
+      descroption: |
         - [ ] todo
+      description: |
+        해야 할 일을 작성해주세요. 🗒️
   
   - type: textarea
     attributes:
