@@ -1,0 +1,31 @@
+name: Bug report
+description: 버그가 발생했나요??
+title: "[Bug]: "
+labels: 버그
+body:
+
+  - type: dropdown
+    id: major
+    attributes:
+      label: 어디분야에서 문제가 발생하나요?
+      multiple: true
+      options:
+        - Android
+        - Ios
+        - Window
+        - Mac
+      default: All
+
+  - type: textarea
+    attributes:
+      label: Describe
+      description: |
+        버그에 관한 설명을 간단하게 작성해주세요.
+      placeholder: |
+        앱이 안켜져요!!
+
+  - type: textarea
+    attributes:
+      label: Additional
+      description: |
+        추가로 할말을 작성해 주세요
