@@ -1,4 +1,4 @@
-name: Bug report
+name: 🚨 Bug report
 description: 버그가 발생했나요??
 title: "[Bug]: "
 labels: 버그
@@ -10,7 +10,6 @@ body:
       label: 어디분야에서 문제가 발생하나요?
       multiple: true
       options:
-        - All
         - Android
         - Ios
         - Window
