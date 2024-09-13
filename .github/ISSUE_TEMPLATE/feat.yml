@@ -14,7 +14,7 @@ body:
   - type: textarea
     attributes:
       label: To-do
-      descroption: |
+      placeholder: |
         - [ ] todo
       description: |
         해야 할 일을 작성해주세요. 🗒️
