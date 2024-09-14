@@ -1,6 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import team.aliens.dms.kmp.buildsrc.ProjectProperties
+import team.aliens.dms.kmp.buildsrc.Versions
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -13,7 +15,7 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
     
@@ -57,7 +59,7 @@ kotlin {
 
 android {
     namespace = "team.aliens.dms.kmp"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = ProjectProperties.COMPILE_SDK
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -65,10 +67,10 @@ android {
 
     defaultConfig {
         applicationId = "team.aliens.dms.kmp"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = ProjectProperties.MIN_SDK
+        targetSdk = ProjectProperties.TARGET_SDK
+        versionCode = ProjectProperties.VERSION_CODE
+        versionName = ProjectProperties.VERSION_NAME
     }
     packaging {
         resources {
@@ -81,8 +83,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = Versions.java
+        targetCompatibility = Versions.java
     }
     buildFeatures {
         compose = true
@@ -99,14 +101,14 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "team.aliens.dms.kmp"
-            packageVersion = "1.0.0"
+            packageVersion = ProjectProperties.DESKTOP_PACKAGE_VERSION
 
             windows {
-                iconFile.set(project.file("src/main/res/icons/ic_logo.ico"))
+                iconFile.set(project.file("src/main/resources/icons/ic_logo.ico"))
             }
 
             macOS {
-                iconFile.set(project.file("src/main/res/icons/ic_logo.icns"))
+                iconFile.set(project.file("src/main/resources/icons/ic_logo.icns"))
             }
         }
     }

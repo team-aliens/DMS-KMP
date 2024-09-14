@@ -1,3 +1,6 @@
+import team.aliens.dms.kmp.buildsrc.ProjectProperties
+import team.aliens.dms.kmp.buildsrc.Versions
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -7,7 +10,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = Versions.java.toString()
             }
         }
     }
@@ -24,8 +27,18 @@ kotlin {
     }
 
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.content.negotiation)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -35,12 +48,12 @@ kotlin {
 
 android {
     namespace = "team.aliens.dms.kmp.network"
-    compileSdk = 34
+    compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
-        minSdk = 24
+        minSdk = ProjectProperties.MIN_SDK
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.java
+        targetCompatibility = Versions.java
     }
 }
