@@ -102,11 +102,11 @@ compose.desktop {
             packageVersion = "1.0.0"
 
             windows {
-                iconFile.set(project.file("src/main/res/icons/ic_logo_image.png"))
+                iconFile.set(project.file("src/main/res/icons/ic_logo.ico"))
             }
 
             macOS {
-                iconFile.set(project.file("src/main/res/icons/ic_logo_image.png"))
+                iconFile.set(project.file("src/main/res/icons/ic_logo.icns"))
             }
         }
     }
