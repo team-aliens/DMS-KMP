@@ -49,6 +49,7 @@ jobs:
 
   build-ios:
     executor:
+      name: macos
       xcode: "14.0.0"
     steps:
       - checkout
