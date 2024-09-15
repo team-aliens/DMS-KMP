@@ -14,6 +14,8 @@ kotlin {
             }
         }
     }
+
+    jvm()
     
     listOf(
         iosX64(),
@@ -42,6 +44,9 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.cio)
         }
     }
 }
