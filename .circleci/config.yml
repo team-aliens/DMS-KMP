@@ -49,7 +49,6 @@ jobs:
 
   build-ios:
     executor:
-      name: macos.x86.large
       xcode: "14.0.0"
     steps:
       - checkout
