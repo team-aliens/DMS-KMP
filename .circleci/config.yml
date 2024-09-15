@@ -1,1 +1,77 @@
+version: 2.1
 
+executors:
+  android:
+    docker:
+      - image: circleci/android:api-30
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+      ANDROID_HOME: /opt/android/sdk
+
+  ios:
+    macos:
+      xcode: "13.2.0"
+
+jobs:
+  # Job for JVM build and test
+  build-jvm:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
+            - gradle-cache-
+      - run: ./gradlew jvmTest
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+          key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
+
+  # Job for Android build and test
+  build-android:
+    executor: android
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
+            - gradle-cache-
+      - run:
+          name: Accept SDK Licenses
+          command: yes | sdkmanager --licenses
+      - run: ./gradlew androidTest
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+          key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
+
+  # Job for iOS build and test
+  build-ios:
+    executor: ios
+    steps:
+      - checkout
+      - run:
+          name: Set up CocoaPods
+          command: pod install --repo-update
+      - restore_cache:
+          keys:
+            - gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
+            - gradle-cache-
+      - run: ./gradlew iosTest
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+          key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build-jvm
+      - build-android
+      - build-ios
