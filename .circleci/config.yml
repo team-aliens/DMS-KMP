@@ -48,9 +48,8 @@ jobs:
           key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
 
   build-ios:
-    executor:
-      name: macos
-      xcode: "14.0.0"
+    macos:
+      xcode: "15.4.0"
     steps:
       - checkout
       - run:
