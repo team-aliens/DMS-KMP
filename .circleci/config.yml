@@ -49,7 +49,7 @@ jobs:
 
   build-ios:
     executor:
-      name: macos.m1.medium.gen1
+      name: macos.x86.large
       xcode: "14.0.0"
     steps:
       - checkout
