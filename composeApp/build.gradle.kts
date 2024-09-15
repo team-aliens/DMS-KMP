@@ -1,7 +1,6 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import team.aliens.dms.kmp.buildsrc.ProjectPaths
 import team.aliens.dms.kmp.buildsrc.ProjectProperties
 import team.aliens.dms.kmp.buildsrc.Versions
 
@@ -20,7 +19,7 @@ kotlin {
         }
     }
     
-    jvm("desktop")
+    jvm()
     
     listOf(
         iosX64(),
@@ -34,15 +33,14 @@ kotlin {
     }
     
     sourceSets {
-        val desktopMain by getting
+        val jvmMain by getting
         
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(project(ProjectPaths.Core.NETWORK))
-
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -52,10 +50,14 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.navigation.compose)
+            implementation(libs.koin.core)
+
+            implementation(projects.core.network)
         }
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.cio)
         }
     }
 }
