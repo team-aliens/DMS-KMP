@@ -5,18 +5,17 @@ executors:
     docker:
       - image: circleci/android:api-30
     environment:
-      JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+      JAVA_HOME: /opt/android/sdk
       ANDROID_HOME: /opt/android/sdk
 
   ios:
     macos:
-      xcode: "13.2.0"
+      xcode: "14.0.0"
 
 jobs:
-  # Job for JVM build and test
   build-jvm:
     docker:
-      - image: circleci/openjdk:11-jdk
+      - image: circleci/openjdk:17-jdk
     steps:
       - checkout
       - restore_cache:
@@ -30,7 +29,6 @@ jobs:
             - ~/.gradle/wrapper
           key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
 
-  # Job for Android build and test
   build-android:
     executor: android
     steps:
@@ -49,9 +47,10 @@ jobs:
             - ~/.gradle/wrapper
           key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
 
-  # Job for iOS build and test
   build-ios:
-    executor: ios
+    executor:
+      name: macos.m1.medium.gen1
+      xcode: "14.0.0"
     steps:
       - checkout
       - run:
