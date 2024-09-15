@@ -1,6 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import team.aliens.dms.kmp.buildsrc.ProjectPaths
 import team.aliens.dms.kmp.buildsrc.ProjectProperties
 import team.aliens.dms.kmp.buildsrc.Versions
 
@@ -40,6 +41,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
+            implementation(project(ProjectPaths.Core.NETWORK))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
