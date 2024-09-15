@@ -1,75 +1,97 @@
 version: 2.1
 
-executors:
-  android:
-    docker:
-      - image: circleci/android:api-30
-    environment:
-      JAVA_HOME: /opt/android/sdk
-      ANDROID_HOME: /opt/android/sdk
+orbs:
+  android: circleci/android@1.0.3
 
-  ios:
-    macos:
-      xcode: "15.4.0"
+parameters:
+  build-all:
+    type: boolean
+    default: false
+  build-android:
+    type: boolean
+    default: false
+  build-ios:
+    type: boolean
+    default: false
+  build-desktop:
+    type: boolean
+    default: false
 
 jobs:
-  build-jvm:
+  build-android:
+    executor: android/android
+    steps:
+      - checkout
+      - android/restore-build-cache
+      - android/restore-gradle-cache
+      - run:
+          name: Build Android app
+          command: ./gradlew androidApp:assembleDebug
+      - android/save-gradle-cache
+      - android/save-build-cache
+
+  build-ios:
+    macos:
+      xcode: 15.4.0
+    steps:
+      - checkout
+      - run:
+          name: Allow proper XCode dependency resolution
+          command: |
+            sudo defaults write com.apple.dt.Xcode IDEPackageSupportUseBuiltinSCM YES
+            rm ~/.ssh/id_rsa || true
+            for ip in $(dig @8.8.8.8 bitbucket.org +short); do ssh-keyscan bitbucket.org,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
+            for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
+      - run:
+          name: Install Gem dependencies
+          command: |
+            cd iosApp
+            bundle install
+      - run:
+          name: Fastlane Tests
+          command: |
+            cd iosApp
+            fastlane scan
+      - save_cache:
+          key: ios-gem-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ./iosApp/vendor/bundle
+
+  build-desktop:
     docker:
       - image: circleci/openjdk:17-jdk
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
-            - gradle-cache-
-      - run: ./gradlew jvmTest
-      - save_cache:
-          paths:
-            - ~/.gradle/caches
-            - ~/.gradle/wrapper
-          key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
-
-  build-android:
-    executor: android
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
-            - gradle-cache-
       - run:
-          name: Accept SDK Licenses
-          command: yes | sdkmanager --licenses
-      - run: ./gradlew androidTest
-      - save_cache:
-          paths:
-            - ~/.gradle/caches
-            - ~/.gradle/wrapper
-          key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
-
-  build-ios:
-    macos:
-      xcode: "15.4.0"
-    steps:
-      - checkout
+          name: Setup JDK
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y openjdk-17-jdk
       - run:
-          name: Set up CocoaPods
-          command: pod install --repo-update
-      - restore_cache:
-          keys:
-            - gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
-            - gradle-cache-
-      - run: ./gradlew iosTest
+          name: Build Desktop App
+          command: ./gradlew desktopApp:assemble
       - save_cache:
+          key: gradle-cache-{{ checksum "build.gradle.kts" }}
           paths:
-            - ~/.gradle/caches
-            - ~/.gradle/wrapper
-          key: gradle-cache-{{ checksum "build.gradle.kts" }}-{{ checksum "settings.gradle.kts" }}
+            - ~/.gradle/caches/
+            - ~/.gradle/wrapper/
 
 workflows:
   version: 2
   build-and-test:
     jobs:
-      - build-jvm
-      - build-android
-      - build-ios
+      - build-android:
+          when:
+            or:
+              - << pipeline.parameters.build-android >>
+              - << pipeline.parameters.build-all >>
+      - build-ios:
+          when:
+            or:
+              - << pipeline.parameters.build-ios >>
+              - << pipeline.parameters.build-all >>
+      - build-desktop:
+          when:
+            or:
+              - << pipeline.parameters.build-desktop >>
+              - << pipeline.parameters.build-all >>
