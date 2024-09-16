@@ -12,6 +12,7 @@ androidx-lifecycle = "2.8.0"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-plugin = "1.6.11"
+datastorePreferencesCore = "1.1.1"
 junit = "4.13.2"
 koin = "3.5.6"
 kotlin = "2.0.20"
@@ -21,6 +22,7 @@ navigationCompose = "2.7.0-alpha07"
 jetbrainsKotlinJvm = "1.9.22"
 
 [libraries]
+androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
