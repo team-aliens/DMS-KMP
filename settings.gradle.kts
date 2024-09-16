@@ -32,3 +32,4 @@ include(":composeApp")
 include(":network")
 
 include(":core:network")
+include(":core:datastore")
