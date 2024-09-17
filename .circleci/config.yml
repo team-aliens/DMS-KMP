@@ -2,96 +2,44 @@ version: 2.1
 
 orbs:
   android: circleci/android@1.0.3
-
-parameters:
-  build-all:
-    type: boolean
-    default: false
-  build-android:
-    type: boolean
-    default: false
-  build-ios:
-    type: boolean
-    default: false
-  build-desktop:
-    type: boolean
-    default: false
+  macos: circleci/macos@2.1.0
 
 jobs:
   build-android:
-    executor: android/android
+    docker:
+      - image: circleci/android:2022.04.1
+    environment:
+      JAVA_HOME: /usr/local/openjdk-17
     steps:
       - checkout
-      - android/restore-build-cache
-      - android/restore-gradle-cache
+      - setup_remote_docker
       - run:
-          name: Build Android app
-          command: ./gradlew androidApp:assembleDebug
-      - android/save-gradle-cache
-      - android/save-build-cache
+          name: Setup Java 17
+          command: |
+            sudo apt-get update
+            sudo apt-get install openjdk-17-jdk
+            java -version
+      - run:
+          name: Build Android app and run tests
+          command: ./gradlew clean assembleDebug build test --parallel
 
   build-ios:
     macos:
-      xcode: 15.4.0
+      xcode: "14.0.0"
     steps:
       - checkout
       - run:
-          name: Allow proper XCode dependency resolution
+          name: Setup Java 17
           command: |
-            sudo defaults write com.apple.dt.Xcode IDEPackageSupportUseBuiltinSCM YES
-            rm ~/.ssh/id_rsa || true
-            for ip in $(dig @8.8.8.8 bitbucket.org +short); do ssh-keyscan bitbucket.org,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
-            for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
+            brew install --cask adoptopenjdk/openjdk/adoptopenjdk17
+            java -version
       - run:
-          name: Install Gem dependencies
-          command: |
-            cd iosApp
-            bundle install
-      - run:
-          name: Fastlane Tests
-          command: |
-            cd iosApp
-            fastlane scan
-      - save_cache:
-          key: ios-gem-cache-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ./iosApp/vendor/bundle
-
-  build-desktop:
-    docker:
-      - image: circleci/openjdk:17-jdk
-    steps:
-      - checkout
-      - run:
-          name: Setup JDK
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y openjdk-17-jdk
-      - run:
-          name: Build Desktop App
-          command: ./gradlew desktopApp:assemble
-      - save_cache:
-          key: gradle-cache-{{ checksum "build.gradle.kts" }}
-          paths:
-            - ~/.gradle/caches/
-            - ~/.gradle/wrapper/
+          name: Build with Xcode
+          command: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator
 
 workflows:
   version: 2
-  build-and-test:
+  build:
     jobs:
-      - build-android:
-          when:
-            or:
-              - << pipeline.parameters.build-android >>
-              - << pipeline.parameters.build-all >>
-      - build-ios:
-          when:
-            or:
-              - << pipeline.parameters.build-ios >>
-              - << pipeline.parameters.build-all >>
-      - build-desktop:
-          when:
-            or:
-              - << pipeline.parameters.build-desktop >>
-              - << pipeline.parameters.build-all >>
+      - build-android
+      - build-ios
