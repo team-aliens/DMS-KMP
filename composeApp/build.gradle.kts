@@ -53,6 +53,7 @@ kotlin {
             implementation(libs.koin.core)
 
             implementation(projects.core.network)
+            implementation(projects.core.datastore)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
