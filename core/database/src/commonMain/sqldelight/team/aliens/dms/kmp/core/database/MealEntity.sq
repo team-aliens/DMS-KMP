@@ -1,0 +1,21 @@
+import kotlin.String;
+import kotlin.collections.List;
+
+CREATE TABLE MealEntity (
+    date TEXT NOT NULL PRIMARY KEY,
+    breakfast TEXT AS List<String> NOT NULL,
+    kcal_breakfast TEXT,
+    lunch TEXT AS List<String> NOT NULL,
+    kcal_lunch TEXT,
+    dinner TEXT AS List<String> NOT NULL,
+    kcal_dinner TEXT
+);
+
+selectMealByDate:
+SELECT *
+FROM MealEntity
+WHERE date = ?;
+
+insertMeal:
+INSERT OR REPLACE INTO MealEntity(date, breakfast, kcal_breakfast, lunch, kcal_lunch, dinner, kcal_dinner)
+VALUES ?;
