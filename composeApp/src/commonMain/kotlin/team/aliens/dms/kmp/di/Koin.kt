@@ -7,6 +7,7 @@ import team.aliens.dms.kmp.core.network.di.networkModule
 fun appModule() = listOf(
     networkModule,
     dataStoreModule,
+    dataStoreModule,
 )
 
 fun initKoin() {

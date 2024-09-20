@@ -33,3 +33,4 @@ include(":network")
 
 include(":core:network")
 include(":core:datastore")
+include(":core:database")
