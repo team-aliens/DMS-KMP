@@ -17,41 +17,46 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-val networkModule = module {
-    single {
-        fun provideHttpClient() = HttpClient {
-            defaultRequest {
-                header(HttpHeaders.ContentType, ContentType.Application.Json)
-                contentType(ContentType.Application.Json)
-                accept(ContentType.Application.Json)
-                url {
-                    protocol = URLProtocol.HTTPS
-                    host = "" //base_URL
-                }
-            }
+val networkModule =
+    module {
+        single {
+            fun provideHttpClient() =
+                HttpClient {
+                    defaultRequest {
+                        header(HttpHeaders.ContentType, ContentType.Application.Json)
+                        contentType(ContentType.Application.Json)
+                        accept(ContentType.Application.Json)
+                        url {
+                            protocol = URLProtocol.HTTPS
+                            host = "" // base_URL
+                        }
+                    }
 
-            install(ContentNegotiation) {
-                json(Json {
-                    prettyPrint = true
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                })
-            }
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                prettyPrint = true
+                                isLenient = true
+                                ignoreUnknownKeys = true
+                            },
+                        )
+                    }
 
-            install(Logging) {
-                logger = object  : Logger {
-                    override fun log(message: String) {
-                        logger.log("Logger Ktor => $message")
+                    install(Logging) {
+                        logger =
+                            object : Logger {
+                                override fun log(message: String) {
+                                    logger.log("Logger Ktor => $message")
+                                }
+                            }
+                        level = LogLevel.ALL
+                    }
+
+                    install(ResponseObserver) {
+                        onResponse { response ->
+                            logger.info("HTTP status: ${response.status.value}")
+                        }
                     }
                 }
-                level = LogLevel.ALL
-            }
-
-            install(ResponseObserver) {
-                onResponse { response ->
-                    logger.info("HTTP status: ${response.status.value}")
-                }
-            }
         }
     }
-}

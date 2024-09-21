@@ -20,11 +20,11 @@ kotlin {
     }
 
     jvm()
-    
+
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             baseName = "network"
@@ -35,7 +35,6 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
-
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

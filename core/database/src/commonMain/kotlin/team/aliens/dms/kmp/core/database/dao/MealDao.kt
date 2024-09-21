@@ -9,20 +9,23 @@ class MealDao(
 ) {
     private val query get() = dmsDatabase.mealEntityQueries
 
-    suspend fun queryMeal(date: String) = with(dmsDispatchers.io) {
-        query.selectMealByDate(date).executeAsOne()
-    }
+    suspend fun queryMeal(date: String) =
+        with(dmsDispatchers.io) {
+            query.selectMealByDate(date).executeAsOne()
+        }
 
-    suspend fun saveMeal(meal: MealEntity) = with(dmsDispatchers.io) {
-        query.insertMeal(meal)
-    }
+    suspend fun saveMeal(meal: MealEntity) =
+        with(dmsDispatchers.io) {
+            query.insertMeal(meal)
+        }
 
-    suspend fun saveAllMeals(meals: List<MealEntity>) = with(dmsDispatchers.io) {
-        query.transaction {
-            meals.forEach { meal ->
-                afterRollback { throw Exception("Failed to inserting prayers info") }
-                query.insertMeal(meal)
+    suspend fun saveAllMeals(meals: List<MealEntity>) =
+        with(dmsDispatchers.io) {
+            query.transaction {
+                meals.forEach { meal ->
+                    afterRollback { throw Exception("Failed to inserting prayers info") }
+                    query.insertMeal(meal)
+                }
             }
         }
-    }
 }

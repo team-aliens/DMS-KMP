@@ -6,6 +6,5 @@ import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DriverFactory(private val context: Context) {
-    actual fun createDriver(): SqlDriver =
-        AndroidSqliteDriver(DmsDatabase.Schema, context, "${DatabaseConstants.NAME}.db")
+    actual fun createDriver(): SqlDriver = AndroidSqliteDriver(DmsDatabase.Schema, context, "${DatabaseConstants.NAME}.db")
 }
