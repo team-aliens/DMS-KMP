@@ -20,7 +20,7 @@ kotlinx-coroutines = "1.9.0"
 kotlinxDatetime = "0.6.1"
 ktor = "2.3.12"
 navigationCompose = "2.7.0-alpha07"
-jetbrainsKotlinJvm = "1.9.25"
+jetbrainsKotlinJvm = "2.0.20"
 sqldelight = "2.0.2"
 
 [libraries]
