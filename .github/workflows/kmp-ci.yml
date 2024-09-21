@@ -81,26 +81,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK
+      - name: Set up JDK for iOS
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Cache CocoaPods
-        uses: actions/cache@v2
-        with:
-          path: Pods
-          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cocoapods-
+      - name: Install Xcode version
+        run: sudo xcode-select --switch /Applications/Xcode_15.1.app
 
-      - name: Clean DerivedData
-        run: rm -rf ~/Library/Developer/Xcode/DerivedData
+      - name: Set up CocoaPods
+        run: |
+          brew install cocoapods
+          pod repo update
 
       - name: Build iOS target
-        run: xcodebuild -workspace project.xcworkspace -scheme YourScheme -sdk iphoneos -configuration Release -jobs 4
+        run: ./gradlew iosX64MainBinaries
 
       - name: Run iOS tests
-        run: xcodebuild test -workspace project.xcworkspace -scheme YourScheme -sdk iphonesimulator -configuration Debug
-        
+        run: ./gradlew iosX64Test --stacktrace
