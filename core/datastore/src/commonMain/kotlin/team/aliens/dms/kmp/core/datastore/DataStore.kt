@@ -34,7 +34,7 @@ fun getDataStore(
                     corruptionHandler = corruptionHandler,
                     migrations = migrations,
                     scope = scope,
-                    produceFile = { producePath().toPath() }
+                    produceFile = { producePath().toPath() },
                 )
                 .also { dataStore = it }
         }

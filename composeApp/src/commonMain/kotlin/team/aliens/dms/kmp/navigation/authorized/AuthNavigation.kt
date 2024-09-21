@@ -6,13 +6,10 @@ import team.aliens.dms.kmp.DmsNavigator
 
 private const val NAVIGATION_AUTH = "auth"
 
-internal fun NavGraphBuilder.authNavigation(
-    navigator: DmsNavigator,
-) {
+internal fun NavGraphBuilder.authNavigation(navigator: DmsNavigator) {
     navigation(
         route = NAVIGATION_AUTH,
         startDestination = "",
     ) {
-
     }
 }

@@ -9,13 +9,11 @@ import team.aliens.dms.kmp.navigation.main.MainNavigator
 
 internal class DmsNavigator(
     val navController: NavHostController,
-) : AuthNavigator, MainNavigator{
-
+) : AuthNavigator, MainNavigator {
 }
 
 @Composable
-internal fun rememberDmsNavigator(
-    navController: NavHostController = rememberNavController()
-): DmsNavigator = remember(navController) {
-    DmsNavigator(navController)
-}
+internal fun rememberDmsNavigator(navController: NavHostController = rememberNavController()): DmsNavigator =
+    remember(navController) {
+        DmsNavigator(navController)
+    }

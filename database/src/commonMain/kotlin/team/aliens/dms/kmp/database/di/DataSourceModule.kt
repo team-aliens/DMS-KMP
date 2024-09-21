@@ -6,12 +6,13 @@ import team.aliens.dms.kmp.database.meal.DatabaseMealDataSourceImpl
 import team.aliens.dms.kmp.database.notice.DatabaseNoticeDataSource
 import team.aliens.dms.kmp.database.notice.DatabaseNoticeDataSourceImpl
 
-val dataSourceModule = module {
-    single<DatabaseMealDataSource> {
-        DatabaseMealDataSourceImpl(get())
-    }
+val dataSourceModule =
+    module {
+        single<DatabaseMealDataSource> {
+            DatabaseMealDataSourceImpl(get())
+        }
 
-    single<DatabaseNoticeDataSource> {
-        DatabaseNoticeDataSourceImpl(get())
+        single<DatabaseNoticeDataSource> {
+            DatabaseNoticeDataSourceImpl(get())
+        }
     }
-}
