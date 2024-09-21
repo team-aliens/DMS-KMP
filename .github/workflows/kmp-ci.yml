@@ -99,8 +99,8 @@ jobs:
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
       - name: Build iOS target
-        run: xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme -sdk iphoneos -configuration Release -jobs 4
+        run: xcodebuild -workspace project.xcworkspace -scheme YourScheme -sdk iphoneos -configuration Release -jobs 4
 
       - name: Run iOS tests
-        run: xcodebuild test -workspace YourWorkspace.xcworkspace -scheme YourScheme -sdk iphonesimulator -configuration Debug
+        run: xcodebuild test -workspace project.xcworkspace -scheme YourScheme -sdk iphonesimulator -configuration Debug
         
