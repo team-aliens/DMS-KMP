@@ -10,7 +10,7 @@ class MealDao(
     private val query get() = dmsDatabase.mealEntityQueries
 
     suspend fun queryMeal(date: String) = with(dmsDispatchers.io) {
-        query.selectMealByDate(date)
+        query.selectMealByDate(date).executeAsOne()
     }
 
     suspend fun saveMeal(meal: MealEntity) = with(dmsDispatchers.io) {

@@ -9,8 +9,12 @@ class NoticeDao(
 ) {
     private val query get() = dmsDatabase.noticeEntityQueries
 
+    suspend fun findById(id: String) = with(dmsDispatchers.io) {
+        query.findById(id).executeAsOne()
+    }
+
     suspend fun findAllNotice() = with(dmsDispatchers.io) {
-        query.findAll()
+        query.findAll().executeAsList()
     }
 
     suspend fun saveNotice(notice: NoticeEntity) = with(dmsDispatchers.io) {
