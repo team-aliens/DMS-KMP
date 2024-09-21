@@ -63,7 +63,7 @@ jobs:
           java-version: 11
 
       - name: Install Xcode version
-        run: sudo xcode-select --switch /Applications/Xcode_14.1.app
+        run: sudo xcode-select --switch /Applications/Xcode_15.1.app
 
       - name: Set up CocoaPods
         run: |
