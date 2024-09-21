@@ -7,10 +7,27 @@ on:
     branches: [ main, develop ]
 
 jobs:
+  ktlint:
+    name: Run ktlint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK for Ktlint
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - run: ./gradlew ktlintCheck
+
   android:
     name: Build Android
     runs-on: ubuntu-latest
-
+    needs: ktlint
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,6 +60,7 @@ jobs:
   desktop:
     name: Build Desktop
     runs-on: ubuntu-latest
+    needs: ktlint
 
     steps:
       - name: Checkout code
@@ -76,6 +94,7 @@ jobs:
   ios:
     name: Build iOS
     runs-on: macos-latest
+    needs: ktlint
 
     steps:
       - name: Checkout code
