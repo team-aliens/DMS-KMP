@@ -16,11 +16,10 @@ internal fun DmsApp() {
 
     // TODO: 배경 색 디자인 시스템 적용
     NavHost(
-        modifier =
-            Modifier
-                .background(Color.White)
-                .navigationBarsPadding()
-                .statusBarsPadding(),
+        modifier = Modifier
+            .background(Color.White)
+            .navigationBarsPadding()
+            .statusBarsPadding(),
         navController = navigator.navController,
         startDestination = "",
     ) {
