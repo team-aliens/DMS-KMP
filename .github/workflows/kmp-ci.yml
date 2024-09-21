@@ -8,7 +8,7 @@ on:
 
 jobs:
   android:
-    name: Build and Test Android
+    name: Build Android
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +41,7 @@ jobs:
         run: ./gradlew test --stacktrace
 
   desktop:
-    name: Build and Test Desktop
+    name: Build Desktop
     runs-on: ubuntu-latest
 
     steps:
@@ -74,29 +74,33 @@ jobs:
         run: ./gradlew jvmTest --stacktrace
 
   ios:
-    name: Build and Test iOS
+    name: Build iOS
     runs-on: macos-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK for iOS
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Install Xcode version
-        run: sudo xcode-select --switch /Applications/Xcode_15.1.app
+      - name: Cache CocoaPods
+        uses: actions/cache@v2
+        with:
+          path: Pods
+          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-
 
-      - name: Set up CocoaPods
-        run: |
-          brew install cocoapods
-          pod repo update
+      - name: Clean DerivedData
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
       - name: Build iOS target
-        run: ./gradlew iosX64MainBinaries
+        run: xcodebuild -workspace YourWorkspace.xcworkspace -scheme YourScheme -sdk iphoneos -configuration Release -jobs 4
 
       - name: Run iOS tests
-        run: ./gradlew iosX64Test --stacktrace
+        run: xcodebuild test -workspace YourWorkspace.xcworkspace -scheme YourScheme -sdk iphonesimulator -configuration Debug
+        
