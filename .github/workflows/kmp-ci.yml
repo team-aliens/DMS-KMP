@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK for Ktlint
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 17
@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK for Android
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 17
@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK for Desktop
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 17
@@ -104,7 +104,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK for iOS
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 17
