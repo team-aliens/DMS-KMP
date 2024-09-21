@@ -1,0 +1,77 @@
+name: Kotlin Multiplatform CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    name: Build and Test KMP
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        java-version: [11, 17]
+        include:
+          - os: macos-latest
+            java-version: 11
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build
+        run: ./gradlew build --stacktrace
+
+      - name: Run tests
+        run: ./gradlew test --stacktrace
+
+  ios:
+    name: Build and Test iOS
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 11
+
+      - name: Install Xcode version
+        run: sudo xcode-select --switch /Applications/Xcode_14.1.app
+
+      - name: Set up CocoaPods
+        run: |
+          brew install cocoapods
+          pod repo update
+
+      - name: Build iOS target
+        run: ./gradlew iosX64MainBinaries
+
+      - name: Run iOS tests
+        run: ./gradlew iosX64Test --stacktrace
