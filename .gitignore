@@ -10,6 +10,7 @@ build/
 *.iml
 .idea/*
 .kotlin
+*.apk
 
 # macOs
 .DS_Store
