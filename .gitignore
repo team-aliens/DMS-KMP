@@ -35,7 +35,7 @@ GoogleService-Info.plist
 Packages
 xcuserdata
 *.xcodeproj
-.xcuserstate
+*.xcuserstate
 
 ### Xcode Patch ###
 *.xcodeproj/*
