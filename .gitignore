@@ -10,6 +10,7 @@ build/
 *.iml
 .idea/*
 .kotlin
+*.apk
 
 # macOs
 .DS_Store
@@ -45,7 +46,6 @@ xcuserdata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # IntelliJ
-*.iml
 .idea/
 misc.xml
 deploymentTargetDropDown.xml

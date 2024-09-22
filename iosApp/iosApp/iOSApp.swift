@@ -1,4 +1,6 @@
 import SwiftUI
+import ComposeApp
+import FirebaseCore
 
 @main
 struct iOSApp: App {
@@ -6,7 +8,6 @@ struct iOSApp: App {
     init() {
         KoinKt.doInitKoin()
         FirebaseApp.configure()
-        FirebaseApp.crashlytics.setCrashlyticsCollectionEnabled(true)
     }
     
     var body: some Scene {
