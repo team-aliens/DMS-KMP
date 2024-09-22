@@ -54,6 +54,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Create google-services.json
+        env:
+          DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo $DATA > /home/runner/work/DMS-KMP/DMS-KMP/composeApp/google-services.json
+
       - name: Build Android target
         run: ./gradlew assembleDebug --stacktrace
 
