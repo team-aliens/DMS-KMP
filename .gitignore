@@ -36,6 +36,13 @@ Packages
 xcuserdata
 *.xcodeproj
 
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
 # IntelliJ
 *.iml
 .idea/
