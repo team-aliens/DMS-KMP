@@ -1,5 +1,5 @@
 [versions]
-agp = "8.6.1"
+agp = "8.2.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
@@ -13,6 +13,7 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-plugin = "1.6.11"
 datastorePreferencesCore = "1.1.1"
+firebaseBom = "33.3.0"
 junit = "4.13.2"
 koin = "4.0.0"
 kotlin = "2.0.20"
@@ -23,11 +24,14 @@ navigationCompose = "2.7.0-alpha07"
 jetbrainsKotlinJvm = "2.0.20"
 sqldelight = "2.0.2"
 ktlint = "12.1.1"
+googleServices = "4.4.2"
 
 [libraries]
 android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
 coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -64,3 +68,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }

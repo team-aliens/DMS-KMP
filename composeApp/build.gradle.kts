@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.googleServices)
     alias(libs.plugins.ktlint)
 }
 
@@ -99,6 +100,9 @@ android {
         compose = true
     }
     dependencies {
+        implementation(platform(libs.firebase.bom))
+        implementation(libs.firebase.analytics)
+
         debugImplementation(compose.uiTooling)
     }
 }
