@@ -45,7 +45,6 @@ xcuserdata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # IntelliJ
-*.iml
 .idea/
 misc.xml
 deploymentTargetDropDown.xml
