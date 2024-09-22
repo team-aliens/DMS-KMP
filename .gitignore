@@ -22,6 +22,15 @@ Pods/
 *.dSYM.zip
 *.dSYM
 
+### iOS Firebase ###
+**/node_modules/*
+**/.firebaserc
+
+### iOS Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+GoogleService-Info.plist
+
 # IntelliJ
 *.iml
 .idea/
