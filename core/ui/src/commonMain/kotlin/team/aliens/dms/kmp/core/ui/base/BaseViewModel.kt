@@ -2,14 +2,17 @@ package team.aliens.dms.kmp.core.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+
+/**
+ * @param S 상속받는 뷰모델에서 사용될 state data class
+ * @param E 상속받는 뷰모델에서 사용할 side effect sealed class
+ */
 
 abstract class BaseViewModel<S, E>(initialState: S) : ViewModel() {
     private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
@@ -25,9 +28,8 @@ abstract class BaseViewModel<S, E>(initialState: S) : ViewModel() {
     }
 
     protected fun postSideEffect(sideEffect: E) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _sideEffect.emit(sideEffect)
         }
     }
-
 }
