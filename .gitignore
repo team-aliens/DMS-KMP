@@ -37,14 +37,15 @@ Packages
 xcuserdata
 *.xcodeproj
 *.xcuserstate
+Config.xcconfig
 
 ### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
-**/xcshareddata/WorkspaceSettings.xcsettings
 !*.xcodeproj/xcuserdata/
+**/xcshareddata/WorkspaceSettings.xcsettings
 
 # IntelliJ
 .idea/
