@@ -7,13 +7,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
 import team.aliens.dms.kmp.core.datastore.PreferencesDataStore
 import team.aliens.dms.kmp.core.datastore.jwt.exception.AccessTokenExpirationNotFoundException
 import team.aliens.dms.kmp.core.datastore.jwt.exception.AccessTokenNotFoundException
+import team.aliens.dms.kmp.core.datastore.jwt.exception.CannotClearTokensException
 import team.aliens.dms.kmp.core.datastore.jwt.exception.CannotStoreTokensException
 import team.aliens.dms.kmp.core.datastore.jwt.exception.RefreshTokenExpirationNotFoundException
 import team.aliens.dms.kmp.core.datastore.jwt.exception.RefreshTokenNotFoundException
@@ -26,7 +23,7 @@ internal class JwtDataSourceImpl(
     private val jwtDataStore: PreferencesDataStore,
 ) : JwtDataSource() {
 
-    override fun loadTokens(): Tokens = runBlocking {
+    override suspend fun loadTokens(): Tokens = runBlocking {
         jwtDataStore.data.map { preferences ->
             val accessTokenValue = preferences[ACCESS_TOKEN]
                 ?: throw AccessTokenNotFoundException()
@@ -40,11 +37,11 @@ internal class JwtDataSourceImpl(
             return@map Tokens(
                 accessToken = AccessToken(
                     value = accessTokenValue,
-                    expiration = deserializeLocalDateTimeFromLong(accessTokenExpiration),
+                    expiration = Instant.fromEpochMilliseconds(accessTokenExpiration),
                 ),
                 refreshToken = RefreshToken(
                     value = refreshTokenValue,
-                    expiration = deserializeLocalDateTimeFromLong(refreshTokenExpiration),
+                    expiration = Instant.fromEpochMilliseconds(refreshTokenExpiration),
                 ),
             )
         }.first()
@@ -56,17 +53,20 @@ internal class JwtDataSourceImpl(
                 val accessToken = tokens.accessToken
                 val refreshToken = tokens.refreshToken
                 preferences[ACCESS_TOKEN] = accessToken.value
-                preferences[ACCESS_TOKEN_EXPIRATION] =
-                    serializeLocalDateTimeToLong(accessToken.expiration)
+                preferences[ACCESS_TOKEN_EXPIRATION] = accessToken.expiration.toEpochMilliseconds()
                 preferences[REFRESH_TOKEN] = refreshToken.value
                 preferences[REFRESH_TOKEN_EXPIRATION] =
-                    serializeLocalDateTimeToLong(refreshToken.expiration)
+                    refreshToken.expiration.toEpochMilliseconds()
             }
         }
     }
 
     override suspend fun clearTokens() {
-        transform { jwtDataStore.edit { preferences -> preferences.clear() } }
+        transform(
+            onFailure = { throw CannotClearTokensException() },
+        ) {
+            jwtDataStore.edit { preferences -> preferences.clear() }
+        }
     }
 
     private companion object {
@@ -74,15 +74,5 @@ internal class JwtDataSourceImpl(
         val ACCESS_TOKEN_EXPIRATION = longPreferencesKey("access-token-expiration")
         val REFRESH_TOKEN = stringPreferencesKey("refresh-token")
         val REFRESH_TOKEN_EXPIRATION = longPreferencesKey("refresh-token-expiration")
-    }
-
-    private fun serializeLocalDateTimeToLong(dateTime: LocalDateTime): Long {
-        val instant = dateTime.toInstant(TimeZone.currentSystemDefault())
-        return instant.toEpochMilliseconds()
-    }
-
-    private fun deserializeLocalDateTimeFromLong(epochMillis: Long): LocalDateTime {
-        val instant = Instant.fromEpochMilliseconds(epochMillis)
-        return instant.toLocalDateTime(TimeZone.currentSystemDefault())
     }
 }
