@@ -5,6 +5,7 @@ import team.aliens.dms.kmp.buildsrc.Versions
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -19,11 +20,11 @@ kotlin {
     }
 
     jvm()
-    
+
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             baseName = "jwt"

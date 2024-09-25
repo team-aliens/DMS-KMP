@@ -2,7 +2,6 @@ package team.aliens.dms.kmp.core.jwt.datastore.store
 
 import team.aliens.dms.kmp.core.jwt.model.Tokens
 
-
 abstract class JwtDataStore {
 
     abstract suspend fun loadTokens(): Tokens
