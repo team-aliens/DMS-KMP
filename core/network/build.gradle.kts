@@ -49,7 +49,6 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.kotlinx.datetime)
 
-            implementation(projects.core.datastore)
             implementation(projects.network)
         }
         commonTest.dependencies {
