@@ -20,7 +20,6 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.parameters
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.datastore.jwt.JwtDataSource
@@ -38,8 +37,9 @@ val networkModule =
                     bearer {
                         loadTokens {
                             val jwtDataStore: JwtDataSource = get()
-                            val accessToken = jwtDataStore.loadTokens().accessToken.value
-                            val refreshToken = jwtDataStore.loadTokens().refreshToken.value
+                            val tokens = jwtDataStore.loadTokens()
+                            val accessToken = tokens.accessToken.value
+                            val refreshToken = tokens.refreshToken.value
 
                             BearerTokens(
                                 accessToken = accessToken,
@@ -49,13 +49,14 @@ val networkModule =
 
                         refreshTokens {
                             val jwtDataSource: JwtDataSource = get()
+                            val oldRefreshToken = jwtDataSource.loadTokens().refreshToken.value
 
                             val refreshTokenInfo: TokensResponse = client.submitForm(
-                                url = "${PlatformConfig.baseUrl}/auth/reissue",
+                                url = "/auth/reissue",
                                 formParameters = parameters {
                                     append(
                                         name = "refresh-token",
-                                        value = jwtDataSource.loadTokens().refreshToken.value,
+                                        value = oldRefreshToken,
                                     )
                                 },
                             ) { markAsRefreshTokenRequest() }.body()
@@ -64,20 +65,20 @@ val networkModule =
                                 Tokens(
                                     accessToken = AccessToken(
                                         value = refreshTokenInfo.accessToken,
-                                        expiration = LocalDateTime.parse(refreshTokenInfo.accessTokenExpiration),
+                                        expiration = refreshTokenInfo.accessTokenExpiration,
                                     ),
                                     refreshToken = RefreshToken(
                                         value = refreshTokenInfo.refreshToken,
-                                        expiration = LocalDateTime.parse(refreshTokenInfo.refreshTokenExpiration),
+                                        expiration = refreshTokenInfo.refreshTokenExpiration,
                                     ),
                                 ),
                             )
-                            val accessToken = refreshTokenInfo.accessToken
-                            val refreshToken = refreshTokenInfo.refreshToken
+                            val newAccessToken = refreshTokenInfo.accessToken
+                            val newRefreshToken = refreshTokenInfo.refreshToken
 
                             BearerTokens(
-                                accessToken = accessToken,
-                                refreshToken = refreshToken,
+                                accessToken = newAccessToken,
+                                refreshToken = newRefreshToken,
                             )
                         }
                     }
@@ -107,7 +108,7 @@ val networkModule =
                     logger =
                         object : Logger {
                             override fun log(message: String) {
-                                logger.log("Logger Ktor => $message")
+                                println("Logger Ktor => $message")
                             }
                         }
                     level = LogLevel.ALL
