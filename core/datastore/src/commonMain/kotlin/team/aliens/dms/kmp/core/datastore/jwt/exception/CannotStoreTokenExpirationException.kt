@@ -2,11 +2,16 @@ package team.aliens.dms.kmp.core.datastore.jwt.exception
 
 import team.aliens.dms.kmp.core.datastore.exception.TransformFailureException
 
-sealed class CannotStoreTokenExpirationException(message: String?) :
+/**
+ * 토큰 만료 정보를 저장하는 데 실패했을 때 발생하는 예외의 기본 클래스입니다.
+ *
+ * @param message 예외 메시지
+ */
+internal sealed class CannotStoreTokenExpirationException(message: String?) :
     TransformFailureException(message)
 
-class CannotStoreAccessTokenExpirationException :
+internal class CannotStoreAccessTokenExpirationException :
     CannotStoreTokenExpirationException("Cannot store access token expiration")
 
-class CannotStoreRefreshTokenExpirationException :
+internal class CannotStoreRefreshTokenExpirationException :
     CannotStoreTokenExpirationException("Cannot store refresh token expiration")
