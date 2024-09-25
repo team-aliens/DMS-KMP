@@ -57,6 +57,7 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.core.datastore)
             implementation(projects.core.database)
+            implementation(projects.core.jwt)
             implementation(projects.database)
         }
         jvmMain.dependencies {
