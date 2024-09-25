@@ -1,10 +1,6 @@
 package team.aliens.dms.kmp.core.network.di
 
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.providers.BearerTokens
-import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -12,78 +8,20 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.request.accept
-import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
-import io.ktor.http.parameters
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
-import team.aliens.dms.kmp.core.datastore.jwt.JwtDataSource
-import team.aliens.dms.kmp.core.datastore.jwt.model.AccessToken
-import team.aliens.dms.kmp.core.datastore.jwt.model.RefreshToken
-import team.aliens.dms.kmp.core.datastore.jwt.model.Tokens
 import team.aliens.dms.kmp.core.network.PlatformConfig
-import team.aliens.dms.kmp.network.auth.model.TokensResponse
 
 val networkModule =
     module {
         single {
             HttpClient {
-                install(Auth) {
-                    bearer {
-                        loadTokens {
-                            val jwtDataStore: JwtDataSource = get()
-                            val tokens = jwtDataStore.loadTokens()
-                            val accessToken = tokens.accessToken.value
-                            val refreshToken = tokens.refreshToken.value
-
-                            BearerTokens(
-                                accessToken = accessToken,
-                                refreshToken = refreshToken,
-                            )
-                        }
-
-                        refreshTokens {
-                            val jwtDataSource: JwtDataSource = get()
-                            val oldRefreshToken = jwtDataSource.loadTokens().refreshToken.value
-
-                            val refreshTokenInfo: TokensResponse = client.submitForm(
-                                url = "/auth/reissue",
-                                formParameters = parameters {
-                                    append(
-                                        name = "refresh-token",
-                                        value = oldRefreshToken,
-                                    )
-                                },
-                            ) { markAsRefreshTokenRequest() }.body()
-
-                            jwtDataSource.storeTokens(
-                                Tokens(
-                                    accessToken = AccessToken(
-                                        value = refreshTokenInfo.accessToken,
-                                        expiration = refreshTokenInfo.accessTokenExpiration,
-                                    ),
-                                    refreshToken = RefreshToken(
-                                        value = refreshTokenInfo.refreshToken,
-                                        expiration = refreshTokenInfo.refreshTokenExpiration,
-                                    ),
-                                ),
-                            )
-                            val newAccessToken = refreshTokenInfo.accessToken
-                            val newRefreshToken = refreshTokenInfo.refreshToken
-
-                            BearerTokens(
-                                accessToken = newAccessToken,
-                                refreshToken = newRefreshToken,
-                            )
-                        }
-                    }
-                }
-
                 defaultRequest {
                     header(HttpHeaders.ContentType, ContentType.Application.Json)
                     contentType(ContentType.Application.Json)
