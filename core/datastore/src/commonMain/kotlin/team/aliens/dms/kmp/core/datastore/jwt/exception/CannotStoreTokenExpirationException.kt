@@ -10,4 +10,3 @@ class CannotStoreAccessTokenExpirationException :
 
 class CannotStoreRefreshTokenExpirationException :
     CannotStoreTokenExpirationException("Cannot store refresh token expiration")
-
