@@ -33,8 +33,14 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.androidx.datastore.preferences.core)
+            implementation(libs.koin.core)
+            implementation(libs.ktor.client.auth)
+
             implementation(projects.core.datastore)
             implementation(projects.core.network)
+            implementation(projects.network)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
