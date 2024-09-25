@@ -69,3 +69,5 @@ google-services.json
 
 # Local configuration file
 local.properties
+
+*.xcconfig
