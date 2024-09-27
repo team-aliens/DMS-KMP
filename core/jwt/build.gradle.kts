@@ -37,7 +37,9 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.androidx.datastore.preferences.core)
             implementation(libs.koin.core)
+            implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.auth)
+            implementation(libs.ktor.client.cio)
 
             implementation(projects.core.datastore)
             implementation(projects.core.network)
