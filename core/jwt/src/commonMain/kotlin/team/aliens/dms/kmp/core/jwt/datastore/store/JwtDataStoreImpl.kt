@@ -5,9 +5,9 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
 import team.aliens.dms.kmp.core.datastore.PreferencesDataStore
+import team.aliens.dms.kmp.core.datastore.util.getValueOrThrow
 import team.aliens.dms.kmp.core.datastore.util.transform
 import team.aliens.dms.kmp.core.jwt.datastore.store.exception.AccessTokenExpirationNotFoundException
 import team.aliens.dms.kmp.core.jwt.datastore.store.exception.AccessTokenNotFoundException
@@ -23,18 +23,28 @@ internal class JwtDataStoreImpl(
     private val jwtDataStore: PreferencesDataStore,
 ) : JwtDataStore() {
 
-    override suspend fun loadTokens(): Tokens = runBlocking {
-        jwtDataStore.data.map { preferences ->
-            val accessTokenValue = preferences[ACCESS_TOKEN]
-                ?: throw AccessTokenNotFoundException()
-            val accessTokenExpiration = preferences[ACCESS_TOKEN_EXPIRATION]
-                ?: throw AccessTokenExpirationNotFoundException()
-            val refreshTokenValue = preferences[REFRESH_TOKEN]
-                ?: throw RefreshTokenNotFoundException()
-            val refreshTokenExpiration = preferences[REFRESH_TOKEN_EXPIRATION]
-                ?: throw RefreshTokenExpirationNotFoundException()
+    override suspend fun loadTokens(): Tokens {
+        return jwtDataStore.data.map { preferences ->
+            val accessTokenValue =
+                preferences.getValueOrThrow(
+                    ACCESS_TOKEN,
+                    AccessTokenNotFoundException(),
+                )
+            val accessTokenExpiration = preferences.getValueOrThrow(
+                ACCESS_TOKEN_EXPIRATION,
+                AccessTokenExpirationNotFoundException(),
+            )
+            val refreshTokenValue =
+                preferences.getValueOrThrow(
+                    REFRESH_TOKEN,
+                    RefreshTokenNotFoundException(),
+                )
+            val refreshTokenExpiration = preferences.getValueOrThrow(
+                REFRESH_TOKEN_EXPIRATION,
+                RefreshTokenExpirationNotFoundException(),
+            )
 
-            return@map Tokens(
+            Tokens(
                 accessToken = AccessToken(
                     value = accessTokenValue,
                     expiration = Instant.fromEpochMilliseconds(accessTokenExpiration),
