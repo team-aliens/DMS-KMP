@@ -14,7 +14,6 @@ val networkModule =
     module {
         single {
             HttpClient {
-                
                 install(ContentNegotiation) {
                     json(
                         Json {
