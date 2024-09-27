@@ -22,15 +22,7 @@ val networkModule =
     module {
         single {
             HttpClient {
-                defaultRequest {
-                    header(HttpHeaders.ContentType, ContentType.Application.Json)
-                    contentType(ContentType.Application.Json)
-                    accept(ContentType.Application.Json)
-                    url {
-                        protocol = URLProtocol.HTTPS
-                        host = PlatformConfig.baseUrl
-                    }
-                }
+
 
                 install(ContentNegotiation) {
                     json(
