@@ -6,7 +6,7 @@ import team.aliens.dms.kmp.database.meal.DatabaseMealDataSourceImpl
 import team.aliens.dms.kmp.database.notice.DatabaseNoticeDataSource
 import team.aliens.dms.kmp.database.notice.DatabaseNoticeDataSourceImpl
 
-val dataSourceModule =
+val databaseModule =
     module {
         single<DatabaseMealDataSource> {
             DatabaseMealDataSourceImpl(get())

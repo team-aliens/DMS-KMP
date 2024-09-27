@@ -27,16 +27,23 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "datastore"
+            baseName = "jwt"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.kotlinx.datetime)
             implementation(libs.androidx.datastore.preferences.core)
             implementation(libs.koin.core)
-            implementation(libs.kotlinx.datetime)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.auth)
+            implementation(libs.ktor.client.cio)
+
+            implementation(projects.core.datastore)
+            implementation(projects.core.network)
+            implementation(projects.network)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -45,7 +52,7 @@ kotlin {
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.core.datastore"
+    namespace = "team.aliens.dms.kmp.core.jwt"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
