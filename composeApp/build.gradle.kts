@@ -47,6 +47,7 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
+            implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
@@ -58,6 +59,7 @@ kotlin {
             implementation(projects.core.datastore)
             implementation(projects.core.database)
             implementation(projects.core.jwt)
+            implementation(projects.core.designSystem)
             implementation(projects.database)
         }
         jvmMain.dependencies {
