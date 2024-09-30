@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.design_system.foundation
+package team.aliens.dms.kmp.core.designsystem.foundation
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme

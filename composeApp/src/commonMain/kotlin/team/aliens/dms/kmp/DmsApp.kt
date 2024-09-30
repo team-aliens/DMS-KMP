@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import team.aliens.dms.kmp.core.design_system.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.navigation.authorized.authNavigation
 import team.aliens.dms.kmp.navigation.main.mainNavigation
 
