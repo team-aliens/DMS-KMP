@@ -61,6 +61,7 @@ kotlin {
 android {
     namespace = "team.aliens.dms.kmp.core.design_system"
     compileSdk = ProjectProperties.COMPILE_SDK
+
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
     }
@@ -68,4 +69,9 @@ android {
         sourceCompatibility = Versions.java
         targetCompatibility = Versions.java
     }
+}
+
+compose.resources {
+    publicResClass = false
+    generateResClass = auto
 }
