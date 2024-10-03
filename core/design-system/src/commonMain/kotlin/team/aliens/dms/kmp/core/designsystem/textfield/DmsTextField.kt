@@ -51,8 +51,7 @@ fun DmsTextField(
     errorDescription: String? = null,
     showVisibleIcon: Boolean = false,
     showClearIcon: Boolean = false,
-
-    ) {
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -112,8 +111,7 @@ private fun TextField(
     showVisibleIcon: Boolean,
     showClearIcon: Boolean,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-
-    ) {
+) {
     val hintAlpha by animateFloatAsState(
         targetValue = if (value.isEmpty()) {
             1f
@@ -131,10 +129,10 @@ private fun TextField(
     val isFocused = interactionSource.collectIsFocusedAsState().value
     val borderStroke = BorderStroke(
         width = 1.dp,
-        color = if (isFocused || value.isNotEmpty()) {
-            DmsTheme.colors.inversePrimary
-        } else if (isError) {
+        color = if (isError) {
             DmsTheme.colors.outlineVariant
+        } else if (isFocused || value.isNotEmpty()) {
+            DmsTheme.colors.inversePrimary
         } else {
             DmsTheme.colors.surface
         },
@@ -148,9 +146,12 @@ private fun TextField(
     ) {
         BasicTextField(
             value = value.take(maxLength),
-            onValueChange = onValueChange,
-            modifier = modifier
-                .padding(16.dp),
+            onValueChange = { newValue ->
+                if (newValue.length <= maxLength) {
+                    onValueChange(newValue)
+                }
+            },
+            modifier = modifier.padding(16.dp),
             textStyle = DmsTypography.Body1SemiBold,
             singleLine = singleLine,
             readOnly = readOnly,
