@@ -37,7 +37,7 @@ fun DmsNumberField(
         onValueChange = onValueChange,
         singleLine = true,
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.NumberPassword,
+            keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Next,
         ),
     ) { _ ->
@@ -71,7 +71,8 @@ fun DmsNumberField(
                         contentAlignment = Alignment.Center,
                     ) {
                         DmsText(
-                            text = if (index <= value.length - 1) value[index].toString() else "",
+                            text = if (index <= value.length - 1) value.getOrNull(index)
+                                .toString() else "",
                             style = DmsTypography.Body1Medium,
                         )
                     }
