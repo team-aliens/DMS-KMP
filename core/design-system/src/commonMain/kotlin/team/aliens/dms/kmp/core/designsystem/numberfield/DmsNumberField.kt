@@ -71,8 +71,12 @@ fun DmsNumberField(
                         contentAlignment = Alignment.Center,
                     ) {
                         DmsText(
-                            text = if (index <= value.length - 1) value.getOrNull(index)
-                                .toString() else "",
+                            text = if (index <= value.length - 1) {
+                                value.getOrNull(index)
+                                    .toString()
+                            } else {
+                                ""
+                            },
                             style = DmsTypography.Body1Medium,
                         )
                     }
