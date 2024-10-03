@@ -55,7 +55,7 @@ fun DmsTextField(
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        label?.run {
+        label?.let { label ->
             DmsText(
                 text = label,
                 style = DmsTypography.Body1Medium,
@@ -77,7 +77,7 @@ fun DmsTextField(
             showClearIcon = showClearIcon,
         )
         if (isError) {
-            errorDescription?.run {
+            errorDescription?.let { errorDescription ->
                 DmsText(
                     text = errorDescription,
                     style = DmsTypography.Body1Medium,
@@ -85,7 +85,7 @@ fun DmsTextField(
                 )
             }
         } else {
-            description?.run {
+            description?.let { description ->
                 DmsText(
                     text = description,
                     style = DmsTypography.Body1Medium,
@@ -118,7 +118,6 @@ private fun TextField(
         } else {
             0f
         },
-        label = "",
     )
     var visible by remember { mutableStateOf(false) }
     val (visualTransformation, icon) = if (visible || !showVisibleIcon) {
@@ -151,7 +150,7 @@ private fun TextField(
                     onValueChange(newValue)
                 }
             },
-            modifier = modifier.padding(16.dp),
+            modifier = Modifier.padding(16.dp),
             textStyle = DmsTypography.Body1SemiBold,
             singleLine = singleLine,
             readOnly = readOnly,
