@@ -200,7 +200,7 @@ private fun TextField(
                         DmsIconButton(
                             resource = DmsIcon.Cancel,
                             tint = DmsTheme.colors.surface,
-                            onClick = { onValueChange("") }
+                            onClick = { onValueChange("") },
                         )
                     }
                 }
