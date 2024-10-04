@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
@@ -189,10 +190,18 @@ private fun TextField(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     if (showVisibleIcon) {
-                        // TODO: icon button 추가
+                        DmsIconButton(
+                            resource = icon,
+                            tint = DmsTheme.colors.surfaceContainerLow,
+                            onClick = { visible = !visible },
+                        )
                     }
                     if (showClearIcon) {
-                        // TODO: icon button 추가
+                        DmsIconButton(
+                            resource = DmsIcon.Cancel,
+                            tint = DmsTheme.colors.surface,
+                            onClick = { onValueChange("") }
+                        )
                     }
                 }
             }
