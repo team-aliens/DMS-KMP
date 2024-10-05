@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.navigation.authorized.NAVIGATION_AUTH
 import team.aliens.dms.kmp.navigation.authorized.authNavigation
 import team.aliens.dms.kmp.navigation.main.mainNavigation
 
@@ -21,10 +22,10 @@ internal fun DmsApp() {
                 .navigationBarsPadding()
                 .statusBarsPadding(),
             navController = navigator.navController,
-            startDestination = "",
+            startDestination = NAVIGATION_AUTH,
         ) {
             authNavigation(navigator = navigator)
-            mainNavigation(navigator = navigator)
+            //mainNavigation(navigator = navigator)
         }
     }
 }
