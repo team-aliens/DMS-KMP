@@ -38,3 +38,5 @@ include(":database")
 include(":core:ui")
 include(":core:jwt")
 include(":core:design-system")
+
+include(":feature:splash")
