@@ -48,9 +48,12 @@ kotlin {
             implementation(libs.compottie.dot)
             implementation(libs.compottie.network)
             implementation(libs.compottie.resources)
+            implementation(libs.kotlinx.datetime)
 
             implementation(projects.core.designSystem)
             implementation(projects.core.ui)
+            implementation(projects.core.domain)
+            implementation(projects.core.jwt)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
