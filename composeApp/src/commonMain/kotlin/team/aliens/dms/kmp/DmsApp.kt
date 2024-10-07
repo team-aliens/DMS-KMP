@@ -9,7 +9,6 @@ import androidx.navigation.compose.NavHost
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.navigation.authorized.NAVIGATION_AUTH
 import team.aliens.dms.kmp.navigation.authorized.authNavigation
-import team.aliens.dms.kmp.navigation.main.mainNavigation
 
 @Composable
 internal fun DmsApp() {
@@ -25,7 +24,7 @@ internal fun DmsApp() {
             startDestination = NAVIGATION_AUTH,
         ) {
             authNavigation(navigator = navigator)
-            //mainNavigation(navigator = navigator)
+            // mainNavigation(navigator = navigator)
         }
     }
 }
