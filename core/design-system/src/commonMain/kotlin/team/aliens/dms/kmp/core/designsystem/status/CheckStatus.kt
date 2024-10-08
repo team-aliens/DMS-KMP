@@ -37,8 +37,9 @@ fun CheckStatus(
         spec = KottieCompositionSpec.File(animation),
     )
     val animationState by animateKottieCompositionAsState(
-        composition = composition
+        composition = composition,
     )
+
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp),
