@@ -30,11 +30,14 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":network")
+include(":database")
 
 include(":core:network")
 include(":core:datastore")
 include(":core:database")
-include(":database")
 include(":core:ui")
 include(":core:jwt")
 include(":core:design-system")
+include(":core:domain")
+
+include(":feature:splash")

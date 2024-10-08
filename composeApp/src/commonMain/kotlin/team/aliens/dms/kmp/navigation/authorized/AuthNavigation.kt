@@ -3,13 +3,20 @@ package team.aliens.dms.kmp.navigation.authorized
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import team.aliens.dms.kmp.DmsNavigator
+import team.aliens.dms.kmp.feature.splash.navigation.NAVIGATION_SPLASH
+import team.aliens.dms.kmp.feature.splash.navigation.splash
 
-private const val NAVIGATION_AUTH = "auth"
+const val NAVIGATION_AUTH = "auth"
 
-internal fun NavGraphBuilder.authNavigation(navigator: DmsNavigator) {
+internal fun NavGraphBuilder.authNavigation(
+    navigator: DmsNavigator,
+) {
     navigation(
         route = NAVIGATION_AUTH,
-        startDestination = "",
+        startDestination = NAVIGATION_SPLASH,
     ) {
+        splash(
+            navigateToLogin = { },
+        )
     }
 }

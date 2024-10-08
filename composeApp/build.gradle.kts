@@ -61,6 +61,7 @@ kotlin {
             implementation(projects.core.jwt)
             implementation(projects.core.designSystem)
             implementation(projects.database)
+            implementation(projects.feature.splash)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
