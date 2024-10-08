@@ -11,6 +11,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import team.aliens.dms.kmp.core.common.exception.UnknownException
 import team.aliens.dms.kmp.core.network.exception.BadRequestException
 import team.aliens.dms.kmp.core.network.exception.ConflictException
 import team.aliens.dms.kmp.core.network.exception.ForbiddenException
@@ -65,6 +66,7 @@ val networkModule =
                             HttpStatusCode.TooManyRequests -> throw TooManyRequestsException()
                             HttpStatusCode.InternalServerError -> throw InternalServerErrorException()
                             HttpStatusCode.ServiceUnavailable -> throw ServiceUnavailableException()
+                            else -> throw UnknownException()
                         }
                     }
 
