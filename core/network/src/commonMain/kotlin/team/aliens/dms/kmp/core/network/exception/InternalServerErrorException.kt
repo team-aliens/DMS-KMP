@@ -1,6 +1,6 @@
 package team.aliens.dms.kmp.core.network.exception
 
-class InternalServerError : NetworkException(
+class InternalServerErrorException : NetworkException(
     code = 500,
     message = "Internal server error",
 )

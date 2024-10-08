@@ -14,7 +14,7 @@ import org.koin.dsl.module
 import team.aliens.dms.kmp.core.network.exception.BadRequestException
 import team.aliens.dms.kmp.core.network.exception.ConflictException
 import team.aliens.dms.kmp.core.network.exception.ForbiddenException
-import team.aliens.dms.kmp.core.network.exception.InternalServerError
+import team.aliens.dms.kmp.core.network.exception.InternalServerErrorException
 import team.aliens.dms.kmp.core.network.exception.NotFoundException
 import team.aliens.dms.kmp.core.network.exception.RequestTimeoutException
 import team.aliens.dms.kmp.core.network.exception.ServiceUnavailableException
@@ -63,7 +63,7 @@ val networkModule =
                             HttpStatusCode.Conflict -> throw ConflictException()
                             HttpStatusCode.UnsupportedMediaType -> throw UnsupportedMediaTypeException()
                             HttpStatusCode.TooManyRequests -> throw TooManyRequestsException()
-                            HttpStatusCode.InternalServerError -> throw InternalServerError()
+                            HttpStatusCode.InternalServerError -> throw InternalServerErrorException()
                             HttpStatusCode.ServiceUnavailable -> throw ServiceUnavailableException()
                         }
                     }
