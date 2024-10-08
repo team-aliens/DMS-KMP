@@ -48,6 +48,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.kottie)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
