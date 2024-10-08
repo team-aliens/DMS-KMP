@@ -39,5 +39,6 @@ include(":core:ui")
 include(":core:jwt")
 include(":core:design-system")
 include(":core:domain")
+include(":core:common")
 
 include(":feature:splash")
