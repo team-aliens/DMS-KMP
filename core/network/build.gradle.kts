@@ -50,6 +50,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
 
             implementation(projects.network)
+            implementation(projects.core.common)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

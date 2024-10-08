@@ -6,8 +6,8 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.auth.GetTokenUseCase
-import team.aliens.dms.kmp.core.ui.base.BaseViewModel
 
 internal class SplashViewModel(
     private val getTokenUseCase: GetTokenUseCase,
