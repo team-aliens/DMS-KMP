@@ -44,10 +44,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.navigation.compose)
 
-            implementation(libs.compottie)
-            implementation(libs.compottie.dot)
-            implementation(libs.compottie.network)
-            implementation(libs.compottie.resources)
+            implementation(libs.kottie)
             implementation(libs.kotlinx.datetime)
 
             implementation(projects.core.designSystem)
