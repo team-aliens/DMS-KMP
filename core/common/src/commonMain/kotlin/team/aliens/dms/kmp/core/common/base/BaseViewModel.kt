@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.ui.base
+package team.aliens.dms.kmp.core.common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
