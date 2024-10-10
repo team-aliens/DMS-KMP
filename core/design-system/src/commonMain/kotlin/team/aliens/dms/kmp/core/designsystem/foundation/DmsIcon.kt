@@ -9,7 +9,8 @@ import dmskmp.core.design_system.generated.resources.ic_delete
 import dmskmp.core.design_system.generated.resources.ic_edit
 import dmskmp.core.design_system.generated.resources.ic_home
 import dmskmp.core.design_system.generated.resources.ic_person
-import dmskmp.core.design_system.generated.resources.ic_symbol
+import dmskmp.core.design_system.generated.resources.ic_symbol_dark
+import dmskmp.core.design_system.generated.resources.ic_symbol_light
 import dmskmp.core.design_system.generated.resources.ic_visibility
 import dmskmp.core.design_system.generated.resources.ic_visibility_off
 
@@ -24,5 +25,6 @@ object DmsIcon {
     val Person = Res.drawable.ic_person
     val Visibility = Res.drawable.ic_visibility
     val VisibilityOff = Res.drawable.ic_visibility_off
-    val Symbol = Res.drawable.ic_symbol
+    val SymbolLight = Res.drawable.ic_symbol_light
+    val SymbolDark = Res.drawable.ic_symbol_dark
 }
