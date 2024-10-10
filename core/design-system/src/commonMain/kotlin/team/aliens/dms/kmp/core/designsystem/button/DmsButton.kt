@@ -1,6 +1,7 @@
 package team.aliens.dms.kmp.core.designsystem.button
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,8 +58,9 @@ fun DmsButton(
         Row(
             modifier = Modifier.padding(
                 horizontal = 24.dp,
-                vertical = 12.dp,
+                vertical = 14.dp,
             ),
+            horizontalArrangement = Arrangement.Center,
         ) {
             DmsText(
                 text = text,
