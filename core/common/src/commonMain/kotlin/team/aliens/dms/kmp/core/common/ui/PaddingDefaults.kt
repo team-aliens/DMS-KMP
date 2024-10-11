@@ -17,3 +17,7 @@ fun Modifier.horizontalPadding(
 fun Modifier.topPadding(
     value: Dp = PaddingDefaults.Medium,
 ): Modifier = padding(top = value)
+
+fun Modifier.bottomPadding(
+    value: Dp = PaddingDefaults.Medium,
+): Modifier = padding(bottom = value)
