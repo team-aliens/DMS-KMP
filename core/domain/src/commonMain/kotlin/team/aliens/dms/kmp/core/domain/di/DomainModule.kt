@@ -5,6 +5,6 @@ import team.aliens.dms.kmp.core.domain.usecase.auth.di.authModule
 
 val domainModule = module {
     includes(
-        authModule
+        authModule,
     )
 }

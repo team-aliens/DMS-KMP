@@ -47,8 +47,7 @@ fun SignInScreen(
     state: SignInState,
     onAccountIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-
-    ) {
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,7 +72,7 @@ fun SignInScreen(
                 .horizontalPadding(),
             text = "로그인",
             enabled = state.buttonEnabled,
-            onClick = {},
+            onClick = { },
         )
         UnauthorizedActions(
             onFindId = { },
