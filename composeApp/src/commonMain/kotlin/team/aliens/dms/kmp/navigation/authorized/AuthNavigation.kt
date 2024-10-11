@@ -22,6 +22,8 @@ internal fun NavGraphBuilder.authNavigation(
         signIn(
             navigateToMain = { },
             navigateToSignUp = { },
+            navigateToFindId = { },
+            navigateToFindPassword = { },
         )
     }
 }

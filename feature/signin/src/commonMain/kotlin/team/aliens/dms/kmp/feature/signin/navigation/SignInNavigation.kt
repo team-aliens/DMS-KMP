@@ -10,9 +10,16 @@ const val NAVIGATION_SIGN_IN = "signIn"
 fun NavGraphBuilder.signIn(
     navigateToMain: () -> Unit,
     navigateToSignUp: () -> Unit,
+    navigateToFindId: () -> Unit,
+    navigateToFindPassword: () -> Unit,
 ) {
     composable(NAVIGATION_SIGN_IN) {
-        SignIn()
+        SignIn(
+            navigateToMain = navigateToMain,
+            navigateToSignUp = navigateToSignUp,
+            navigateToFindId = navigateToFindId,
+            navigateToFindPassword = navigateToFindPassword,
+        )
     }
 }
 

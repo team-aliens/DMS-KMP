@@ -31,11 +31,18 @@ import team.aliens.dms.kmp.feature.signin.viewmodel.SignInState
 import team.aliens.dms.kmp.feature.signin.viewmodel.SignInViewModel
 
 @Composable
-internal fun SignIn() {
+internal fun SignIn(
+    navigateToMain: () -> Unit,
+    navigateToSignUp: () -> Unit,
+    navigateToFindId: () -> Unit,
+    navigateToFindPassword: () -> Unit,
+) {
     val viewModel: SignInViewModel = koinInject()
     val state by viewModel.state.collectAsState()
 
     SignInScreen(
+        navigateToMain = navigateToMain,
+        navigateToSignUp = navigateToSignUp,
         state = state,
         onAccountIdChange = viewModel::setAccountId,
         onPasswordChange = viewModel::setPassword,
@@ -44,6 +51,8 @@ internal fun SignIn() {
 
 @Composable
 fun SignInScreen(
+    navigateToMain: () -> Unit,
+    navigateToSignUp: () -> Unit,
     state: SignInState,
     onAccountIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
@@ -85,7 +94,7 @@ fun SignInScreen(
                 .horizontalPadding()
                 .bottomPadding(16.dp),
             text = "회원가입 하기",
-            onClick = { },
+            onClick = navigateToSignUp,
         )
     }
 }
