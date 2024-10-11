@@ -1,12 +1,14 @@
 package team.aliens.dms.kmp.core.designsystem.button
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -16,23 +18,37 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun Button(
+private fun BasicButton(
     modifier: Modifier = Modifier,
     enabled: Boolean,
     onClick: () -> Unit,
     backgroundColor: Color,
     content: @Composable () -> Unit,
 ) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        enabled = enabled,
-        onClick = onClick,
-        color = backgroundColor,
-        content = content,
-    )
+    // FIXME: https://youtrack.jetbrains.com/issue/CMP-6668 
+    /*    Surface(
+            modifier = modifier,
+            shape = RoundedCornerShape(8.dp),
+            enabled = enabled,
+            onClick = onClick,
+            color = backgroundColor,
+            content = content,
+        )*/
+
+    Box(
+        modifier = modifier
+            .background(
+                shape = RoundedCornerShape(8.dp),
+                color = backgroundColor,
+            )
+            .clickable(
+                onClick = onClick,
+                enabled = enabled,
+            ),
+    ) {
+        content()
+    }
 }
 
 @Composable
@@ -49,17 +65,19 @@ fun DmsButton(
             DmsTheme.colors.onTertiaryContainer
         },
     )
-    Button(
+    BasicButton(
         modifier = modifier,
         enabled = enabled,
         backgroundColor = backgroundColor,
         onClick = onClick,
     ) {
         Row(
-            modifier = Modifier.padding(
-                horizontal = 24.dp,
-                vertical = 14.dp,
-            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 24.dp,
+                    vertical = 14.dp,
+                ),
             horizontalArrangement = Arrangement.Center,
         ) {
             DmsText(
@@ -92,17 +110,20 @@ fun DmsSmallButton(
             DmsTheme.colors.surfaceContainerHigh
         },
     )
-    Button(
+    BasicButton(
         modifier = modifier,
         enabled = enabled,
         backgroundColor = backgroundColor,
         onClick = onClick,
     ) {
         Row(
-            modifier = Modifier.padding(
-                horizontal = 14.dp,
-                vertical = 8.dp,
-            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 14.dp,
+                    vertical = 8.dp,
+                ),
+            horizontalArrangement = Arrangement.Center,
         ) {
             DmsText(
                 text = text,
