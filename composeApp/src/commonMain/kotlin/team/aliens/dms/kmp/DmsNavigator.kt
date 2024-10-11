@@ -4,12 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import team.aliens.dms.kmp.navigation.authorized.AuthNavigator
-import team.aliens.dms.kmp.navigation.main.MainNavigator
+import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
 
 internal class DmsNavigator(
     val navController: NavHostController,
-) : AuthNavigator, MainNavigator
+) {
+
+    fun navigateToLogin() {
+        navController.navigateToSignIn()
+    }
+}
 
 @Composable
 internal fun rememberDmsNavigator(navController: NavHostController = rememberNavController()): DmsNavigator =

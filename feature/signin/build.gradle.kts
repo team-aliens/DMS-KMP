@@ -29,16 +29,26 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "common"
+            baseName = "signin"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.lifecycle.viewmodel.compose)
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(libs.navigation.compose)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
+            implementation(projects.core.designSystem)
+            implementation(projects.core.common)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -47,7 +57,7 @@ kotlin {
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.core.common"
+    namespace = "team.aliens.dms.kmp.feature.signin"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK

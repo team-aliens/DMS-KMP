@@ -3,6 +3,7 @@ package team.aliens.dms.kmp.navigation.authorized
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import team.aliens.dms.kmp.DmsNavigator
+import team.aliens.dms.kmp.feature.signin.navigation.signIn
 import team.aliens.dms.kmp.feature.splash.navigation.NAVIGATION_SPLASH
 import team.aliens.dms.kmp.feature.splash.navigation.splash
 
@@ -16,7 +17,13 @@ internal fun NavGraphBuilder.authNavigation(
         startDestination = NAVIGATION_SPLASH,
     ) {
         splash(
-            navigateToLogin = { },
+            navigateToLogin = navigator::navigateToLogin,
+        )
+        signIn(
+            navigateToMain = { },
+            navigateToSignUp = { },
+            navigateToFindId = { },
+            navigateToFindPassword = { },
         )
     }
 }

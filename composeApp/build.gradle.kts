@@ -60,8 +60,12 @@ kotlin {
             implementation(projects.core.database)
             implementation(projects.core.jwt)
             implementation(projects.core.designSystem)
+            implementation(projects.core.domain)
+
             implementation(projects.database)
+
             implementation(projects.feature.splash)
+            implementation(projects.feature.signin)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

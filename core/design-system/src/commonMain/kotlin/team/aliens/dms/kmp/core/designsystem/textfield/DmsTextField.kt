@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -166,6 +168,7 @@ private fun TextField(
             ),
             keyboardActions = keyboardActions,
             interactionSource = interactionSource,
+            cursorBrush = SolidColor(DmsTheme.colors.surfaceContainerLow),
         ) { innerTextField ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -186,6 +189,7 @@ private fun TextField(
                     }
                 }
                 Row(
+                    modifier = Modifier.height(24.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
@@ -196,7 +200,7 @@ private fun TextField(
                             onClick = { visible = !visible },
                         )
                     }
-                    if (showClearIcon) {
+                    if (showClearIcon && value.isNotEmpty()) {
                         DmsIconButton(
                             resource = DmsIcon.Cancel,
                             tint = DmsTheme.colors.surface,

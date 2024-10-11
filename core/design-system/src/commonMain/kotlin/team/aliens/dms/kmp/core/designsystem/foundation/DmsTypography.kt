@@ -29,6 +29,7 @@ object DmsTypography {
             fontSize = 24.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 24.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Title3Medium
@@ -37,6 +38,7 @@ object DmsTypography {
             fontSize = 24.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 24.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Title2SemiBold
@@ -45,6 +47,7 @@ object DmsTypography {
             fontSize = 22.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 22.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Title2Medium
@@ -53,6 +56,7 @@ object DmsTypography {
             fontSize = 22.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 22.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Title1SemiBold
@@ -61,6 +65,7 @@ object DmsTypography {
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 20.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Title1Medium
@@ -69,6 +74,7 @@ object DmsTypography {
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 20.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val HeadlineSemiBold
@@ -77,6 +83,7 @@ object DmsTypography {
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 18.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val HeadlineMedium
@@ -85,6 +92,7 @@ object DmsTypography {
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 18.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val SubtitleSemiBold
@@ -93,6 +101,7 @@ object DmsTypography {
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 24.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val SubtitleMedium
@@ -101,6 +110,7 @@ object DmsTypography {
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 24.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Body1SemiBold
@@ -109,6 +119,7 @@ object DmsTypography {
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 22.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Body1Medium
@@ -117,6 +128,7 @@ object DmsTypography {
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 22.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Body2SemiBold
@@ -125,6 +137,7 @@ object DmsTypography {
             fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 20.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Body2Medium
@@ -133,6 +146,7 @@ object DmsTypography {
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 20.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Caption1SemiBold
@@ -141,6 +155,7 @@ object DmsTypography {
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 12.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 
     val Caption1Medium
@@ -149,5 +164,6 @@ object DmsTypography {
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 12.sp,
+            color = DmsTheme.colors.surfaceContainerLow,
         )
 }

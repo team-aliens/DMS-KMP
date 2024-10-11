@@ -41,3 +41,4 @@ include(":core:domain")
 include(":core:common")
 
 include(":feature:splash")
+include(":feature:signin")
