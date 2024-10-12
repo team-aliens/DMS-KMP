@@ -14,6 +14,7 @@ fun NavGraphBuilder.signUp(
     onBackPressed: () -> Unit,
     navigateToEnterSchoolVerificationQuestion: (SignUpData) -> Unit,
     navigateToEnterEmail: (SignUpData) -> Unit,
+    navigateEnterEmailVerificationCode: (SignUpData) -> Unit
 ) {
     navigation(
         route = NAVIGATION_SIGN_UP,
@@ -26,6 +27,10 @@ fun NavGraphBuilder.signUp(
         enterSchoolVerificationQuestion(
             onBackPressed = onBackPressed,
             navigateToEnterEmail = navigateToEnterEmail,
+        )
+        enterEmail(
+            onBackPressed = onBackPressed,
+            navigateEnterEmailVerificationCode = navigateEnterEmailVerificationCode,
         )
     }
 }
