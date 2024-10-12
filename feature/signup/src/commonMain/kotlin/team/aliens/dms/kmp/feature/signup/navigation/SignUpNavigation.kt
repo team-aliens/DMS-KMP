@@ -13,6 +13,7 @@ const val NAVIGATION_SIGN_UP = "signUp"
 fun NavGraphBuilder.signUp(
     onBackPressed: () -> Unit,
     navigateToEnterSchoolVerificationQuestion: (SignUpData) -> Unit,
+    navigateToSetId: (SignUpData) -> Unit,
 ) {
     navigation(
         route = NAVIGATION_SIGN_UP,
@@ -21,6 +22,10 @@ fun NavGraphBuilder.signUp(
         enterSchoolVerificationCode(
             onBackPressed = onBackPressed,
             navigateToEnterSchoolVerificationQuestion = navigateToEnterSchoolVerificationQuestion,
+        )
+        enterSchoolVerificationQuestion(
+            onBackPressed = onBackPressed,
+            navigateToSetId = navigateToSetId,
         )
     }
 }
