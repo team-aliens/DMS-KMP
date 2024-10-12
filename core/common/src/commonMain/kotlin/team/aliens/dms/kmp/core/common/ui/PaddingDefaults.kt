@@ -19,5 +19,5 @@ fun Modifier.topPadding(
 ): Modifier = padding(top = value)
 
 fun Modifier.bottomPadding(
-    value: Dp = PaddingDefaults.Medium,
+    value: Dp = PaddingDefaults.Large,
 ): Modifier = padding(bottom = value)
