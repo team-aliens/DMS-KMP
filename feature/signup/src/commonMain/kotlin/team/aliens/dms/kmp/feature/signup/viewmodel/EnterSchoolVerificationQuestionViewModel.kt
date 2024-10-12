@@ -35,7 +35,7 @@ internal class EnterSchoolVerificationQuestionViewModel :
     }
 
     internal fun onNextClick() {
-        postSideEffect(EnterSchoolVerificationQuestionSideEffect.MoveToSetId(schoolAnswer = ""))
+        postSideEffect(EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail(schoolAnswer = ""))
     }
 }
 
@@ -54,5 +54,5 @@ data class EnterSchoolVerificationQuestionState(
 }
 
 sealed interface EnterSchoolVerificationQuestionSideEffect {
-    data class MoveToSetId(val schoolAnswer: String) : EnterSchoolVerificationQuestionSideEffect
+    data class MoveToEnterEmail(val schoolAnswer: String) : EnterSchoolVerificationQuestionSideEffect
 }

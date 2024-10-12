@@ -27,7 +27,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationQuest
 @Composable
 internal fun EnterSchoolVerificationQuestion(
     onBackPressed: () -> Unit,
-    navigateToSetId: (SignUpData) -> Unit,
+    navigateToEnterEmail: (SignUpData) -> Unit,
     signUpData: SignUpData,
 ) {
     val viewModel: EnterSchoolVerificationQuestionViewModel = koinInject()
@@ -37,7 +37,7 @@ internal fun EnterSchoolVerificationQuestion(
         viewModel.sideEffect.collect {
             when(it) {
                 is EnterSchoolVerificationQuestionSideEffect.MoveToSetId -> {
-                    navigateToSetId(signUpData.copy(schoolAnswer = it.schoolAnswer))
+                    navigateToEnterEmail(signUpData.copy(schoolAnswer = it.schoolAnswer))
                 }
             }
         }

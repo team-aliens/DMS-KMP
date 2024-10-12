@@ -14,7 +14,7 @@ const val NAVIGATION_ENTER_SCHOOL_VERIFICATION_QUESTION = "enterSchoolVerificati
 
 fun NavGraphBuilder.enterSchoolVerificationQuestion(
     onBackPressed: () -> Unit,
-    navigateToSetId: (SignUpData) -> Unit,
+    navigateToEnterEmail: (SignUpData) -> Unit,
 ) {
     composable(
         route = "$NAVIGATION_ENTER_SCHOOL_VERIFICATION_QUESTION/{${ResourceKeys.SIGN_UP}}",
@@ -22,7 +22,7 @@ fun NavGraphBuilder.enterSchoolVerificationQuestion(
     ) {
         EnterSchoolVerificationQuestion(
             onBackPressed = onBackPressed,
-            navigateToSetId = navigateToSetId,
+            navigateToEnterEmail = navigateToEnterEmail,
             signUpData = it.getSignUpData(),
         )
     }
