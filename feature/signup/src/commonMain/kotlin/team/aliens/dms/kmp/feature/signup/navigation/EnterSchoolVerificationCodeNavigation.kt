@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import team.aliens.dms.kmp.feature.signup.model.SignUpData
-import team.aliens.dms.kmp.feature.signup.model.toJsonString
 import team.aliens.dms.kmp.feature.signup.ui.EnterSchoolVerificationCode
 
 const val NAVIGATION_ENTER_SCHOOL_VERIFICATION_CODE = "enterSchoolVerificationCode"
@@ -21,6 +20,6 @@ internal fun NavGraphBuilder.enterSchoolVerificationCode(
     }
 }
 
-fun NavController.navigateToEnterSchoolVerificationCode(signUpData: SignUpData) {
-    navigate("$NAVIGATION_ENTER_SCHOOL_VERIFICATION_CODE/${signUpData.toJsonString()}")
+fun NavController.navigateToEnterSchoolVerificationCode() {
+    navigate(NAVIGATION_ENTER_SCHOOL_VERIFICATION_CODE)
 }

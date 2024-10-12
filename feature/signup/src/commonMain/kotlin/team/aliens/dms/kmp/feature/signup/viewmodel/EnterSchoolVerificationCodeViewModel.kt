@@ -20,6 +20,14 @@ internal class EnterSchoolVerificationCodeViewModel :
         val verificationCode = state.value.verificationCode
         state.value.copy(buttonEnabled = verificationCode.isNotEmpty())
     }
+
+    internal fun onNextClick() {
+        postSideEffect(
+            EnterSchoolVerificationCodeSideEffect.MoveToEnterSchoolVerificationQuestion(
+                schoolCode = "",
+            ),
+        )
+    }
 }
 
 data class EnterSchoolVerificationCodeState(
@@ -34,4 +42,7 @@ data class EnterSchoolVerificationCodeState(
     }
 }
 
-sealed interface EnterSchoolVerificationCodeSideEffect
+sealed interface EnterSchoolVerificationCodeSideEffect {
+    data class MoveToEnterSchoolVerificationQuestion(val schoolCode: String) :
+        EnterSchoolVerificationCodeSideEffect
+}

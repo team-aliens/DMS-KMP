@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import org.koin.compose.koinInject
 import team.aliens.dms.kmp.core.common.ui.PaddingDefaults
 import team.aliens.dms.kmp.core.common.ui.bottomPadding
@@ -20,8 +20,11 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.numberfield.DmsNumberField
 import team.aliens.dms.kmp.feature.signup.model.SignUpData
+import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeState
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeViewModel
+
+const val VERIFICATION_CODE_LENGTH = 6
 
 @Composable
 internal fun EnterSchoolVerificationCode(
@@ -31,8 +34,19 @@ internal fun EnterSchoolVerificationCode(
     val viewModel: EnterSchoolVerificationCodeViewModel = koinInject()
     val state by viewModel.state.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect {
+            when (it) {
+                is EnterSchoolVerificationCodeSideEffect.MoveToEnterSchoolVerificationQuestion -> {
+                    navigateToEnterSchoolVerificationQuestion(SignUpData(schoolCode = it.schoolCode))
+                }
+            }
+        }
+    }
+
     EnterSchoolVerificationCodeScreen(
         onBackPressed = onBackPressed,
+        onNextClick = viewModel::onNextClick,
         state = state,
         onVerificationCodeChange = viewModel::setVerificationCode,
     )
@@ -41,6 +55,7 @@ internal fun EnterSchoolVerificationCode(
 @Composable
 private fun EnterSchoolVerificationCodeScreen(
     onBackPressed: () -> Unit,
+    onNextClick: () -> Unit,
     state: EnterSchoolVerificationCodeState,
     onVerificationCodeChange: (String) -> Unit,
 ) {
@@ -61,16 +76,16 @@ private fun EnterSchoolVerificationCodeScreen(
                 .horizontalPadding(),
             value = state.verificationCode,
             onValueChange = onVerificationCodeChange,
-            totalLength = 6,
+            totalLength = VERIFICATION_CODE_LENGTH,
         )
         Spacer(modifier = Modifier.weight(1f))
         DmsButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalPadding()
-                .bottomPadding(PaddingDefaults.Large),
+                .bottomPadding(),
             text = "다음",
-            onClick = { },
+            onClick = onNextClick,
             enabled = state.buttonEnabled,
         )
     }
