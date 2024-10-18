@@ -27,7 +27,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterEmailViewModel
 @Composable
 internal fun EnterEmail(
     onBackPressed: () -> Unit,
-    navigateEnterEmailVerificationCode: (SignUpData) -> Unit,
+    navigateToEnterEmailVerificationCode: (SignUpData) -> Unit,
     signUpData: SignUpData,
 ) {
     val viewModel: EnterEmailViewModel = koinInject()
@@ -37,7 +37,7 @@ internal fun EnterEmail(
         viewModel.sideEffect.collect {
             when (it) {
                 is EnterEmailSideEffect.MoveToEnterEmailVerificationCode -> {
-                    navigateEnterEmailVerificationCode(signUpData.copy(email = it.email))
+                    navigateToEnterEmailVerificationCode(signUpData.copy(email = it.email))
                 }
             }
         }
@@ -71,7 +71,7 @@ private fun EnterEmailScreen(
         DmsTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .topPadding(PaddingDefaults.Large)
+                .topPadding(PaddingDefaults.ExtraLarge)
                 .horizontalPadding(),
             value = state.email,
             onValueChange = onEmailChange,
