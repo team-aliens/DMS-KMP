@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.core.designsystem.foundation
 
 import dmskmp.core.design_system.generated.resources.Res
 import dmskmp.core.design_system.generated.resources.ic_add_notes
+import dmskmp.core.design_system.generated.resources.ic_alarm
 import dmskmp.core.design_system.generated.resources.ic_arrow_back
 import dmskmp.core.design_system.generated.resources.ic_breaking_news
 import dmskmp.core.design_system.generated.resources.ic_cancel
@@ -9,6 +10,7 @@ import dmskmp.core.design_system.generated.resources.ic_delete
 import dmskmp.core.design_system.generated.resources.ic_edit
 import dmskmp.core.design_system.generated.resources.ic_home
 import dmskmp.core.design_system.generated.resources.ic_person
+import dmskmp.core.design_system.generated.resources.ic_refresh
 import dmskmp.core.design_system.generated.resources.ic_symbol_dark
 import dmskmp.core.design_system.generated.resources.ic_symbol_light
 import dmskmp.core.design_system.generated.resources.ic_visibility
@@ -27,4 +29,6 @@ object DmsIcon {
     val VisibilityOff = Res.drawable.ic_visibility_off
     val SymbolLight = Res.drawable.ic_symbol_light
     val SymbolDark = Res.drawable.ic_symbol_dark
+    val Alarm = Res.drawable.ic_alarm
+    val Refresh = Res.drawable.ic_refresh
 }
