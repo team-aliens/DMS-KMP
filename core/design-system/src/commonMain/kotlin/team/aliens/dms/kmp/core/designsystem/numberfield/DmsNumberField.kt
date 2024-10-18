@@ -34,7 +34,11 @@ fun DmsNumberField(
         modifier = modifier,
         value = value.take(totalLength),
         enabled = enabled,
-        onValueChange = onValueChange,
+        onValueChange = { newValue ->
+            if (newValue.length <= totalLength) {
+                onValueChange(newValue)
+            }
+        },
         singleLine = true,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
