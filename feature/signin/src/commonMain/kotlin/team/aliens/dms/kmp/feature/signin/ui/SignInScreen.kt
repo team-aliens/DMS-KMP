@@ -68,7 +68,7 @@ fun SignInScreen(
                 .horizontalPadding(),
         )
         UserInformationInputs(
-            modifier = Modifier.topPadding(PaddingDefaults.Large),
+            modifier = Modifier.topPadding(PaddingDefaults.ExtraLarge),
             accountId = state.accountId,
             onAccountIdChange = onAccountIdChange,
             password = state.password,
@@ -140,7 +140,7 @@ private fun UnauthorizedActions(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .topPadding(PaddingDefaults.Large)
+            .topPadding(PaddingDefaults.ExtraLarge)
             .horizontalPadding(),
         horizontalArrangement = Arrangement.spacedBy(
             space = PaddingDefaults.Medium,
