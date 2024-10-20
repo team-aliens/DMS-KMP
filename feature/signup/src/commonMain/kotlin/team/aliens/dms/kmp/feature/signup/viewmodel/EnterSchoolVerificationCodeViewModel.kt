@@ -18,7 +18,7 @@ internal class EnterSchoolVerificationCodeViewModel :
 
     private fun setButtonEnabled() = setState {
         val verificationCode = state.value.verificationCode
-        state.value.copy(buttonEnabled = verificationCode.isNotEmpty())
+        state.value.copy(buttonEnabled = verificationCode.length == 6)
     }
 
     internal fun onNextClick() {
