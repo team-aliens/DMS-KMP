@@ -72,7 +72,7 @@ private fun EnterSchoolVerificationCodeScreen(
         DmsNumberField(
             modifier = Modifier
                 .fillMaxWidth()
-                .topPadding(PaddingDefaults.Large)
+                .topPadding(PaddingDefaults.ExtraLarge)
                 .horizontalPadding(),
             value = state.verificationCode,
             onValueChange = onVerificationCodeChange,

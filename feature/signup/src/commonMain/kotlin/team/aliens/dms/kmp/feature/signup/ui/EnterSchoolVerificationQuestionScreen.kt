@@ -36,12 +36,13 @@ internal fun EnterSchoolVerificationQuestion(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
             when(it) {
-                is EnterSchoolVerificationQuestionSideEffect.MoveToSetId -> {
+                is EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail -> {
                     navigateToEnterEmail(signUpData.copy(schoolAnswer = it.schoolAnswer))
                 }
             }
         }
     }
+
     EnterSchoolVerificationQuestionScreen(
         onBackPressed = onBackPressed,
         onNextClick = viewModel::onNextClick,
@@ -70,7 +71,7 @@ private fun EnterSchoolVerificationQuestionScreen(
         DmsTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .topPadding(PaddingDefaults.Large)
+                .topPadding(PaddingDefaults.ExtraLarge)
                 .horizontalPadding(),
             value = state.schoolVerificationAnswer,
             onValueChange = onVerificationAnswerChange,
