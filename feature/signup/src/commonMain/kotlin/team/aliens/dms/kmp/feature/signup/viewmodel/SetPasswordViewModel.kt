@@ -3,7 +3,6 @@ package team.aliens.dms.kmp.feature.signup.viewmodel
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.common.utils.Regex
 
-
 internal class SetPasswordViewModel :
     BaseViewModel<SetPasswordState, SetPasswordSideEffect>(SetPasswordState.getDefaultState()) {
 

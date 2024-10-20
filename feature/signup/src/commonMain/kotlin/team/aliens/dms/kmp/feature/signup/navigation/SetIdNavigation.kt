@@ -31,5 +31,3 @@ fun NavGraphBuilder.setId(
 fun NavController.navigateToSetId(signUpData: SignUpData) {
     navigate("$NAVIGATION_SET_ID/${signUpData.toJsonString()}")
 }
-
-

@@ -31,4 +31,3 @@ fun NavGraphBuilder.setPassword(
 fun NavController.navigateToSetPassword(signUpData: SignUpData) {
     navigate("$NAVIGATION_SET_PASSWORD/${signUpData.toJsonString()}")
 }
-

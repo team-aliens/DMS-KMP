@@ -119,7 +119,7 @@ fun VerificationCode(
         Spacer(modifier = Modifier.height(PaddingDefaults.ExtraLarge))
         Row(
             modifier = Modifier.clickable(
-                onClick = { }
+                onClick = { },
             ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),

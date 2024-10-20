@@ -24,6 +24,6 @@ actual fun DmsWebView(
 
     UIKitView(
         factory = { webView },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     )
 }

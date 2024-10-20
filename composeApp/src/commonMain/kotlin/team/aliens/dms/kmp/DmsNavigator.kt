@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
 import team.aliens.dms.kmp.feature.signup.model.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterEmail

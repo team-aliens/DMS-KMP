@@ -16,7 +16,7 @@ internal class EnterEmailVerificationCodeViewModel :
         setButtonEnabled()
     }
 
-    private fun setButtonEnabled() = setState{
+    private fun setButtonEnabled() = setState {
         val emailVerificationCode = state.value.emailVerificationCode
         state.value.copy(buttonEnabled = emailVerificationCode.length == 6)
     }

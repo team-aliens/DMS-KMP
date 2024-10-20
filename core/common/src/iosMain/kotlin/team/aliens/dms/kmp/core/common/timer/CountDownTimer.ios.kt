@@ -19,7 +19,7 @@ actual class CountDownTimer {
 
         timer = NSTimer.scheduledTimerWithTimeInterval(intervalSeconds, true) {
             timeLeft -= intervalMillis
-            if(timeLeft > 0) {
+            if (timeLeft > 0) {
                 listener.onTick(timeLeft)
             } else {
                 listener.onFinish()

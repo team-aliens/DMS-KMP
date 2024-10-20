@@ -65,4 +65,3 @@ internal fun NavBackStackEntry.getSignUpData(): SignUpData {
     val signUpData = arguments?.getString(ResourceKeys.SIGN_UP) ?: throw NullPointerException()
     return signUpData.toSignUpData()
 }
-

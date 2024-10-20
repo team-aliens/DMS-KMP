@@ -11,7 +11,7 @@ actual class CountDownTimer {
         intervalMillis: Long,
         listener: CountDownTimerListener,
     ) {
-        timer = object : CountDownTimer(durationMillis,intervalMillis) {
+        timer = object : CountDownTimer(durationMillis, intervalMillis) {
             override fun onTick(millisUntilFinished: Long) {
                 listener.onTick(millisUntilFinished)
             }

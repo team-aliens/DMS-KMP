@@ -15,7 +15,7 @@ internal fun NavGraphBuilder.enterSchoolVerificationCode(
     composable(NAVIGATION_ENTER_SCHOOL_VERIFICATION_CODE) {
         EnterSchoolVerificationCode(
             onBackPressed = onBackPressed,
-            navigateToEnterSchoolVerificationQuestion = navigateToEnterSchoolVerificationQuestion
+            navigateToEnterSchoolVerificationQuestion = navigateToEnterSchoolVerificationQuestion,
         )
     }
 }

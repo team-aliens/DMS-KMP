@@ -35,7 +35,7 @@ internal fun EnterSchoolVerificationQuestion(
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
-            when(it) {
+            when (it) {
                 is EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail -> {
                     navigateToEnterEmail(signUpData.copy(schoolAnswer = it.schoolAnswer))
                 }
@@ -47,7 +47,7 @@ internal fun EnterSchoolVerificationQuestion(
         onBackPressed = onBackPressed,
         onNextClick = viewModel::onNextClick,
         state = state,
-        onVerificationAnswerChange = viewModel::setSchoolVerificationAnswer
+        onVerificationAnswerChange = viewModel::setSchoolVerificationAnswer,
     )
 }
 
