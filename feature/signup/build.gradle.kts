@@ -42,6 +42,7 @@ kotlin {
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.resources)
             implementation(libs.navigation.compose)
 
             implementation(libs.kotlinx.serialization.json)
