@@ -10,6 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import org.koin.compose.koinInject
 import team.aliens.dms.kmp.core.common.ui.PaddingDefaults
@@ -84,7 +85,8 @@ private fun SetPasswordScreen(
             label = "비밀번호 입력",
             showVisibleIcon = true,
             isError = state.showPasswordDescription,
-            errorDescription = "형식에 맞게 설정해주세요."
+            errorDescription = "형식에 맞게 설정해주세요.",
+            keyboardType = KeyboardType.Password,
         )
         DmsTextField(
             modifier = Modifier
@@ -97,7 +99,8 @@ private fun SetPasswordScreen(
             label = "비밀번호 확인",
             showVisibleIcon = true,
             isError = state.showCheckPasswordDescription,
-            errorDescription = "비밀번호를 확인해주세요"
+            errorDescription = "비밀번호를 확인해주세요",
+            keyboardType = KeyboardType.Password,
         )
         Spacer(modifier = Modifier.weight(1f))
         DmsButton(
