@@ -14,7 +14,7 @@ const val NAVIGATION_ENTER_EMAIL = "enterEmail"
 
 fun NavGraphBuilder.enterEmail(
     onBackPressed: () -> Unit,
-    navigateEnterEmailVerificationCode: (SignUpData) -> Unit,
+    navigateToEnterEmailVerificationCode: (SignUpData) -> Unit,
 ) {
     composable(
         route = "$NAVIGATION_ENTER_EMAIL/{${ResourceKeys.SIGN_UP}}",
@@ -22,7 +22,7 @@ fun NavGraphBuilder.enterEmail(
     ) {
         EnterEmail(
             onBackPressed = onBackPressed,
-            navigateEnterEmailVerificationCode = navigateEnterEmailVerificationCode,
+            navigateToEnterEmailVerificationCode = navigateToEnterEmailVerificationCode,
             signUpData = it.getSignUpData(),
         )
     }
