@@ -57,6 +57,7 @@ fun DmsTextField(
     showClearIcon: Boolean = false,
 ) {
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         label?.let { label ->
@@ -66,7 +67,6 @@ fun DmsTextField(
             )
         }
         TextField(
-            modifier = modifier,
             value = value,
             hint = hint,
             onValueChange = onValueChange,
