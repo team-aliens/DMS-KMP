@@ -54,6 +54,7 @@ internal fun EnterEmailVerificationCode(
             }
         }
     }
+
     EnterEmailVerificationCodeScreen(
         onBackPressed = onBackPressed,
         onNextClick = viewModel::onNextClick,
@@ -137,5 +138,3 @@ fun VerificationCode(
         }
     }
 }
-
-

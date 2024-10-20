@@ -11,5 +11,4 @@ actual class CountDownTimer {
 
     actual fun stop() {
     }
-
 }
