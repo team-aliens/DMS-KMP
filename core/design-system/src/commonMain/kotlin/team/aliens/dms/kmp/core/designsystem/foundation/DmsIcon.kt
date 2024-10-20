@@ -6,6 +6,7 @@ import dmskmp.core.design_system.generated.resources.ic_alarm
 import dmskmp.core.design_system.generated.resources.ic_arrow_back
 import dmskmp.core.design_system.generated.resources.ic_breaking_news
 import dmskmp.core.design_system.generated.resources.ic_cancel
+import dmskmp.core.design_system.generated.resources.ic_check
 import dmskmp.core.design_system.generated.resources.ic_delete
 import dmskmp.core.design_system.generated.resources.ic_edit
 import dmskmp.core.design_system.generated.resources.ic_home
@@ -31,4 +32,5 @@ object DmsIcon {
     val SymbolDark = Res.drawable.ic_symbol_dark
     val Alarm = Res.drawable.ic_alarm
     val Refresh = Res.drawable.ic_refresh
+    val Check = Res.drawable.ic_check
 }
