@@ -35,9 +35,9 @@ internal fun SetId(
                     navigateToSetPassword(
                         signUpData.copy(
                             accountId = it.id,
-                            grade = it.grade.toInt(),
-                            classRoom = it.classroom.toInt(),
-                            number = it.number.toInt(),
+                            grade = 1,
+                            classRoom = 1,
+                            number = 1,
                         ),
                     )
                 }
