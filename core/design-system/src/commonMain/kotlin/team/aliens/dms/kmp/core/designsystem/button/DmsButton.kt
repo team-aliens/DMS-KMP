@@ -76,7 +76,7 @@ fun DmsButton(
                 .fillMaxWidth()
                 .padding(
                     horizontal = 24.dp,
-                    vertical = 14.dp,
+                    vertical = 16.dp,
                 ),
             horizontalArrangement = Arrangement.Center,
         ) {

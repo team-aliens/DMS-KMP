@@ -3,7 +3,9 @@ package team.aliens.dms.kmp.navigation.authorized
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import team.aliens.dms.kmp.DmsNavigator
+import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.feature.signin.navigation.signIn
+import team.aliens.dms.kmp.feature.signup.navigation.signUp
 import team.aliens.dms.kmp.feature.splash.navigation.NAVIGATION_SPLASH
 import team.aliens.dms.kmp.feature.splash.navigation.splash
 
@@ -17,13 +19,24 @@ internal fun NavGraphBuilder.authNavigation(
         startDestination = NAVIGATION_SPLASH,
     ) {
         splash(
-            navigateToLogin = navigator::navigateToLogin,
+            navigateToLogin = navigator::navigateToSignIn,
         )
         signIn(
             navigateToMain = { },
-            navigateToSignUp = { },
+            navigateToSignUp = navigator::navigateToSignUp,
             navigateToFindId = { },
             navigateToFindPassword = { },
+        )
+        signUp(
+            onBackPressed = navigator::popBackStack,
+            navigateToEnterSchoolVerificationQuestion = navigator::navigateToEnterSchoolVerificationQuestion,
+            navigateToEnterEmail = navigator::navigateToEnterEmail,
+            navigateToEnterEmailVerificationCode = navigator::navigateToEnterEmailVerificationCode,
+            navigateToSetId = navigator::navigateToSetId,
+            navigateToSetPassword = navigator::navigateToSetPassword,
+            navigateToTerms = navigator::navigateToTerms,
+            navigateToSignIn = navigator::navigateToSignIn,
+            termsUrl = PlatformConfig.termsUrl,
         )
     }
 }

@@ -28,7 +28,7 @@ import team.aliens.dms.kmp.core.designsystem.text.DmsText
 fun ErrorStatus(
     modifier: Modifier = Modifier,
     title: String,
-    description: String,
+    description: String? = null,
 ) {
     var animation by remember { mutableStateOf("") }
 
@@ -58,10 +58,12 @@ fun ErrorStatus(
             style = DmsTypography.HeadlineSemiBold,
         )
         Spacer(modifier = Modifier.height(2.dp))
-        DmsText(
-            text = description,
-            style = DmsTypography.Body2Medium,
-            color = DmsTheme.colors.onSurface,
-        )
+        description?.let {
+            DmsText(
+                text = it,
+                style = DmsTypography.Body2Medium,
+                color = DmsTheme.colors.onSurface,
+            )
+        }
     }
 }

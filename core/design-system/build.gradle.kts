@@ -48,6 +48,8 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kottie)
+
+            implementation(projects.core.common)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
