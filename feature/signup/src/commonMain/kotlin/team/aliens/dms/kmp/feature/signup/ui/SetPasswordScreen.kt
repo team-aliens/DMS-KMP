@@ -72,7 +72,7 @@ private fun SetPasswordScreen(
         DmsLargeTopAppBar(
             onBackPressed = onBackPressed,
             title = "비밀번호를 입력해주세요",
-            description = "비밀번호 영문, 숫자, 기호 포함해서 8~20자가\n원칙입니다.",
+            description = "비밀번호는 영문, 숫자, 기호를 포함한 8~20자로 입력해주세요.",
         )
         DmsTextField(
             modifier = Modifier
@@ -85,7 +85,7 @@ private fun SetPasswordScreen(
             label = "비밀번호 입력",
             showVisibleIcon = true,
             isError = state.showPasswordDescription,
-            errorDescription = "형식에 맞게 설정해주세요.",
+            errorDescription = "비밀번호는 영문, 숫자, 기호를 포함한 8~20자로 설정해주세요.",
             keyboardType = KeyboardType.Password,
         )
         DmsTextField(
@@ -99,7 +99,7 @@ private fun SetPasswordScreen(
             label = "비밀번호 확인",
             showVisibleIcon = true,
             isError = state.showCheckPasswordDescription,
-            errorDescription = "비밀번호를 확인해주세요",
+            errorDescription = "비밀번호가 일치하지 않습니다. 다시 입력해주세요.",
             keyboardType = KeyboardType.Password,
         )
         Spacer(modifier = Modifier.weight(1f))
