@@ -41,7 +41,7 @@ fun DmsTextField(
     modifier: Modifier = Modifier,
     label: String? = null,
     value: String,
-    hint: String,
+    hint: String = "",
     onValueChange: (String) -> Unit,
     description: String? = null,
     enabled: Boolean = true,
@@ -57,6 +57,7 @@ fun DmsTextField(
     showClearIcon: Boolean = false,
 ) {
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         label?.let { label ->
@@ -66,7 +67,6 @@ fun DmsTextField(
             )
         }
         TextField(
-            modifier = modifier,
             value = value,
             hint = hint,
             onValueChange = onValueChange,

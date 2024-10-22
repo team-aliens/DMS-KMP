@@ -42,3 +42,4 @@ include(":core:common")
 
 include(":feature:splash")
 include(":feature:signin")
+include(":feature:signup")

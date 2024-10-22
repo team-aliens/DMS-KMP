@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
@@ -38,10 +39,8 @@ private fun BasicButton(
 
     Box(
         modifier = modifier
-            .background(
-                shape = RoundedCornerShape(8.dp),
-                color = backgroundColor,
-            )
+            .clip(shape = RoundedCornerShape(8.dp))
+            .background(color = backgroundColor)
             .clickable(
                 onClick = onClick,
                 enabled = enabled,
@@ -76,7 +75,7 @@ fun DmsButton(
                 .fillMaxWidth()
                 .padding(
                     horizontal = 24.dp,
-                    vertical = 14.dp,
+                    vertical = 16.dp,
                 ),
             horizontalArrangement = Arrangement.Center,
         ) {
