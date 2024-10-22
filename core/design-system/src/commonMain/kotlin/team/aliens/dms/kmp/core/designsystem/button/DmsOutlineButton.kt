@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
@@ -42,12 +43,13 @@ private fun BasicOutlineButton(
 
     Box(
         modifier = modifier
+            .border(
+                shape = shape,
+                border = border,
+            )
+            .clip(shape)
             .background(
                 color = backgroundColor,
-            )
-            .border(
-                border = border,
-                shape = shape,
             )
             .clickable(
                 onClick = onClick,
