@@ -111,7 +111,7 @@ private fun AllAgreeButton(
     onAllAgreeButtonClick: (Boolean) -> Unit,
 ) {
     var isCheck by remember { mutableStateOf(buttonEnabled) }
-    val backGround = if (isCheck) {
+    val background = if (isCheck) {
         DmsTheme.colors.onSecondary
     } else {
         DmsTheme.colors.onBackground
@@ -127,7 +127,7 @@ private fun AllAgreeButton(
             .topPadding(PaddingDefaults.ExtraLarge)
             .horizontalPadding()
             .background(
-                color = backGround,
+                color = background,
                 shape = RoundedCornerShape(8.dp),
             )
             .clickable(
