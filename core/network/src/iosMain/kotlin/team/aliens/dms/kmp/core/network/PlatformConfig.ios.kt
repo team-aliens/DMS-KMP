@@ -7,10 +7,10 @@ import team.aliens.dms.kmp.core.network.exception.CannotFindIOSTermsUrlException
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual object PlatformConfig {
     actual val baseUrl: String =
-        (NSBundle.mainBundle.objectForInfoDictionaryKey("BaseURL") as? String)
+        (NSBundle.mainBundle.objectForInfoDictionaryKey("DEV_BASE_URL") as? String)
             ?: throw CannotFindIOSBaseurlException()
 
     actual val termsUrl: String =
-        (NSBundle.mainBundle.objectForInfoDictionaryKey("TermsUrl") as? String)
+        (NSBundle.mainBundle.objectForInfoDictionaryKey("TERMS_URL") as? String)
             ?: throw CannotFindIOSTermsUrlException()
 }
