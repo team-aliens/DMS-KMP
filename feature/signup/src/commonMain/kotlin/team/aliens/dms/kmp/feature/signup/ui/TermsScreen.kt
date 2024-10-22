@@ -126,15 +126,17 @@ private fun AllAgreeButton(
             .fillMaxWidth()
             .topPadding(PaddingDefaults.ExtraLarge)
             .horizontalPadding()
+            .background(
+                color = backGround,
+                shape = RoundedCornerShape(8.dp),
+            )
             .clickable(
+                interactionSource = null,
+                indication = null,
                 onClick = {
                     isCheck = !isCheck
                     onAllAgreeButtonClick(isCheck)
                 },
-            )
-            .background(
-                color = backGround,
-                shape = RoundedCornerShape(8.dp),
             )
             .padding(PaddingDefaults.Large),
         verticalAlignment = Alignment.CenterVertically,
