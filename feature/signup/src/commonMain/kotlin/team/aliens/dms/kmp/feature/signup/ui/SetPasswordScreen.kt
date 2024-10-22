@@ -85,7 +85,7 @@ private fun SetPasswordScreen(
             label = "비밀번호 입력",
             showVisibleIcon = true,
             isError = state.showPasswordDescription,
-            errorDescription = "비밀번호는 영문, 숫자, 기호를 포함한 8~20자로 설정해주세요.",
+            errorDescription = "영문, 숫자, 기호를 포함한 8~20자로 설정해주세요.",
             keyboardType = KeyboardType.Password,
         )
         DmsTextField(
