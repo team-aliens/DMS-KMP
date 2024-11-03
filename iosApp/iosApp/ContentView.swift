@@ -1,10 +1,15 @@
 import UIKit
 import SwiftUI
 import ComposeApp
+import Lottie
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.mainViewController()
+        MainViewControllerKt.mainViewController(
+            lottieUIViewController: { animationName in
+                return UIHostingController(rootView: DmsLottieView(animationName: animationName))
+            }
+        )
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
@@ -16,6 +21,3 @@ struct ContentView: View {
                 .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
     }
 }
-
-
-
