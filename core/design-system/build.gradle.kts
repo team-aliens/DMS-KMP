@@ -38,6 +38,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("com.airbnb.android:lottie-compose:6.4.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -48,6 +49,12 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kottie)
+
+
+            implementation("io.github.alexzhirkevich:compottie:2.0.0-rc02")
+            implementation("io.github.alexzhirkevich:compottie-dot:2.0.0-rc02")
+            implementation("io.github.alexzhirkevich:compottie-network:2.0.0-rc02")
+            implementation("io.github.alexzhirkevich:compottie-resources:2.0.0-rc02")
 
             implementation(projects.core.common)
         }
