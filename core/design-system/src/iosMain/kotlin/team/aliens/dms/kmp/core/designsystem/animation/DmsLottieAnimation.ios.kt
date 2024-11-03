@@ -1,0 +1,19 @@
+package team.aliens.dms.kmp.core.designsystem.animation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.UIKitViewController
+
+@Composable
+actual fun DmsLottieAnimation(
+    modifier: Modifier,
+    animationFileName: String,
+) {
+
+    UIKitViewController(
+        factory = {
+            LottieControllerProvider.lottieAnimationController(animationFileName)
+        },
+        modifier = modifier,
+    )
+}
