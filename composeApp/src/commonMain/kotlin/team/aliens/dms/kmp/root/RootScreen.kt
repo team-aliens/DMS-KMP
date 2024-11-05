@@ -17,8 +17,7 @@ import team.aliens.dms.kmp.feature.notice.navigation.notice
 import team.aliens.dms.kmp.ui.BottomNavigationBar
 
 @Composable
-internal fun Root(
-) {
+internal fun Root() {
     RootScreen()
 }
 

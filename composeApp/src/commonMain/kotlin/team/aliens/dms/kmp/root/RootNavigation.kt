@@ -6,9 +6,7 @@ import androidx.navigation.compose.composable
 
 const val NAVIGATION_ROOT = "root"
 
-fun NavGraphBuilder.root(
-
-) {
+fun NavGraphBuilder.root() {
     composable(NAVIGATION_ROOT) {
         Root()
     }
