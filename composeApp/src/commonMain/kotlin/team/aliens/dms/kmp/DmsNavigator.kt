@@ -14,10 +14,15 @@ import team.aliens.dms.kmp.feature.signup.navigation.navigateToSetId
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToSetPassword
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToSignUp
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToTerms
+import team.aliens.dms.kmp.root.navigateToRoot
 
 internal class DmsNavigator(
     val navController: NavHostController,
 ) {
+
+    fun navigateToRoot() {
+        navController.navigateToRoot()
+    }
 
     fun navigateToSignIn() {
         navController.navigateToSignIn()
