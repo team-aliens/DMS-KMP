@@ -67,6 +67,10 @@ kotlin {
             implementation(projects.feature.splash)
             implementation(projects.feature.signin)
             implementation(projects.feature.signup)
+            implementation(projects.feature.home)
+            implementation(projects.feature.application)
+            implementation(projects.feature.notice)
+            implementation(projects.feature.mypage)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
