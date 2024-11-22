@@ -3,6 +3,8 @@ package team.aliens.dms.kmp.navigation.main
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import team.aliens.dms.kmp.DmsNavigator
+import team.aliens.dms.kmp.root.NAVIGATION_ROOT
+import team.aliens.dms.kmp.root.root
 
 private const val NAVIGATION_MAIN = "main"
 
@@ -11,7 +13,8 @@ internal fun NavGraphBuilder.mainNavigation(
 ) {
     navigation(
         route = NAVIGATION_MAIN,
-        startDestination = "",
+        startDestination = NAVIGATION_ROOT,
     ) {
+        root()
     }
 }

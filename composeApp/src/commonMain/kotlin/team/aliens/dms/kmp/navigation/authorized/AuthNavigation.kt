@@ -22,7 +22,7 @@ internal fun NavGraphBuilder.authNavigation(
             navigateToLogin = navigator::navigateToSignIn,
         )
         signIn(
-            navigateToMain = { },
+            navigateToMain = navigator::navigateToRoot,
             navigateToSignUp = navigator::navigateToSignUp,
             navigateToFindId = { },
             navigateToFindPassword = { },

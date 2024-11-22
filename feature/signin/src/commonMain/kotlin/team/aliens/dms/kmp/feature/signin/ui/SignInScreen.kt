@@ -81,7 +81,7 @@ fun SignInScreen(
                 .horizontalPadding(),
             text = "로그인",
             enabled = state.buttonEnabled,
-            onClick = { },
+            onClick = navigateToMain,
         )
         UnauthorizedActions(
             onFindId = { },
