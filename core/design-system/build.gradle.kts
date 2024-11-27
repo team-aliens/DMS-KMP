@@ -48,6 +48,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kottie)
+            implementation(libs.kotlinx.datetime)
 
             implementation(projects.core.common)
         }
