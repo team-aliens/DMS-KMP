@@ -20,6 +20,7 @@ fun DmsText(
     maxLines: Int = Int.MAX_VALUE,
     textAlign: TextAlign? = null,
     textDecoration: TextDecoration = TextDecoration.None,
+    softWrap: Boolean = true
 ) {
     Text(
         modifier = modifier,
@@ -30,5 +31,6 @@ fun DmsText(
         maxLines = maxLines,
         textAlign = textAlign,
         textDecoration = textDecoration,
+        softWrap = softWrap,
     )
 }
