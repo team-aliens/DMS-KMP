@@ -2,7 +2,7 @@ package team.aliens.dms.kmp.feature.signin.viewmodel
 
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 
-internal class SignInViewModel() : BaseViewModel<SignInState, SignInSideEffect>(SignInState.getDefaultState()) {
+internal class SignInViewModel : BaseViewModel<SignInState, SignInSideEffect>(SignInState.getDefaultState()) {
 
     internal fun setAccountId(accountId: String) {
         setState {

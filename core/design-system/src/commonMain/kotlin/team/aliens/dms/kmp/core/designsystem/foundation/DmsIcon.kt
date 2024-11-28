@@ -5,14 +5,17 @@ import dmskmp.core.design_system.generated.resources.ic_add_notes
 import dmskmp.core.design_system.generated.resources.ic_add_notes_fill
 import dmskmp.core.design_system.generated.resources.ic_alarm
 import dmskmp.core.design_system.generated.resources.ic_arrow_back
+import dmskmp.core.design_system.generated.resources.ic_backward
 import dmskmp.core.design_system.generated.resources.ic_breaking_news
 import dmskmp.core.design_system.generated.resources.ic_breaking_news_fill
 import dmskmp.core.design_system.generated.resources.ic_cancel
 import dmskmp.core.design_system.generated.resources.ic_check
 import dmskmp.core.design_system.generated.resources.ic_delete
 import dmskmp.core.design_system.generated.resources.ic_edit
+import dmskmp.core.design_system.generated.resources.ic_forward
 import dmskmp.core.design_system.generated.resources.ic_home
 import dmskmp.core.design_system.generated.resources.ic_home_fill
+import dmskmp.core.design_system.generated.resources.ic_notification
 import dmskmp.core.design_system.generated.resources.ic_person
 import dmskmp.core.design_system.generated.resources.ic_person_fill
 import dmskmp.core.design_system.generated.resources.ic_refresh
@@ -41,4 +44,7 @@ object DmsIcon {
     val AddNotesFill = Res.drawable.ic_add_notes_fill
     val BreakingNewsFill = Res.drawable.ic_breaking_news_fill
     val PersonFill = Res.drawable.ic_person_fill
+    val Notification = Res.drawable.ic_notification
+    val Backward = Res.drawable.ic_backward
+    val Forward = Res.drawable.ic_forward
 }

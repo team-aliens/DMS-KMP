@@ -39,6 +39,7 @@ kotlin {
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
