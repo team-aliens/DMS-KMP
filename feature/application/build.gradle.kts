@@ -42,6 +42,10 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(libs.navigation.compose)
+            implementation(compose.components.resources)
+
+            implementation(projects.core.designSystem)
+            implementation(projects.core.common)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
