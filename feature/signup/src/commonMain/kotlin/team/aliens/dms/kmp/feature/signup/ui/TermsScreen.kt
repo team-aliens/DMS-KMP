@@ -111,16 +111,12 @@ private fun AllAgreeButton(
     onAllAgreeButtonClick: (Boolean) -> Unit,
 ) {
     var isCheck by remember { mutableStateOf(buttonEnabled) }
-    val background = if (isCheck) {
-        DmsTheme.colors.onSecondary
+    val (background, contentColor) = if (isCheck) {
+        DmsTheme.colors.onSecondary to DmsTheme.colors.surfaceContainerHighest
     } else {
-        DmsTheme.colors.onBackground
+        DmsTheme.colors.onBackground to DmsTheme.colors.onSurface
     }
-    val contentColor = if (isCheck) {
-        DmsTheme.colors.surfaceContainerHighest
-    } else {
-        DmsTheme.colors.onSurface
-    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
