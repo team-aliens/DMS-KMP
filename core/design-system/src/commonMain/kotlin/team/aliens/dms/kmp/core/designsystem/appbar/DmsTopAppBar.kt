@@ -90,16 +90,16 @@ fun DmsLargeTopAppBar(
             .fillMaxWidth()
             .background(DmsTheme.colors.background),
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 12.dp,
-                ),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            onBackPressed?.let {
+        onBackPressed?.let {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 12.dp,
+                    ),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 DmsIconButton(
                     resource = DmsIcon.ArrowBack,
                     tint = DmsTheme.colors.surfaceContainerLow,
