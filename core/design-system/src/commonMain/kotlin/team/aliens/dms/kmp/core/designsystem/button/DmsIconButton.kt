@@ -15,12 +15,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 
 @Composable
 fun DmsIconButton(
     modifier: Modifier = Modifier,
     resource: DrawableResource,
-    tint: Color,
+    tint: Color = DmsTheme.colors.surfaceContainerLow,
     enabled: Boolean = true,
     size: Dp = 24.dp,
     contentDescription: String? = null,
