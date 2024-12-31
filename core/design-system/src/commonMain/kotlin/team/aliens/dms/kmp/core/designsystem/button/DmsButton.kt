@@ -3,7 +3,6 @@ package team.aliens.dms.kmp.core.designsystem.button
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -590,9 +588,13 @@ private fun Modifier.border(
     shape: Shape,
     color: Color,
 ): Modifier {
-    return if (buttonType == ButtonType.Outlined) Modifier.border(
-        width = width,
-        shape = shape,
-        color = color,
-    ) else Modifier
+    return if (buttonType == ButtonType.Outlined) {
+        Modifier.border(
+            width = width,
+            shape = shape,
+            color = color,
+        )
+    } else {
+        Modifier
+    }
 }
