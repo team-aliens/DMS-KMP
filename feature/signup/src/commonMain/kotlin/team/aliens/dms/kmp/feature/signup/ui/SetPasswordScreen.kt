@@ -58,6 +58,5 @@ private fun SetPasswordScreen(
             .fillMaxSize()
             .background(DmsTheme.colors.background),
     ) {
-
     }
 }

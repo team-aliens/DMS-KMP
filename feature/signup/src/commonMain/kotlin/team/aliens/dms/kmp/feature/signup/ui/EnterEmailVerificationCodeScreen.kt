@@ -54,6 +54,5 @@ private fun EnterEmailVerificationCodeScreen(
             .fillMaxSize()
             .background(DmsTheme.colors.background),
     ) {
-
     }
 }

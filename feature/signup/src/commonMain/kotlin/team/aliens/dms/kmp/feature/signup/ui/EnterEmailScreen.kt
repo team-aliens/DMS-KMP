@@ -54,6 +54,5 @@ private fun EnterEmailScreen(
             .fillMaxSize()
             .background(DmsTheme.colors.background),
     ) {
-
     }
 }

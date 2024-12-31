@@ -51,6 +51,5 @@ private fun TermsScreen(
             .fillMaxSize()
             .background(DmsTheme.colors.background),
     ) {
-
     }
 }

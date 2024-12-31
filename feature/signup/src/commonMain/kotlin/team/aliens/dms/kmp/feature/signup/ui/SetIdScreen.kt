@@ -65,6 +65,5 @@ private fun SetIdScreen(
             .fillMaxSize()
             .background(DmsTheme.colors.background),
     ) {
-
     }
 }

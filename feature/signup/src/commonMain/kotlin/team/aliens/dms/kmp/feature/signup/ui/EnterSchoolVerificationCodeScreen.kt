@@ -55,6 +55,5 @@ private fun EnterSchoolVerificationCodeScreen(
             .fillMaxSize()
             .background(DmsTheme.colors.background),
     ) {
-
     }
 }
