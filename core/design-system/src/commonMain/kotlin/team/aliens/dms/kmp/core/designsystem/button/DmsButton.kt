@@ -535,7 +535,7 @@ fun DmsButton(
         } else if (pressed) {
             buttonColors.pressed.borderColor ?: Color.Transparent
         } else {
-            buttonColors.enabled.backgroundColor ?: Color.Transparent
+            buttonColors.enabled.borderColor ?: Color.Transparent
         },
     )
     val contentColor by animateColorAsState(
