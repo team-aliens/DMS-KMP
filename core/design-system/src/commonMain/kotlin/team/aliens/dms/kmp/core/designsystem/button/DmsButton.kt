@@ -544,7 +544,7 @@ fun DmsButton(
         } else if (pressed) {
             buttonColors.pressed.textColor
         } else {
-            buttonColors.pressed.textColor
+            buttonColors.enabled.textColor
         },
     )
 
