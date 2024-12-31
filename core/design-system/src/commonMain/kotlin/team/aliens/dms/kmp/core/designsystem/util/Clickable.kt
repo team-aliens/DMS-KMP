@@ -52,13 +52,11 @@ fun Modifier.clickable(
                         event.changes.forEach { change ->
                             when {
                                 change.changedToDown() -> {
-                                    // action down
                                     pressed = true
                                     onPressed?.invoke(true)
                                 }
 
                                 change.changedToUp() || change.isConsumed -> {
-                                    // action up
                                     pressed = false
                                     onPressed?.invoke(false)
                                     if (change.changedToUp() && timeNow.toNanosecondOfDay() - lastClick >= disabledMillis) {
