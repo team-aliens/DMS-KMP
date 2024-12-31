@@ -6,164 +6,164 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import dmskmp.core.design_system.generated.resources.Res
-import dmskmp.core.design_system.generated.resources.wanted_sans_medium
-import dmskmp.core.design_system.generated.resources.wanted_sans_semi_bold
+import dmskmp.core.design_system.generated.resources.pretendard_bold
+import dmskmp.core.design_system.generated.resources.pretendard_medium
+import dmskmp.core.design_system.generated.resources.pretendard_regular
+import dmskmp.core.design_system.generated.resources.pretendard_semi_bold
 import org.jetbrains.compose.resources.Font
 
 @Composable
-private fun wantedSansFamily() = FontFamily(
+private fun pretendardFamily() = FontFamily(
     Font(
-        resource = Res.font.wanted_sans_medium,
+        resource = Res.font.pretendard_regular,
+        weight = FontWeight.Thin,
+    ),
+    Font(
+        resource = Res.font.pretendard_medium,
         weight = FontWeight.Medium,
     ),
     Font(
-        resource = Res.font.wanted_sans_semi_bold,
+        resource = Res.font.pretendard_semi_bold,
         weight = FontWeight.SemiBold,
+    ),
+    Font(
+        resource = Res.font.pretendard_bold,
+        weight = FontWeight.Bold,
     ),
 )
 
 object DmsTypography {
-    val Title3SemiBold
+    val Header1
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
+            fontFamily = pretendardFamily(),
+            fontSize = 32.sp,
+            fontWeight = FontWeight.SemiBold,
+            lineHeight = 50.sp,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val Header2
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.SemiBold,
+            lineHeight = 42.sp,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val Header3
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
             fontSize = 24.sp,
             fontWeight = FontWeight.SemiBold,
-            lineHeight = 24.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            lineHeight = 34.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val Title3Medium
+    val Title1
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
+            fontFamily = pretendardFamily(),
             fontSize = 24.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 24.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            lineHeight = 34.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val Title2SemiBold
+    val Title2
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 22.sp,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = 22.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
-        )
-
-    val Title2Medium
-        @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Medium,
-            lineHeight = 22.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
-        )
-
-    val Title1SemiBold
-        @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = 20.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
-        )
-
-    val Title1Medium
-        @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
+            fontFamily = pretendardFamily(),
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 20.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            lineHeight = 32.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val HeadlineSemiBold
+    val Title3
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = 18.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
-        )
-
-    val HeadlineMedium
-        @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
+            fontFamily = pretendardFamily(),
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 18.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            lineHeight = 28.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val SubtitleSemiBold
+    val Body1
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = 24.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
-        )
-
-    val SubtitleMedium
-        @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
+            fontFamily = pretendardFamily(),
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 24.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            lineHeight = 28.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val Body1SemiBold
+    val Body2
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = 22.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
-        )
-
-    val Body1Medium
-        @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
+            fontFamily = pretendardFamily(),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
+            lineHeight = 26.sp,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val Body3
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
             lineHeight = 22.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val Body2SemiBold
+    val Caption
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 13.sp,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = 20.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            fontFamily = pretendardFamily(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Thin,
+            lineHeight = 22.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val Body2Medium
+    val Label
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 13.sp,
+            fontFamily = pretendardFamily(),
+            fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 20.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            lineHeight = 22.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val Caption1SemiBold
+    val Button0
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
-            lineHeight = 12.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            fontFamily = pretendardFamily(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Thin,
+            lineHeight = 28.sp,
+            color = DmsTheme.colors.onBackground,
         )
 
-    val Caption1Medium
+    val Button1
         @Composable get() = TextStyle(
-            fontFamily = wantedSansFamily(),
+            fontFamily = pretendardFamily(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            lineHeight = 16.sp,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val Button2
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 12.sp,
-            color = DmsTheme.colors.surfaceContainerLow,
+            lineHeight = 16.sp,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val Button3
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
         )
 }

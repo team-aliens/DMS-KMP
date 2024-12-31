@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,7 +32,10 @@ fun DmsTopAppBar(
         modifier = modifier
             .fillMaxWidth()
             .background(DmsTheme.colors.background)
-            .padding(16.dp),
+            .padding(
+                horizontal = 24.dp,
+                vertical = 12.dp,
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Row(
@@ -57,7 +59,7 @@ fun DmsTopAppBar(
             onBackPressed?.let {
                 DmsIconButton(
                     resource = DmsIcon.ArrowBack,
-                    tint = DmsTheme.colors.surfaceContainerLow,
+                    tint = DmsTheme.colors.onBackground,
                     onClick = it,
                 )
             }
@@ -72,61 +74,9 @@ fun DmsTopAppBar(
         title?.let {
             DmsText(
                 text = it,
-                style = DmsTypography.SubtitleSemiBold,
+                style = DmsTypography.Body1,
+                color = DmsTheme.colors.onBackground,
             )
-        }
-    }
-}
-
-@Composable
-fun DmsLargeTopAppBar(
-    modifier: Modifier = Modifier,
-    onBackPressed: (() -> Unit)? = null,
-    title: String,
-    description: String? = null,
-) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(DmsTheme.colors.background),
-    ) {
-        onBackPressed?.let {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        horizontal = 16.dp,
-                        vertical = 12.dp,
-                    ),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                DmsIconButton(
-                    resource = DmsIcon.ArrowBack,
-                    tint = DmsTheme.colors.surfaceContainerLow,
-                    onClick = it,
-                )
-            }
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 24.dp,
-                    vertical = 12.dp,
-                ),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            DmsText(
-                text = title,
-                style = DmsTypography.Title1SemiBold,
-            )
-            description?.let {
-                DmsText(
-                    text = description,
-                    style = DmsTypography.Body1Medium,
-                    color = DmsTheme.colors.onSurface,
-                )
-            }
         }
     }
 }

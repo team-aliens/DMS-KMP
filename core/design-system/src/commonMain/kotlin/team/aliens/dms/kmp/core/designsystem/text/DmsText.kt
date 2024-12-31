@@ -13,7 +13,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 @Composable
 fun DmsText(
     modifier: Modifier = Modifier,
-    color: Color = DmsTheme.colors.surfaceContainerLow,
+    color: Color = DmsTheme.colors.onBackground,
     text: String,
     style: TextStyle,
     overflow: TextOverflow = TextOverflow.Ellipsis,
