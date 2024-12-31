@@ -10,8 +10,6 @@ import dmskmp.core.design_system.generated.resources.pretendard_bold
 import dmskmp.core.design_system.generated.resources.pretendard_medium
 import dmskmp.core.design_system.generated.resources.pretendard_regular
 import dmskmp.core.design_system.generated.resources.pretendard_semi_bold
-import dmskmp.core.design_system.generated.resources.wanted_sans_medium
-import dmskmp.core.design_system.generated.resources.wanted_sans_semi_bold
 import org.jetbrains.compose.resources.Font
 
 @Composable
