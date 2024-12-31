@@ -44,6 +44,5 @@ fun SignInScreen(
             .fillMaxSize()
             .background(DmsTheme.colors.background),
     ) {
-
     }
 }
