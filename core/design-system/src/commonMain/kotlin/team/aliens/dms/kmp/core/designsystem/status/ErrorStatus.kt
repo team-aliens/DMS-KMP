@@ -55,13 +55,13 @@ fun ErrorStatus(
         Spacer(modifier = Modifier.height(12.dp))
         DmsText(
             text = title,
-            style = DmsTypography.HeadlineSemiBold,
+            style = DmsTypography.Title3,
         )
         Spacer(modifier = Modifier.height(2.dp))
         description?.let {
             DmsText(
                 text = it,
-                style = DmsTypography.Body2Medium,
+                style = DmsTypography.Body3,
                 color = DmsTheme.colors.onSurface,
             )
         }

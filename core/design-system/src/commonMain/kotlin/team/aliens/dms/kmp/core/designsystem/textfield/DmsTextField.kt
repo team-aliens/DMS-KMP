@@ -1,5 +1,6 @@
 package team.aliens.dms.kmp.core.designsystem.textfield
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -37,11 +40,10 @@ import team.aliens.dms.kmp.core.designsystem.text.DmsText
 @Composable
 fun DmsTextField(
     modifier: Modifier = Modifier,
-    title: String? = null,
+    label: String? = null,
     value: String,
     hint: String = "",
     onValueChange: (String) -> Unit,
-    description: String? = null,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     imeAction: ImeAction = ImeAction.Done,
@@ -54,14 +56,30 @@ fun DmsTextField(
     showVisibleIcon: Boolean = false,
     showClearIcon: Boolean = false,
 ) {
-    Column {
-        title?.let { title ->
+    var isFocused by remember { mutableStateOf(false) }
+    val labelColor by animateColorAsState(
+        targetValue = if (isFocused || value.isNotEmpty()) {
+            DmsTheme.colors.inversePrimary
+        } else {
+            DmsTheme.colors.onBackground
+        },
+    )
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        label?.let { label ->
             DmsText(
-                text = title,
-                style = DmsTypography.Body2,
+                text = label,
+                style = DmsTypography.Label,
+                color = labelColor,
             )
         }
         TextField(
+            modifier = Modifier.onFocusChanged { focusState ->
+                isFocused = focusState.isFocused
+            },
             value = value,
             hint = hint,
             onValueChange = onValueChange,
@@ -75,12 +93,13 @@ fun DmsTextField(
             isError = isError,
             showVisibleIcon = showVisibleIcon,
             showClearIcon = showClearIcon,
+            isFocused = isFocused,
         )
         if (isError) {
             errorMessage?.let { errorMessage ->
                 DmsText(
                     text = errorMessage,
-                    style = DmsTypography.Label,
+                    style = DmsTypography.Button2,
                     color = DmsTheme.colors.outline,
                 )
             }
@@ -104,6 +123,7 @@ private fun TextField(
     isError: Boolean,
     showVisibleIcon: Boolean,
     showClearIcon: Boolean,
+    isFocused: Boolean,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val hintAlpha by animateFloatAsState(
@@ -119,15 +139,14 @@ private fun TextField(
     } else {
         PasswordVisualTransformation() to DmsIcon.VisibilityOff
     }
-    val isFocused = interactionSource.collectIsFocusedAsState().value
-    val borderStroke = BorderStroke(
-        width = 1.dp,
-        color = if (isError) {
-            DmsTheme.colors.outlineVariant
+
+    val lineColor by animateColorAsState(
+        targetValue = if (isError) {
+            DmsTheme.colors.outline
         } else if (isFocused || value.isNotEmpty()) {
             DmsTheme.colors.inversePrimary
         } else {
-            DmsTheme.colors.surface
+            DmsTheme.colors.onSurface
         },
     )
 
@@ -138,7 +157,7 @@ private fun TextField(
                 onValueChange(newValue)
             }
         },
-        modifier = Modifier.padding(16.dp),
+        modifier = modifier,
         textStyle = DmsTypography.Body1,
         singleLine = singleLine,
         enabled = enabled,
@@ -152,44 +171,53 @@ private fun TextField(
         interactionSource = interactionSource,
         cursorBrush = SolidColor(DmsTheme.colors.onBackground),
     ) { innerTextField ->
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Box(
-                modifier = Modifier.weight(1f),
-                contentAlignment = Alignment.CenterStart,
-            ) {
-                innerTextField()
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    DmsText(
-                        modifier = Modifier.alpha(hintAlpha),
-                        text = hint,
-                        style = DmsTypography.Body1,
-                        color = DmsTheme.colors.inverseOnSurface,
-                    )
-                }
-            }
+        Column {
             Row(
-                modifier = Modifier.height(24.dp),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                if (showVisibleIcon) {
-                    DmsIconButton(
-                        resource = icon,
-                        tint = DmsTheme.colors.inverseOnSurface,
-                        onClick = { visible = !visible },
-                    )
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 8.dp),
+                    contentAlignment = Alignment.CenterStart,
+                ) {
+                    innerTextField()
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        DmsText(
+                            modifier = Modifier.alpha(hintAlpha),
+                            text = hint,
+                            style = DmsTypography.Body1,
+                            color = DmsTheme.colors.inverseOnSurface,
+                        )
+                    }
                 }
-                if (showClearIcon && value.isNotEmpty()) {
-                    DmsIconButton(
-                        resource = DmsIcon.Cancel,
-                        tint = DmsTheme.colors.inverseOnSurface,
-                        onClick = { onValueChange("") },
-                    )
+                Row(
+                    modifier = Modifier.height(24.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    if (showVisibleIcon) {
+                        DmsIconButton(
+                            resource = icon,
+                            tint = DmsTheme.colors.inverseOnSurface,
+                            onClick = { visible = !visible },
+                        )
+                    }
+                    if (showClearIcon && value.isNotEmpty()) {
+                        DmsIconButton(
+                            resource = DmsIcon.Cancel,
+                            tint = DmsTheme.colors.inverseOnSurface,
+                            onClick = { onValueChange("") },
+                        )
+                    }
                 }
             }
+            HorizontalDivider(
+                modifier = Modifier.fillMaxWidth(),
+                thickness = 1.dp,
+                color = lineColor,
+            )
         }
     }
 }

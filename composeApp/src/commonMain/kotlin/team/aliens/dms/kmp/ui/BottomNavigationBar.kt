@@ -3,15 +3,15 @@ package team.aliens.dms.kmp.ui
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -34,7 +34,16 @@ fun BottomNavigationBar(
 ) {
     val selectedRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     BottomAppBar(
-        modifier = Modifier.fillMaxHeight(0.08f),
+        modifier = Modifier
+            .fillMaxHeight(0.08f)
+            .graphicsLayer {
+                clip = true
+                shape = RoundedCornerShape(
+                    topStart = 24.dp,
+                    topEnd = 24.dp,
+                )
+                shadowElevation = 20f
+            },
         contentColor = DmsTheme.colors.onBackground,
         containerColor = DmsTheme.colors.onBackground,
     ) {
@@ -42,9 +51,9 @@ fun BottomNavigationBar(
             val selected = selectedRoute == it.route
             val color by animateColorAsState(
                 targetValue = if (selected) {
-                    DmsTheme.colors.surfaceContainerLow
+                    DmsTheme.colors.onBackground
                 } else {
-                    DmsTheme.colors.surfaceVariant
+                    DmsTheme.colors.inverseSurface
                 },
             )
 
@@ -59,10 +68,7 @@ fun BottomNavigationBar(
                     }
                 },
                 icon = {
-                    Column(
-                        modifier = Modifier.padding(10.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
+                    Column {
                         Icon(
                             painter = painterResource(resource = if (selected) it.selectedIcon else it.icon),
                             contentDescription = it.route,
@@ -70,19 +76,19 @@ fun BottomNavigationBar(
                         )
                         DmsText(
                             text = it.title,
-                            style = DmsTypography.Body2Medium,
+                            style = DmsTypography.Button4,
                             color = color,
                         )
                     }
                 },
                 colors = NavigationBarItemColors(
-                    selectedIconColor = DmsTheme.colors.surfaceContainerLow,
-                    selectedTextColor = DmsTheme.colors.surfaceContainerLow,
+                    selectedIconColor = DmsTheme.colors.onBackground,
+                    selectedTextColor = DmsTheme.colors.onBackground,
                     selectedIndicatorColor = DmsTheme.colors.onBackground,
-                    unselectedIconColor = DmsTheme.colors.surfaceVariant,
-                    unselectedTextColor = DmsTheme.colors.surfaceVariant,
-                    disabledIconColor = DmsTheme.colors.surfaceVariant,
-                    disabledTextColor = DmsTheme.colors.surfaceVariant,
+                    unselectedIconColor = DmsTheme.colors.inverseSurface,
+                    unselectedTextColor = DmsTheme.colors.inverseSurface,
+                    disabledIconColor = DmsTheme.colors.inverseSurface,
+                    disabledTextColor = DmsTheme.colors.inverseSurface,
                 ),
             )
         }

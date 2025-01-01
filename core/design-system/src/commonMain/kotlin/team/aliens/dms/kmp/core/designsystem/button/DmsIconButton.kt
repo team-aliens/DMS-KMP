@@ -21,7 +21,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 fun DmsIconButton(
     modifier: Modifier = Modifier,
     resource: DrawableResource,
-    tint: Color = DmsTheme.colors.surfaceContainerLow,
+    tint: Color = DmsTheme.colors.onBackground,
     enabled: Boolean = true,
     size: Dp = 24.dp,
     contentDescription: String? = null,

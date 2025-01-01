@@ -52,7 +52,7 @@ fun CheckStatus(
         )
         DmsText(
             text = text,
-            style = DmsTypography.HeadlineSemiBold,
+            style = DmsTypography.Title3,
         )
     }
 }

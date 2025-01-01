@@ -32,14 +32,14 @@ fun DmsSwitch(
 object DmsSwitchDefaults {
     @Composable
     fun colors(
-        checkedThumbColor: Color = DmsTheme.colors.surfaceContainerHighest,
-        checkedTrackColor: Color = DmsTheme.colors.onSecondary,
+        checkedThumbColor: Color = DmsTheme.colors.surfaceTint,
+        checkedTrackColor: Color = DmsTheme.colors.secondary,
         checkedBorderColor: Color = Color.Transparent,
-        checkedIconColor: Color = DmsTheme.colors.onSecondary,
-        uncheckedThumbColor: Color = DmsTheme.colors.surfaceContainerHighest,
-        uncheckedTrackColor: Color = DmsTheme.colors.surface,
+        checkedIconColor: Color = DmsTheme.colors.secondary,
+        uncheckedThumbColor: Color = DmsTheme.colors.surfaceTint,
+        uncheckedTrackColor: Color = DmsTheme.colors.onSurface,
         uncheckedBorderColor: Color = Color.Transparent,
-        uncheckedIconColor: Color = DmsTheme.colors.surface,
+        uncheckedIconColor: Color = DmsTheme.colors.onSurface,
     ): SwitchColors = SwitchDefaults.colors(
         checkedThumbColor = checkedThumbColor,
         checkedTrackColor = checkedTrackColor,

@@ -28,7 +28,7 @@ fun DmsNumberField(
     onValueChange: (String) -> Unit,
     enabled: Boolean = true,
     isError: Boolean = false,
-    errorDescription: String? = null,
+    errorMessage: String? = null,
 ) {
     BasicTextField(
         modifier = modifier,
@@ -47,7 +47,7 @@ fun DmsNumberField(
     ) { _ ->
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
@@ -56,21 +56,22 @@ fun DmsNumberField(
             ) {
                 items(totalLength) { index ->
                     val borderColor = if (isError) {
-                        DmsTheme.colors.outlineVariant
-                    } else if (value.length - 1 == index) {
-                        DmsTheme.colors.inversePrimary
+                        DmsTheme.colors.outline
                     } else if (value.length > index) {
-                        DmsTheme.colors.onSecondary
+                        DmsTheme.colors.inversePrimary
                     } else {
-                        DmsTheme.colors.surface
+                        DmsTheme.colors.onSurface
                     }
                     Box(
                         modifier = Modifier
-                            .size(48.dp)
+                            .size(
+                                width = 40.dp,
+                                height = 52.dp,
+                            )
                             .border(
                                 width = 1.dp,
                                 color = borderColor,
-                                shape = RoundedCornerShape(4.dp),
+                                shape = RoundedCornerShape(12.dp),
                             ),
                         contentAlignment = Alignment.Center,
                     ) {
@@ -81,17 +82,19 @@ fun DmsNumberField(
                             } else {
                                 ""
                             },
-                            style = DmsTypography.Body1Medium,
+                            style = DmsTypography.Title3,
                         )
                     }
                 }
             }
-            errorDescription?.let {
-                DmsText(
-                    text = errorDescription,
-                    style = DmsTypography.Body1Medium,
-                    color = DmsTheme.colors.outlineVariant,
-                )
+            if (isError) {
+                errorMessage?.let {
+                    DmsText(
+                        text = it,
+                        style = DmsTypography.Button2,
+                        color = DmsTheme.colors.outline,
+                    )
+                }
             }
         }
     }
