@@ -166,4 +166,13 @@ object DmsTypography {
             fontWeight = FontWeight.Bold,
             color = DmsTheme.colors.onBackground,
         )
+
+    val Button4
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            lineHeight = 16.sp,
+            color = DmsTheme.colors.onBackground,
+        )
 }
