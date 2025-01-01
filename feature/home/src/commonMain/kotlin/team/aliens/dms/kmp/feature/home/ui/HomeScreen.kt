@@ -122,25 +122,25 @@ private fun DateCard(
             size = 18.dp,
             onClick = onPreviousDay,
         )
-        DmsText(
-            modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .border(
-                    width = 1.dp,
-                    color = DmsTheme.colors.onSurface,
-                    shape = RoundedCornerShape(8.dp),
-                )
-                .clickable(
-                    onClick = { },
-                )
-                .padding(
-                    horizontal = 14.dp,
-                    vertical = 8.dp,
-                ),
-            text = "${selectDate.monthNumber}월 ${selectDate.dayOfMonth}일 ${selectDate.dayOfWeek.text}요일",
-            color = DmsTheme.colors.surfaceContainerLow,
-            style = DmsTypography.Body1SemiBold,
-        )
+//        DmsText(
+//            modifier = Modifier
+//                .clip(RoundedCornerShape(8.dp))
+//                .border(
+//                    width = 1.dp,
+//                    color = DmsTheme.colors.onSurface,
+//                    shape = RoundedCornerShape(8.dp),
+//                )
+//                .clickable(
+//                    onClick = { },
+//                )
+//                .padding(
+//                    horizontal = 14.dp,
+//                    vertical = 8.dp,
+//                ),
+//            text = "${selectDate.monthNumber}월 ${selectDate.dayOfMonth}일 ${selectDate.dayOfWeek.text}요일",
+//            color = DmsTheme.colors.surfaceContainerLow,
+//            style = DmsTypography.Body1SemiBold,
+        //)
         DmsIconButton(
             resource = DmsIcon.Forward,
             tint = DmsTheme.colors.surfaceContainerLow,
@@ -227,20 +227,20 @@ private fun MealCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            DmsText(
-                text = "아침",
-                style = DmsTypography.HeadlineSemiBold,
-            )
-            DmsText(
-                text = "430Kal",
-                color = DmsTheme.colors.onSurface,
-                style = DmsTypography.Body1Medium,
-            )
+//            DmsText(
+//                text = "아침",
+//                style = DmsTypography.HeadlineSemiBold,
+//            )
+//            DmsText(
+//                text = "430Kal",
+//                color = DmsTheme.colors.onSurface,
+//                style = DmsTypography.Body1Medium,
+//            )
         }
-        DmsText(
-            text = formatMeal,
-            style = DmsTypography.Body1Medium,
-        )
+//        DmsText(
+//            text = formatMeal,
+//            style = DmsTypography.Body1Medium,
+//        )
     }
 }
 
