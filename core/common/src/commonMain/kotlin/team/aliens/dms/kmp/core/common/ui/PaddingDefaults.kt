@@ -15,6 +15,10 @@ fun Modifier.horizontalPadding(
     value: Dp = PaddingDefaults.ExtraLarge,
 ): Modifier = padding(horizontal = value)
 
+fun Modifier.startPadding(value: Dp): Modifier = padding(start = value)
+
+fun Modifier.endPadding(value: Dp): Modifier = padding(end = value)
+
 fun Modifier.topPadding(
     value: Dp = PaddingDefaults.Medium,
 ): Modifier = padding(top = value)

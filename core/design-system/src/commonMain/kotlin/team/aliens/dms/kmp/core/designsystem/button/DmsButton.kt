@@ -3,11 +3,8 @@ package team.aliens.dms.kmp.core.designsystem.button
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -15,12 +12,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
@@ -124,16 +121,16 @@ private fun ButtonColor.containedColors() = when (this) {
 private fun ButtonColor.outlinedColors() = when (this) {
     ButtonColor.Primary -> ButtonState(
         enabled = ButtonTheme(
+            textColor = DmsTheme.colors.secondary,
+            borderColor = DmsTheme.colors.secondary,
+        ),
+        pressed = ButtonTheme(
             textColor = DmsTheme.colors.onSecondaryContainer,
             borderColor = DmsTheme.colors.onSecondaryContainer,
         ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            borderColor = DmsTheme.colors.errorContainer,
-        ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            borderColor = DmsTheme.colors.onError,
+            textColor = DmsTheme.colors.primaryContainer,
+            borderColor = DmsTheme.colors.primaryContainer,
         ),
     )
 
@@ -318,8 +315,11 @@ private fun ButtonColor.roundedColors() = when (this) {
 @Composable
 private fun BasicButton(
     modifier: Modifier = Modifier,
+    backgroundColor: Color,
     enabled: Boolean,
     shape: Shape,
+    borderColor: Color,
+    buttonType: ButtonType,
     onClick: () -> Unit,
     onPressed: (pressed: Boolean) -> Unit,
     keyboardInteractionEnabled: Boolean,
@@ -342,159 +342,31 @@ private fun BasicButton(
     } else {
         shape to DEFAULT_PRESS_DEPTH
     }
+
     Box(
         modifier = modifier
             .clip(shape = shapeByKeyboardShow)
+            .background(backgroundColor)
+            .then(
+                if (buttonType == ButtonType.Outlined) {
+                    Modifier.border(
+                        1.dp,
+                        color = borderColor,
+                        shapeByKeyboardShow,
+                    )
+                } else {
+                    Modifier
+                },
+            )
             .clickable(
                 pressDepth = pressDepth,
                 enabled = enabled,
                 onPressed = onPressed,
                 onClick = onClick,
             ),
+        contentAlignment = Alignment.Center,
     ) {
         content()
-    }
-}
-
-/*@Composable
-fun DmsButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    val backgroundColor by animateColorAsState(
-        targetValue = if (enabled) {
-            DmsTheme.colors.onSecondary
-        } else {
-            DmsTheme.colors.onTertiaryContainer
-        },
-    )
-
-    BasicButton(
-        modifier = modifier,
-        enabled = enabled,
-        backgroundColor = backgroundColor,
-        onClick = onClick,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 24.dp,
-                    vertical = 16.dp,
-                ),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            DmsText(
-                text = text,
-                style = DmsTypography.SubtitleSemiBold,
-                color = DmsTheme.colors.surfaceContainerHighest,
-            )
-        }
-    }
-}*/
-
-/*@Composable
-fun DmsSmallButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    val backgroundColor by animateColorAsState(
-        targetValue = if (enabled) {
-            DmsTheme.colors.onSecondary
-        } else {
-            DmsTheme.colors.error
-        },
-    )
-    val contentColor by animateColorAsState(
-        targetValue = if (enabled) {
-            DmsTheme.colors.surfaceContainerHighest
-        } else {
-            DmsTheme.colors.surfaceContainerHigh
-        },
-    )
-
-    BasicButton(
-        modifier = modifier,
-        enabled = enabled,
-        backgroundColor = backgroundColor,
-        onClick = onClick,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 14.dp,
-                    vertical = 8.dp,
-                ),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            DmsText(
-                text = text,
-                style = DmsTypography.Body1Medium,
-                color = contentColor,
-            )
-        }
-    }
-}*/
-
-@Composable
-fun DmsContainedButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    enabled: Boolean = true,
-    shape: Shape = RoundedCornerShape(4.dp),
-    buttonColor: ButtonColor,
-    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
-    keyboardInteractionEnabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    var pressed by remember { mutableStateOf(false) }
-
-    val buttonColors = buttonColor.containedColors()
-    val backgroundColor by animateColorAsState(
-        targetValue = if (!enabled) {
-            buttonColors.disabled.backgroundColor!!
-        } else if (pressed) {
-            buttonColors.pressed.backgroundColor!!
-        } else {
-            buttonColors.enabled.backgroundColor!!
-        },
-    )
-    val contentColor by animateColorAsState(
-        targetValue = if (!enabled) {
-            buttonColors.disabled.textColor
-        } else if (pressed) {
-            buttonColors.pressed.textColor
-        } else {
-            buttonColors.pressed.textColor
-        },
-    )
-
-    BasicButton(
-        modifier = modifier,
-        enabled = enabled,
-        shape = shape,
-        onClick = onClick,
-        onPressed = { pressed = it },
-        keyboardInteractionEnabled = keyboardInteractionEnabled,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(backgroundColor)
-                .padding(contentPadding),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            DmsText(
-                text = text,
-                style = DmsTypography.Button0,
-                color = contentColor,
-            )
-        }
     }
 }
 
@@ -552,49 +424,21 @@ fun DmsButton(
 
     BasicButton(
         modifier = modifier,
+        backgroundColor = backgroundColor,
         enabled = enabled,
         shape = buttonShape,
+        borderColor = borderColor,
+        buttonType = buttonType,
         onClick = onClick,
         onPressed = { pressed = it },
         keyboardInteractionEnabled = keyboardInteractionEnabled,
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(backgroundColor)
-                .border(
-                    buttonType = buttonType,
-                    width = 1.dp,
-                    shape = buttonShape,
-                    color = borderColor,
-                )
-                .padding(contentPadding),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            DmsText(
-                text = text,
-                style = if (buttonType == ButtonType.Underline) DmsTypography.Button3 else DmsTypography.Button0,
-                color = contentColor,
-                textDecoration = if (buttonType == ButtonType.Underline) TextDecoration.Underline else TextDecoration.None,
-            )
-        }
-    }
-}
-
-@Composable
-private fun Modifier.border(
-    buttonType: ButtonType,
-    width: Dp,
-    shape: Shape,
-    color: Color,
-): Modifier {
-    return if (buttonType == ButtonType.Outlined) {
-        Modifier.border(
-            width = width,
-            shape = shape,
-            color = color,
+        DmsText(
+            modifier = Modifier.padding(contentPadding),
+            text = text,
+            style = if (buttonType == ButtonType.Underline) DmsTypography.Button3 else DmsTypography.Button0,
+            color = contentColor,
+            textDecoration = if (buttonType == ButtonType.Underline) TextDecoration.Underline else TextDecoration.None,
         )
-    } else {
-        Modifier
     }
 }
