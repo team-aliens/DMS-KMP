@@ -1,6 +1,7 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.feature.signup.ui.VERIFICATION_CODE_LENGTH
 
 internal class EnterSchoolVerificationCodeViewModel :
     BaseViewModel<EnterSchoolVerificationCodeState, EnterSchoolVerificationCodeSideEffect>(
@@ -18,7 +19,7 @@ internal class EnterSchoolVerificationCodeViewModel :
 
     private fun setButtonEnabled() = setState {
         val verificationCode = state.value.verificationCode
-        state.value.copy(buttonEnabled = verificationCode.length == 6)
+        state.value.copy(buttonEnabled = verificationCode.length == VERIFICATION_CODE_LENGTH)
     }
 
     internal fun onNextClick() {
