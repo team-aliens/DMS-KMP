@@ -18,6 +18,7 @@ fun DmsTimer(
     modifier: Modifier = Modifier,
     timerTotalSeconds: Long = 180000L,
     timerInterval: Long = 1000L,
+    onTimerFinished: (Boolean) -> Unit,
 ) {
     var time by remember { mutableStateOf(timerTotalSeconds) }
     var timerFinished by remember { mutableStateOf(false) }
@@ -35,6 +36,7 @@ fun DmsTimer(
 
                 override fun onFinish() {
                     timerFinished = true
+                    onTimerFinished(timerFinished)
                 }
             },
         )
@@ -44,12 +46,16 @@ fun DmsTimer(
         modifier = modifier,
         text = formatTime(time / 1000),
         style = DmsTypography.Body1,
-        color = DmsTheme.colors.onSurface,
+        color = DmsTheme.colors.inversePrimary,
     )
 }
 
 fun formatTime(seconds: Long): String {
     val minutes = seconds / 60
     val secs = seconds % 60
-    return "$minutes 분:$secs 초"
+    val time = when {
+        minutes > 0 -> "${minutes}분 ${secs}초"
+        else -> "${secs}초"
+    }
+    return time
 }
