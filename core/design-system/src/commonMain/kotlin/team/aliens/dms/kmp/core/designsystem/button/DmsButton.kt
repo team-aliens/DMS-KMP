@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
@@ -349,11 +348,15 @@ private fun BasicButton(
             .clip(shape = shapeByKeyboardShow)
             .background(backgroundColor)
             .then(
-                if (buttonType == ButtonType.Outlined) Modifier.border(
-                    1.dp,
-                    color = borderColor,
-                    shapeByKeyboardShow,
-                ) else Modifier,
+                if (buttonType == ButtonType.Outlined) {
+                    Modifier.border(
+                        1.dp,
+                        color = borderColor,
+                        shapeByKeyboardShow,
+                    )
+                } else {
+                    Modifier
+                },
             )
             .clickable(
                 pressDepth = pressDepth,
