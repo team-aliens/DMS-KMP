@@ -1,8 +1,6 @@
 package team.aliens.dms.kmp.feature.home.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,8 +35,6 @@ import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
-import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeState
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeViewModel
 
