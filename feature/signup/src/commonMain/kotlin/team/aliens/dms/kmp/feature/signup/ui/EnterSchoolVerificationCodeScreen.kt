@@ -28,7 +28,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeS
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeState
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeViewModel
 
-const val VERIFICATION_CODE_LENGTH = 8
+const val SCHOOL_VERIFICATION_CODE_LENGTH = 8
 
 @Composable
 internal fun EnterSchoolVerificationCode(
@@ -85,7 +85,7 @@ private fun EnterSchoolVerificationCodeScreen(
                 .fillMaxWidth()
                 .horizontalPadding(24.dp)
                 .topPadding(44.dp),
-            totalLength = VERIFICATION_CODE_LENGTH,
+            totalLength = SCHOOL_VERIFICATION_CODE_LENGTH,
             value = state.verificationCode,
             onValueChange = onVerificationCodeChange,
         )
