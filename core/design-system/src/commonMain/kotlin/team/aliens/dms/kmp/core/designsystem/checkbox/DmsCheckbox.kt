@@ -17,7 +17,7 @@ fun DmsCheckbox(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: CheckboxColors = DmsCheckboxDefaults.Colors(),
-    interactionSource : MutableInteractionSource = remember { MutableInteractionSource() },
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     Checkbox(
         checked = checked,

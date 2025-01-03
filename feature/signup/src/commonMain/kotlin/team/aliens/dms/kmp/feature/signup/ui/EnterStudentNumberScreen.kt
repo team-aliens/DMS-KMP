@@ -18,7 +18,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.collect
 import org.koin.compose.koinInject
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
@@ -144,7 +143,7 @@ private fun StudentNumberInputs(
             value = grade,
             onValueChange = { grade ->
                 onGradeChange(grade)
-                if(grade.isNotEmpty()) classroomFocusRequest.requestFocus()
+                if (grade.isNotEmpty()) classroomFocusRequest.requestFocus()
             },
             hint = "학년",
             keyboardType = KeyboardType.Number,
