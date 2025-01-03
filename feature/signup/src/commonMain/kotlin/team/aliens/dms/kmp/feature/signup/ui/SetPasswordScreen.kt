@@ -138,7 +138,7 @@ private fun PasswordInputs(
             hint = "비밀번호 확인",
             showVisibleIcon = true,
             isError = isPasswordMatchError,
-            errorMessage = "비빌번호가 일치하지 않습니다.",
+            errorMessage = "비밀번호가 일치하지 않습니다.",
         )
     }
 }
