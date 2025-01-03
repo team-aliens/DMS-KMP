@@ -31,7 +31,7 @@ internal class EnterEmailVerificationCodeViewModel :
     }
 
     internal fun onNextClick() {
-        postSideEffect(EnterEmailVerificationCodeSideEffect.MoveToSetId(authCode = ""))
+        postSideEffect(EnterEmailVerificationCodeSideEffect.MoveToEnterStudentNumber(authCode = ""))
     }
 }
 
@@ -50,5 +50,5 @@ data class EnterEmailVerificationCodeState(
 }
 
 sealed interface EnterEmailVerificationCodeSideEffect {
-    data class MoveToSetId(val authCode: String) : EnterEmailVerificationCodeSideEffect
+    data class MoveToEnterStudentNumber(val authCode: String) : EnterEmailVerificationCodeSideEffect
 }

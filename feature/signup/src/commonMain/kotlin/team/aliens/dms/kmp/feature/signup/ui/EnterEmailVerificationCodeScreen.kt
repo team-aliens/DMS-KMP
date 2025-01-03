@@ -38,7 +38,7 @@ const val EMAIL_VERIFICATION_CODE_LENGTH = 6
 @Composable
 internal fun EnterEmailVerificationCode(
     onBackPressed: () -> Unit,
-    navigateToSetId: (SignUpData) -> Unit,
+    navigateToEnterStudentNumber: (SignUpData) -> Unit,
     signUpData: SignUpData,
 ) {
     val viewModel: EnterEmailVerificationCodeViewModel = koinInject()
@@ -47,8 +47,8 @@ internal fun EnterEmailVerificationCode(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
             when (it) {
-                is EnterEmailVerificationCodeSideEffect.MoveToSetId -> {
-                    navigateToSetId(signUpData.copy(authCode = it.authCode))
+                is EnterEmailVerificationCodeSideEffect.MoveToEnterStudentNumber -> {
+                    navigateToEnterStudentNumber(signUpData.copy(authCode = it.authCode))
                 }
             }
         }
