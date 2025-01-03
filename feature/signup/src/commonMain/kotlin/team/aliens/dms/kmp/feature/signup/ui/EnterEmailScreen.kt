@@ -86,6 +86,7 @@ private fun EnterEmailScreen(
                 .topPadding(44.dp),
             value = state.email,
             onValueChange = onEmailChange,
+            hint = "이메일 주소",
             showClearIcon = true,
         )
         Spacer(modifier = Modifier.weight(1f))

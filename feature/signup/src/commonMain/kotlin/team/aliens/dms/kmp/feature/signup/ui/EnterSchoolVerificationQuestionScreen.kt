@@ -86,6 +86,7 @@ private fun EnterSchoolVerificationQuestionScreen(
                 .topPadding(44.dp),
             value = state.schoolVerificationAnswer,
             onValueChange = onVerificationAnswerChange,
+            hint = "답변",
             showClearIcon = true,
         )
         Spacer(modifier = Modifier.weight(1f))

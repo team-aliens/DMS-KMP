@@ -91,6 +91,7 @@ private fun SetIdScreen(
             value = state.id,
             onValueChange = onIdChange,
             hint = "아이디",
+            showClearIcon = true,
         )
         Spacer(modifier = Modifier.weight(1f))
         DmsButton(
