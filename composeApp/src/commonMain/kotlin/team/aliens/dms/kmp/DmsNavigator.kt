@@ -10,6 +10,7 @@ import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterEmail
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterEmailVerificationCode
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterSchoolVerificationCode
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterSchoolVerificationQuestion
+import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterStudentNumber
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToSetId
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToSetPassword
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToSignUp
@@ -46,6 +47,10 @@ internal class DmsNavigator(
 
     fun navigateToEnterEmailVerificationCode(signUpData: SignUpData) {
         navController.navigateToEnterEmailVerificationCode(signUpData = signUpData)
+    }
+
+    fun navigateToEnterStudentNumber(signUpData: SignUpData) {
+        navController.navigateToEnterStudentNumber(signUpData = signUpData)
     }
 
     fun navigateToSetId(signUpData: SignUpData) {

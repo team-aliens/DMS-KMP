@@ -8,26 +8,26 @@ import androidx.navigation.navArgument
 import team.aliens.dms.kmp.core.common.utils.ResourceKeys
 import team.aliens.dms.kmp.feature.signup.model.SignUpData
 import team.aliens.dms.kmp.feature.signup.model.toJsonString
-import team.aliens.dms.kmp.feature.signup.ui.EnterEmailVerificationCode
+import team.aliens.dms.kmp.feature.signup.ui.EnterStudentNumber
 
-const val NAVIGATION_ENTER_EMAIL_VERIFICATION_CODE = "enterEmailVerificationCode"
+const val NAVIGATION_ENTER_STUDENT_NUMBER = "enterStudentNumber"
 
-fun NavGraphBuilder.enterEmailVerificationCode(
+fun NavGraphBuilder.enterStudentNumber(
     onBackPressed: () -> Unit,
-    navigateToEnterStudentNumber: (SignUpData) -> Unit,
+    navigateToSetId: (SignUpData) -> Unit,
 ) {
     composable(
-        route = "$NAVIGATION_ENTER_EMAIL_VERIFICATION_CODE/{${ResourceKeys.SIGN_UP}}",
+        route = "$NAVIGATION_ENTER_STUDENT_NUMBER/{${ResourceKeys.SIGN_UP}}",
         arguments = listOf(navArgument(ResourceKeys.SIGN_UP) { type = NavType.StringType }),
     ) {
-        EnterEmailVerificationCode(
+        EnterStudentNumber(
             onBackPressed = onBackPressed,
-            navigateToEnterStudentNumber = navigateToEnterStudentNumber,
+            navigateToSetId = navigateToSetId,
             signUpData = it.getSignUpData(),
         )
     }
 }
 
-fun NavController.navigateToEnterEmailVerificationCode(signUpData: SignUpData) {
-    navigate("$NAVIGATION_ENTER_EMAIL_VERIFICATION_CODE/${signUpData.toJsonString()}")
+fun NavController.navigateToEnterStudentNumber(signUpData: SignUpData) {
+    navigate("$NAVIGATION_ENTER_STUDENT_NUMBER/${signUpData.toJsonString()}")
 }

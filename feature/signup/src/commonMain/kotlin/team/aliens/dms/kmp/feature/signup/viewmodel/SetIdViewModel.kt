@@ -5,25 +5,20 @@ import team.aliens.dms.kmp.core.common.base.BaseViewModel
 internal class SetIdViewModel :
     BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState.getDefaultState()) {
 
-    internal fun setGrade(grade: String) {
-        setState { state.value.copy(grade = grade) }
+    internal fun setId(id: String) {
+        setState { state.value.copy(id = id) }
+        setButtonEnabled()
     }
 
-    internal fun setClassRoom(classroom: String) {
-        setState { state.value.copy(classroom = classroom) }
-    }
-
-    internal fun setNumber(number: String) {
-        setState { state.value.copy(number = number) }
+    private fun setButtonEnabled() = setState {
+        val id = state.value.id
+        state.value.copy(buttonEnabled = id.isNotEmpty())
     }
 
     internal fun onNextClick() {
         postSideEffect(
             SetIdSideEffect.MoveToSetPassword(
                 id = "",
-                grade = "",
-                classroom = "",
-                number = "",
             ),
         )
     }
@@ -31,16 +26,12 @@ internal class SetIdViewModel :
 
 data class SetIdState(
     val id: String,
-    val grade: String,
-    val classroom: String,
-    val number: String,
+    val buttonEnabled: Boolean,
 ) {
     companion object {
         fun getDefaultState() = SetIdState(
             id = "",
-            grade = "",
-            classroom = "",
-            number = "",
+            buttonEnabled = false,
         )
     }
 }
@@ -48,8 +39,5 @@ data class SetIdState(
 sealed interface SetIdSideEffect {
     data class MoveToSetPassword(
         val id: String,
-        val grade: String,
-        val classroom: String,
-        val number: String,
     ) : SetIdSideEffect
 }

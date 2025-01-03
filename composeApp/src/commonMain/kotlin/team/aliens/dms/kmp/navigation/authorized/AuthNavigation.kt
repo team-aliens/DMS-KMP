@@ -32,6 +32,7 @@ internal fun NavGraphBuilder.authNavigation(
             navigateToEnterSchoolVerificationQuestion = navigator::navigateToEnterSchoolVerificationQuestion,
             navigateToEnterEmail = navigator::navigateToEnterEmail,
             navigateToEnterEmailVerificationCode = navigator::navigateToEnterEmailVerificationCode,
+            navigateToEnterStudentNumber = navigator::navigateToEnterStudentNumber,
             navigateToSetId = navigator::navigateToSetId,
             navigateToSetPassword = navigator::navigateToSetPassword,
             navigateToTerms = navigator::navigateToTerms,

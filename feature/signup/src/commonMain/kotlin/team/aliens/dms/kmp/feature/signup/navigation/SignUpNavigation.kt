@@ -15,6 +15,7 @@ fun NavGraphBuilder.signUp(
     navigateToEnterSchoolVerificationQuestion: (SignUpData) -> Unit,
     navigateToEnterEmail: (SignUpData) -> Unit,
     navigateToEnterEmailVerificationCode: (SignUpData) -> Unit,
+    navigateToEnterStudentNumber: (SignUpData) -> Unit,
     navigateToSetId: (SignUpData) -> Unit,
     navigateToSetPassword: (SignUpData) -> Unit,
     navigateToTerms: (SignUpData) -> Unit,
@@ -38,6 +39,10 @@ fun NavGraphBuilder.signUp(
             navigateToEnterEmailVerificationCode = navigateToEnterEmailVerificationCode,
         )
         enterEmailVerificationCode(
+            onBackPressed = onBackPressed,
+            navigateToEnterStudentNumber = navigateToEnterStudentNumber,
+        )
+        enterStudentNumber(
             onBackPressed = onBackPressed,
             navigateToSetId = navigateToSetId,
         )
