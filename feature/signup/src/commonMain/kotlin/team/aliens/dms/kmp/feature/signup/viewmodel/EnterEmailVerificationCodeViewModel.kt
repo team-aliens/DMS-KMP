@@ -20,7 +20,7 @@ internal class EnterEmailVerificationCodeViewModel :
     internal fun setTimerFinished(timerFinished: Boolean) {
         setState {
             state.value.copy(
-                timerFinished = timerFinished
+                timerFinished = timerFinished,
             )
         }
     }

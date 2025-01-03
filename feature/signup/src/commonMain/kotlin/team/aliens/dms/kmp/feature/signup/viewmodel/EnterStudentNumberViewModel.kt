@@ -22,7 +22,8 @@ internal class EnterStudentNumberViewModel :
 
     private fun buttonEnabled() = setState {
         with(state.value) {
-            val isStudentNumberNotBlank = grade.isNotBlank() && classroom.isNotBlank() && number.isNotBlank()
+            val isStudentNumberNotBlank =
+                grade.isNotBlank() && classroom.isNotBlank() && number.isNotBlank()
             copy(buttonEnabled = isStudentNumberNotBlank)
         }
     }
@@ -33,7 +34,7 @@ internal class EnterStudentNumberViewModel :
                 grade = "",
                 classroom = "",
                 number = "",
-            )
+            ),
         )
     }
 }
