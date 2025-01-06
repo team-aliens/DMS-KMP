@@ -19,7 +19,6 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.feature.notice.viewmodel.NoticeDetailsState
 import team.aliens.dms.kmp.feature.notice.viewmodel.NoticeDetailsViewModel
-import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesState
 
 @Composable
 internal fun NoticeDetails(

@@ -102,7 +102,7 @@ fun NoticeItem(
     Column(
         modifier = Modifier
             .clickable(
-                onClick = {onNoticeDetailsClick(1)},
+                onClick = { onNoticeDetailsClick(1) },
             ),
     ) {
         Column(
