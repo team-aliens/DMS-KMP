@@ -6,8 +6,12 @@ import team.aliens.dms.kmp.feature.notice.ui.Notices
 
 const val NAVIGATION_NOTICES = "notices"
 
-fun NavGraphBuilder.notices() {
+fun NavGraphBuilder.notices(
+    onNoticeDetailsClick: (Long) -> Unit,
+) {
     composable(NAVIGATION_NOTICES) {
-        Notices()
+        Notices(
+            onNoticeDetailsClick = onNoticeDetailsClick,
+        )
     }
 }
