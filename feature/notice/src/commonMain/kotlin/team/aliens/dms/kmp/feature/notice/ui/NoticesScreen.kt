@@ -28,13 +28,16 @@ import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesState
 import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesViewModel
 
 @Composable
-internal fun Notices() {
+internal fun Notices(
+    onNoticeDetailsClick: (Long) -> Unit,
+) {
     val viewModel: NoticesViewModel = koinInject()
     val state by viewModel.state.collectAsState()
 
     NoticesScreen(
         state = state,
         onIsRecentChange = viewModel::setIsRecent,
+        onNoticeDetailsClick = onNoticeDetailsClick,
     )
 }
 
@@ -42,6 +45,7 @@ internal fun Notices() {
 private fun NoticesScreen(
     state: NoticesState,
     onIsRecentChange: () -> Unit,
+    onNoticeDetailsClick: (Long) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -70,6 +74,7 @@ private fun NoticesScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalPadding(24.dp),
+            onNoticeDetailsClick = onNoticeDetailsClick,
         )
     }
 }
@@ -77,23 +82,27 @@ private fun NoticesScreen(
 @Composable
 private fun NoticeItems(
     modifier: Modifier = Modifier,
+    onNoticeDetailsClick: (Long) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
     ) {
         items(5) {
-            NoticeItem()
+            NoticeItem(
+                onNoticeDetailsClick = onNoticeDetailsClick,
+            )
         }
     }
 }
 
 @Composable
 fun NoticeItem(
+    onNoticeDetailsClick: (Long) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .clickable(
-                onClick = {},
+                onClick = {onNoticeDetailsClick(1)},
             ),
     ) {
         Column(
