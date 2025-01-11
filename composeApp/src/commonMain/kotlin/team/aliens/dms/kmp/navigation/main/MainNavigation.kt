@@ -3,6 +3,7 @@ package team.aliens.dms.kmp.navigation.main
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import team.aliens.dms.kmp.DmsNavigator
+import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
 import team.aliens.dms.kmp.root.NAVIGATION_ROOT
 import team.aliens.dms.kmp.root.root
 
@@ -15,6 +16,7 @@ internal fun NavGraphBuilder.mainNavigation(
         route = NAVIGATION_MAIN,
         startDestination = NAVIGATION_ROOT,
     ) {
-        root()
+        root(onNoticeDetailsClick = navigator::navigateToNoticeDetails)
+        noticeDetails()
     }
 }

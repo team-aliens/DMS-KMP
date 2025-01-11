@@ -13,16 +13,22 @@ import team.aliens.dms.kmp.feature.application.navigation.application
 import team.aliens.dms.kmp.feature.home.navigation.NAVIGATION_HOME
 import team.aliens.dms.kmp.feature.home.navigation.home
 import team.aliens.dms.kmp.feature.mypage.navigation.myPage
-import team.aliens.dms.kmp.feature.notice.navigation.notice
+import team.aliens.dms.kmp.feature.notice.navigation.notices
 import team.aliens.dms.kmp.ui.BottomNavigationBar
 
 @Composable
-internal fun Root() {
-    RootScreen()
+internal fun Root(
+    onNoticeDetailClick: (Long) -> Unit,
+) {
+    RootScreen(
+        onNoticeDetailClick = onNoticeDetailClick,
+    )
 }
 
 @Composable
-private fun RootScreen() {
+private fun RootScreen(
+    onNoticeDetailClick: (Long) -> Unit,
+) {
     val navController: NavHostController = rememberNavController()
 
     Scaffold(
@@ -37,7 +43,7 @@ private fun RootScreen() {
         ) {
             home()
             application()
-            notice()
+            notices(onNoticeDetailsClick = onNoticeDetailClick)
             myPage()
         }
     }

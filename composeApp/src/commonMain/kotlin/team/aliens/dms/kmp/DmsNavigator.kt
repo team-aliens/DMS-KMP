@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
 import team.aliens.dms.kmp.feature.signup.model.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterEmail
@@ -63,6 +64,10 @@ internal class DmsNavigator(
 
     fun navigateToTerms(signUpData: SignUpData) {
         navController.navigateToTerms(signUpData = signUpData)
+    }
+
+    fun navigateToNoticeDetails(noticeId: Long) {
+        navController.navigateToNoticeDetails(noticeId = noticeId)
     }
 
     fun popBackStackIfNotHome() {
