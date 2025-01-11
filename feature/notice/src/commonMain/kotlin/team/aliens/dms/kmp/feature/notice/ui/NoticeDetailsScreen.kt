@@ -45,7 +45,6 @@ private fun NoticeDetailsScreen(
         )
         Notice()
     }
-
 }
 
 @Composable
