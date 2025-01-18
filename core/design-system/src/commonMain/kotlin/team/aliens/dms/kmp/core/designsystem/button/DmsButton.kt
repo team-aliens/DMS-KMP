@@ -215,10 +215,10 @@ private fun ButtonColor.underlineColors() = when (this) {
             textColor = DmsTheme.colors.secondary,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.primaryContainer,
+            textColor = DmsTheme.colors.secondaryContainer,
         ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.secondaryContainer,
+            textColor = DmsTheme.colors.primaryContainer,
         ),
     )
 
@@ -227,10 +227,10 @@ private fun ButtonColor.underlineColors() = when (this) {
             textColor = DmsTheme.colors.onTertiaryContainer,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceVariant,
+            textColor = DmsTheme.colors.surfaceBright,
         ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceBright,
+            textColor = DmsTheme.colors.surfaceVariant,
         ),
     )
 
@@ -239,10 +239,10 @@ private fun ButtonColor.underlineColors() = when (this) {
             textColor = DmsTheme.colors.outline,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.onError,
+            textColor = DmsTheme.colors.errorContainer,
         ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.errorContainer,
+            textColor = DmsTheme.colors.onError,
         ),
     )
 
@@ -253,16 +253,16 @@ private fun ButtonColor.underlineColors() = when (this) {
 private fun ButtonColor.roundedColors() = when (this) {
     ButtonColor.Primary -> ButtonState(
         enabled = ButtonTheme(
-            textColor = DmsTheme.colors.onPrimary,
-            backgroundColor = DmsTheme.colors.secondary,
+            textColor = DmsTheme.colors.secondary,
+            backgroundColor = DmsTheme.colors.onPrimary,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.primaryContainer,
-            backgroundColor = DmsTheme.colors.primary,
-        ),
-        disabled = ButtonTheme(
             textColor = DmsTheme.colors.secondaryContainer,
             backgroundColor = DmsTheme.colors.inversePrimary,
+        ),
+        disabled = ButtonTheme(
+            textColor = DmsTheme.colors.primaryContainer,
+            backgroundColor = DmsTheme.colors.primary,
         ),
     )
 
@@ -272,12 +272,12 @@ private fun ButtonColor.roundedColors() = when (this) {
             backgroundColor = DmsTheme.colors.surfaceVariant,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceVariant,
-            backgroundColor = DmsTheme.colors.surface,
-        ),
-        disabled = ButtonTheme(
             textColor = DmsTheme.colors.surfaceBright,
             backgroundColor = DmsTheme.colors.onTertiaryContainer,
+        ),
+        disabled = ButtonTheme(
+            textColor = DmsTheme.colors.surfaceVariant,
+            backgroundColor = DmsTheme.colors.surface,
         ),
     )
 
@@ -287,12 +287,12 @@ private fun ButtonColor.roundedColors() = when (this) {
             backgroundColor = DmsTheme.colors.outline,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.error,
-            backgroundColor = DmsTheme.colors.onError,
-        ),
-        disabled = ButtonTheme(
             textColor = DmsTheme.colors.onError,
             backgroundColor = DmsTheme.colors.errorContainer,
+        ),
+        disabled = ButtonTheme(
+            textColor = DmsTheme.colors.error,
+            backgroundColor = DmsTheme.colors.onError,
         ),
     )
 
@@ -302,12 +302,12 @@ private fun ButtonColor.roundedColors() = when (this) {
             backgroundColor = DmsTheme.colors.onError,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.onError,
-            backgroundColor = DmsTheme.colors.error,
-        ),
-        disabled = ButtonTheme(
             textColor = DmsTheme.colors.errorContainer,
             backgroundColor = DmsTheme.colors.onErrorContainer,
+        ),
+        disabled = ButtonTheme(
+            textColor = DmsTheme.colors.onError,
+            backgroundColor = DmsTheme.colors.error,
         ),
     )
 }
