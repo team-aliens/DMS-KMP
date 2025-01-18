@@ -55,7 +55,7 @@ private fun ApplicationScreen() {
                 title = "외출",
                 appliedTitle = "금요 귀가",
                 description = "기숙사 생활 중 밖으로 나갈 일이 있다면, 외출 신청을 통해서 외출해 보세요.",
-                buttonText = "와출 신청하기",
+                buttonText = "외출 신청하기",
                 onButtonClick = { },
             )
         }
