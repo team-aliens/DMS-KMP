@@ -20,7 +20,7 @@ internal fun NavGraphBuilder.mainNavigation(
         root(
             onNavigateRemainApplication = navigator::navigateToRemainApplication,
             onNavigateOutingApplication = {},
-            onNoticeDetailsClick = navigator::navigateToNoticeDetails
+            onNoticeDetailsClick = navigator::navigateToNoticeDetails,
         )
         noticeDetails()
         remainApplication()

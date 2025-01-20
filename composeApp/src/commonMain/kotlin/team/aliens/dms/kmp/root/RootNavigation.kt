@@ -15,7 +15,7 @@ fun NavGraphBuilder.root(
         Root(
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
-            onNoticeDetailClick = onNoticeDetailsClick
+            onNoticeDetailClick = onNoticeDetailsClick,
         )
     }
 }

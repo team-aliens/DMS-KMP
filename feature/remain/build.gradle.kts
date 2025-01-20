@@ -20,7 +20,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -47,7 +47,8 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
 
             implementation(projects.core.designSystem)
-            implementation(projects.core.common)        }
+            implementation(projects.core.common)
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

@@ -142,13 +142,7 @@ private fun RemainOptionCard(
         AnimatedVisibility(visible = showDetail) {
             DmsText(
                 modifier = Modifier.topPadding(24.dp),
-                text = "금요일 일과가 모두 끝나고 \n" +
-                        "8시 30분 이후부터9시 30분까지 귀가하고\n" +
-                        "일요일 6시 30분 부터 9시 30분까지 귀사해야 합니다.\n" +
-                        "\n" +
-                        "혹시나 개인 일정으로 부득이하기 금요일이 아닌, 토요일\n" +
-                        "또는 일요일에 귀가해야 하는 학생들은 사감 선생님께\n" +
-                        "말씀부탁드립니다.",
+                text = "금요일 일과가 모두 끝나고 8시 30분 이후부터9시 30분까지 귀가하고 일요일 6시 30분 부터 9시 30분까지 귀사해야 합니다. 혹시나 개인 일정으로 부득이하기 금요일이 아닌, 토요일 또는 일요일에 귀가해야 하는 학생들은 사감 선생님께 말씀부탁드립니다.",
                 style = DmsTypography.Body3,
                 color = DmsTheme.colors.onBackground,
             )
