@@ -71,6 +71,7 @@ kotlin {
             implementation(projects.feature.application)
             implementation(projects.feature.notice)
             implementation(projects.feature.mypage)
+            implementation(projects.feature.remain)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
