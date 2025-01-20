@@ -20,7 +20,6 @@ kotlin {
             }
         }
     }
-    
     listOf(
         iosX64(),
         iosArm64(),

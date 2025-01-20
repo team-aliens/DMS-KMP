@@ -56,7 +56,7 @@ kotlin {
 }
 
 android {
-    namespace = "tema.aliens.dms.kmp.feature.remain"
+    namespace = "team.aliens.dms.kmp.feature.remain"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
