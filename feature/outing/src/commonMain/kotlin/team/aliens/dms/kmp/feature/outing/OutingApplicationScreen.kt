@@ -12,9 +12,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 @Composable
 internal fun OutingApplication(
     modifier: Modifier = Modifier,
-) {
-
-}
+) {}
 
 @Composable
 private fun OutingApplicationScreen(
