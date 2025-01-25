@@ -17,6 +17,7 @@ import team.aliens.dms.kmp.feature.signup.navigation.navigateToSetPassword
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToSignUp
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToTerms
 import team.aliens.dms.kmp.root.navigateToRoot
+import tema.aliens.dms.kmp.feature.remain.navigation.navigateToRemainApplication
 
 internal class DmsNavigator(
     val navController: NavHostController,
@@ -68,6 +69,10 @@ internal class DmsNavigator(
 
     fun navigateToNoticeDetails(noticeId: Long) {
         navController.navigateToNoticeDetails(noticeId = noticeId)
+    }
+
+    fun navigateToRemainApplication() {
+        navController.navigateToRemainApplication()
     }
 
     fun popBackStackIfNotHome() {

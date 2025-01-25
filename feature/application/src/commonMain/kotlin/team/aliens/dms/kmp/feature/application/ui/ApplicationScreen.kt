@@ -20,15 +20,25 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
+import team.aliens.dms.kmp.core.designsystem.tag.DmsTag
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 
 @Composable
-internal fun Application() {
-    ApplicationScreen()
+internal fun Application(
+    onNavigateRemainApplication: () -> Unit,
+    onNavigateOutingApplication: () -> Unit,
+) {
+    ApplicationScreen(
+        onNavigateRemainApplication = onNavigateRemainApplication,
+        onNavigateOutingApplication = onNavigateOutingApplication,
+    )
 }
 
 @Composable
-private fun ApplicationScreen() {
+private fun ApplicationScreen(
+    onNavigateRemainApplication: () -> Unit,
+    onNavigateOutingApplication: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -49,14 +59,14 @@ private fun ApplicationScreen() {
                 title = "잔류",
                 description = "주말 기숙사 잔류 여부를 확인하고, 잔류 신청을 통해서 잔류 또는 귀가를 신청해 보세요.",
                 buttonText = "잔류 신청하기",
-                onButtonClick = { },
+                onButtonClick = onNavigateRemainApplication,
             )
             ApplicationCard(
                 title = "외출",
                 appliedTitle = "금요 귀가",
                 description = "기숙사 생활 중 밖으로 나갈 일이 있다면, 외출 신청을 통해서 외출해 보세요.",
                 buttonText = "외출 신청하기",
-                onButtonClick = { },
+                onButtonClick = onNavigateOutingApplication,
             )
         }
     }
@@ -102,20 +112,7 @@ private fun ApplicationCard(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 appliedTitle?.let { text ->
-                    DmsText(
-                        modifier = Modifier
-                            .background(
-                                color = DmsTheme.colors.primary,
-                                shape = RoundedCornerShape(24.dp),
-                            )
-                            .padding(
-                                horizontal = 16.dp,
-                                vertical = 6.dp,
-                            ),
-                        text = text,
-                        style = DmsTypography.Caption,
-                        color = DmsTheme.colors.inversePrimary,
-                    )
+                    DmsTag(text = text)
                 }
             }
             DmsText(

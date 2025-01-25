@@ -18,15 +18,21 @@ import team.aliens.dms.kmp.ui.BottomNavigationBar
 
 @Composable
 internal fun Root(
+    onNavigateRemainApplication: () -> Unit,
+    onNavigateOutingApplication: () -> Unit,
     onNoticeDetailClick: (Long) -> Unit,
 ) {
     RootScreen(
+        onNavigateRemainApplication = onNavigateRemainApplication,
+        onNavigateOutingApplication = onNavigateOutingApplication,
         onNoticeDetailClick = onNoticeDetailClick,
     )
 }
 
 @Composable
 private fun RootScreen(
+    onNavigateRemainApplication: () -> Unit,
+    onNavigateOutingApplication: () -> Unit,
     onNoticeDetailClick: (Long) -> Unit,
 ) {
     val navController: NavHostController = rememberNavController()
@@ -42,7 +48,10 @@ private fun RootScreen(
                 .padding(bottom = it.calculateBottomPadding()),
         ) {
             home()
-            application()
+            application(
+                onNavigateRemainApplication = onNavigateRemainApplication,
+                onNavigateOutingApplication = onNavigateOutingApplication,
+            )
             notices(onNoticeDetailsClick = onNoticeDetailClick)
             myPage()
         }
