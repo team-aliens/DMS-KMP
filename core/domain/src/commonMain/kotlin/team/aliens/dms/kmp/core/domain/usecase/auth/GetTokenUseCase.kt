@@ -1,11 +1,11 @@
 package team.aliens.dms.kmp.core.domain.usecase.auth
 
-import team.aliens.dms.kmp.core.jwt.datastore.JwtDataStoreDataSource
+import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 
 class GetTokenUseCase(
-    private val jwtDataStoreDataSource: JwtDataStoreDataSource,
+    private val authPreferencesDataSource: AuthPreferencesDataSource,
 ) {
     suspend operator fun invoke() = runCatching {
-        jwtDataStoreDataSource.loadTokens()
+        authPreferencesDataSource.loadTokens()
     }
 }

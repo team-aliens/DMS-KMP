@@ -36,7 +36,8 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.koin.core)
 
-            implementation(projects.core.jwt)
+            implementation(projects.core.data)
+            implementation(projects.core.datastore)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
