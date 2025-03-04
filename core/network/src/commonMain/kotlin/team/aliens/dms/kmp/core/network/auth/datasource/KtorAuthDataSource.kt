@@ -20,7 +20,6 @@ internal class KtorAuthDataSource(private val client: HttpClient) : NetworkAuthD
         }.body()
     }
 
-
     override suspend fun sendEmailVerificationCode(request: SendEmailVerificationCodeRequest): Result<Unit> =
         runCatching {
             client.post("/auth/code") {

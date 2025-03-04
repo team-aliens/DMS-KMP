@@ -2,8 +2,8 @@ package team.aliens.dms.kmp.core.network.di
 
 import io.ktor.http.HttpMethod
 import org.koin.dsl.module
-import team.aliens.dms.kmp.core.network.IgnoreRequests
 import team.aliens.dms.kmp.core.network.HttpRequest
+import team.aliens.dms.kmp.core.network.IgnoreRequests
 
 internal val ignoreRequestModule = module {
     single<IgnoreRequests> {

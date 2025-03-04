@@ -7,5 +7,5 @@ import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSourceImpl
 
 internal val dataSourceModule = module {
-    singleOf(::AuthPreferencesDataSourceImpl) { bind<AuthPreferencesDataSource>()}
+    singleOf(::AuthPreferencesDataSourceImpl) { bind<AuthPreferencesDataSource>() }
 }

@@ -135,6 +135,7 @@ val networkModule = module {
 
             install(Auth) {
                 bearer {
+                    // TODO: loadTokens null 처리 필요
                     loadTokens {
                         val authPreferencesDataSource: AuthPreferencesDataSource = get()
                         return@loadTokens authPreferencesDataSource.loadTokens().getOrNull()
