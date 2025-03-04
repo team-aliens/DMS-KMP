@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.jwt.datastore.store.exception
+package team.aliens.dms.kmp.core.datastore.auth.exception
 
 import team.aliens.dms.kmp.core.datastore.exception.TransformFailureException
 
