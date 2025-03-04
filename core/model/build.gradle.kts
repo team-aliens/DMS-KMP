@@ -5,6 +5,7 @@ import team.aliens.dms.kmp.buildsrc.Versions
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
 }
 
@@ -20,43 +21,30 @@ kotlin {
     }
 
     jvm()
-
+    
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "network"
+            baseName = "model"
             isStatic = true
         }
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
-        }
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
-        }
         commonMain.dependencies {
-            implementation(libs.ktor.client.core)
             implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-        jvmMain.dependencies {
-            implementation(libs.ktor.client.cio)
         }
     }
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.network"
+    namespace = "team.aliens.dms.kmp.core.model"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
