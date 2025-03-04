@@ -72,5 +72,5 @@ internal data class SignInState(
 }
 
 internal sealed interface SignInSideEffect {
-    data object NavigateToMain: SignInSideEffect
+    data object NavigateToMain : SignInSideEffect
 }

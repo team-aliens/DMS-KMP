@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.count
 import org.koin.compose.koinInject
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
@@ -48,7 +47,7 @@ internal fun SignIn(
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
-            when(it) {
+            when (it) {
                 SignInSideEffect.NavigateToMain -> navigateToMain()
             }
         }

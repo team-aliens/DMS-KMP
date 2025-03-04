@@ -9,7 +9,7 @@ import team.aliens.dms.kmp.core.network.auth.model.TokensResponse
 import team.aliens.dms.kmp.core.network.auth.model.response.CheckIdExistsResponse
 
 internal fun CheckIdExistsResponse.toModel() = EmailModel(
-    email = this.email
+    email = this.email,
 )
 
 fun TokensResponse.toModel(): Tokens = Tokens(
