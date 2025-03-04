@@ -29,16 +29,16 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
-include(":network")
 include(":database")
 
 include(":core:network")
 include(":core:datastore")
 include(":core:database")
-include(":core:jwt")
 include(":core:design-system")
 include(":core:domain")
 include(":core:common")
+include(":core:data")
+include(":core:model")
 
 include(":feature:splash")
 include(":feature:signin")
