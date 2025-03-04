@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.jwt.network.exception
+package team.aliens.dms.kmp.core.network.exception
 
 internal sealed class TokenReissueException(message: String?) : RuntimeException(message)
 
