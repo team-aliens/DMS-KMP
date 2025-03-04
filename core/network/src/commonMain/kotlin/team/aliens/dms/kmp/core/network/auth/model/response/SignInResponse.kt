@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SignInResponse(
     val accessToken: String,
-    val accessTokenExpiration: String,
+    val accessTokenExpiredAt: String,
     val refreshToken: String,
-    val refreshTokenExpiration: String,
+    val refreshTokenExpiredAt: String,
     val features: Features,
 ) {
     @Serializable
@@ -16,6 +16,6 @@ data class SignInResponse(
         val noticeService: Boolean,
         val pointService: Boolean,
         val studyRoomService: Boolean,
-        val remainsService: Boolean,
+        val remainService: Boolean,
     )
 }

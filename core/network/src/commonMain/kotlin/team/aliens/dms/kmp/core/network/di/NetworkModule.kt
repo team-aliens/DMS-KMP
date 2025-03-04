@@ -15,6 +15,7 @@ import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.request.accept
 import io.ktor.client.request.forms.submitForm
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -85,19 +86,22 @@ val networkModule = module {
 
             HttpResponseValidator {
                 validateResponse { response ->
-                    when (response.status) {
-                        HttpStatusCode.BadRequest -> throw BadRequestException()
-                        HttpStatusCode.Unauthorized -> throw UnAuthorizedException()
-                        HttpStatusCode.Forbidden -> throw ForbiddenException()
-                        HttpStatusCode.NotFound -> throw NotFoundException()
-                        HttpStatusCode.RequestTimeout -> throw RequestTimeoutException()
-                        HttpStatusCode.Conflict -> throw ConflictException()
-                        HttpStatusCode.UnsupportedMediaType -> throw UnsupportedMediaTypeException()
-                        HttpStatusCode.TooManyRequests -> throw TooManyRequestsException()
-                        HttpStatusCode.InternalServerError -> throw InternalServerErrorException()
-                        HttpStatusCode.ServiceUnavailable -> throw ServiceUnavailableException()
-                        else -> throw UnknownException()
+                    if (!response.status.isSuccess()) {
+                        throw Exception(response.bodyAsText())
                     }
+//                    when (response.status) {
+//                        HttpStatusCode.BadRequest -> throw BadRequestException()
+//                        HttpStatusCode.Unauthorized -> throw UnAuthorizedException()
+//                        HttpStatusCode.Forbidden -> throw ForbiddenException()
+//                        HttpStatusCode.NotFound -> throw NotFoundException()
+//                        HttpStatusCode.RequestTimeout -> throw RequestTimeoutException()
+//                        HttpStatusCode.Conflict -> throw ConflictException()
+//                        HttpStatusCode.UnsupportedMediaType -> throw UnsupportedMediaTypeException()
+//                        HttpStatusCode.TooManyRequests -> throw TooManyRequestsException()
+//                        HttpStatusCode.InternalServerError -> throw InternalServerErrorException()
+//                        HttpStatusCode.ServiceUnavailable -> throw ServiceUnavailableException()
+//                        else -> throw UnknownException()
+//                    }
                 }
 
                 handleResponseExceptionWithRequest { cause, request ->
@@ -146,16 +150,18 @@ val networkModule = module {
 
                     refreshTokens {
                         val authPreferencesDataSource: AuthPreferencesDataSource = get()
-                        val refreshToken =
-                            authPreferencesDataSource.loadTokens().getOrThrow()?.refreshToken?.value
+                        val tokensResult = authPreferencesDataSource.loadTokens()
+                        if (tokensResult.isFailure) return@refreshTokens null
+                        val tokens = tokensResult.getOrNull() ?: return@refreshTokens null
+                        val refreshToken = tokens.refreshToken.value
 
-                        kotlin.runCatching {
+                        return@refreshTokens kotlin.runCatching {
                             val response = client.submitForm(
                                 url = "/auth/reissue",
                                 formParameters = parameters {
                                     append(
                                         name = "refresh-token",
-                                        value = refreshToken ?: return@parameters,
+                                        value = refreshToken,
                                     )
                                 },
                             ) { markAsRefreshTokenRequest() }
@@ -182,6 +188,8 @@ val networkModule = module {
                                 accessToken = tokensResponse.accessToken,
                                 refreshToken = tokensResponse.refreshToken,
                             )
+                        }.onFailure {
+                            println("Token refresh failed: ${it.message}")
                         }.getOrNull()
                     }
                 }

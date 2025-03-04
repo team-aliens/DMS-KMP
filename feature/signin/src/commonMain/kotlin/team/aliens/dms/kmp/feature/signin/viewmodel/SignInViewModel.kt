@@ -47,7 +47,7 @@ internal class SignInViewModel(
             ).onSuccess {
                 postSideEffect(SignInSideEffect.NavigateToMain)
             }.onFailure {
-                println(it)
+                println(it.printStackTrace())
             }
         }
     }

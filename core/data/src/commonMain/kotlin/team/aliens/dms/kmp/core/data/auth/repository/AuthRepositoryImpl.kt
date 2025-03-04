@@ -69,6 +69,6 @@ internal class AuthRepositoryImpl(
 
     override suspend fun updateTokens(tokens: Tokens): Result<Unit> =
         authPreferencesDataSource.storeTokens(tokens = tokens)
-    
+
     override suspend fun clearTokens(): Result<Unit> = authPreferencesDataSource.clearTokens()
 }
