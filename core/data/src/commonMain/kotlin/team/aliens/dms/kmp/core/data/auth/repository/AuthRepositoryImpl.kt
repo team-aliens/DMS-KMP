@@ -36,7 +36,8 @@ internal class AuthRepositoryImpl(
         networkAuthDatasource.sendEmailVerificationCode(
             request = SendEmailVerificationCodeRequest(
                 body = SendEmailVerificationCodeRequest.Body(
-                    email = email, type = type.name,
+                    email = email,
+                    type = type.name,
                 ),
             ),
         )
