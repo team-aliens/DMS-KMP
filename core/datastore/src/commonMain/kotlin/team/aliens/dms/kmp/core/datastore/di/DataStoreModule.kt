@@ -5,7 +5,10 @@ import org.koin.dsl.module
 
 val dataStoreModule =
     module {
-        includes(platformDataStoreModule)
+        includes(
+            platformDataStoreModule,
+            dataSourceModule,
+        )
     }
 
 internal expect val platformDataStoreModule: Module

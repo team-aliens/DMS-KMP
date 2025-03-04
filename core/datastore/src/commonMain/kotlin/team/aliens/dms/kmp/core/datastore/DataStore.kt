@@ -40,6 +40,6 @@ fun getDataStore(
         }
     }
 
-internal const val JWT_STORE = "jwt_store.preferences_pb"
+internal const val AUTH_STORE = "auth_store.preferences_pb"
 internal const val FEATURES_STORE = "features_store.preferences_pb"
 internal const val DEVICE_STORE = "device_store.preferences_pb"

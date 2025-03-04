@@ -58,9 +58,9 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.core.datastore)
             implementation(projects.core.database)
-            implementation(projects.core.jwt)
             implementation(projects.core.designSystem)
             implementation(projects.core.domain)
+            implementation(projects.core.data)
 
             implementation(projects.database)
 

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,6 +31,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
+import team.aliens.dms.kmp.feature.signin.viewmodel.SignInSideEffect
 import team.aliens.dms.kmp.feature.signin.viewmodel.SignInState
 import team.aliens.dms.kmp.feature.signin.viewmodel.SignInViewModel
 
@@ -43,8 +45,16 @@ internal fun SignIn(
     val viewModel: SignInViewModel = koinInject()
     val state by viewModel.state.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect {
+            when (it) {
+                SignInSideEffect.NavigateToMain -> navigateToMain()
+            }
+        }
+    }
+
     SignInScreen(
-        navigateToMain = navigateToMain,
+        onSignInClick = viewModel::signIn,
         navigateToSignUp = navigateToSignUp,
         state = state,
         onAccountIdChange = viewModel::setAccountId,
@@ -53,8 +63,8 @@ internal fun SignIn(
 }
 
 @Composable
-fun SignInScreen(
-    navigateToMain: () -> Unit,
+private fun SignInScreen(
+    onSignInClick: () -> Unit,
     navigateToSignUp: () -> Unit,
     state: SignInState,
     onAccountIdChange: (String) -> Unit,
@@ -89,7 +99,7 @@ fun SignInScreen(
             text = "로그인",
             buttonType = ButtonType.Contained,
             buttonColor = ButtonColor.Primary,
-            onClick = navigateToMain,
+            onClick = onSignInClick,
             enabled = state.buttonEnabled,
         )
     }

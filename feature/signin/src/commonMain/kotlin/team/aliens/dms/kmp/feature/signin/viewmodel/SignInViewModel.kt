@@ -1,8 +1,13 @@
 package team.aliens.dms.kmp.feature.signin.viewmodel
 
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.domain.usecase.auth.SignInUseCase
 
-internal class SignInViewModel : BaseViewModel<SignInState, SignInSideEffect>(SignInState.getDefaultState()) {
+internal class SignInViewModel(
+    private val signInUseCase: SignInUseCase,
+) : BaseViewModel<SignInState, SignInSideEffect>(SignInState.getDefaultState()) {
 
     internal fun setAccountId(accountId: String) {
         setState {
@@ -31,9 +36,24 @@ internal class SignInViewModel : BaseViewModel<SignInState, SignInSideEffect>(Si
             copy(buttonEnabled = isSignInValueNotBlank && hasNoError)
         }
     }
+
+    internal fun signIn() {
+        viewModelScope.launch {
+            val state = state.value
+            signInUseCase.invoke(
+                accountId = state.accountId,
+                password = state.password,
+                deviceToken = "",
+            ).onSuccess {
+                postSideEffect(SignInSideEffect.NavigateToMain)
+            }.onFailure {
+                println(it.printStackTrace())
+            }
+        }
+    }
 }
 
-data class SignInState(
+internal data class SignInState(
     val accountId: String,
     val password: String,
     val buttonEnabled: Boolean,
@@ -51,4 +71,6 @@ data class SignInState(
     }
 }
 
-sealed interface SignInSideEffect
+internal sealed interface SignInSideEffect {
+    data object NavigateToMain : SignInSideEffect
+}

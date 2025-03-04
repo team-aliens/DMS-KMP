@@ -19,7 +19,7 @@ internal class IosDataStore {
                         create = false,
                         error = null,
                     )
-                requireNotNull(documentDirectory).path() + "/$JWT_STORE"
+                requireNotNull(documentDirectory).path() + "/$AUTH_STORE"
             },
         )
 

@@ -3,7 +3,7 @@ package team.aliens.dms.kmp.core.datastore
 internal class DesktopDataStore {
     fun getJwtDataStore(): PreferencesDataStore =
         getDataStore(
-            producePath = { "datastore/$JWT_STORE" },
+            producePath = { "datastore/$AUTH_STORE" },
         )
 
     fun getFeaturesDataStore(): PreferencesDataStore =
