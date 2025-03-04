@@ -20,30 +20,26 @@ kotlin {
     }
 
     jvm()
-
+    
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "jwt"
+            baseName = "data"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.androidx.datastore.preferences.core)
-            implementation(libs.koin.core)
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.auth)
-            implementation(libs.ktor.client.cio)
-
-            implementation(projects.core.datastore)
+            implementation(projects.core.model)
             implementation(projects.core.network)
-            implementation(projects.network)
+            implementation(projects.core.datastore)
+
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -52,7 +48,7 @@ kotlin {
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.core.jwt"
+    namespace = "team.aliens.dms.kmp.core.data"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
