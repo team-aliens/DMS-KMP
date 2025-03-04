@@ -5,7 +5,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.auth.GetTokenUseCase
 
@@ -13,16 +15,17 @@ internal class SplashViewModel(
     private val getTokenUseCase: GetTokenUseCase,
 ) : BaseViewModel<SplashState, SplashSideEffect>(SplashState.getInitialState()) {
 
+    // TODO: splash flow 로직 변경
     internal fun getToken() {
         viewModelScope.launch(Dispatchers.IO) {
             getTokenUseCase().onSuccess { token ->
-                setState {
-                    state.value.copy(
-                        accessToken = token.accessToken.value,
-                        refreshToken = token.refreshToken.value,
-                        refreshTokenExpired = token.refreshToken.expiration,
-                    )
-                }
+//                setState {
+//                    state.value.copy(
+//                        accessToken = token.accessToken.value,
+//                        refreshToken = token.refreshToken.value,
+//                        refreshTokenExpired = token.refreshToken.expiration,
+//                    )
+//                }
                 checkRefreshTokenExpired()
             }.onFailure {
                 when (it) {
@@ -35,7 +38,7 @@ internal class SplashViewModel(
     }
 
     private fun checkRefreshTokenExpired() {
-        if (Clock.System.now() > state.value.refreshTokenExpired) {
+        if (Clock.System.now().toLocalDateTime(timeZone = TimeZone.UTC) > state.value.refreshTokenExpired) {
             postSideEffect(SplashSideEffect.MoveToLogin)
         } else {
             reissueToken()
@@ -50,13 +53,13 @@ internal class SplashViewModel(
 internal data class SplashState(
     val accessToken: String,
     val refreshToken: String,
-    val refreshTokenExpired: Instant,
+    val refreshTokenExpired: LocalDateTime,
 ) {
     companion object {
         fun getInitialState() = SplashState(
             accessToken = "",
             refreshToken = "",
-            refreshTokenExpired = Clock.System.now(),
+            refreshTokenExpired = Clock.System.now().toLocalDateTime(timeZone = TimeZone.UTC),
         )
     }
 }

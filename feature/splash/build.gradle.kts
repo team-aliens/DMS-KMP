@@ -52,7 +52,6 @@ kotlin {
 
             implementation(projects.core.designSystem)
             implementation(projects.core.domain)
-            implementation(projects.core.jwt)
             implementation(projects.core.common)
         }
         commonTest.dependencies {
