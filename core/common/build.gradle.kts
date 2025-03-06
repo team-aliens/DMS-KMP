@@ -40,6 +40,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(libs.kotlinx.datetime)
+            api(libs.kermit)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
