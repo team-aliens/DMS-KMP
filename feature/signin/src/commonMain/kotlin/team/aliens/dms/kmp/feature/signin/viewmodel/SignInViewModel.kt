@@ -1,6 +1,7 @@
 package team.aliens.dms.kmp.feature.signin.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.auth.SignInUseCase
@@ -47,7 +48,7 @@ internal class SignInViewModel(
             ).onSuccess {
                 postSideEffect(SignInSideEffect.NavigateToMain)
             }.onFailure {
-                println(it.printStackTrace())
+                Logger.a(it) { it.message.toString() }
             }
         }
     }

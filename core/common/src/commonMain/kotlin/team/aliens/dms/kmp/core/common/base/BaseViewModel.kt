@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.core.common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,6 +16,8 @@ import kotlinx.coroutines.launch
  */
 
 abstract class BaseViewModel<S, E>(initialState: S) : ViewModel() {
+    protected val log = Logger.setTag(this::class.simpleName.toString())
+
     private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
     val state = _state.asStateFlow()
 

@@ -11,6 +11,7 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.request.accept
@@ -60,7 +61,7 @@ val networkModule = module {
                 logger =
                     object : Logger {
                         override fun log(message: String) {
-                            println("Logger Ktor => $message")
+                            Logger.SIMPLE.log(message)
                         }
                     }
                 level = LogLevel.ALL
@@ -177,7 +178,7 @@ val networkModule = module {
                                 refreshToken = tokensResponse.refreshToken,
                             )
                         }.onFailure {
-                            println("Token refresh failed: ${it.message}")
+                            logger.error("Token refresh failed: ${it.message}")
                         }.getOrNull()
                     }
                 }
