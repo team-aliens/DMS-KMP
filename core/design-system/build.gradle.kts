@@ -75,6 +75,6 @@ android {
 }
 
 compose.resources {
-    publicResClass = false
+    publicResClass = true
     generateResClass = auto
 }
