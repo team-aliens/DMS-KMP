@@ -62,8 +62,6 @@ kotlin {
             implementation(projects.core.domain)
             implementation(projects.core.data)
 
-            implementation(projects.database)
-
             implementation(projects.feature.splash)
             implementation(projects.feature.signin)
             implementation(projects.feature.signup)
