@@ -39,7 +39,7 @@ internal class KtorAuthDataSource(private val client: HttpClient) : NetworkAuthD
     override suspend fun checkIdExists(request: CheckIdExistsRequest): Result<CheckIdExistsResponse> =
         runCatching {
             client.get("/auth/account-id") {
-                parameter("account_id", request.query)
+                parameter("account-id", request.query)
             }.body()
         }
 }
