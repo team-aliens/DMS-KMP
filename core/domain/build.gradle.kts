@@ -35,6 +35,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.koin.core)
+            implementation(libs.kotlinx.datetime)
 
             implementation(projects.core.data)
             implementation(projects.core.datastore)
