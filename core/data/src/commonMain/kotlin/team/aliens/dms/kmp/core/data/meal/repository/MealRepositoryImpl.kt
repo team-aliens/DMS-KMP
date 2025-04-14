@@ -22,7 +22,7 @@ internal class MealRepositoryImpl(
         }.recoverCatching {
             // 실패 시 네트워크에서 조회 후 DB에 저장하고 해당 날짜 식단 반환
             val meals = networkMealDataSource.getMeals(
-                request = GetMealsRequest(path = GetMealsRequest.Path(date = date))
+                request = GetMealsRequest(path = GetMealsRequest.Path(date = date)),
             ).getOrThrow().toModel()
             println("1")
             println(meals.map { it.toEntity() })

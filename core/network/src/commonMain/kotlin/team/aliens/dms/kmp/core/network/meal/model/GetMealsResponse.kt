@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetMealsResponse(
-    val meals: List<Meal>
+    val meals: List<Meal>,
 ) {
     @Serializable
     data class Meal(

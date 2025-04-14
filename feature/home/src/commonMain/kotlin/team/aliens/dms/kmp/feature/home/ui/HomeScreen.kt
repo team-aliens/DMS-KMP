@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,7 +31,6 @@ import dmskmp.core.design_system.generated.resources.Res
 import dmskmp.core.design_system.generated.resources.ic_dinner
 import dmskmp.core.design_system.generated.resources.ic_launch
 import dmskmp.core.design_system.generated.resources.ic_morning
-import kotlinx.coroutines.launch
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
@@ -218,7 +216,7 @@ private fun MealCards(
             MealCard(
                 meal = meal.lunch,
                 kcal = meal.kcalLunch,
-                mealCardType = MealCardType.LUNCH
+                mealCardType = MealCardType.LUNCH,
             )
             MealCard(
                 meal = meal.dinner,

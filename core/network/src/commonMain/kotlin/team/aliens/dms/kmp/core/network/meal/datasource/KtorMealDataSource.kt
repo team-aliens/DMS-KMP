@@ -7,9 +7,10 @@ import team.aliens.dms.kmp.core.network.meal.model.GetMealsRequest
 import team.aliens.dms.kmp.core.network.meal.model.GetMealsResponse
 
 internal class KtorMealDataSource(
-    private val client: HttpClient
+    private val client: HttpClient,
 ) : NetworkMealDataSource {
-    override suspend fun getMeals(request: GetMealsRequest): Result<GetMealsResponse> = kotlin.runCatching {
-        client.get("/meals/${request.path.date}").body()
-    }
+    override suspend fun getMeals(request: GetMealsRequest): Result<GetMealsResponse> =
+        kotlin.runCatching {
+            client.get("/meals/${request.path.date}").body()
+        }
 }
