@@ -315,5 +315,5 @@ private enum class MealCardType(
     DINNER(
         iconRes = Res.drawable.ic_dinner,
         title = "저녁",
-    )
+    ),
 }

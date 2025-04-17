@@ -10,7 +10,6 @@ internal val mealAdapter = object : ColumnAdapter<List<String>, String> {
             databaseValue.split(",,")
         }
 
-
     override fun encode(value: List<String>): String =
         value.joinToString(",,")
 }
