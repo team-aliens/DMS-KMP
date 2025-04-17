@@ -1,8 +1,11 @@
 package team.aliens.dms.kmp.core.data.auth.repository
 
+import kotlinx.datetime.LocalDateTime
 import team.aliens.dms.kmp.core.data.auth.mapper.toModel
 import team.aliens.dms.kmp.core.data.auth.model.EmailVerificationType
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
+import team.aliens.dms.kmp.core.datastore.auth.model.AccessToken
+import team.aliens.dms.kmp.core.datastore.auth.model.RefreshToken
 import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
 import team.aliens.dms.kmp.core.model.auth.EmailModel
 import team.aliens.dms.kmp.core.network.auth.datasource.NetworkAuthDataSource
@@ -19,15 +22,32 @@ internal class AuthRepositoryImpl(
         accountId: String,
         password: String,
         deviceToken: String,
-    ): Result<Unit> = networkAuthDatasource.signIn(
-        request = SignInRequest(
-            body = SignInRequest.Body(
-                accountId = accountId,
-                password = password,
-                deviceToken = deviceToken,
+    ): Result<Unit> {
+        val response = networkAuthDatasource.signIn(
+            request = SignInRequest(
+                body = SignInRequest.Body(
+                    accountId = accountId,
+                    password = password,
+                    deviceToken = deviceToken,
+                ),
             ),
-        ),
-    ).map { }
+        )
+        response.getOrNull()?.let {
+            authPreferencesDataSource.storeTokens(
+                tokens = Tokens(
+                    accessToken = AccessToken(
+                        value = it.accessToken,
+                        expiration = LocalDateTime.parse(it.accessTokenExpiredAt),
+                    ),
+                    refreshToken = RefreshToken(
+                        value = it.refreshToken,
+                        expiration = LocalDateTime.parse(it.refreshTokenExpiredAt),
+                    ),
+                ),
+            )
+        }
+        return response.map { }
+    }
 
     override suspend fun sendEmailVerificationCode(
         email: String,

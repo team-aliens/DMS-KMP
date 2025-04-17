@@ -1,5 +1,6 @@
 package team.aliens.dms.kmp.core.database.dao
 
+import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.database.DmsDatabase
 import team.aliens.dms.kmp.core.database.MealEntity
 import team.aliens.dms.kmp.core.database.dmsDispatchers
@@ -9,7 +10,7 @@ class MealDao(
 ) {
     private val query get() = dmsDatabase.mealEntityQueries
 
-    suspend fun queryMeal(date: String) =
+    suspend fun queryMeal(date: LocalDate) =
         with(dmsDispatchers.io) {
             query.selectMealByDate(date).executeAsOne()
         }

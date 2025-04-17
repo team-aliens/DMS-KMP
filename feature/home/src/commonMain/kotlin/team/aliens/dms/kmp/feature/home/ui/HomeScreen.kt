@@ -1,5 +1,6 @@
 package team.aliens.dms.kmp.feature.home.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,17 +27,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
+import dmskmp.core.design_system.generated.resources.Res
+import dmskmp.core.design_system.generated.resources.ic_dinner
+import dmskmp.core.design_system.generated.resources.ic_launch
+import dmskmp.core.design_system.generated.resources.ic_morning
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
+import team.aliens.dms.kmp.core.designsystem.text.DmsText
+import team.aliens.dms.kmp.core.model.meal.MealModel
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeState
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeViewModel
 
@@ -86,11 +97,17 @@ private fun HomeScreen(
                 )
             },
         )
+        HorizontalDivider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = 1.dp,
+            color = DmsTheme.colors.surface,
+        )
         MealCards(
             modifier = Modifier.padding(top = 16.dp),
             onNextDay = { onDateChange(state.selectedDate.plus(DatePeriod(days = 1))) },
             onPreviousDay = { onDateChange(state.selectedDate.minus(DatePeriod(days = 1))) },
             selectDate = state.selectedDate,
+            meal = state.meal,
         )
     }
 }
@@ -152,6 +169,7 @@ private fun MealCards(
     onNextDay: () -> Unit,
     onPreviousDay: () -> Unit,
     selectDate: LocalDate,
+    meal: MealModel,
 ) {
     val pageCount = 5
     val pagerState = rememberPagerState(pageCount = { pageCount })
@@ -165,19 +183,20 @@ private fun MealCards(
         previousPage = pagerState.currentPage
     }
 
-    DateCard(
-        onNextDay = {
-            scope.launch {
-                pagerState.animateScrollToPage(pagerState.currentPage + 1)
-            }
-        },
-        onPreviousDay = {
-            scope.launch {
-                pagerState.animateScrollToPage(pagerState.currentPage - 1)
-            }
-        },
-        selectDate = selectDate,
-    )
+//    DateCard(
+//        modifier = modifier.fillMaxWidth(),
+//        onNextDay = {
+//            scope.launch {
+//                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+//            }
+//        },
+//        onPreviousDay = {
+//            scope.launch {
+//                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+//            }
+//        },
+//        selectDate = selectDate,
+//    )
 
     HorizontalPager(
         modifier = Modifier.padding(top = 24.dp),
@@ -186,18 +205,23 @@ private fun MealCards(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+                .padding(horizontal = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(28.dp),
         ) {
-            val meal: List<String> = listOf("우동국물", "케이준치킨샐러드", "소불고기주먹밥", "배추김치", "해가득사과주스")
             MealCard(
-                meal = meal,
+                meal = meal.breakfast,
+                kcal = meal.kcalBreakfast,
+                mealCardType = MealCardType.BREAKFAST,
             )
             MealCard(
-                meal = meal,
+                meal = meal.lunch,
+                kcal = meal.kcalLunch,
+                mealCardType = MealCardType.LUNCH,
             )
             MealCard(
-                meal = meal,
+                meal = meal.dinner,
+                kcal = meal.kcalDinner,
+                mealCardType = MealCardType.DINNER,
             )
         }
     }
@@ -207,36 +231,60 @@ private fun MealCards(
 private fun MealCard(
     modifier: Modifier = Modifier,
     meal: List<String>,
+    kcal: String?,
+    mealCardType: MealCardType,
 ) {
-    Column(
+    val formatMeal = meal.chunked(1).joinToString("\n") { it.joinToString(", ") }
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(DmsTheme.colors.onBackground)
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+            .clip(RoundedCornerShape(12.dp))
+            .background(DmsTheme.colors.background)
+            .padding(
+                horizontal = 26.dp,
+                vertical = 16.dp,
+            ),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        val formatMeal = meal.chunked(3).joinToString("\n") { it.joinToString(", ") }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-//            DmsText(
-//                text = "아침",
-//                style = DmsTypography.HeadlineSemiBold,
-//            )
-//            DmsText(
-//                text = "430Kal",
-//                color = DmsTheme.colors.onSurface,
-//                style = DmsTypography.Body1Medium,
-//            )
+            Image(
+                modifier = Modifier
+                    .background(
+                        shape = CircleShape,
+                        color = DmsTheme.colors.primary,
+                    )
+                    .padding(8.dp),
+                painter = painterResource(mealCardType.iconRes),
+                contentDescription = null,
+            )
+            DmsText(
+                text = mealCardType.title,
+                style = DmsTypography.Header3,
+                color = DmsTheme.colors.surfaceBright,
+            )
         }
-//        DmsText(
-//            text = formatMeal,
-//            style = DmsTypography.Body1Medium,
-//        )
+        DmsText(
+            text = formatMeal,
+            style = DmsTypography.Body2,
+            color = DmsTheme.colors.onSecondary,
+        )
+        kcal?.let {
+            DmsText(
+                modifier = Modifier
+                    .background(
+                        shape = CircleShape,
+                        color = DmsTheme.colors.primary,
+                    )
+                    .padding(12.dp),
+                text = it,
+                style = DmsTypography.Body3,
+                color = DmsTheme.colors.onTertiaryContainer,
+            )
+        }
     }
 }
 
@@ -251,3 +299,21 @@ private val DayOfWeek.text: String
         DayOfWeek.SATURDAY -> "토"
         else -> throw IllegalArgumentException()
     }
+
+private enum class MealCardType(
+    val iconRes: DrawableResource,
+    val title: String,
+) {
+    BREAKFAST(
+        iconRes = Res.drawable.ic_morning,
+        title = "아침",
+    ),
+    LUNCH(
+        iconRes = Res.drawable.ic_launch,
+        title = "점심",
+    ),
+    DINNER(
+        iconRes = Res.drawable.ic_dinner,
+        title = "저녁",
+    ),
+}

@@ -1,11 +1,11 @@
-package team.aliens.dms.kmp.database.notice
+package team.aliens.dms.kmp.core.database.datasource.notice
 
 import team.aliens.dms.kmp.core.database.NoticeEntity
 import team.aliens.dms.kmp.core.database.dao.NoticeDao
 
-class DatabaseNoticeDataSourceImpl(
+class NoticeDatabaseDataSourceImpl(
     private val noticeDao: NoticeDao,
-) : DatabaseNoticeDataSource() {
+) : NoticeDatabaseDataSource() {
     override suspend fun queryNotice(id: String): NoticeEntity = noticeDao.findById(id)
 
     override suspend fun queryAllNotices(): List<NoticeEntity> = noticeDao.findAllNotice()

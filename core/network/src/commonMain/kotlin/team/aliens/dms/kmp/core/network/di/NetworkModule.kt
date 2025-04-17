@@ -110,8 +110,7 @@ val networkModule = module {
 
                     if (!isShouldBeIgnored()) {
                         val authPreferencesDataSource: AuthPreferencesDataSource = get()
-                        val accessToken =
-                            authPreferencesDataSource.loadTokens().getOrNull()?.accessToken
+                        val accessToken = authPreferencesDataSource.loadTokens().getOrNull()?.accessToken?.value
                         context.headers.append(HttpHeaders.Authorization, "Bearer $accessToken")
                     }
                 }
@@ -133,7 +132,10 @@ val networkModule = module {
                         val authPreferencesDataSource: AuthPreferencesDataSource = get()
                         return@loadTokens authPreferencesDataSource.loadTokens().getOrNull()
                             ?.let { tokens ->
-                                BearerTokens(tokens.accessToken.value, tokens.refreshToken.value)
+                                BearerTokens(
+                                    accessToken = tokens.accessToken.value,
+                                    refreshToken = tokens.refreshToken.value,
+                                )
                             }
                     }
 
