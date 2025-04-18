@@ -36,7 +36,7 @@ internal class NoticesViewModel(
 
 internal data class NoticesState(
     val isRecent: Boolean,
-    val notices: List<NoticeModel>
+    val notices: List<NoticeModel>,
 ) {
     companion object {
         fun getDefaultState() = NoticesState(

@@ -12,9 +12,7 @@ internal class NoticeDetailsViewModel(
 
     internal fun getNoticeDetail(noticeId: String) {
         viewModelScope.launch {
-            getNoticeDetailUseCase(noticeId = noticeId).onSuccess {
-
-            }
+            getNoticeDetailUseCase(noticeId = noticeId)
         }
     }
 }

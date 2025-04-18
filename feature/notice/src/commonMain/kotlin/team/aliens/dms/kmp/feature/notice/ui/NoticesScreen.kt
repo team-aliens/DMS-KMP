@@ -92,9 +92,9 @@ private fun NoticeItems(
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
     ) {
-        items (
+        items(
             items = notices,
-            key = { item -> item.id }
+            key = { item -> item.id },
         ) { notice ->
             NoticeItem(
                 title = notice.title,

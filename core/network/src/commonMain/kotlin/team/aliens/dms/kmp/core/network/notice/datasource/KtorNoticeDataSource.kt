@@ -10,18 +10,21 @@ import team.aliens.dms.kmp.core.network.notice.model.response.GetNoticeDetailRes
 import team.aliens.dms.kmp.core.network.notice.model.response.GetNoticesResponse
 import team.aliens.dms.kmp.core.network.notice.model.response.GetWhetherNewNoticesExistResponse
 
-internal class KtorNoticeDataSource(private val client: HttpClient): NetworkNoticeDataSource {
-    override suspend fun getWhetherNewNoticesExist(): Result<GetWhetherNewNoticesExistResponse> = runCatching {
-        client.get("/notices/status").body()
-    }
+internal class KtorNoticeDataSource(private val client: HttpClient) : NetworkNoticeDataSource {
+    override suspend fun getWhetherNewNoticesExist(): Result<GetWhetherNewNoticesExistResponse> =
+        runCatching {
+            client.get("/notices/status").body()
+        }
 
-    override suspend fun getNoticeDetail(request: GetNoticeDetailRequest): Result<GetNoticeDetailResponse> = kotlin.runCatching {
-        client.get("/notices/${request.path.noticeId}").body()
-    }
+    override suspend fun getNoticeDetail(request: GetNoticeDetailRequest): Result<GetNoticeDetailResponse> =
+        kotlin.runCatching {
+            client.get("/notices/${request.path.noticeId}").body()
+        }
 
-    override suspend fun getNotices(request: GetNoticesRequest): Result<GetNoticesResponse> = kotlin.runCatching {
-        client.get("/notices"){
-            parameter("order",request.query.order)
-        }.body()
-    }
+    override suspend fun getNotices(request: GetNoticesRequest): Result<GetNoticesResponse> =
+        kotlin.runCatching {
+            client.get("/notices") {
+                parameter("order", request.query.order)
+            }.body()
+        }
 }
