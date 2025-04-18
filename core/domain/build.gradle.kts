@@ -39,6 +39,7 @@ kotlin {
 
             implementation(projects.core.data)
             implementation(projects.core.datastore)
+            implementation(projects.core.model)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
