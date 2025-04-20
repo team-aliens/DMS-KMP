@@ -47,8 +47,12 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
 
+            implementation(libs.kotlinx.datetime)
+
             implementation(projects.core.designSystem)
             implementation(projects.core.common)
+            implementation(projects.core.domain)
+            implementation(projects.core.model)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

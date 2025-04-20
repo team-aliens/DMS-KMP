@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.LocalDateTime
 import org.koin.compose.koinInject
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
@@ -24,6 +26,7 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
+import team.aliens.dms.kmp.core.model.notice.NoticeModel
 import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesState
 import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesViewModel
 
@@ -74,6 +77,7 @@ private fun NoticesScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalPadding(24.dp),
+            notices = state.notices,
             onNoticeDetailsClick = onNoticeDetailsClick,
         )
     }
@@ -82,13 +86,19 @@ private fun NoticesScreen(
 @Composable
 private fun NoticeItems(
     modifier: Modifier = Modifier,
+    notices: List<NoticeModel>,
     onNoticeDetailsClick: (Long) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
     ) {
-        items(5) {
+        items(
+            items = notices,
+            key = { item -> item.id },
+        ) { notice ->
             NoticeItem(
+                title = notice.title,
+                date = notice.createdAt,
                 onNoticeDetailsClick = onNoticeDetailsClick,
             )
         }
@@ -97,6 +107,8 @@ private fun NoticeItems(
 
 @Composable
 fun NoticeItem(
+    title: String,
+    date: LocalDateTime,
     onNoticeDetailsClick: (Long) -> Unit,
 ) {
     Column(
@@ -112,12 +124,12 @@ fun NoticeItem(
                 .verticalPadding(20.dp),
         ) {
             DmsText(
-                text = "제목이 들어갑니다.",
+                text = title,
                 style = DmsTypography.Body1,
                 color = DmsTheme.colors.onBackground,
             )
             DmsText(
-                text = "2024/10/11",
+                text = "${date.date} ${date.time}",
                 style = DmsTypography.Body3,
                 color = DmsTheme.colors.inverseSurface,
             )
