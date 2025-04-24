@@ -21,7 +21,7 @@ internal fun GetNoticeDetailResponse.toModel() = NoticeDetailModel(
     createdAt = LocalDateTime.parse(this.createdAt),
 )
 
-internal fun OrderType.toDto() = when(this) {
+internal fun OrderType.toDto() = when (this) {
     OrderType.OLD -> OrderTypeDto.OLD
     OrderType.NEW -> OrderTypeDto.NEW
 }

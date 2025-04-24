@@ -23,4 +23,3 @@ fun NavGraphBuilder.noticeDetails() {
         NoticeDetails()
     }
 }
-

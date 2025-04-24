@@ -1,8 +1,6 @@
 package team.aliens.dms.kmp.core.model.signup
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class SignUpData(
