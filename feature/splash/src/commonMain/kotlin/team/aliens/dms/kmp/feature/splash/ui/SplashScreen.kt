@@ -21,7 +21,7 @@ import kottieComposition.KottieCompositionSpec
 import kottieComposition.animateKottieCompositionAsState
 import kottieComposition.rememberKottieComposition
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.feature.splash.viewmodel.SplashViewModel
 
@@ -30,7 +30,7 @@ import team.aliens.dms.kmp.feature.splash.viewmodel.SplashViewModel
 internal fun Splash(
     navigateToLogin: () -> Unit,
 ) {
-    val viewModel: SplashViewModel = koinInject()
+    val viewModel: SplashViewModel = koinViewModel()
     var animation by remember { mutableStateOf("") }
 
     val file = if (isSystemInDarkTheme()) {
