@@ -18,6 +18,4 @@ fun rememberDmsAppState(
 @Stable
 class DmsAppState(
     val navController: NavHostController,
-) {
-
-}
+)

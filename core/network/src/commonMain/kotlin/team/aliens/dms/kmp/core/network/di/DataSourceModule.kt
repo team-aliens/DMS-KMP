@@ -7,7 +7,6 @@ import team.aliens.dms.kmp.core.network.meal.datasource.KtorMealDataSource
 import team.aliens.dms.kmp.core.network.meal.datasource.NetworkMealDataSource
 import team.aliens.dms.kmp.core.network.notice.datasource.KtorNoticeDataSource
 import team.aliens.dms.kmp.core.network.notice.datasource.NetworkNoticeDataSource
-import kotlin.math.sin
 
 val networkDataSourceModule = module {
     single<NetworkAuthDataSource> { KtorAuthDataSource(get()) }
