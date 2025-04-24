@@ -1,25 +1,22 @@
 package team.aliens.dms.kmp.root
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import kotlinx.serialization.Serializable
 
-const val NAVIGATION_ROOT = "root"
+@Serializable
+data object RootRoute
 
 fun NavGraphBuilder.root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailsClick: (String) -> Unit,
 ) {
-    composable(NAVIGATION_ROOT) {
+    composable<RootRoute> {
         Root(
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
             onNoticeDetailClick = onNoticeDetailsClick,
         )
     }
-}
-
-fun NavController.navigateToRoot() {
-    navigate(NAVIGATION_ROOT)
 }

@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.feature.application.navigation.application
-import team.aliens.dms.kmp.feature.home.navigation.NAVIGATION_HOME
+import team.aliens.dms.kmp.feature.home.navigation.HomeRoute
 import team.aliens.dms.kmp.feature.home.navigation.home
 import team.aliens.dms.kmp.feature.mypage.navigation.myPage
 import team.aliens.dms.kmp.feature.notice.navigation.notices
@@ -20,7 +20,7 @@ import team.aliens.dms.kmp.ui.BottomNavigationBar
 internal fun Root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
-    onNoticeDetailClick: (Long) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     RootScreen(
         onNavigateRemainApplication = onNavigateRemainApplication,
@@ -33,7 +33,7 @@ internal fun Root(
 private fun RootScreen(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
-    onNoticeDetailClick: (Long) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     val navController: NavHostController = rememberNavController()
 
@@ -42,7 +42,7 @@ private fun RootScreen(
     ) {
         NavHost(
             navController = navController,
-            startDestination = NAVIGATION_HOME,
+            startDestination = HomeRoute,
             modifier = Modifier
                 .background(DmsTheme.colors.onBackground)
                 .padding(bottom = it.calculateBottomPadding()),

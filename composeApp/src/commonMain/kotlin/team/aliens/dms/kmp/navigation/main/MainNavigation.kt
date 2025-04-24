@@ -1,26 +1,38 @@
 package team.aliens.dms.kmp.navigation.main
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.navigation
-import team.aliens.dms.kmp.DmsNavigator
+import kotlinx.serialization.Serializable
+import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
-import team.aliens.dms.kmp.root.NAVIGATION_ROOT
+import team.aliens.dms.kmp.root.RootRoute
 import team.aliens.dms.kmp.root.root
+import team.aliens.dms.kmp.ui.DmsAppState
+import tema.aliens.dms.kmp.feature.remain.navigation.navigateToRemainApplication
 import tema.aliens.dms.kmp.feature.remain.navigation.remainApplication
 
-private const val NAVIGATION_MAIN = "main"
+@Serializable
+data object MainRoute
 
-internal fun NavGraphBuilder.mainNavigation(
-    navigator: DmsNavigator,
+fun NavController.navigateToMain(
+    navOptions: NavOptions? = null,
+) = navigate(
+    route = MainRoute,
+    navOptions = navOptions,
+)
+
+internal fun NavGraphBuilder.mainGraph(
+    appState: DmsAppState,
 ) {
-    navigation(
-        route = NAVIGATION_MAIN,
-        startDestination = NAVIGATION_ROOT,
+    navigation<MainRoute>(
+        startDestination = RootRoute,
     ) {
         root(
-            onNavigateRemainApplication = navigator::navigateToRemainApplication,
-            onNavigateOutingApplication = {},
-            onNoticeDetailsClick = navigator::navigateToNoticeDetails,
+            onNavigateRemainApplication = appState.navController::navigateToRemainApplication,
+            onNavigateOutingApplication = { },
+            onNoticeDetailsClick = appState.navController::navigateToNoticeDetails,
         )
         noticeDetails()
         remainApplication()
