@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.feature.signup.model
+package team.aliens.dms.kmp.core.model.signup
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -17,6 +17,3 @@ data class SignUpData(
     val password: String = "",
     val profileImageUrl: String? = null,
 )
-
-internal fun SignUpData.toJsonString() = Json.encodeToString(this)
-internal fun String.toSignUpData() = Json.decodeFromString<SignUpData>(this)
