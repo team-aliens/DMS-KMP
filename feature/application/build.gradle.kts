@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
 }
 
@@ -43,6 +44,7 @@ kotlin {
             implementation(compose.ui)
             implementation(libs.navigation.compose)
             implementation(compose.components.resources)
+            implementation(libs.kotlinx.serialization.json)
 
             implementation(projects.core.designSystem)
             implementation(projects.core.common)
