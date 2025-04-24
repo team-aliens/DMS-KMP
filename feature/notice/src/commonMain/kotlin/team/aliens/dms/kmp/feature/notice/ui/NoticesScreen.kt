@@ -32,7 +32,7 @@ import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesViewModel
 
 @Composable
 internal fun Notices(
-    onNoticeDetailsClick: (String) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     val viewModel: NoticesViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -40,7 +40,7 @@ internal fun Notices(
     NoticesScreen(
         state = state,
         onIsRecentChange = viewModel::setIsRecent,
-        onNoticeDetailsClick = onNoticeDetailsClick,
+        onNoticeDetailClick = onNoticeDetailClick,
     )
 }
 
@@ -48,7 +48,7 @@ internal fun Notices(
 private fun NoticesScreen(
     state: NoticesState,
     onIsRecentChange: () -> Unit,
-    onNoticeDetailsClick: (String) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -78,7 +78,7 @@ private fun NoticesScreen(
                 .fillMaxWidth()
                 .horizontalPadding(24.dp),
             notices = state.notices,
-            onNoticeDetailsClick = onNoticeDetailsClick,
+            onNoticeDetailClick = onNoticeDetailClick,
         )
     }
 }
@@ -87,7 +87,7 @@ private fun NoticesScreen(
 private fun NoticeItems(
     modifier: Modifier = Modifier,
     notices: List<NoticeModel>,
-    onNoticeDetailsClick: (String) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
@@ -99,7 +99,7 @@ private fun NoticeItems(
             NoticeItem(
                 title = notice.title,
                 date = notice.createdAt,
-                onNoticeDetailsClick = onNoticeDetailsClick,
+                onNoticeDetailClick = onNoticeDetailClick,
             )
         }
     }
@@ -109,12 +109,12 @@ private fun NoticeItems(
 fun NoticeItem(
     title: String,
     date: LocalDateTime,
-    onNoticeDetailsClick: (String) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .clickable(
-                onClick = { onNoticeDetailsClick("") },
+                onClick = { onNoticeDetailClick("") },
             ),
     ) {
         Column(

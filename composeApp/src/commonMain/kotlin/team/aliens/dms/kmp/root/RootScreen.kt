@@ -52,7 +52,7 @@ private fun RootScreen(
                 onNavigateRemainApplication = onNavigateRemainApplication,
                 onNavigateOutingApplication = onNavigateOutingApplication,
             )
-            notices(onNoticeDetailsClick = onNoticeDetailClick)
+            notices(onNoticeDetailClick = onNoticeDetailClick)
             myPage()
         }
     }

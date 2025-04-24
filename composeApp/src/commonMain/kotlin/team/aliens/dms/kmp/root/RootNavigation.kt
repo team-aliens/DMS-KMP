@@ -10,13 +10,13 @@ data object RootRoute
 fun NavGraphBuilder.root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
-    onNoticeDetailsClick: (String) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     composable<RootRoute> {
         Root(
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
-            onNoticeDetailClick = onNoticeDetailsClick,
+            onNoticeDetailClick = onNoticeDetailClick,
         )
     }
 }

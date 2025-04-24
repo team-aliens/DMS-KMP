@@ -32,7 +32,7 @@ internal fun NavGraphBuilder.mainGraph(
         root(
             onNavigateRemainApplication = appState.navController::navigateToRemainApplication,
             onNavigateOutingApplication = { },
-            onNoticeDetailsClick = appState.navController::navigateToNoticeDetails,
+            onNoticeDetailClick = appState.navController::navigateToNoticeDetails,
         )
         noticeDetails()
         remainApplication()

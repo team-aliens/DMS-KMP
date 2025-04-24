@@ -9,11 +9,11 @@ import team.aliens.dms.kmp.feature.notice.ui.Notices
 data object NoticesRoute
 
 fun NavGraphBuilder.notices(
-    onNoticeDetailsClick: (String) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     composable<NoticesRoute> {
         Notices(
-            onNoticeDetailsClick = onNoticeDetailsClick,
+            onNoticeDetailClick = onNoticeDetailClick,
         )
     }
 }
