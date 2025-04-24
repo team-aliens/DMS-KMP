@@ -14,7 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDateTime
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -32,9 +32,9 @@ import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesViewModel
 
 @Composable
 internal fun Notices(
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailsClick: (String) -> Unit,
 ) {
-    val viewModel: NoticesViewModel = koinInject()
+    val viewModel: NoticesViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     NoticesScreen(
@@ -48,7 +48,7 @@ internal fun Notices(
 private fun NoticesScreen(
     state: NoticesState,
     onIsRecentChange: () -> Unit,
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailsClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -87,7 +87,7 @@ private fun NoticesScreen(
 private fun NoticeItems(
     modifier: Modifier = Modifier,
     notices: List<NoticeModel>,
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailsClick: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
@@ -109,12 +109,12 @@ private fun NoticeItems(
 fun NoticeItem(
     title: String,
     date: LocalDateTime,
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailsClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .clickable(
-                onClick = { onNoticeDetailsClick(1) },
+                onClick = { onNoticeDetailsClick("") },
             ),
     ) {
         Column(
