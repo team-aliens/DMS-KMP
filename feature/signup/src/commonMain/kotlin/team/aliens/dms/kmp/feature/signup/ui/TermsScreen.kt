@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -38,7 +38,7 @@ internal fun Terms(
     navigateToSignIn: () -> Unit,
     termsUrl: String,
 ) {
-    val viewModel: TermsViewModel = koinInject()
+    val viewModel: TermsViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
     val theme = if (isSystemInDarkTheme()) {
         "dark"

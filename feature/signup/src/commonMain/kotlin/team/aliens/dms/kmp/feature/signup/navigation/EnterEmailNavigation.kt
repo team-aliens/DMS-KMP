@@ -2,32 +2,29 @@ package team.aliens.dms.kmp.feature.signup.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import team.aliens.dms.kmp.core.common.utils.ResourceKeys
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
-import team.aliens.dms.kmp.feature.signup.model.toJsonString
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.ui.EnterEmail
 
-const val NAVIGATION_ENTER_EMAIL = "enterEmail"
+fun NavController.navigateToEnterEmail(
+    signUpData: SignUpData,
+    navOptions: NavOptions? = null,
+) = navigate(
+    route = SignUp.Route.EnterEmail(signUpData = signUpData),
+    navOptions = navOptions,
+)
 
 fun NavGraphBuilder.enterEmail(
     onBackPressed: () -> Unit,
     navigateToEnterEmailVerificationCode: (SignUpData) -> Unit,
 ) {
-    composable(
-        route = "$NAVIGATION_ENTER_EMAIL/{${ResourceKeys.SIGN_UP}}",
-        arguments = listOf(navArgument(ResourceKeys.SIGN_UP) { type = NavType.StringType }),
+    composable<SignUp.Route.EnterEmail>(
+        typeMap = SignUp.Route.NavTypeMap,
     ) {
         EnterEmail(
             onBackPressed = onBackPressed,
             navigateToEnterEmailVerificationCode = navigateToEnterEmailVerificationCode,
-            signUpData = it.getSignUpData(),
         )
     }
-}
-
-fun NavController.navigateToEnterEmail(signUpData: SignUpData) {
-    navigate("$NAVIGATION_ENTER_EMAIL/${signUpData.toJsonString()}")
 }

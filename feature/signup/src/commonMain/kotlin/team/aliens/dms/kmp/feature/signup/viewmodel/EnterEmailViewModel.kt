@@ -1,9 +1,19 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.model.signup.SignUpData
+import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
-internal class EnterEmailViewModel :
+internal class EnterEmailViewModel(
+    savedStateHandle: SavedStateHandle,
+) :
     BaseViewModel<EnterEmailState, EnterEmailSideEffect>(EnterEmailState.getDefaultState()) {
+
+    private val route = savedStateHandle.toRoute<SignUpData>(
+        typeMap = SignUp.Route.NavTypeMap,
+    )
 
     internal fun setEmail(email: String) {
         setState {
@@ -20,7 +30,13 @@ internal class EnterEmailViewModel :
     }
 
     internal fun onNextClick() {
-        postSideEffect(EnterEmailSideEffect.MoveToEnterEmailVerificationCode(email = ""))
+        postSideEffect(
+            EnterEmailSideEffect.MoveToEnterEmailVerificationCode(
+                signUpData = route.copy(
+                    email = state.value.email,
+                ),
+            ),
+        )
     }
 }
 
@@ -37,5 +53,5 @@ data class EnterEmailState(
 }
 
 sealed interface EnterEmailSideEffect {
-    data class MoveToEnterEmailVerificationCode(val email: String) : EnterEmailSideEffect
+    data class MoveToEnterEmailVerificationCode(val signUpData: SignUpData) : EnterEmailSideEffect
 }

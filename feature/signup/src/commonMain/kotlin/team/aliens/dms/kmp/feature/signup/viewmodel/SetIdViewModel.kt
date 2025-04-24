@@ -1,9 +1,19 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.model.signup.SignUpData
+import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
-internal class SetIdViewModel :
+internal class SetIdViewModel(
+    savedStateHandle: SavedStateHandle,
+) :
     BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState.getDefaultState()) {
+
+    private val route = savedStateHandle.toRoute<SignUpData>(
+        typeMap = SignUp.Route.NavTypeMap,
+    )
 
     internal fun setId(id: String) {
         setState { state.value.copy(id = id) }
@@ -18,7 +28,7 @@ internal class SetIdViewModel :
     internal fun onNextClick() {
         postSideEffect(
             SetIdSideEffect.MoveToSetPassword(
-                id = "",
+                signUpData = route.copy(accountId = state.value.id),
             ),
         )
     }
@@ -38,6 +48,6 @@ data class SetIdState(
 
 sealed interface SetIdSideEffect {
     data class MoveToSetPassword(
-        val id: String,
+        val signUpData: SignUpData,
     ) : SetIdSideEffect
 }

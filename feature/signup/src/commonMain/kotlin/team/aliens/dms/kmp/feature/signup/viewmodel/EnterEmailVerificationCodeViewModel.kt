@@ -1,12 +1,22 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.model.signup.SignUpData
+import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 import team.aliens.dms.kmp.feature.signup.ui.EMAIL_VERIFICATION_CODE_LENGTH
 
-internal class EnterEmailVerificationCodeViewModel :
+internal class EnterEmailVerificationCodeViewModel(
+    savedStateHandle: SavedStateHandle,
+) :
     BaseViewModel<EnterEmailVerificationCodeState, EnterEmailVerificationCodeSideEffect>(
         EnterEmailVerificationCodeState.getDefaultState(),
     ) {
+
+    private val route = savedStateHandle.toRoute<SignUpData>(
+        typeMap = SignUp.Route.NavTypeMap,
+    )
 
     internal fun setEmailVerificationCode(emailVerificationCode: String) {
         setState {
@@ -31,7 +41,13 @@ internal class EnterEmailVerificationCodeViewModel :
     }
 
     internal fun onNextClick() {
-        postSideEffect(EnterEmailVerificationCodeSideEffect.MoveToEnterStudentNumber(authCode = ""))
+        postSideEffect(
+            EnterEmailVerificationCodeSideEffect.MoveToEnterStudentNumber(
+                signUpData = route.copy(
+                    authCode = state.value.emailVerificationCode,
+                ),
+            ),
+        )
     }
 }
 
@@ -50,5 +66,6 @@ data class EnterEmailVerificationCodeState(
 }
 
 sealed interface EnterEmailVerificationCodeSideEffect {
-    data class MoveToEnterStudentNumber(val authCode: String) : EnterEmailVerificationCodeSideEffect
+    data class MoveToEnterStudentNumber(val signUpData: SignUpData) :
+        EnterEmailVerificationCodeSideEffect
 }

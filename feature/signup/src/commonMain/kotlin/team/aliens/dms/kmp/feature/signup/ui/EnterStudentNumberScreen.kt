@@ -19,6 +19,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -28,8 +29,8 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberState
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberViewModel
@@ -38,21 +39,16 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberViewModel
 internal fun EnterStudentNumber(
     onBackPressed: () -> Unit,
     navigateToSetId: (SignUpData) -> Unit,
-    signUpData: SignUpData,
 ) {
-    val viewModel: EnterStudentNumberViewModel = koinInject()
+    val viewModel: EnterStudentNumberViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
-            when (it) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
                 is EnterStudentNumberSideEffect.MoveToSetId -> {
                     navigateToSetId(
-                        signUpData.copy(
-                            grade = 1,
-                            classRoom = 1,
-                            number = 1,
-                        ),
+                        effect.signUpData,
                     )
                 }
             }
