@@ -1,10 +1,20 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.common.utils.Regex
+import team.aliens.dms.kmp.core.model.signup.SignUpData
+import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
-internal class SetPasswordViewModel :
+internal class SetPasswordViewModel(
+    savedStateHandle: SavedStateHandle,
+) :
     BaseViewModel<SetPasswordState, SetPasswordSideEffect>(SetPasswordState.getDefaultState()) {
+
+    private val route = savedStateHandle.toRoute<SignUpData>(
+        typeMap = SignUp.Route.NavTypeMap,
+    )
 
     internal fun setPassword(password: String) {
         setState {
@@ -40,7 +50,7 @@ internal class SetPasswordViewModel :
     internal fun onNextClick() {
         postSideEffect(
             SetPasswordSideEffect.MoveToTerms(
-                password = "",
+                signUpData = route.copy(password = state.value.password),
             ),
         )
     }
@@ -66,6 +76,6 @@ data class SetPasswordState(
 
 sealed interface SetPasswordSideEffect {
     data class MoveToTerms(
-        val password: String,
+        val signUpData: SignUpData,
     ) : SetPasswordSideEffect
 }

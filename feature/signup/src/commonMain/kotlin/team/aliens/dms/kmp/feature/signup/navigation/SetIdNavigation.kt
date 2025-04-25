@@ -2,32 +2,29 @@ package team.aliens.dms.kmp.feature.signup.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import team.aliens.dms.kmp.core.common.utils.ResourceKeys
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
-import team.aliens.dms.kmp.feature.signup.model.toJsonString
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.ui.SetId
 
-const val NAVIGATION_SET_ID = "setId"
+fun NavController.navigateToSetId(
+    signUpData: SignUpData,
+    navOptions: NavOptions? = null,
+) = navigate(
+    route = SignUp.Route.SetId(signUpData = signUpData),
+    navOptions = navOptions,
+)
 
 fun NavGraphBuilder.setId(
     onBackPressed: () -> Unit,
     navigateToSetPassword: (SignUpData) -> Unit,
 ) {
-    composable(
-        route = "$NAVIGATION_SET_ID/{${ResourceKeys.SIGN_UP}}",
-        arguments = listOf(navArgument(ResourceKeys.SIGN_UP) { type = NavType.StringType }),
+    composable<SignUp.Route.SetId>(
+        typeMap = SignUp.Route.NavTypeMap,
     ) {
         SetId(
             onBackPressed = onBackPressed,
             navigateToSetPassword = navigateToSetPassword,
-            signUpData = it.getSignUpData(),
         )
     }
-}
-
-fun NavController.navigateToSetId(signUpData: SignUpData) {
-    navigate("$NAVIGATION_SET_ID/${signUpData.toJsonString()}")
 }

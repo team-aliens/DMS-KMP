@@ -1,9 +1,19 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.model.signup.SignUpData
+import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
-internal class EnterStudentNumberViewModel :
+internal class EnterStudentNumberViewModel(
+    savedStateHandle: SavedStateHandle,
+) :
     BaseViewModel<EnterStudentNumberState, EnterStudentNumberSideEffect>(EnterStudentNumberState.getDefaultState()) {
+
+    private val route = savedStateHandle.toRoute<SignUpData>(
+        typeMap = SignUp.Route.NavTypeMap,
+    )
 
     internal fun setGrade(grade: String) {
         setState { state.value.copy(grade = grade) }
@@ -31,9 +41,11 @@ internal class EnterStudentNumberViewModel :
     internal fun onNextClick() {
         postSideEffect(
             EnterStudentNumberSideEffect.MoveToSetId(
-                grade = "",
-                classroom = "",
-                number = "",
+                signUpData = route.copy(
+                    grade = state.value.grade.toInt(),
+                    classRoom = state.value.classroom.toInt(),
+                    number = state.value.number.toInt(),
+                ),
             ),
         )
     }
@@ -57,8 +69,6 @@ data class EnterStudentNumberState(
 
 sealed interface EnterStudentNumberSideEffect {
     data class MoveToSetId(
-        val grade: String,
-        val classroom: String,
-        val number: String,
+        val signUpData: SignUpData,
     ) : EnterStudentNumberSideEffect
 }

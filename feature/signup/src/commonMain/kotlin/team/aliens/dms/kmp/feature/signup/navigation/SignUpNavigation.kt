@@ -1,16 +1,54 @@
 package team.aliens.dms.kmp.feature.signup.navigation
 
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.navigation
-import team.aliens.dms.kmp.core.common.utils.ResourceKeys
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
-import team.aliens.dms.kmp.feature.signup.model.toSignUpData
+import kotlinx.serialization.Serializable
+import team.aliens.dms.kmp.core.common.navtype.SignUpDataNavType
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 
-const val NAVIGATION_SIGN_UP = "signUp"
+@Serializable
+sealed interface SignUp {
+    @Serializable
+    data object Route {
+        val NavTypeMap = mapOf(SignUpDataNavType)
 
-fun NavGraphBuilder.signUp(
+        @Serializable
+        data object EnterSchoolVerificationCodeRoute : SignUp
+
+        @Serializable
+        data class EnterSchoolVerificationQuestion(val signUpData: SignUpData) : SignUp
+
+        @Serializable
+        data class EnterEmail(val signUpData: SignUpData) : SignUp
+
+        @Serializable
+        data class EnterEmailVerificationCode(val signUpData: SignUpData) : SignUp
+
+        @Serializable
+        data class EnterStudentNumber(val signUpData: SignUpData) : SignUp
+
+        @Serializable
+        data class SetId(val signUpData: SignUpData) : SignUp
+
+        @Serializable
+        data class SetPassword(val signUpData: SignUpData) : SignUp
+
+        @Serializable
+        data class Terms(val signUpData: SignUpData) : SignUp
+    }
+}
+
+fun NavController.navigateToSignUp(
+    route: SignUp = SignUp.Route.EnterSchoolVerificationCodeRoute,
+    navOptions: NavOptions? = null,
+) = navigate(
+    route = route,
+    navOptions = navOptions,
+)
+
+fun NavGraphBuilder.signupGraph(
     onBackPressed: () -> Unit,
     navigateToEnterSchoolVerificationQuestion: (SignUpData) -> Unit,
     navigateToEnterEmail: (SignUpData) -> Unit,
@@ -22,9 +60,8 @@ fun NavGraphBuilder.signUp(
     navigateToSignIn: () -> Unit,
     termsUrl: String,
 ) {
-    navigation(
-        route = NAVIGATION_SIGN_UP,
-        startDestination = NAVIGATION_ENTER_SCHOOL_VERIFICATION_CODE,
+    navigation<SignUp.Route>(
+        startDestination = SignUp.Route.EnterSchoolVerificationCodeRoute,
     ) {
         enterSchoolVerificationCode(
             onBackPressed = onBackPressed,
@@ -60,13 +97,4 @@ fun NavGraphBuilder.signUp(
             termsUrl = termsUrl,
         )
     }
-}
-
-fun NavController.navigateToSignUp() {
-    navigate(NAVIGATION_SIGN_UP)
-}
-
-internal fun NavBackStackEntry.getSignUpData(): SignUpData {
-    val signUpData = arguments?.getString(ResourceKeys.SIGN_UP) ?: throw NullPointerException()
-    return signUpData.toSignUpData()
 }

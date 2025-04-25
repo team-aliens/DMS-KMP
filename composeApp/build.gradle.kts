@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
 }
 
@@ -54,6 +55,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.navigation.compose)
             implementation(libs.koin.core)
+            implementation(libs.kotlinx.serialization.json)
 
             implementation(projects.core.network)
             implementation(projects.core.datastore)
@@ -61,6 +63,7 @@ kotlin {
             implementation(projects.core.designSystem)
             implementation(projects.core.domain)
             implementation(projects.core.data)
+            implementation(projects.core.model)
 
             implementation(projects.feature.splash)
             implementation(projects.feature.signin)

@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -28,7 +28,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.numberfield.DmsNumberField
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.timer.DmsTimer
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterEmailVerificationCodeSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterEmailVerificationCodeState
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterEmailVerificationCodeViewModel
@@ -39,16 +39,15 @@ const val EMAIL_VERIFICATION_CODE_LENGTH = 6
 internal fun EnterEmailVerificationCode(
     onBackPressed: () -> Unit,
     navigateToEnterStudentNumber: (SignUpData) -> Unit,
-    signUpData: SignUpData,
 ) {
-    val viewModel: EnterEmailVerificationCodeViewModel = koinInject()
+    val viewModel: EnterEmailVerificationCodeViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
-            when (it) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
                 is EnterEmailVerificationCodeSideEffect.MoveToEnterStudentNumber -> {
-                    navigateToEnterStudentNumber(signUpData.copy(authCode = it.authCode))
+                    navigateToEnterStudentNumber(effect.signUpData)
                 }
             }
         }

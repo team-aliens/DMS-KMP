@@ -2,32 +2,29 @@ package team.aliens.dms.kmp.feature.signup.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import team.aliens.dms.kmp.core.common.utils.ResourceKeys
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
-import team.aliens.dms.kmp.feature.signup.model.toJsonString
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.ui.EnterSchoolVerificationQuestion
 
-const val NAVIGATION_ENTER_SCHOOL_VERIFICATION_QUESTION = "enterSchoolVerificationQuestion"
+fun NavController.navigateToEnterSchoolVerificationQuestion(
+    signUpData: SignUpData,
+    navOptions: NavOptions? = null,
+) = navigate(
+    route = SignUp.Route.EnterSchoolVerificationQuestion(signUpData = signUpData),
+    navOptions = navOptions,
+)
 
 fun NavGraphBuilder.enterSchoolVerificationQuestion(
     onBackPressed: () -> Unit,
     navigateToEnterEmail: (SignUpData) -> Unit,
 ) {
-    composable(
-        route = "$NAVIGATION_ENTER_SCHOOL_VERIFICATION_QUESTION/{${ResourceKeys.SIGN_UP}}",
-        arguments = listOf(navArgument(ResourceKeys.SIGN_UP) { type = NavType.StringType }),
+    composable<SignUp.Route.EnterSchoolVerificationQuestion>(
+        typeMap = SignUp.Route.NavTypeMap,
     ) {
         EnterSchoolVerificationQuestion(
             onBackPressed = onBackPressed,
             navigateToEnterEmail = navigateToEnterEmail,
-            signUpData = it.getSignUpData(),
         )
     }
-}
-
-fun NavController.navigateToEnterSchoolVerificationQuestion(signUpData: SignUpData) {
-    navigate("$NAVIGATION_ENTER_SCHOOL_VERIFICATION_QUESTION/${signUpData.toJsonString()}")
 }

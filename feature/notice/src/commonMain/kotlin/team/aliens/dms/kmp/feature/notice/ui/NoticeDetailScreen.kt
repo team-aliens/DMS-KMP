@@ -12,7 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
@@ -21,10 +21,8 @@ import team.aliens.dms.kmp.feature.notice.viewmodel.NoticeDetailsState
 import team.aliens.dms.kmp.feature.notice.viewmodel.NoticeDetailsViewModel
 
 @Composable
-internal fun NoticeDetails(
-    noticeId: Long,
-) {
-    val viewModel: NoticeDetailsViewModel = koinInject()
+internal fun NoticeDetails() {
+    val viewModel: NoticeDetailsViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     NoticeDetailsScreen(state = state)

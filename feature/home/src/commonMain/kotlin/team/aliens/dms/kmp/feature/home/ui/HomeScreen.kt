@@ -38,7 +38,7 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
@@ -52,7 +52,7 @@ import team.aliens.dms.kmp.feature.home.viewmodel.HomeViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun Home() {
-    val viewModel: HomeViewModel = koinInject()
+    val viewModel: HomeViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     val (shouldShowCalendar, onShouldShowCalendarChange) = remember { mutableStateOf(false) }

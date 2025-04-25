@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp
+package team.aliens.dms.kmp.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -7,25 +7,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.navigation.authorized.NAVIGATION_AUTH
-import team.aliens.dms.kmp.navigation.authorized.authNavigation
-import team.aliens.dms.kmp.navigation.main.mainNavigation
+import team.aliens.dms.kmp.navigation.authorized.AuthRoute
+import team.aliens.dms.kmp.navigation.authorized.authGraph
+import team.aliens.dms.kmp.navigation.main.mainGraph
 
 @Composable
-internal fun DmsApp() {
-    val navigator: DmsNavigator = rememberDmsNavigator()
-
+internal fun DmsApp(
+    appState: DmsAppState = rememberDmsAppState(),
+) {
     DmsTheme {
         NavHost(
             modifier = Modifier
                 .background(DmsTheme.colors.background)
                 .navigationBarsPadding()
                 .statusBarsPadding(),
-            navController = navigator.navController,
-            startDestination = NAVIGATION_AUTH,
+            navController = appState.navController,
+            startDestination = AuthRoute,
         ) {
-            authNavigation(navigator = navigator)
-            mainNavigation(navigator = navigator)
+            authGraph(appState = appState)
+            mainGraph(appState = appState)
         }
     }
 }

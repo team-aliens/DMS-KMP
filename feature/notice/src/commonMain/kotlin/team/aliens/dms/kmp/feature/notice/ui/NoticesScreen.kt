@@ -14,7 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDateTime
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -32,15 +32,15 @@ import team.aliens.dms.kmp.feature.notice.viewmodel.NoticesViewModel
 
 @Composable
 internal fun Notices(
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
-    val viewModel: NoticesViewModel = koinInject()
+    val viewModel: NoticesViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     NoticesScreen(
         state = state,
         onIsRecentChange = viewModel::setIsRecent,
-        onNoticeDetailsClick = onNoticeDetailsClick,
+        onNoticeDetailClick = onNoticeDetailClick,
     )
 }
 
@@ -48,7 +48,7 @@ internal fun Notices(
 private fun NoticesScreen(
     state: NoticesState,
     onIsRecentChange: () -> Unit,
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -78,7 +78,7 @@ private fun NoticesScreen(
                 .fillMaxWidth()
                 .horizontalPadding(24.dp),
             notices = state.notices,
-            onNoticeDetailsClick = onNoticeDetailsClick,
+            onNoticeDetailClick = onNoticeDetailClick,
         )
     }
 }
@@ -87,7 +87,7 @@ private fun NoticesScreen(
 private fun NoticeItems(
     modifier: Modifier = Modifier,
     notices: List<NoticeModel>,
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
@@ -99,7 +99,7 @@ private fun NoticeItems(
             NoticeItem(
                 title = notice.title,
                 date = notice.createdAt,
-                onNoticeDetailsClick = onNoticeDetailsClick,
+                onNoticeDetailClick = onNoticeDetailClick,
             )
         }
     }
@@ -109,12 +109,12 @@ private fun NoticeItems(
 fun NoticeItem(
     title: String,
     date: LocalDateTime,
-    onNoticeDetailsClick: (Long) -> Unit,
+    onNoticeDetailClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .clickable(
-                onClick = { onNoticeDetailsClick(1) },
+                onClick = { onNoticeDetailClick("") },
             ),
     ) {
         Column(

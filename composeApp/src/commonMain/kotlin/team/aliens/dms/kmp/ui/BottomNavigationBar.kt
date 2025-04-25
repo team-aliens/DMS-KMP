@@ -73,7 +73,7 @@ fun BottomNavigationBar(
                         ) {
                             Icon(
                                 painter = painterResource(resource = if (selected) it.selectedIcon else it.icon),
-                                contentDescription = it.route,
+                                contentDescription = it.title,
                                 tint = color,
                             )
                             DmsText(

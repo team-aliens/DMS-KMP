@@ -12,7 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -22,8 +22,8 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
 import team.aliens.dms.kmp.feature.signup.viewmodel.SetIdSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.SetIdState
 import team.aliens.dms.kmp.feature.signup.viewmodel.SetIdViewModel
@@ -32,19 +32,16 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.SetIdViewModel
 internal fun SetId(
     onBackPressed: () -> Unit,
     navigateToSetPassword: (SignUpData) -> Unit,
-    signUpData: SignUpData,
 ) {
-    val viewModel: SetIdViewModel = koinInject()
+    val viewModel: SetIdViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
-            when (it) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
                 is SetIdSideEffect.MoveToSetPassword -> {
                     navigateToSetPassword(
-                        signUpData.copy(
-                            accountId = it.id,
-                        ),
+                        effect.signUpData,
                     )
                 }
             }

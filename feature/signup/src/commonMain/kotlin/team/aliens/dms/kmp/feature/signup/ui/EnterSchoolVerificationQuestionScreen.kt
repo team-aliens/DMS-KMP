@@ -12,7 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -22,8 +22,8 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
+import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
-import team.aliens.dms.kmp.feature.signup.model.SignUpData
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationQuestionSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationQuestionState
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationQuestionViewModel
@@ -32,16 +32,15 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationQuest
 internal fun EnterSchoolVerificationQuestion(
     onBackPressed: () -> Unit,
     navigateToEnterEmail: (SignUpData) -> Unit,
-    signUpData: SignUpData,
 ) {
-    val viewModel: EnterSchoolVerificationQuestionViewModel = koinInject()
+    val viewModel: EnterSchoolVerificationQuestionViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
-            when (it) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
                 is EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail -> {
-                    navigateToEnterEmail(signUpData.copy(schoolAnswer = it.schoolAnswer))
+                    navigateToEnterEmail(effect.signUpData)
                 }
             }
         }

@@ -2,10 +2,20 @@ package team.aliens.dms.kmp.feature.signin.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.feature.signin.ui.SignIn
 
-const val NAVIGATION_SIGN_IN = "signIn"
+@Serializable
+data object SignInRoute
+
+fun NavController.navigateToSignIn(
+    navOptions: NavOptions? = null,
+) = navigate(
+    route = SignInRoute,
+    navOptions = navOptions,
+)
 
 fun NavGraphBuilder.signIn(
     navigateToMain: () -> Unit,
@@ -13,7 +23,7 @@ fun NavGraphBuilder.signIn(
     navigateToFindId: () -> Unit,
     navigateToFindPassword: () -> Unit,
 ) {
-    composable(NAVIGATION_SIGN_IN) {
+    composable<SignInRoute> {
         SignIn(
             navigateToMain = navigateToMain,
             navigateToSignUp = navigateToSignUp,
@@ -21,8 +31,4 @@ fun NavGraphBuilder.signIn(
             navigateToFindPassword = navigateToFindPassword,
         )
     }
-}
-
-fun NavController.navigateToSignIn() {
-    navigate(NAVIGATION_SIGN_IN)
 }

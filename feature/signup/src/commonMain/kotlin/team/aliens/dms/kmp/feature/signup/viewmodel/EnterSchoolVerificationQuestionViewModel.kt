@@ -1,11 +1,21 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.model.signup.SignUpData
+import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
-internal class EnterSchoolVerificationQuestionViewModel :
+internal class EnterSchoolVerificationQuestionViewModel(
+    savedStateHandle: SavedStateHandle,
+) :
     BaseViewModel<EnterSchoolVerificationQuestionState, EnterSchoolVerificationQuestionSideEffect>(
         EnterSchoolVerificationQuestionState.getDefaultState(),
     ) {
+
+    private val route = savedStateHandle.toRoute<SignUpData>(
+        typeMap = SignUp.Route.NavTypeMap,
+    )
 
     init {
         setSchoolVerificationQuestion()
@@ -35,7 +45,13 @@ internal class EnterSchoolVerificationQuestionViewModel :
     }
 
     internal fun onNextClick() {
-        postSideEffect(EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail(schoolAnswer = ""))
+        postSideEffect(
+            EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail(
+                signUpData = route.copy(
+                    schoolAnswer = state.value.schoolVerificationAnswer,
+                ),
+            ),
+        )
     }
 }
 
@@ -54,5 +70,6 @@ data class EnterSchoolVerificationQuestionState(
 }
 
 sealed interface EnterSchoolVerificationQuestionSideEffect {
-    data class MoveToEnterEmail(val schoolAnswer: String) : EnterSchoolVerificationQuestionSideEffect
+    data class MoveToEnterEmail(val signUpData: SignUpData) :
+        EnterSchoolVerificationQuestionSideEffect
 }
