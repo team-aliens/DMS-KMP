@@ -2,6 +2,8 @@ package team.aliens.dms.kmp.core.designsystem.button
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
@@ -24,6 +26,7 @@ fun DmsIconButton(
     tint: Color = DmsTheme.colors.onBackground,
     enabled: Boolean = true,
     size: Dp = 24.dp,
+    contentPaddingValues: PaddingValues = PaddingValues(4.dp),
     contentDescription: String? = null,
     onClick: () -> Unit,
 ) {
@@ -47,7 +50,8 @@ fun DmsIconButton(
                 onClick = onClick,
                 enabled = enabled,
                 role = Role.Button,
-            ),
+            )
+            .padding(contentPaddingValues),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
