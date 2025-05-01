@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.di
 
 import org.koin.dsl.module
 import team.aliens.dms.kmp.feature.home.di.homeModule
+import team.aliens.dms.kmp.feature.mypage.di.myPageModule
 import team.aliens.dms.kmp.feature.notice.di.noticeModule
 import team.aliens.dms.kmp.feature.signin.di.signInModule
 import team.aliens.dms.kmp.feature.signup.di.signUpModule
@@ -14,5 +15,6 @@ internal val featureModule = module {
         signUpModule,
         homeModule,
         noticeModule,
+        myPageModule,
     )
 }
