@@ -2,7 +2,7 @@ package team.aliens.dms.kmp.core.model.mypage
 
 import team.aliens.dms.kmp.core.model.type.GenderType
 
-data class MyPageModel (
+data class MyPageModel(
     val schoolName: String = "",
     val name: String = "",
     val gcn: String = "",

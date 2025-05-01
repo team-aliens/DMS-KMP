@@ -100,7 +100,7 @@ private fun OptionLayout(
             containerColor = DmsTheme.colors.surfaceTint,
             contentColor = titleColor,
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         options.forEachIndexed { index, option ->
             DmsText(

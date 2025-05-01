@@ -33,11 +33,11 @@ internal class KtorStudentDataSource(
 
     override suspend fun examineStudentNumber(request: ExamineStudentNumberRequest): Result<ExamineStudentNumberResponse> =
         kotlin.runCatching {
-            client.get("/students/name"){
-                parameter("school_id",request.query.schoolId)
-                parameter("grade",request.query.grade)
-                parameter("class_room",request.query.classroom)
-                parameter("number",request.query.number)
+            client.get("/students/name") {
+                parameter("school_id", request.query.schoolId)
+                parameter("grade", request.query.grade)
+                parameter("class_room", request.query.classroom)
+                parameter("number", request.query.number)
             }.body()
         }
 

@@ -1,6 +1,6 @@
 package team.aliens.dms.kmp.core.model.student
 
-data class ResetPasswordModel (
+data class ResetPasswordModel(
     val accountId: String,
     val name: String,
     val email: String,
