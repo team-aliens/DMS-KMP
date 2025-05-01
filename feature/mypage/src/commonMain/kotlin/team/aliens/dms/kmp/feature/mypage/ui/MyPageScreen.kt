@@ -56,7 +56,7 @@ private fun MyPageScreen(
                 name = state.myPage.name,
                 schoolName = state.myPage.schoolName,
                 genderType = state.myPage.sex,
-                profileImageUrl = state.myPage.profileImageUrl
+                profileImageUrl = state.myPage.profileImageUrl,
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
