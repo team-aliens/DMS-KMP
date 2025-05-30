@@ -4,10 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetRemainsOptionsResponse(
-    val remainOptions: List<RemainOption>,
+    val remainOptions: List<RemainsOption>,
 ) {
     @Serializable
-    data class RemainOption(
+    data class RemainsOption(
         val id: String,
         val title: String,
         val description: String,
