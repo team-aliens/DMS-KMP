@@ -58,7 +58,7 @@ fun DmsTopAppBar(
             }
             onBackPressed?.let {
                 DmsIconButton(
-                    resource = DmsIcon.ArrowBack,
+                    resource = DmsIcon.Backward,
                     tint = DmsTheme.colors.onBackground,
                     onClick = it,
                 )
