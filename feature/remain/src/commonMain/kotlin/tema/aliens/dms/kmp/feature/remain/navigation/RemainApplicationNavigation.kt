@@ -17,8 +17,10 @@ fun NavController.navigateToRemainApplication(
     navOptions = navOptions,
 )
 
-fun NavGraphBuilder.remainApplication() {
+fun NavGraphBuilder.remainApplication(
+    onNavigateBack: () -> Unit,
+) {
     composable<RemainApplicationRoute> {
-        RemainApplication()
+        RemainApplication(onNavigateBack = onNavigateBack)
     }
 }
