@@ -15,7 +15,8 @@ import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.request.accept
-import io.ktor.client.request.forms.submitForm
+import io.ktor.client.request.headers
+import io.ktor.client.request.post
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
@@ -23,7 +24,6 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.encodedPath
 import io.ktor.http.isSuccess
-import io.ktor.http.parameters
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -110,7 +110,8 @@ val networkModule = module {
 
                     if (!isShouldBeIgnored()) {
                         val authPreferencesDataSource: AuthPreferencesDataSource = get()
-                        val accessToken = authPreferencesDataSource.loadTokens().getOrNull()?.accessToken?.value
+                        val accessToken =
+                            authPreferencesDataSource.loadTokens().getOrNull()?.accessToken?.value
                         context.headers.append(HttpHeaders.Authorization, "Bearer $accessToken")
                     }
                 }
@@ -147,15 +148,25 @@ val networkModule = module {
                         val refreshToken = tokens.refreshToken.value
 
                         return@refreshTokens kotlin.runCatching {
-                            val response = client.submitForm(
-                                url = "/auth/reissue",
-                                formParameters = parameters {
+                            // TODO: refresh 작동 재확인 필요
+                            val response = client.post("/auth/reissue") {
+                                headers {
                                     append(
                                         name = "refresh-token",
                                         value = refreshToken,
                                     )
-                                },
-                            ) { markAsRefreshTokenRequest() }
+                                }
+                                markAsRefreshTokenRequest()
+                            }
+//                            val response = client.submitForm(
+//                                url = "/auth/reissue",
+//                                formParameters = parameters {
+//                                    append(
+//                                        name = "refresh-token",
+//                                        value = refreshToken,
+//                                    )
+//                                },
+//                            ) { markAsRefreshTokenRequest() }
 
                             if (!response.status.isSuccess()) {
                                 throw CannotReissueTokenException()

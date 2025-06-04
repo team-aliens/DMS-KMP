@@ -7,6 +7,7 @@ import team.aliens.dms.kmp.feature.notice.di.noticeModule
 import team.aliens.dms.kmp.feature.signin.di.signInModule
 import team.aliens.dms.kmp.feature.signup.di.signUpModule
 import team.aliens.dms.kmp.feature.splash.di.splashModule
+import tema.aliens.dms.kmp.feature.remain.di.remainsModule
 
 internal val featureModule = module {
     includes(
@@ -16,5 +17,6 @@ internal val featureModule = module {
         homeModule,
         noticeModule,
         myPageModule,
+        remainsModule,
     )
 }

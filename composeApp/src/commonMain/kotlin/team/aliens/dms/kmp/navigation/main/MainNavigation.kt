@@ -35,6 +35,6 @@ internal fun NavGraphBuilder.mainGraph(
             onNoticeDetailClick = appState.navController::navigateToNoticeDetails,
         )
         noticeDetails()
-        remainApplication()
+        remainApplication(onNavigateBack = appState.navController::navigateUp)
     }
 }
