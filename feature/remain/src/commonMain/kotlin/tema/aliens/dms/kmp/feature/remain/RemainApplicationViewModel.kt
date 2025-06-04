@@ -51,9 +51,11 @@ internal class RemainApplicationViewModel(
             val remainOptionId = state.value.selectRemainsOptionId
             updateRemainsOptionUseCase(remainOptionId = remainOptionId).onSuccess {
                 val remainsOptions = state.value.remainsOptions.map { remainsOption ->
-                    if (remainsOption.id == state.value.selectRemainsOptionId) remainsOption.copy(
-                        isApplied = true,
-                    ) else remainsOption.copy(isApplied = false)
+                    if (remainsOption.id == state.value.selectRemainsOptionId) {
+                        remainsOption.copy(isApplied = true)
+                    } else {
+                        remainsOption.copy(isApplied = false)
+                    }
                 }
                 setState { state.value.copy(remainsOptions = remainsOptions) }
             }

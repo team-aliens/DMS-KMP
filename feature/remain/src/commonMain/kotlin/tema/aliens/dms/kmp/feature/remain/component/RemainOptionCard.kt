@@ -88,4 +88,3 @@ internal fun RemainOptionCard(
         }
     }
 }
-
