@@ -2,7 +2,6 @@ package team.aliens.dms.kmp.core.common.utils
 
 import kotlinx.datetime.DayOfWeek
 
-
 fun DayOfWeek.toKorean(): String = when (this) {
     DayOfWeek.MONDAY -> "월"
     DayOfWeek.TUESDAY -> "화"

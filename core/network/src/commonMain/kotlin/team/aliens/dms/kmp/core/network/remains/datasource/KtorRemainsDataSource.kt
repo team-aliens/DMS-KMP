@@ -9,20 +9,24 @@ import team.aliens.dms.kmp.core.network.remains.model.response.GetAppliedRemains
 import team.aliens.dms.kmp.core.network.remains.model.response.GetRemainsApplicationTimeResponse
 import team.aliens.dms.kmp.core.network.remains.model.response.GetRemainsOptionsResponse
 
-internal class KtorRemainsDataSource(private val client: HttpClient):  NetworkRemainsDataSource{
-    override suspend fun updateRemainsOption(request: UpdateRemainsOptionRequest): Result<Unit> = kotlin.runCatching {
-        client.put("/remains/${request.path.remainOptionId}").body()
-    }
+internal class KtorRemainsDataSource(private val client: HttpClient) : NetworkRemainsDataSource {
+    override suspend fun updateRemainsOption(request: UpdateRemainsOptionRequest): Result<Unit> =
+        kotlin.runCatching {
+            client.put("/remains/${request.path.remainOptionId}").body()
+        }
 
-    override suspend fun getAppliedRemainsOption(): Result<GetAppliedRemainsOptionResponse> = kotlin.runCatching {
-        client.get("/remains/my").body()
-    }
+    override suspend fun getAppliedRemainsOption(): Result<GetAppliedRemainsOptionResponse> =
+        kotlin.runCatching {
+            client.get("/remains/my").body()
+        }
 
-    override suspend fun getRemainsApplicationTime(): Result<GetRemainsApplicationTimeResponse> = kotlin.runCatching {
-        client.get("/remains/available-time").body()
-    }
+    override suspend fun getRemainsApplicationTime(): Result<GetRemainsApplicationTimeResponse> =
+        kotlin.runCatching {
+            client.get("/remains/available-time").body()
+        }
 
-    override suspend fun getRemainsOptions(): Result<GetRemainsOptionsResponse> = kotlin.runCatching {
-        client.get("/remains/options").body()
-    }
+    override suspend fun getRemainsOptions(): Result<GetRemainsOptionsResponse> =
+        kotlin.runCatching {
+            client.get("/remains/options").body()
+        }
 }

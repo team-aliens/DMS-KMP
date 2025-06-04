@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.common.ui.topPadding
 import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
@@ -38,8 +37,8 @@ internal fun RemainOptionCard(
     onClick: (Boolean) -> Unit,
 ) {
     var showDetail by remember { mutableStateOf(false) }
-    val icon = if(showDetail) DmsIcon.Up else DmsIcon.Down
-    val (borderColor,contentColor) = if (isSelected) DmsTheme.colors.inversePrimary to DmsTheme.colors.inversePrimary else DmsTheme.colors.surface to DmsTheme.colors.surfaceBright
+    val icon = if (showDetail) DmsIcon.Up else DmsIcon.Down
+    val (borderColor, contentColor) = if (isSelected) DmsTheme.colors.inversePrimary to DmsTheme.colors.inversePrimary else DmsTheme.colors.surface to DmsTheme.colors.surfaceBright
     Column(
         modifier = modifier
             .fillMaxWidth()
