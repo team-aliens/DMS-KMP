@@ -139,7 +139,7 @@ private fun MealCard(
     kcal: String?,
     mealCardType: MealCardType,
 ) {
-    val formatMeal = meal.chunked(1).joinToString("\n") { it.joinToString(", ") }
+    val formatMeal = meal.joinToString("\n")
     Column(
         modifier = modifier
             .fillMaxWidth()
