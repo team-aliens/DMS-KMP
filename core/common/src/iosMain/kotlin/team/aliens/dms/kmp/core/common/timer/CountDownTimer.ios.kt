@@ -1,7 +1,6 @@
 package team.aliens.dms.kmp.core.common.timer
 
 import platform.Foundation.NSTimer
-import kotlin.native.concurrent.freeze
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class CountDownTimer {
@@ -14,7 +13,7 @@ actual class CountDownTimer {
         listener: CountDownTimerListener,
     ) {
         timeLeft = durationMillis
-        listener.freeze()
+        // listener.freeze()
         val intervalSeconds = intervalMillis / 1000.0
 
         timer = NSTimer.scheduledTimerWithTimeInterval(intervalSeconds, true) {

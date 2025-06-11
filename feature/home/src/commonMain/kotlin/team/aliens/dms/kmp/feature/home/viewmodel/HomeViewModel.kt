@@ -21,11 +21,12 @@ internal class HomeViewModel(
 
     internal fun updateDate(date: LocalDate) {
         setState { state.value.copy(selectedDate = date) }
+        getMeal()
     }
 
     private fun getMeal() {
         viewModelScope.launch(Dispatchers.IO) {
-            getMealUseCase(date = today)
+            getMealUseCase(date = state.value.selectedDate)
                 .onSuccess {
                     setState { state.value.copy(meal = it) }
                 }
