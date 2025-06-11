@@ -62,7 +62,7 @@ internal sealed class DmsColor(
     )
 
     data object Dark : DmsColor(
-        primary50 = Color(0xFF043277),
+        primary50 = Color(0xFF040B15),
         primary100 = Color(0xFF0D4599),
         primary200 = Color(0xFF1A5ABB),
         primary300 = Color(0xFF2A71DD),
@@ -84,7 +84,7 @@ internal sealed class DmsColor(
         black = Color(0xFFFFFFFF),
         white = Color(0xFF121212),
         title = Color(0xFF262626),
-        error50 = Color(0xFFFFFFFF),
+        error50 = Color(0xFF140606),
         error100 = Color(0xFFFFC7C7),
         error200 = Color(0xFFA83C3C),
         error300 = Color(0xFFE25F5F),
