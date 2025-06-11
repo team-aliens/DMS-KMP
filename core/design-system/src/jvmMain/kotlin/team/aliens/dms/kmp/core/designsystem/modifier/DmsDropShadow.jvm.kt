@@ -18,7 +18,7 @@ actual fun Modifier.dmsDropShadow(
     blur: Dp,
     offsetY: Dp,
     offsetX: Dp,
-    spread: Dp
+    spread: Dp,
 ) = this.drawBehind {
     val shadowSize = Size(size.width + spread.toPx(), size.height + spread.toPx())
     val shadowOutline = shape.createOutline(shadowSize, layoutDirection, this)
@@ -29,7 +29,7 @@ actual fun Modifier.dmsDropShadow(
 
     if (blur.toPx() > 0) {
         paint.asFrameworkPaint().apply {
-            maskFilter = MaskFilter.makeBlur(FilterBlurMode.NORMAL,blur.toPx())
+            maskFilter = MaskFilter.makeBlur(FilterBlurMode.NORMAL, blur.toPx())
         }
     }
 

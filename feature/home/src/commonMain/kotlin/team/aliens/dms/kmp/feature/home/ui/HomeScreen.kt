@@ -170,6 +170,3 @@ private fun DateCard(
         )
     }
 }
-
-
-
