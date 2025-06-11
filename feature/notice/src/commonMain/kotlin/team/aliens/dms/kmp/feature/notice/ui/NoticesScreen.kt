@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.feature.notice.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +14,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.LocalDateTime
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
@@ -97,8 +97,7 @@ private fun NoticeItems(
             key = { item -> item.id },
         ) { notice ->
             NoticeItem(
-                title = notice.title,
-                date = notice.createdAt,
+                notice = notice,
                 onNoticeDetailClick = onNoticeDetailClick,
             )
         }
@@ -107,14 +106,13 @@ private fun NoticeItems(
 
 @Composable
 fun NoticeItem(
-    title: String,
-    date: LocalDateTime,
+    notice: NoticeModel,
     onNoticeDetailClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .clickable(
-                onClick = { onNoticeDetailClick("") },
+                onClick = { onNoticeDetailClick(notice.id) },
             ),
     ) {
         Column(
@@ -122,14 +120,15 @@ fun NoticeItem(
                 .fillMaxWidth()
                 .horizontalPadding(16.dp)
                 .verticalPadding(20.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             DmsText(
-                text = title,
+                text = notice.title,
                 style = DmsTypography.Body1,
                 color = DmsTheme.colors.onBackground,
             )
             DmsText(
-                text = "${date.date} ${date.time}",
+                text = "${notice.createdAt.date} ${notice.createdAt.time}",
                 style = DmsTypography.Body3,
                 color = DmsTheme.colors.inverseSurface,
             )
