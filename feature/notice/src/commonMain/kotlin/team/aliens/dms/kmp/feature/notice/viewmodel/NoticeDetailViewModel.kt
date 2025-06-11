@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.common.utils.now
 import team.aliens.dms.kmp.core.domain.usecase.notice.GetNoticeDetailUseCase
+import team.aliens.dms.kmp.core.model.notice.NoticeDetailModel
 import team.aliens.dms.kmp.feature.notice.navigation.NoticeDetailRoute
 
 internal class NoticeDetailsViewModel(
@@ -13,21 +15,34 @@ internal class NoticeDetailsViewModel(
     private val getNoticeDetailUseCase: GetNoticeDetailUseCase,
 ) :
     BaseViewModel<NoticeDetailsState, NoticeDetailsSideEffect>(NoticeDetailsState.getDefaultState()) {
+
     private val route = savedStateHandle.toRoute<NoticeDetailRoute>()
 
-    internal fun getNoticeDetail(noticeId: String) {
+    init {
+        getNoticeDetail()
+    }
+
+    private fun getNoticeDetail() {
         viewModelScope.launch {
-            getNoticeDetailUseCase(noticeId = noticeId)
+            getNoticeDetailUseCase(noticeId = route.noticeId)
+                .onSuccess {
+                    setState { state.value.copy(notice = it) }
+                }
         }
     }
 }
 
 internal data class NoticeDetailsState(
-    val s: String,
+    val notice: NoticeDetailModel,
 ) {
     companion object {
         fun getDefaultState() = NoticeDetailsState(
-            s = "",
+            notice = NoticeDetailModel(
+                id = "",
+                title = "",
+                content = "",
+                createdAt = now,
+            ),
         )
     }
 }

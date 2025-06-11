@@ -16,7 +16,7 @@ import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.request.accept
 import io.ktor.client.request.headers
-import io.ktor.client.request.post
+import io.ktor.client.request.put
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
@@ -149,7 +149,7 @@ val networkModule = module {
 
                         return@refreshTokens kotlin.runCatching {
                             // TODO: refresh 작동 재확인 필요
-                            val response = client.post("/auth/reissue") {
+                            val response = client.put("/auth/reissue") {
                                 headers {
                                     append(
                                         name = "refresh-token",

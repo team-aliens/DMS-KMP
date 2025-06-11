@@ -18,8 +18,10 @@ fun NavController.navigateToNoticeDetails(
     navOptions = navOptions,
 )
 
-fun NavGraphBuilder.noticeDetails() {
+fun NavGraphBuilder.noticeDetails(
+    onNavigateBack: () -> Unit,
+) {
     composable<NoticeDetailRoute> {
-        NoticeDetails()
+        NoticeDetails(onNavigateBack = onNavigateBack)
     }
 }
