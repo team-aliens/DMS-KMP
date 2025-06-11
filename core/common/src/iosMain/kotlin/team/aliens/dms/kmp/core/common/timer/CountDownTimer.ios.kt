@@ -13,7 +13,7 @@ actual class CountDownTimer {
         listener: CountDownTimerListener,
     ) {
         timeLeft = durationMillis
-        //listener.freeze()
+        // listener.freeze()
         val intervalSeconds = intervalMillis / 1000.0
 
         timer = NSTimer.scheduledTimerWithTimeInterval(intervalSeconds, true) {
