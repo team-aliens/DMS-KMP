@@ -17,9 +17,9 @@ import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.request.accept
 import io.ktor.client.request.headers
 import io.ktor.client.request.put
-import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.encodedPath
@@ -31,6 +31,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
 import kotlinx.serialization.modules.SerializersModule
 import org.koin.dsl.module
+import team.aliens.dms.kmp.core.common.exception.UnknownException
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 import team.aliens.dms.kmp.core.datastore.auth.model.AccessToken
 import team.aliens.dms.kmp.core.datastore.auth.model.RefreshToken
@@ -38,7 +39,17 @@ import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
 import team.aliens.dms.kmp.core.network.IgnoreRequests
 import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.core.network.auth.model.TokensResponse
+import team.aliens.dms.kmp.core.network.exception.BadRequestException
 import team.aliens.dms.kmp.core.network.exception.CannotReissueTokenException
+import team.aliens.dms.kmp.core.network.exception.ConflictException
+import team.aliens.dms.kmp.core.network.exception.ForbiddenException
+import team.aliens.dms.kmp.core.network.exception.InternalServerErrorException
+import team.aliens.dms.kmp.core.network.exception.NotFoundException
+import team.aliens.dms.kmp.core.network.exception.RequestTimeoutException
+import team.aliens.dms.kmp.core.network.exception.ServiceUnavailableException
+import team.aliens.dms.kmp.core.network.exception.TooManyRequestsException
+import team.aliens.dms.kmp.core.network.exception.UnAuthorizedException
+import team.aliens.dms.kmp.core.network.exception.UnsupportedMediaTypeException
 
 @OptIn(ExperimentalSerializationApi::class)
 val networkModule = module {
@@ -76,21 +87,20 @@ val networkModule = module {
             HttpResponseValidator {
                 validateResponse { response ->
                     if (!response.status.isSuccess()) {
-                        throw Exception(response.bodyAsText())
+                        when (response.status) {
+                            HttpStatusCode.BadRequest -> throw BadRequestException()
+                            HttpStatusCode.Unauthorized -> throw UnAuthorizedException()
+                            HttpStatusCode.Forbidden -> throw ForbiddenException()
+                            HttpStatusCode.NotFound -> throw NotFoundException()
+                            HttpStatusCode.RequestTimeout -> throw RequestTimeoutException()
+                            HttpStatusCode.Conflict -> throw ConflictException()
+                            HttpStatusCode.UnsupportedMediaType -> throw UnsupportedMediaTypeException()
+                            HttpStatusCode.TooManyRequests -> throw TooManyRequestsException()
+                            HttpStatusCode.InternalServerError -> throw InternalServerErrorException()
+                            HttpStatusCode.ServiceUnavailable -> throw ServiceUnavailableException()
+                            else -> throw UnknownException()
+                        }
                     }
-//                    when (response.status) {
-//                        HttpStatusCode.BadRequest -> throw BadRequestException()
-//                        HttpStatusCode.Unauthorized -> throw UnAuthorizedException()
-//                        HttpStatusCode.Forbidden -> throw ForbiddenException()
-//                        HttpStatusCode.NotFound -> throw NotFoundException()
-//                        HttpStatusCode.RequestTimeout -> throw RequestTimeoutException()
-//                        HttpStatusCode.Conflict -> throw ConflictException()
-//                        HttpStatusCode.UnsupportedMediaType -> throw UnsupportedMediaTypeException()
-//                        HttpStatusCode.TooManyRequests -> throw TooManyRequestsException()
-//                        HttpStatusCode.InternalServerError -> throw InternalServerErrorException()
-//                        HttpStatusCode.ServiceUnavailable -> throw ServiceUnavailableException()
-//                        else -> throw UnknownException()
-//                    }
                 }
 
                 handleResponseExceptionWithRequest { cause, request ->
