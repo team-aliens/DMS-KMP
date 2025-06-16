@@ -9,4 +9,4 @@ data class DmsSnackBarVisuals(
     override val message: String,
     override val withDismissAction: Boolean = false,
     val snackBarType: DmsSnackBarType,
-): SnackbarVisuals
+) : SnackbarVisuals
