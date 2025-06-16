@@ -1,7 +1,6 @@
 package team.aliens.dms.kmp.ui
 
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -56,13 +55,13 @@ class DmsAppState(
 
     fun showSnackBar(
         snackBarType: DmsSnackBarType,
-        message: String
+        message: String,
     ) {
         showSnackBar(
             visuals = DmsSnackBarVisuals(
                 snackBarType = snackBarType,
                 message = message,
-            )
+            ),
         )
     }
 }

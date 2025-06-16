@@ -23,7 +23,7 @@ fun NavGraphBuilder.signIn(
     navigateToSignUp: () -> Unit,
     navigateToFindId: () -> Unit,
     navigateToFindPassword: () -> Unit,
-    onShowSnackBar: (DmsSnackBarType,String) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     composable<SignInRoute> {
         SignIn(

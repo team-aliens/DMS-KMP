@@ -42,7 +42,7 @@ internal fun SignIn(
     navigateToSignUp: () -> Unit,
     navigateToFindId: () -> Unit,
     navigateToFindPassword: () -> Unit,
-    onShowSnackBar: (DmsSnackBarType,String) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: SignInViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -51,7 +51,7 @@ internal fun SignIn(
         viewModel.sideEffect.collect {
             when (it) {
                 SignInSideEffect.NavigateToMain -> navigateToMain()
-                is SignInSideEffect.ShowSnackBar -> onShowSnackBar(it.snackBarType,it.message)
+                is SignInSideEffect.ShowSnackBar -> onShowSnackBar(it.snackBarType, it.message)
             }
         }
     }

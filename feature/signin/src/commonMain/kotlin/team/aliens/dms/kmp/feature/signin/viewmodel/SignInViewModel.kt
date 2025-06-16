@@ -1,7 +1,6 @@
 package team.aliens.dms.kmp.feature.signin.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType

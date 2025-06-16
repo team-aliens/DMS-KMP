@@ -2,9 +2,7 @@ package team.aliens.dms.kmp.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
@@ -39,7 +37,7 @@ internal fun DmsApp(
                         snackBarType = visuals.snackBarType,
                         message = visuals.message,
                     )
-                }
+                },
             )
         },
     ) { innerPadding ->

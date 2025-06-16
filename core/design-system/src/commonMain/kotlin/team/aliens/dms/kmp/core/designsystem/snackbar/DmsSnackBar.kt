@@ -60,5 +60,5 @@ enum class DmsSnackBarType(
     ),
     ERROR(
         iconRes = Res.drawable.ic_error,
-    )
+    ),
 }
