@@ -32,7 +32,7 @@ internal fun DmsApp(
                     .padding(bottom = 100.dp),
                 hostState = appState.snackBarHostState,
                 snackbar = {
-                    val visuals = it.visuals as DmsSnackBarVisuals
+                    val visuals = it.visuals as? DmsSnackBarVisuals ?: return@SnackbarHost
                     DmsSnackBar(
                         snackBarType = visuals.snackBarType,
                         message = visuals.message,
