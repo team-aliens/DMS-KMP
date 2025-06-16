@@ -44,6 +44,7 @@ fun NavGraphBuilder.authGraph(
             navigateToSignUp = appState.navController::navigateToSignUp,
             navigateToFindId = { },
             navigateToFindPassword = { },
+            onShowSnackBar = appState::showSnackBar,
         )
         signupGraph(
             onBackPressed = appState.navController::navigateUp,

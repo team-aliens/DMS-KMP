@@ -29,6 +29,7 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.feature.signin.viewmodel.SignInSideEffect
@@ -41,6 +42,7 @@ internal fun SignIn(
     navigateToSignUp: () -> Unit,
     navigateToFindId: () -> Unit,
     navigateToFindPassword: () -> Unit,
+    onShowSnackBar: (DmsSnackBarType,String) -> Unit,
 ) {
     val viewModel: SignInViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -49,6 +51,7 @@ internal fun SignIn(
         viewModel.sideEffect.collect {
             when (it) {
                 SignInSideEffect.NavigateToMain -> navigateToMain()
+                is SignInSideEffect.ShowSnackBar -> onShowSnackBar(it.snackBarType,it.message)
             }
         }
     }

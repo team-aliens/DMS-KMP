@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.feature.signin.ui.SignIn
 
 @Serializable
@@ -22,6 +23,7 @@ fun NavGraphBuilder.signIn(
     navigateToSignUp: () -> Unit,
     navigateToFindId: () -> Unit,
     navigateToFindPassword: () -> Unit,
+    onShowSnackBar: (DmsSnackBarType,String) -> Unit,
 ) {
     composable<SignInRoute> {
         SignIn(
@@ -29,6 +31,7 @@ fun NavGraphBuilder.signIn(
             navigateToSignUp = navigateToSignUp,
             navigateToFindId = navigateToFindId,
             navigateToFindPassword = navigateToFindPassword,
+            onShowSnackBar = onShowSnackBar,
         )
     }
 }
