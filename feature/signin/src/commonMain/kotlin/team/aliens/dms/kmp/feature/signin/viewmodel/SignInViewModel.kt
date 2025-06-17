@@ -1,10 +1,13 @@
 package team.aliens.dms.kmp.feature.signin.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.domain.usecase.auth.SignInUseCase
+import team.aliens.dms.kmp.core.network.exception.BadRequestException
+import team.aliens.dms.kmp.core.network.exception.NotFoundException
+import team.aliens.dms.kmp.core.network.exception.UnAuthorizedException
 
 internal class SignInViewModel(
     private val signInUseCase: SignInUseCase,
@@ -48,7 +51,15 @@ internal class SignInViewModel(
             ).onSuccess {
                 postSideEffect(SignInSideEffect.NavigateToMain)
             }.onFailure {
-                Logger.a(it) { it.message.toString() }
+                val errorMessage = when (it) {
+                    is BadRequestException -> "잘못된 형식이에요"
+                    is UnAuthorizedException -> "비밀번호가 일치하지 않아요"
+                    is NotFoundException -> "로그인 정보를 다시 확인해주세요"
+                    else -> null
+                }
+                errorMessage?.let { message ->
+                    postSideEffect(SignInSideEffect.ShowSnackBar(DmsSnackBarType.ERROR, message))
+                }
             }
         }
     }
@@ -74,4 +85,8 @@ internal data class SignInState(
 
 internal sealed interface SignInSideEffect {
     data object NavigateToMain : SignInSideEffect
+    data class ShowSnackBar(
+        val snackBarType: DmsSnackBarType,
+        val message: String,
+    ) : SignInSideEffect
 }

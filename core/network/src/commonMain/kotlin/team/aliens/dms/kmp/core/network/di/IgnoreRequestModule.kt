@@ -27,7 +27,7 @@ internal val ignoreRequestModule = module {
                     path = "/auth/account-id",
                 ),
                 HttpRequest(
-                    method = HttpMethod.Post,
+                    method = HttpMethod.Put,
                     path = "/auth/reissue",
                 ),
 
