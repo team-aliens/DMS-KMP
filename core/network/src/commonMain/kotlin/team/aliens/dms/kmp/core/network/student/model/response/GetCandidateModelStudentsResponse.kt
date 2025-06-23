@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.student.model.dto.StudentDto
 
 @Serializable
-data class GetStudentsResponse(
-    val students: List<StudentDto>,
+data class GetCandidateModelStudentsResponse(
+    val students: List<StudentDto>
 )

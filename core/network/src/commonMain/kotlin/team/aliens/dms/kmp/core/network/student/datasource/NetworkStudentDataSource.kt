@@ -5,11 +5,13 @@ import team.aliens.dms.kmp.core.network.student.model.request.CheckIdDuplication
 import team.aliens.dms.kmp.core.network.student.model.request.EditProfileRequest
 import team.aliens.dms.kmp.core.network.student.model.request.ExamineStudentNumberRequest
 import team.aliens.dms.kmp.core.network.student.model.request.FindIdRequest
+import team.aliens.dms.kmp.core.network.student.model.request.GetCandidateModelStudentsRequest
 import team.aliens.dms.kmp.core.network.student.model.request.GetStudentsRequest
 import team.aliens.dms.kmp.core.network.student.model.request.ResetPasswordRequest
 import team.aliens.dms.kmp.core.network.student.model.request.SignUpRequest
 import team.aliens.dms.kmp.core.network.student.model.response.ExamineStudentNumberResponse
 import team.aliens.dms.kmp.core.network.student.model.response.FindIdResponse
+import team.aliens.dms.kmp.core.network.student.model.response.GetCandidateModelStudentsResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetMyPageResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetStudentsResponse
 import team.aliens.dms.kmp.core.network.student.model.response.ResetPasswordResponse
@@ -26,4 +28,5 @@ interface NetworkStudentDataSource {
     suspend fun editProfile(request: EditProfileRequest): Result<Unit>
     suspend fun withdraw(): Result<Unit>
     suspend fun getStudents(request: GetStudentsRequest): Result<GetStudentsResponse>
+    suspend fun getCandidateModelStudents(request: GetCandidateModelStudentsRequest): Result<GetCandidateModelStudentsResponse>
 }

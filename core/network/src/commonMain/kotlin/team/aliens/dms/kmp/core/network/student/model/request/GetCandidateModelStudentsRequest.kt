@@ -1,9 +1,11 @@
 package team.aliens.dms.kmp.core.network.student.model.request
 
-data class GetStudentsRequest(
+import kotlinx.datetime.LocalDate
+
+data class GetCandidateModelStudentsRequest(
     val query: Query,
 ) {
     data class Query(
-        val name: String?,
+        val requestDate: LocalDate,
     )
 }
