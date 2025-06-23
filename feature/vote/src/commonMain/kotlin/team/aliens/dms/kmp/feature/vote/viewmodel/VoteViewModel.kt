@@ -1,0 +1,118 @@
+package team.aliens.dms.kmp.feature.vote.viewmodel
+
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
+import co.touchlab.kermit.Logger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.launch
+import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.common.utils.today
+import team.aliens.dms.kmp.core.domain.usecase.student.GetCandidateModelStudentsUseCase
+import team.aliens.dms.kmp.core.domain.usecase.student.GetStudentsUseCase
+import team.aliens.dms.kmp.core.domain.usecase.votes.GetVoteItemsUseCase
+import team.aliens.dms.kmp.core.domain.usecase.votes.PostVoteUseCase
+import team.aliens.dms.kmp.core.model.student.StudentModel
+import team.aliens.dms.kmp.core.model.type.VoteType
+import team.aliens.dms.kmp.core.model.votes.VoteItemModel
+import team.aliens.dms.kmp.feature.vote.navigation.VoteRoute
+
+internal class VoteViewModel(
+    savedStateHandle: SavedStateHandle,
+    private val getVoteItemsUseCase: GetVoteItemsUseCase,
+    private val getStudentsUseCase: GetStudentsUseCase,
+    private val getCandidateModelStudentsUseCase: GetCandidateModelStudentsUseCase,
+    private val postVoteUseCase: PostVoteUseCase,
+) : BaseViewModel<VoteState, VoteSideEffect>(VoteState()) {
+
+    private val route = savedStateHandle.toRoute<VoteRoute>()
+
+    init {
+        initState()
+        fetchVotesByType()
+    }
+
+    private fun initState() {
+        setState {
+            state.value.copy(
+                voteName = route.voteName,
+                voteType = route.voteType,
+            )
+        }
+    }
+
+    private fun fetchVotesByType() {
+        when (route.voteType) {
+            VoteType.OPTION_VOTE -> getVoteItems()
+            VoteType.STUDENT_VOTE -> getStudents()
+            VoteType.APPROVAL_VOTE -> getVoteItems()
+            VoteType.MODEL_STUDENT_VOTE -> getCandidateModelStudents()
+        }
+    }
+
+    private fun getStudents() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getStudentsUseCase(name = null)
+                .onSuccess { setState { state.value.copy(students = it) } }
+                .onFailure {
+                    Logger.a(it) { it.message.toString() }
+                }
+        }
+    }
+
+    private fun getVoteItems() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getVoteItemsUseCase(votingTopicId = route.voteTopicId)
+                .onSuccess { setState { state.value.copy(options = it) } }
+                .onFailure {
+                    Logger.a(it) { it.message.toString() }
+                }
+        }
+    }
+
+    private fun getCandidateModelStudents() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getCandidateModelStudentsUseCase(requestDate = today)
+                .onSuccess { setState { state.value.copy(modelStudent = it) } }
+                .onFailure {
+                    Logger.a(it) { it.message.toString() }
+                }
+        }
+    }
+
+    internal fun setSelectId(selectId: String) {
+        setState { state.value.copy(selectId = selectId) }
+        setButtonEnabled()
+    }
+
+    private fun setButtonEnabled() {
+        val isSelectIdNotNull = !state.value.selectId.isNullOrBlank()
+        setState { state.value.copy(buttonEnabled = isSelectIdNotNull) }
+    }
+
+    internal fun postVote() {
+        viewModelScope.launch(Dispatchers.IO) {
+            postVoteUseCase(
+                votingTopic = route.voteTopicId,
+                selectId = state.value.selectId!!,
+            ).onSuccess {
+                setState { state.value.copy(buttonEnabled = false) }
+            }.onFailure {
+                Logger.a(it) { it.message.toString() }
+            }
+        }
+    }
+}
+
+internal data class VoteState(
+    val voteName: String = "",
+    val options: List<VoteItemModel> = emptyList(),
+    val students: List<StudentModel> = emptyList(),
+    val modelStudent: List<StudentModel> = emptyList(),
+    val voteType: VoteType = VoteType.OPTION_VOTE,
+    val selectId: String? = null,
+    val buttonEnabled: Boolean = false,
+)
+
+internal sealed interface VoteSideEffect
