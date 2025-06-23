@@ -1,5 +1,6 @@
 package team.aliens.dms.kmp.core.data.student.repository
 
+import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.model.mypage.MyPageModel
 import team.aliens.dms.kmp.core.model.student.EmailModel
 import team.aliens.dms.kmp.core.model.student.NameModel
@@ -53,5 +54,7 @@ interface StudentRepository {
 
     suspend fun withdraw(): Result<Unit>
 
-    suspend fun getStudents(name: String): Result<List<StudentModel>>
+    suspend fun getStudents(name: String?): Result<List<StudentModel>>
+
+    suspend fun getCandidateModelStudents(requestDate: LocalDate): Result<List<StudentModel>>
 }

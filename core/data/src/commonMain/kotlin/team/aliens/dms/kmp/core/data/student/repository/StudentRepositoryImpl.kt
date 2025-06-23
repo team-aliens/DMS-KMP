@@ -1,5 +1,6 @@
 package team.aliens.dms.kmp.core.data.student.repository
 
+import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.data.student.mapper.toModel
 import team.aliens.dms.kmp.core.model.mypage.MyPageModel
 import team.aliens.dms.kmp.core.model.student.EmailModel
@@ -12,6 +13,7 @@ import team.aliens.dms.kmp.core.network.student.model.request.CheckIdDuplication
 import team.aliens.dms.kmp.core.network.student.model.request.EditProfileRequest
 import team.aliens.dms.kmp.core.network.student.model.request.ExamineStudentNumberRequest
 import team.aliens.dms.kmp.core.network.student.model.request.FindIdRequest
+import team.aliens.dms.kmp.core.network.student.model.request.GetCandidateModelStudentsRequest
 import team.aliens.dms.kmp.core.network.student.model.request.GetStudentsRequest
 import team.aliens.dms.kmp.core.network.student.model.request.ResetPasswordRequest
 import team.aliens.dms.kmp.core.network.student.model.request.SignUpRequest
@@ -129,8 +131,15 @@ internal class StudentRepositoryImpl(
 
     override suspend fun withdraw(): Result<Unit> = networkStudentDataSource.withdraw()
 
-    override suspend fun getStudents(name: String): Result<List<StudentModel>> =
+    override suspend fun getStudents(name: String?): Result<List<StudentModel>> =
         networkStudentDataSource.getStudents(
             request = GetStudentsRequest(query = GetStudentsRequest.Query(name = name)),
+        ).map { it.toModel() }
+
+    override suspend fun getCandidateModelStudents(requestDate: LocalDate): Result<List<StudentModel>> =
+        networkStudentDataSource.getCandidateModelStudents(
+            request = GetCandidateModelStudentsRequest(
+                query = GetCandidateModelStudentsRequest.Query(requestDate = requestDate),
+            ),
         ).map { it.toModel() }
 }
