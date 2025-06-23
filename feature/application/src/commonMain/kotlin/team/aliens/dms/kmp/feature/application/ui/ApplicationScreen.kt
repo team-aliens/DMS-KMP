@@ -1,43 +1,53 @@
 package team.aliens.dms.kmp.feature.application.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Tab
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
-import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
-import team.aliens.dms.kmp.core.designsystem.button.ButtonType
-import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
-import team.aliens.dms.kmp.core.designsystem.tag.DmsTag
+import team.aliens.dms.kmp.core.designsystem.tab.DmsTabRow
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
+import team.aliens.dms.kmp.core.model.votes.VoteModel
+import team.aliens.dms.kmp.feature.application.ui.component.ApplicationContent
+import team.aliens.dms.kmp.feature.application.ui.component.VoteContent
+import team.aliens.dms.kmp.feature.application.viewmodel.ApplicationState
+import team.aliens.dms.kmp.feature.application.viewmodel.ApplicationViewModel
 
 @Composable
 internal fun Application(
+    viewModel: ApplicationViewModel = koinViewModel(),
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVote: (VoteModel) -> Unit,
 ) {
+    val state by viewModel.state.collectAsState()
+
     ApplicationScreen(
+        state = state,
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = onNavigateOutingApplication,
+        onNavigateVote = onNavigateVote,
     )
 }
 
 @Composable
 private fun ApplicationScreen(
+    state: ApplicationState,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVote: (VoteModel) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -45,88 +55,58 @@ private fun ApplicationScreen(
             .background(DmsTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        DmsTopAppBar(title = "신청")
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    horizontal = 24.dp,
-                    vertical = 28.dp,
-                ),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+        val tabData = listOf(
+            "신청",
+            "투표",
+        )
+        val pagerState = rememberPagerState(
+            pageCount = { tabData.size },
+            initialPage = 0,
+        )
+        val tabIndex = pagerState.currentPage
+        val coroutineScope = rememberCoroutineScope()
+        DmsTabRow(
+            selectedTabIndex = tabIndex,
         ) {
-            ApplicationCard(
-                title = "잔류",
-                description = "주말 기숙사 잔류 여부를 확인하고, 잔류 신청을 통해서 잔류 또는 귀가를 신청해 보세요.",
-                buttonText = "잔류 신청하기",
-                onButtonClick = onNavigateRemainApplication,
-            )
-            ApplicationCard(
-                title = "외출",
-                appliedTitle = "금요 귀가",
-                description = "기숙사 생활 중 밖으로 나갈 일이 있다면, 외출 신청을 통해서 외출해 보세요.",
-                buttonText = "외출 신청하기",
-                onButtonClick = onNavigateOutingApplication,
-            )
-        }
-    }
-}
-
-@Composable
-private fun ApplicationCard(
-    modifier: Modifier = Modifier,
-    title: String,
-    appliedTitle: String? = null,
-    description: String,
-    buttonText: String,
-    onButtonClick: () -> Unit,
-) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                color = DmsTheme.colors.surface,
-                shape = RoundedCornerShape(10.dp),
-            )
-            .background(
-                color = DmsTheme.colors.background,
-                shape = RoundedCornerShape(10.dp),
-            )
-            .padding(
-                horizontal = 20.dp,
-                vertical = 16.dp,
-            ),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                DmsText(
-                    text = title,
-                    style = DmsTypography.Header3,
-                    color = DmsTheme.colors.onBackground,
+            tabData.forEachIndexed { index, text ->
+                Tab(
+                    selected = tabIndex == index,
+                    onClick = {
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
+                    text = {
+                        DmsText(
+                            text = text,
+                            style = DmsTypography.Label,
+                        )
+                    },
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                appliedTitle?.let { text ->
-                    DmsTag(text = text)
+            }
+        }
+        HorizontalPager(
+            modifier = Modifier.fillMaxSize(),
+            state = pagerState,
+            beyondViewportPageCount = 1,
+        ) { page ->
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                if (page == 0) {
+                    ApplicationContent(
+                        onNavigateOutingApplication = onNavigateOutingApplication,
+                        onNavigateRemainApplication = onNavigateRemainApplication,
+                    )
+                } else {
+                    VoteContent(
+                        votes = state.votes,
+                        onNavigateVote = onNavigateVote,
+                    )
                 }
             }
-            DmsText(
-                text = description,
-                style = DmsTypography.Body3,
-                color = DmsTheme.colors.tertiaryContainer,
-            )
         }
-        DmsButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = buttonText,
-            buttonType = ButtonType.Contained,
-            buttonColor = ButtonColor.Primary,
-            onClick = onButtonClick,
-        )
     }
 }

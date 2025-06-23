@@ -45,9 +45,16 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(compose.components.resources)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
 
             implementation(projects.core.designSystem)
             implementation(projects.core.common)
+            implementation(projects.core.model)
+            implementation(projects.core.domain)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
