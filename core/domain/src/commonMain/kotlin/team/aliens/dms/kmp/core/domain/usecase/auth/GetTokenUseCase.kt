@@ -5,7 +5,6 @@ import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 class GetTokenUseCase(
     private val authPreferencesDataSource: AuthPreferencesDataSource,
 ) {
-    suspend operator fun invoke() = runCatching {
-        authPreferencesDataSource.loadTokens()
-    }
+    suspend operator fun invoke() = authPreferencesDataSource.loadTokens()
+
 }
