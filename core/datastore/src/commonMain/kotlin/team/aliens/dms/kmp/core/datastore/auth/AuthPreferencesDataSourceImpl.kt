@@ -7,23 +7,23 @@ import kotlinx.datetime.LocalDateTime
 import team.aliens.dms.kmp.core.datastore.PreferencesDataStore
 import team.aliens.dms.kmp.core.datastore.auth.exception.CannotClearTokensException
 import team.aliens.dms.kmp.core.datastore.auth.exception.CannotStoreTokensException
-import team.aliens.dms.kmp.core.datastore.auth.model.AccessToken
-import team.aliens.dms.kmp.core.datastore.auth.model.RefreshToken
-import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
 import team.aliens.dms.kmp.core.datastore.util.transform
+import team.aliens.dms.kmp.core.model.auth.AccessToken
+import team.aliens.dms.kmp.core.model.auth.RefreshToken
+import team.aliens.dms.kmp.core.model.auth.TokenModel
 
 internal class AuthPreferencesDataSourceImpl(
     private val jwtDataStore: PreferencesDataStore,
 ) : AuthPreferencesDataSource {
 
-    override suspend fun loadTokens(): Result<Tokens?> = kotlin.runCatching {
+    override suspend fun loadTokens(): Result<TokenModel?> = kotlin.runCatching {
         jwtDataStore.data.firstOrNull()?.let { preferences ->
             val accessTokenValue = preferences[ACCESS_TOKEN] ?: return@let null
             val accessTokenExpiration = preferences[ACCESS_TOKEN_EXPIRATION] ?: return@let null
             val refreshTokenValue = preferences[REFRESH_TOKEN] ?: return@let null
             val refreshTokenExpiration = preferences[REFRESH_TOKEN_EXPIRATION] ?: return@let null
 
-            Tokens(
+            TokenModel(
                 accessToken = AccessToken(
                     value = accessTokenValue,
                     expiration = LocalDateTime.parse(accessTokenExpiration),
@@ -36,11 +36,11 @@ internal class AuthPreferencesDataSourceImpl(
         }
     }
 
-    override suspend fun storeTokens(tokens: Tokens): Result<Unit> = runCatching {
+    override suspend fun storeTokens(token: TokenModel): Result<Unit> = runCatching {
         transform(onFailure = { throw CannotStoreTokensException() }) {
             jwtDataStore.edit { preferences ->
-                val accessToken = tokens.accessToken
-                val refreshToken = tokens.refreshToken
+                val accessToken = token.accessToken
+                val refreshToken = token.refreshToken
                 preferences[ACCESS_TOKEN] = accessToken.value
                 preferences[ACCESS_TOKEN_EXPIRATION] = accessToken.expiration.toString()
                 preferences[REFRESH_TOKEN] = refreshToken.value
