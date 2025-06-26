@@ -6,5 +6,4 @@ class GetTokenUseCase(
     private val authPreferencesDataSource: AuthPreferencesDataSource,
 ) {
     suspend operator fun invoke() = authPreferencesDataSource.loadTokens()
-
 }
