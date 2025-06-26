@@ -11,7 +11,7 @@ val today: LocalDate
     inline get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 
 val now: LocalDateTime
-    inline get() = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+    inline get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
 val timeNow: LocalTime
     inline get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
