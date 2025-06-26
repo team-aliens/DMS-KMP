@@ -3,42 +3,44 @@ package team.aliens.dms.kmp.feature.splash.viewmodel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.common.utils.now
 import team.aliens.dms.kmp.core.domain.usecase.auth.GetTokenUseCase
+import team.aliens.dms.kmp.core.domain.usecase.auth.ReissueTokenUseCase
+import team.aliens.dms.kmp.core.model.auth.TokenModel
 
 internal class SplashViewModel(
     private val getTokenUseCase: GetTokenUseCase,
-) : BaseViewModel<SplashState, SplashSideEffect>(SplashState.getInitialState()) {
+    private val reissueTokenUseCase: ReissueTokenUseCase,
+) : BaseViewModel<SplashState, SplashSideEffect>(SplashState()) {
 
-    // TODO: splash flow 로직 변경
-    internal fun getToken() {
+    init {
+        viewModelScope.launch {
+            delay(1200)
+            getToken()
+        }
+    }
+
+    private fun getToken() {
         viewModelScope.launch(Dispatchers.IO) {
-            getTokenUseCase().onSuccess { token ->
-//                setState {
-//                    state.value.copy(
-//                        accessToken = token.accessToken.value,
-//                        refreshToken = token.refreshToken.value,
-//                        refreshTokenExpired = token.refreshToken.expiration,
-//                    )
-//                }
-                checkRefreshTokenExpired()
-            }.onFailure {
-                when (it) {
-                    is NullPointerException -> {
+            getTokenUseCase()
+                .onSuccess { token ->
+                    if (token != null) {
+                        setState { state.value.copy(token = token) }
+                        checkRefreshTokenExpired()
+                    } else {
                         postSideEffect(SplashSideEffect.MoveToLogin)
                     }
+                }.onFailure {
+                    postSideEffect(SplashSideEffect.MoveToLogin)
                 }
-            }
         }
     }
 
     private fun checkRefreshTokenExpired() {
-        if (Clock.System.now().toLocalDateTime(timeZone = TimeZone.UTC) > state.value.refreshTokenExpired) {
+        if (now > state.value.token.refreshToken.expiration) {
             postSideEffect(SplashSideEffect.MoveToLogin)
         } else {
             reissueToken()
@@ -46,23 +48,21 @@ internal class SplashViewModel(
     }
 
     private fun reissueToken() {
-        // TODO: reissue 구현 (성공 시 main으로 이동)
+        viewModelScope.launch(Dispatchers.IO) {
+            reissueTokenUseCase(
+                refreshToken = state.value.token.refreshToken.value,
+            ).onSuccess {
+                postSideEffect(SplashSideEffect.MoveToMain)
+            }.onFailure {
+                postSideEffect(SplashSideEffect.MoveToLogin)
+            }
+        }
     }
 }
 
 internal data class SplashState(
-    val accessToken: String,
-    val refreshToken: String,
-    val refreshTokenExpired: LocalDateTime,
-) {
-    companion object {
-        fun getInitialState() = SplashState(
-            accessToken = "",
-            refreshToken = "",
-            refreshTokenExpired = Clock.System.now().toLocalDateTime(timeZone = TimeZone.UTC),
-        )
-    }
-}
+    val token: TokenModel = TokenModel(),
+)
 
 internal sealed interface SplashSideEffect {
     data object MoveToLogin : SplashSideEffect
