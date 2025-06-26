@@ -52,6 +52,7 @@ kotlin {
 
             implementation(projects.core.common)
             implementation(projects.core.datastore)
+            implementation(projects.core.model)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

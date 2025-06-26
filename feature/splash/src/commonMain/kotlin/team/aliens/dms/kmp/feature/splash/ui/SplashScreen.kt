@@ -16,19 +16,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dmskmp.feature.splash.generated.resources.Res
-import kotlinx.coroutines.delay
 import kottieComposition.KottieCompositionSpec
 import kottieComposition.animateKottieCompositionAsState
 import kottieComposition.rememberKottieComposition
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.feature.splash.viewmodel.SplashSideEffect
 import team.aliens.dms.kmp.feature.splash.viewmodel.SplashViewModel
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 internal fun Splash(
     navigateToLogin: () -> Unit,
+    navigateToMain: () -> Unit,
 ) {
     val viewModel: SplashViewModel = koinViewModel()
     var animation by remember { mutableStateOf("") }
@@ -43,22 +44,21 @@ internal fun Splash(
         animation = Res.readBytes(file).decodeToString()
     }
 
-    // TODO: 임시 이동 로직
     LaunchedEffect(Unit) {
-        delay(1200)
-        navigateToLogin()
+        viewModel.sideEffect.collect {
+            when (it) {
+                SplashSideEffect.MoveToMain -> navigateToMain()
+                SplashSideEffect.MoveToLogin -> navigateToLogin()
+            }
+        }
     }
 
-    SplashScreen(
-        animation = animation,
-        navigateToLogin = navigateToLogin,
-    )
+    SplashScreen(animation = animation)
 }
 
 @Composable
 private fun SplashScreen(
     animation: String,
-    navigateToLogin: () -> Unit,
 ) {
     val composition = rememberKottieComposition(
         spec = KottieCompositionSpec.File(animation),

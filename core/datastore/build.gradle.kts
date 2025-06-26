@@ -37,6 +37,8 @@ kotlin {
             implementation(libs.androidx.datastore.preferences.core)
             implementation(libs.koin.core)
             implementation(libs.kotlinx.datetime)
+
+            implementation(projects.core.model)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

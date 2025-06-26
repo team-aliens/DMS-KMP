@@ -19,8 +19,12 @@ fun NavController.navigateToSplash(
 
 fun NavGraphBuilder.splash(
     navigateToSignIn: () -> Unit,
+    navigateToMain: () -> Unit,
 ) {
     composable<SplashRoute> {
-        Splash(navigateToLogin = navigateToSignIn)
+        Splash(
+            navigateToLogin = navigateToSignIn,
+            navigateToMain = navigateToMain,
+        )
     }
 }
