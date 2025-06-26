@@ -15,7 +15,7 @@ import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.request.accept
-import io.ktor.client.request.headers
+import io.ktor.client.request.header
 import io.ktor.client.request.put
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
@@ -33,9 +33,9 @@ import kotlinx.serialization.modules.SerializersModule
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.common.exception.UnknownException
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
-import team.aliens.dms.kmp.core.datastore.auth.model.AccessToken
-import team.aliens.dms.kmp.core.datastore.auth.model.RefreshToken
-import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
+import team.aliens.dms.kmp.core.model.auth.AccessToken
+import team.aliens.dms.kmp.core.model.auth.RefreshToken
+import team.aliens.dms.kmp.core.model.auth.TokenModel
 import team.aliens.dms.kmp.core.network.IgnoreRequests
 import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.core.network.auth.model.TokensResponse
@@ -160,12 +160,7 @@ val networkModule = module {
                         return@refreshTokens kotlin.runCatching {
                             // TODO: refresh 작동 재확인 필요
                             val response = client.put("/auth/reissue") {
-                                headers {
-                                    append(
-                                        name = "refresh-token",
-                                        value = refreshToken,
-                                    )
-                                }
+                                header(key = "refresh-token", value = refreshToken)
                                 markAsRefreshTokenRequest()
                             }
 //                            val response = client.submitForm(
@@ -184,7 +179,7 @@ val networkModule = module {
 
                             val tokensResponse: TokensResponse = response.body()
                             authPreferencesDataSource.storeTokens(
-                                Tokens(
+                                TokenModel(
                                     accessToken = AccessToken(
                                         value = tokensResponse.accessToken,
                                         expiration = LocalDateTime.parse(tokensResponse.accessTokenExpiration),
