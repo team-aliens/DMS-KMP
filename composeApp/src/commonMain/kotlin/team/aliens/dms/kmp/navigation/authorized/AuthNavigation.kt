@@ -38,7 +38,10 @@ fun NavGraphBuilder.authGraph(
     navigation<AuthRoute>(
         startDestination = SplashRoute,
     ) {
-        splash(navigateToSignIn = appState.navController::navigateToSignIn)
+        splash(
+            navigateToSignIn = appState.navController::navigateToSignIn,
+            navigateToMain = appState.navController::navigateToMain,
+        )
         signIn(
             navigateToMain = appState.navController::navigateToMain,
             navigateToSignUp = appState.navController::navigateToSignUp,
