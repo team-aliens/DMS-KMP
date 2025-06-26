@@ -1,16 +1,14 @@
 package team.aliens.dms.kmp.core.data.auth.repository
 
-import kotlinx.datetime.LocalDateTime
 import team.aliens.dms.kmp.core.data.auth.mapper.toModel
 import team.aliens.dms.kmp.core.data.auth.model.EmailVerificationType
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
-import team.aliens.dms.kmp.core.datastore.auth.model.AccessToken
-import team.aliens.dms.kmp.core.datastore.auth.model.RefreshToken
-import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
 import team.aliens.dms.kmp.core.model.auth.EmailModel
+import team.aliens.dms.kmp.core.model.auth.TokenModel
 import team.aliens.dms.kmp.core.network.auth.datasource.NetworkAuthDataSource
 import team.aliens.dms.kmp.core.network.auth.model.request.CheckEmailVerificationCodeRequest
 import team.aliens.dms.kmp.core.network.auth.model.request.CheckIdExistsRequest
+import team.aliens.dms.kmp.core.network.auth.model.request.ReissueRequest
 import team.aliens.dms.kmp.core.network.auth.model.request.SendEmailVerificationCodeRequest
 import team.aliens.dms.kmp.core.network.auth.model.request.SignInRequest
 
@@ -32,18 +30,9 @@ internal class AuthRepositoryImpl(
                 ),
             ),
         )
-        response.getOrNull()?.let {
+        response.getOrNull()?.let { token ->
             authPreferencesDataSource.storeTokens(
-                tokens = Tokens(
-                    accessToken = AccessToken(
-                        value = it.accessToken,
-                        expiration = LocalDateTime.parse(it.accessTokenExpiredAt),
-                    ),
-                    refreshToken = RefreshToken(
-                        value = it.refreshToken,
-                        expiration = LocalDateTime.parse(it.refreshTokenExpiredAt),
-                    ),
-                ),
+                token = token.toModel(),
             )
         }
         return response.map { }
@@ -86,10 +75,21 @@ internal class AuthRepositoryImpl(
             ),
         ).map { it.toModel() }
 
-    override suspend fun fetchTokens(): Result<Tokens?> = authPreferencesDataSource.loadTokens()
+    override suspend fun fetchTokens(): Result<TokenModel?> = authPreferencesDataSource.loadTokens()
 
-    override suspend fun updateTokens(tokens: Tokens): Result<Unit> =
-        authPreferencesDataSource.storeTokens(tokens = tokens)
+    override suspend fun updateTokens(token: TokenModel): Result<Unit> =
+        authPreferencesDataSource.storeTokens(token = token)
 
     override suspend fun clearTokens(): Result<Unit> = authPreferencesDataSource.clearTokens()
+    override suspend fun reissueToken(refreshToken: String): Result<Unit> {
+        val response = networkAuthDatasource.reissueToken(
+            request = ReissueRequest(header = ReissueRequest.Header(refreshToken = refreshToken)),
+        )
+        response.getOrNull()?.let { token ->
+            authPreferencesDataSource.storeTokens(
+                token = token.toModel(),
+            )
+        }
+        return response.map { }
+    }
 }
