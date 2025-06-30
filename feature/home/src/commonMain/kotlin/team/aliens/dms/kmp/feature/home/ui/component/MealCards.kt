@@ -48,11 +48,13 @@ internal fun MealCards(
     meal: MealModel,
 ) {
     val pageCount = Int.MAX_VALUE
-    val pagerState = rememberPagerState(pageCount = { pageCount })
-    var previousPage by remember { mutableStateOf(0) }
+    val pagerState = rememberPagerState(
+        initialPage = pageCount / 2,
+        pageCount = { pageCount },
+    )
+    var previousPage by remember { mutableStateOf(pagerState.currentPage) }
     val scope = rememberCoroutineScope()
     var currentCardType by remember { mutableStateOf(getProperMeal()) }
-
     val (dailyMeals, kcal) = when (currentCardType) {
         MealCardType.BREAKFAST -> meal.breakfast to meal.kcalBreakfast
         MealCardType.LUNCH -> meal.lunch to meal.kcalLunch
@@ -98,6 +100,7 @@ internal fun MealCards(
         state = pagerState,
         contentPadding = PaddingValues(horizontal = 84.dp),
         pageSpacing = 30.dp,
+        beyondViewportPageCount = 1,
     ) { page ->
         MealCard(
             modifier = Modifier.graphicsLayer {
