@@ -7,6 +7,7 @@ import team.aliens.dms.kmp.core.domain.usecase.student.CheckIdDuplicationUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.EditProfileUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.ExamineStudentNumberUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.FindIdUseCase
+import team.aliens.dms.kmp.core.domain.usecase.student.GetCandidateModelStudentsUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.GetMyPageUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.GetStudentsUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.ResetPasswordUseCase
@@ -24,4 +25,5 @@ internal val studentModule = module {
     singleOf(::ResetPasswordUseCase)
     singleOf(::SignUpUseCase)
     singleOf(::WithdrawUseCase)
+    singleOf(::GetCandidateModelStudentsUseCase)
 }

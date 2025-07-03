@@ -4,6 +4,6 @@ data class GetStudentsRequest(
     val query: Query,
 ) {
     data class Query(
-        val name: String,
+        val name: String?,
     )
 }

@@ -4,15 +4,17 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun Modifier.dmsShadowModifier(
     dmsShadowType: DmsShadowType,
+    shape: Shape = CircleShape,
 ): Modifier {
     return when (dmsShadowType) {
         DmsShadowType.Light10 -> this.dmsDropShadow(
-            shape = CircleShape,
+            shape = shape,
             color = Color.Black.copy(alpha = 0.08f),
             blur = 10.dp,
             offsetX = 0.dp,
@@ -20,7 +22,7 @@ fun Modifier.dmsShadowModifier(
         )
 
         DmsShadowType.Light20 -> this.dmsDropShadow(
-            shape = CircleShape,
+            shape = shape,
             color = Color.Black.copy(alpha = 0.1f),
             blur = 15.dp,
             offsetX = 0.dp,
@@ -28,7 +30,7 @@ fun Modifier.dmsShadowModifier(
         )
 
         DmsShadowType.Standard -> this.dmsDropShadow(
-            shape = CircleShape,
+            shape = shape,
             color = Color.Black.copy(alpha = 0.19f),
             blur = 20.dp,
             offsetX = 0.dp,
@@ -36,7 +38,7 @@ fun Modifier.dmsShadowModifier(
         )
 
         DmsShadowType.Dark10 -> this.dmsDropShadow(
-            shape = CircleShape,
+            shape = shape,
             color = Color.Black.copy(alpha = 0.25f),
             blur = 14.dp,
             offsetX = 0.dp,
@@ -44,7 +46,7 @@ fun Modifier.dmsShadowModifier(
         )
 
         DmsShadowType.Dark20 -> this.dmsDropShadow(
-            shape = CircleShape,
+            shape = shape,
             color = Color.Black.copy(alpha = 0.30f),
             blur = 19.dp,
             offsetX = 0.dp,

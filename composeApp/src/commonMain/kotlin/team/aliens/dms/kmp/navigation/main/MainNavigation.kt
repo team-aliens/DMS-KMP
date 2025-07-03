@@ -7,6 +7,8 @@ import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
+import team.aliens.dms.kmp.feature.vote.navigation.navigateToVote
+import team.aliens.dms.kmp.feature.vote.navigation.vote
 import team.aliens.dms.kmp.root.RootRoute
 import team.aliens.dms.kmp.root.root
 import team.aliens.dms.kmp.ui.DmsAppState
@@ -33,8 +35,13 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateRemainApplication = appState.navController::navigateToRemainApplication,
             onNavigateOutingApplication = { },
             onNoticeDetailClick = appState.navController::navigateToNoticeDetails,
+            onNavigateVote = appState.navController::navigateToVote,
         )
         noticeDetails(onNavigateBack = appState.navController::navigateUp)
         remainApplication(onNavigateBack = appState.navController::navigateUp)
+        vote(
+            onShowSnackBar = appState::showSnackBar,
+            onNavigateBack = appState.navController::navigateUp,
+        )
     }
 }

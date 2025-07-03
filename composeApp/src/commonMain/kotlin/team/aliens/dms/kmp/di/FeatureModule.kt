@@ -1,12 +1,14 @@
 package team.aliens.dms.kmp.di
 
 import org.koin.dsl.module
+import team.aliens.dms.kmp.feature.application.di.applicationModule
 import team.aliens.dms.kmp.feature.home.di.homeModule
 import team.aliens.dms.kmp.feature.mypage.di.myPageModule
 import team.aliens.dms.kmp.feature.notice.di.noticeModule
 import team.aliens.dms.kmp.feature.signin.di.signInModule
 import team.aliens.dms.kmp.feature.signup.di.signUpModule
 import team.aliens.dms.kmp.feature.splash.di.splashModule
+import team.aliens.dms.kmp.feature.vote.di.voteModule
 import tema.aliens.dms.kmp.feature.remain.di.remainsModule
 
 internal val featureModule = module {
@@ -15,8 +17,10 @@ internal val featureModule = module {
         signInModule,
         signUpModule,
         homeModule,
+        applicationModule,
         noticeModule,
         myPageModule,
         remainsModule,
+        voteModule,
     )
 }

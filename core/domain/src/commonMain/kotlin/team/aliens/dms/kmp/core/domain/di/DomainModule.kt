@@ -6,6 +6,7 @@ import team.aliens.dms.kmp.core.domain.usecase.meal.di.mealModule
 import team.aliens.dms.kmp.core.domain.usecase.notice.di.noticeModule
 import team.aliens.dms.kmp.core.domain.usecase.remains.di.remainsModule
 import team.aliens.dms.kmp.core.domain.usecase.student.di.studentModule
+import team.aliens.dms.kmp.core.domain.usecase.votes.di.votesModule
 
 val domainModule = module {
     includes(
@@ -14,5 +15,6 @@ val domainModule = module {
         noticeModule,
         studentModule,
         remainsModule,
+        votesModule,
     )
 }
