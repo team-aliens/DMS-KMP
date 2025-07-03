@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
-import team.aliens.dms.kmp.core.common.navtype.VoteNavType
 import team.aliens.dms.kmp.core.common.navtype.VoteTypeNavType
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.type.VoteType
 import team.aliens.dms.kmp.core.model.votes.VoteModel
 import team.aliens.dms.kmp.feature.vote.ui.Vote
@@ -36,10 +36,14 @@ fun NavController.navigateToVote(
 
 fun NavGraphBuilder.vote(
     onNavigateBack: () -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     composable<VoteRoute>(
         typeMap = VoteRoute.NavTypeMap,
     ) {
-        Vote(onNavigateBack = onNavigateBack)
+        Vote(
+            onShowSnackBar = onShowSnackBar,
+            onNavigateBack = onNavigateBack,
+        )
     }
 }

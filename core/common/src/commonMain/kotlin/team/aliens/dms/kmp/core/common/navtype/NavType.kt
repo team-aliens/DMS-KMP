@@ -8,4 +8,3 @@ import kotlin.reflect.typeOf
 val VoteTypeNavType = typeOf<VoteType>() to serializableType<VoteType>()
 
 val SignUpDataNavType = typeOf<SignUpData>() to serializableType<SignUpData>()
-val VoteNavType = typeOf<VoteModel>() to serializableType<VoteModel>()
