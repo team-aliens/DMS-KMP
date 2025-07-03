@@ -39,17 +39,17 @@ import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
 import team.aliens.dms.kmp.core.network.IgnoreRequests
 import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.core.network.auth.model.TokensResponse
-import team.aliens.dms.kmp.core.network.exception.BadRequestException
+import team.aliens.dms.kmp.core.common.exception.network.BadRequestException
 import team.aliens.dms.kmp.core.network.exception.CannotReissueTokenException
-import team.aliens.dms.kmp.core.network.exception.ConflictException
-import team.aliens.dms.kmp.core.network.exception.ForbiddenException
-import team.aliens.dms.kmp.core.network.exception.InternalServerErrorException
-import team.aliens.dms.kmp.core.network.exception.NotFoundException
-import team.aliens.dms.kmp.core.network.exception.RequestTimeoutException
-import team.aliens.dms.kmp.core.network.exception.ServiceUnavailableException
-import team.aliens.dms.kmp.core.network.exception.TooManyRequestsException
-import team.aliens.dms.kmp.core.network.exception.UnAuthorizedException
-import team.aliens.dms.kmp.core.network.exception.UnsupportedMediaTypeException
+import team.aliens.dms.kmp.core.common.exception.network.ConflictException
+import team.aliens.dms.kmp.core.common.exception.network.ForbiddenException
+import team.aliens.dms.kmp.core.common.exception.network.InternalServerErrorException
+import team.aliens.dms.kmp.core.common.exception.network.NotFoundException
+import team.aliens.dms.kmp.core.common.exception.network.RequestTimeoutException
+import team.aliens.dms.kmp.core.common.exception.network.ServiceUnavailableException
+import team.aliens.dms.kmp.core.common.exception.network.TooManyRequestsException
+import team.aliens.dms.kmp.core.common.exception.network.UnAuthorizedException
+import team.aliens.dms.kmp.core.common.exception.network.UnsupportedMediaTypeException
 
 @OptIn(ExperimentalSerializationApi::class)
 val networkModule = module {

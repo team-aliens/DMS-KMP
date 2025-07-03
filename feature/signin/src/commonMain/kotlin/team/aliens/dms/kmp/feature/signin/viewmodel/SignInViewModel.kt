@@ -5,9 +5,9 @@ import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.domain.usecase.auth.SignInUseCase
-import team.aliens.dms.kmp.core.network.exception.BadRequestException
-import team.aliens.dms.kmp.core.network.exception.NotFoundException
-import team.aliens.dms.kmp.core.network.exception.UnAuthorizedException
+import team.aliens.dms.kmp.core.common.exception.network.BadRequestException
+import team.aliens.dms.kmp.core.common.exception.network.NotFoundException
+import team.aliens.dms.kmp.core.common.exception.network.UnAuthorizedException
 
 internal class SignInViewModel(
     private val signInUseCase: SignInUseCase,
