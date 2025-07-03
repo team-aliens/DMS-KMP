@@ -1,6 +1,6 @@
 package team.aliens.dms.kmp.feature.vote.ui.component
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -19,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -32,6 +34,7 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
+import team.aliens.dms.kmp.core.designsystem.util.clickable
 import team.aliens.dms.kmp.core.model.student.StudentModel
 
 @Composable
@@ -39,10 +42,12 @@ internal fun StudentContent(
     modifier: Modifier = Modifier,
     title: String,
     students: List<StudentModel>,
+    selectItem: String,
     onSelect: (String) -> Unit,
 ) {
     var selectGrade by remember { mutableStateOf(0) }
     val grades = listOf("1학년", "2학년", "3학년")
+
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -80,11 +85,18 @@ internal fun StudentContent(
             color = DmsTheme.colors.surface,
         )
         LazyColumn {
-            items(students) { student ->
+            val filteredStudents =
+                if (selectGrade == 0) {
+                    students
+                } else {
+                    students.filter { it.gcn.startsWith("$selectGrade") }
+                }
+            items(filteredStudents) { student ->
                 StudentItem(
                     profileImageUrl = student.profileImageUrl,
                     name = student.name,
                     gcn = student.gcn,
+                    isSelected = selectItem == student.id,
                     onClick = { onSelect(student.id) },
                 )
             }
@@ -98,19 +110,29 @@ private fun StudentItem(
     profileImageUrl: String,
     name: String,
     gcn: String,
+    isSelected: Boolean,
     onClick: () -> Unit,
 ) {
+    val backgroundColor = if (isSelected) {
+        DmsTheme.colors.onPrimary
+    } else {
+        DmsTheme.colors.background
+    }
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .background(backgroundColor)
+            .clickable(onClick = onClick)
             .padding(
                 horizontal = 24.dp,
                 vertical = 14.dp,
             ),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
-            modifier = Modifier.clip(CircleShape),
+            modifier = Modifier
+                .size(28.dp)
+                .clip(CircleShape),
             model = ImageRequest.Builder(context = LocalPlatformContext.current)
                 .data(profileImageUrl)
                 .build(),

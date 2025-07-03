@@ -52,7 +52,11 @@ private fun OptionItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    val background = if (selected) DmsTheme.colors.primary else DmsTheme.colors.background
+    val background = if (selected) {
+        DmsTheme.colors.primary
+    } else {
+        DmsTheme.colors.background
+    }
     Row(
         modifier = modifier
             .fillMaxWidth()
