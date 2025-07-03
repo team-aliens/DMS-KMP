@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.common.exception.network.ConflictException
 import team.aliens.dms.kmp.core.common.utils.today
 import team.aliens.dms.kmp.core.domain.usecase.student.GetCandidateModelStudentsUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.GetStudentsUseCase
@@ -26,7 +27,7 @@ internal class VoteViewModel(
     private val postVoteUseCase: PostVoteUseCase,
 ) : BaseViewModel<VoteState, VoteSideEffect>(VoteState()) {
 
-    private val route = savedStateHandle.toRoute<VoteRoute>()
+    private val route = savedStateHandle.toRoute<VoteRoute>(typeMap = VoteRoute.NavTypeMap)
 
     init {
         initState()
@@ -57,6 +58,7 @@ internal class VoteViewModel(
                 .onSuccess { setState { state.value.copy(students = it) } }
                 .onFailure {
                     Logger.a(it) { it.message.toString() }
+                    postSideEffect(VoteSideEffect.VoteLoadFail)
                 }
         }
     }
@@ -67,6 +69,7 @@ internal class VoteViewModel(
                 .onSuccess { setState { state.value.copy(options = it) } }
                 .onFailure {
                     Logger.a(it) { it.message.toString() }
+                    postSideEffect(VoteSideEffect.VoteLoadFail)
                 }
         }
     }
@@ -77,6 +80,7 @@ internal class VoteViewModel(
                 .onSuccess { setState { state.value.copy(modelStudent = it) } }
                 .onFailure {
                     Logger.a(it) { it.message.toString() }
+                    postSideEffect(VoteSideEffect.VoteLoadFail)
                 }
         }
     }
@@ -98,8 +102,13 @@ internal class VoteViewModel(
                 selectId = state.value.selectId!!,
             ).onSuccess {
                 setState { state.value.copy(buttonEnabled = false) }
+                postSideEffect(VoteSideEffect.VoteSuccess)
             }.onFailure {
                 Logger.a(it) { it.message.toString() }
+                when (it) {
+                    is ConflictException -> postSideEffect(VoteSideEffect.VoteConflict)
+                    else -> postSideEffect(VoteSideEffect.VoteFail)
+                }
             }
         }
     }
@@ -115,4 +124,9 @@ internal data class VoteState(
     val buttonEnabled: Boolean = false,
 )
 
-internal sealed interface VoteSideEffect
+internal sealed interface VoteSideEffect {
+    data object VoteSuccess : VoteSideEffect
+    data object VoteConflict : VoteSideEffect
+    data object VoteFail : VoteSideEffect
+    data object VoteLoadFail : VoteSideEffect
+}
