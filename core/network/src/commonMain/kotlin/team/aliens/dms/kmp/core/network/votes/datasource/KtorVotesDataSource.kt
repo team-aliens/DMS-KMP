@@ -23,8 +23,8 @@ internal class KtorVotesDataSource(
         }
 
     override suspend fun postVote(request: PostVoteRequest): Result<Unit> = kotlin.runCatching {
-        client.post("/student/${request.path.votingTopic}") {
-            parameter("selected_id", request.query.selectId)
+        client.post("/votes/student/${request.path.votingTopic}") {
+            parameter("selected-id", request.query.selectId)
         }.body()
     }
 }

@@ -86,12 +86,12 @@ internal class KtorStudentDataSource(
         }
 
     override suspend fun withdraw(): Result<Unit> = kotlin.runCatching {
-        client.delete("/students/")
+        client.delete("/students")
     }
 
     override suspend fun getStudents(request: GetStudentsRequest): Result<GetStudentsResponse> =
         kotlin.runCatching {
-            client.get("/students/") {
+            client.get("/students") {
                 parameter("name", request.query.name)
             }.body()
         }
@@ -99,7 +99,7 @@ internal class KtorStudentDataSource(
     override suspend fun getCandidateModelStudents(request: GetCandidateModelStudentsRequest): Result<GetCandidateModelStudentsResponse> =
         kotlin.runCatching {
             client.get("/students/step/candidate-list") {
-                parameter("requestDate",request.query.requestDate)
+                parameter("date",request.query.requestDate)
             }.body()
         }
 }
