@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.network.exception
+package team.aliens.dms.kmp.core.common.exception.network
 
 sealed class NetworkException(
     val code: Int = NO_CODE,

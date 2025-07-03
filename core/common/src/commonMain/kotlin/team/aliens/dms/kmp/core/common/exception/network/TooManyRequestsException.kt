@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.network.exception
+package team.aliens.dms.kmp.core.common.exception.network
 
 class TooManyRequestsException : NetworkException(
     code = 429,
