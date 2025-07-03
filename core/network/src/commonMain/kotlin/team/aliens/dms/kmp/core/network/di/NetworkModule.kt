@@ -32,15 +32,7 @@ import kotlinx.serialization.json.JsonNamingStrategy
 import kotlinx.serialization.modules.SerializersModule
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.common.exception.UnknownException
-import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
-import team.aliens.dms.kmp.core.datastore.auth.model.AccessToken
-import team.aliens.dms.kmp.core.datastore.auth.model.RefreshToken
-import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
-import team.aliens.dms.kmp.core.network.IgnoreRequests
-import team.aliens.dms.kmp.core.network.PlatformConfig
-import team.aliens.dms.kmp.core.network.auth.model.TokensResponse
 import team.aliens.dms.kmp.core.common.exception.network.BadRequestException
-import team.aliens.dms.kmp.core.network.exception.CannotReissueTokenException
 import team.aliens.dms.kmp.core.common.exception.network.ConflictException
 import team.aliens.dms.kmp.core.common.exception.network.ForbiddenException
 import team.aliens.dms.kmp.core.common.exception.network.InternalServerErrorException
@@ -50,6 +42,14 @@ import team.aliens.dms.kmp.core.common.exception.network.ServiceUnavailableExcep
 import team.aliens.dms.kmp.core.common.exception.network.TooManyRequestsException
 import team.aliens.dms.kmp.core.common.exception.network.UnAuthorizedException
 import team.aliens.dms.kmp.core.common.exception.network.UnsupportedMediaTypeException
+import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
+import team.aliens.dms.kmp.core.datastore.auth.model.AccessToken
+import team.aliens.dms.kmp.core.datastore.auth.model.RefreshToken
+import team.aliens.dms.kmp.core.datastore.auth.model.Tokens
+import team.aliens.dms.kmp.core.network.IgnoreRequests
+import team.aliens.dms.kmp.core.network.PlatformConfig
+import team.aliens.dms.kmp.core.network.auth.model.TokensResponse
+import team.aliens.dms.kmp.core.network.exception.CannotReissueTokenException
 
 @OptIn(ExperimentalSerializationApi::class)
 val networkModule = module {

@@ -99,7 +99,7 @@ internal class KtorStudentDataSource(
     override suspend fun getCandidateModelStudents(request: GetCandidateModelStudentsRequest): Result<GetCandidateModelStudentsResponse> =
         kotlin.runCatching {
             client.get("/students/step/candidate-list") {
-                parameter("date",request.query.requestDate)
+                parameter("date", request.query.requestDate)
             }.body()
         }
 }

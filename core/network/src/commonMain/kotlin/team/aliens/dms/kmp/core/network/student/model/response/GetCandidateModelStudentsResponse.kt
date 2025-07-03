@@ -5,5 +5,5 @@ import team.aliens.dms.kmp.core.network.student.model.dto.StudentDto
 
 @Serializable
 data class GetCandidateModelStudentsResponse(
-    val students: List<StudentDto>
+    val students: List<StudentDto>,
 )

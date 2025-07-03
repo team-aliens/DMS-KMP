@@ -4,13 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import team.aliens.dms.kmp.core.designsystem.modifier.DmsShadowType
-import team.aliens.dms.kmp.core.designsystem.modifier.dmsDropShadow
-import team.aliens.dms.kmp.core.designsystem.modifier.dmsShadowModifier
 
 @Composable
 internal fun ApplicationContent(

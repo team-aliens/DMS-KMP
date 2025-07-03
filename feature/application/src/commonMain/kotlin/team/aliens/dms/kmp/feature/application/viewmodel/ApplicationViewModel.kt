@@ -12,7 +12,7 @@ import team.aliens.dms.kmp.core.model.votes.VoteModel
 
 internal class ApplicationViewModel(
     private val getAllVotesUseCase: GetAllVotesUseCase,
-) : BaseViewModel<ApplicationState,ApplicationSideEffect>(ApplicationState()){
+) : BaseViewModel<ApplicationState, ApplicationSideEffect>(ApplicationState()) {
 
     init {
         getAllVotes()

@@ -4,6 +4,6 @@ data class GetVoteItemsRequest(
     val path: Path,
 ) {
     data class Path(
-        val votingTopicId: String
+        val votingTopicId: String,
     )
 }

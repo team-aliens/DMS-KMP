@@ -41,4 +41,3 @@ internal fun VoteItem(
 private fun LocalDateTime.toFormat(): String {
     return "${this.monthNumber}/${this.dayOfMonth} ${this.time}"
 }
-
