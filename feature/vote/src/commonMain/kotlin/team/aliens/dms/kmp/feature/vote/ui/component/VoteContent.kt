@@ -35,15 +35,25 @@ internal fun VoteContent(
                 StudentContent(
                     title = title,
                     students = students,
+                    selectItem = selectItem,
                     onSelect = onSelect,
                 )
             }
 
-            VoteType.APPROVAL_VOTE -> {}
+            VoteType.APPROVAL_VOTE -> {
+                ApprovalContent(
+                    title = title,
+                    options = options,
+                    selectItem = selectItem,
+                    onSelect = onSelect,
+                )
+            }
+
             VoteType.MODEL_STUDENT_VOTE -> {
                 StudentContent(
                     title = title,
                     students = modelStudents,
+                    selectItem = selectItem,
                     onSelect = onSelect,
                 )
             }
