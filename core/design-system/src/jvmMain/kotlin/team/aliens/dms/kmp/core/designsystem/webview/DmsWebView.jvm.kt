@@ -4,5 +4,5 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-actual fun DmsWebView(modifier: Modifier, url: String) {
+actual fun DmsWebView(modifier: Modifier, url: String, jwtToken: String?) {
 }

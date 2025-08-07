@@ -1,8 +1,12 @@
 package team.aliens.dms.kmp.core.designsystem.webview
 
 import android.graphics.Bitmap
+import android.util.Log
+import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.background
@@ -26,16 +30,19 @@ import team.aliens.dms.kmp.core.designsystem.webview.exception.WebViewErrorExcep
 actual fun DmsWebView(
     modifier: Modifier,
     url: String,
+    jwtToken: String?,
 ) {
     val context = LocalContext.current
     var isLoading by remember { mutableStateOf(true) }
     var isError by remember { mutableStateOf(false) }
+    val headers = mapOf("Authorization" to "Bearer $jwtToken")
 
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
         AndroidView(
+            modifier = Modifier.fillMaxSize(),
             factory = {
                 WebView(context).apply {
                     webViewClient = object : WebViewClient() {
@@ -68,13 +75,35 @@ actual fun DmsWebView(
                             view: WebView?,
                             request: WebResourceRequest?,
                         ): Boolean {
+                            request?.let {
+                                view?.loadUrl(url, headers)
+                                return true
+                            }
                             return false
                         }
+
+                        override fun shouldInterceptRequest(
+                            view: WebView?,
+                            request: WebResourceRequest?,
+                        ): WebResourceResponse? {
+                            Log.d("DmsWebView", request?.requestHeaders.toString())
+                            return super.shouldInterceptRequest(view, request)
+                        }
                     }
+                    webChromeClient = WebChromeClient()
                     settings.javaScriptEnabled = true
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                    )
+                    settings.userAgentString = "userAgent"
+                    settings.allowFileAccess = true
+                    settings.domStorageEnabled = true
                 }
             },
-            update = { it.loadUrl(url) },
+            update = {
+                it.loadUrl(url, headers)
+            },
         )
 
         if (isLoading) {
@@ -85,7 +114,7 @@ actual fun DmsWebView(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(DmsTheme.colors.onBackground),
+                    .background(DmsTheme.colors.background),
                 contentAlignment = Alignment.Center,
             ) {
                 ErrorStatus(title = "화면을 불러오지 못했어요.")
