@@ -26,8 +26,8 @@
 	<true/>
 	<key>PROD_BASE_URL</key>
 	<string>$(PROD_BASE_URL)</string>
-	<key>TERMS_URL</key>
-	<string>$(TERMS_URL)</string>
+	<key>WEB_VIEW_URL</key>
+	<string>$(WEB_VIEW_URL)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -36,7 +36,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.TermsViewModel
 internal fun Terms(
     onBackPressed: () -> Unit,
     navigateToSignIn: () -> Unit,
-    termsUrl: String,
+    webViewUrl: String,
 ) {
     val viewModel: TermsViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -49,7 +49,7 @@ internal fun Terms(
     TermsScreen(
         onBackPressed = onBackPressed,
         navigateToSignIn = navigateToSignIn,
-        termsUrl = termsUrl,
+        webViewUrl = webViewUrl,
         state = state,
         onAgreeButtonClick = viewModel::setButtonEnabled,
         theme = theme,
@@ -60,7 +60,7 @@ internal fun Terms(
 private fun TermsScreen(
     onBackPressed: () -> Unit,
     navigateToSignIn: () -> Unit,
-    termsUrl: String,
+    webViewUrl: String,
     state: TermsState,
     onAgreeButtonClick: (Boolean) -> Unit,
     theme: String,
@@ -88,7 +88,7 @@ private fun TermsScreen(
                 .weight(1f)
                 .horizontalPadding(24.dp)
                 .topPadding(32.dp),
-            url = "$termsUrl/policy/privacy?theme=$theme",
+            url = "$webViewUrl/policy/privacy?theme=$theme",
         )
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),

@@ -1,3 +1,3 @@
 package team.aliens.dms.kmp.core.network.exception
 
-class CannotFindIOSTermsUrlException : IllegalStateException("Cannot find ios termsUrl")
+class CannotFindIOSwebViewUrlException : IllegalStateException("Cannot find ios webViewUrl")

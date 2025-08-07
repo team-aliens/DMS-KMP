@@ -59,7 +59,7 @@ fun NavGraphBuilder.authGraph(
             navigateToSetPassword = appState.navController::navigateToSetPassword,
             navigateToTerms = appState.navController::navigateToTerms,
             navigateToSignIn = appState.navController::navigateToSignIn,
-            termsUrl = PlatformConfig.termsUrl,
+            webViewUrl = PlatformConfig.webViewUrl,
         )
     }
 }
