@@ -12,12 +12,14 @@ data object ApplicationRoute
 fun NavGraphBuilder.application(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
 ) {
     composable<ApplicationRoute> {
         Application(
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
+            onNavigateVolunteerApplication = onNavigateVolunteerApplication,
             onNavigateVote = onNavigateVote,
         )
     }

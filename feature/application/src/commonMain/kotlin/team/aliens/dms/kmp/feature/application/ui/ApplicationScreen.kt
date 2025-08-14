@@ -30,6 +30,7 @@ internal fun Application(
     viewModel: ApplicationViewModel = koinViewModel(),
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
@@ -38,6 +39,7 @@ internal fun Application(
         state = state,
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = onNavigateOutingApplication,
+        onNavigateVolunteerApplication = onNavigateVolunteerApplication,
         onNavigateVote = onNavigateVote,
     )
 }
@@ -47,6 +49,7 @@ private fun ApplicationScreen(
     state: ApplicationState,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
 ) {
     Column(
@@ -99,6 +102,7 @@ private fun ApplicationScreen(
                     ApplicationContent(
                         onNavigateOutingApplication = onNavigateOutingApplication,
                         onNavigateRemainApplication = onNavigateRemainApplication,
+                        onNavigateVolunteerApplication = onNavigateVolunteerApplication,
                     )
                 } else {
                     VoteContent(
