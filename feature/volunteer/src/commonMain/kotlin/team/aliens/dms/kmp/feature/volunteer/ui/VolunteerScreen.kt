@@ -48,7 +48,7 @@ private fun VolunteerScreen(
             title = "봉사 신청",
             onBackPressed = onNavigateBack,
         )
-        if(state.jwtToken.isNotEmpty()) {
+        if (state.jwtToken.isNotEmpty()) {
             DmsWebView(
                 modifier = Modifier.fillMaxSize(),
                 url = "$webViewUrl/volunteer/application?theme=$theme",

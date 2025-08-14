@@ -1,10 +1,10 @@
 package team.aliens.dms.kmp.core.network
 
 import team.aliens.dms.kmp.core.network.exception.CannotFindJvmBaseurlException
-import team.aliens.dms.kmp.core.network.exception.CannotFindJvmwebViewUrlException
+import team.aliens.dms.kmp.core.network.exception.CannotFindJvmWebViewUrlException
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual object PlatformConfig {
     actual val baseUrl: String = System.getenv("") ?: throw CannotFindJvmBaseurlException()
-    actual val webViewUrl: String = System.getenv("") ?: throw CannotFindJvmwebViewUrlException()
+    actual val webViewUrl: String = System.getenv("") ?: throw CannotFindJvmWebViewUrlException()
 }
