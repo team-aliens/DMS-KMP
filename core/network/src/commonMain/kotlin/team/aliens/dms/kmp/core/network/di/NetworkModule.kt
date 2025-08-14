@@ -139,7 +139,7 @@ val networkModule = module {
             install(Auth) {
                 bearer {
                     // TODO: loadTokens null 처리 필요
-                    loadTokens {
+/*                    loadTokens {
                         val authPreferencesDataSource: AuthPreferencesDataSource = get()
                         return@loadTokens authPreferencesDataSource.loadTokens().getOrNull()
                             ?.let { tokens ->
@@ -148,7 +148,7 @@ val networkModule = module {
                                     refreshToken = tokens.refreshToken.value,
                                 )
                             }
-                    }
+                    }*/
 
                     refreshTokens {
                         val authPreferencesDataSource: AuthPreferencesDataSource = get()
