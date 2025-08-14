@@ -21,12 +21,14 @@ import team.aliens.dms.kmp.ui.BottomNavigationBar
 internal fun Root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVolunteerApplication: () -> Unit,
     onNoticeDetailClick: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
 ) {
     RootScreen(
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = onNavigateOutingApplication,
+        onNavigateVolunteerApplication = onNavigateVolunteerApplication,
         onNoticeDetailClick = onNoticeDetailClick,
         onNavigateVote = onNavigateVote,
     )
@@ -36,6 +38,7 @@ internal fun Root(
 private fun RootScreen(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVolunteerApplication: () -> Unit,
     onNoticeDetailClick: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
 ) {
@@ -55,6 +58,7 @@ private fun RootScreen(
             application(
                 onNavigateRemainApplication = onNavigateRemainApplication,
                 onNavigateOutingApplication = onNavigateOutingApplication,
+                onNavigateVolunteerApplication = onNavigateVolunteerApplication,
                 onNavigateVote = onNavigateVote,
             )
             notices(onNoticeDetailClick = onNoticeDetailClick)

@@ -58,7 +58,7 @@ fun NavGraphBuilder.signupGraph(
     navigateToSetPassword: (SignUpData) -> Unit,
     navigateToTerms: (SignUpData) -> Unit,
     navigateToSignIn: () -> Unit,
-    termsUrl: String,
+    webViewUrl: String,
 ) {
     navigation<SignUp.Route>(
         startDestination = SignUp.Route.EnterSchoolVerificationCodeRoute,
@@ -94,7 +94,7 @@ fun NavGraphBuilder.signupGraph(
         terms(
             onBackPressed = onBackPressed,
             navigateToSignIn = navigateToSignIn,
-            termsUrl = termsUrl,
+            webViewUrl = webViewUrl,
         )
     }
 }

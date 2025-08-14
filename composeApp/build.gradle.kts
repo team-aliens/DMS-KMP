@@ -74,6 +74,7 @@ kotlin {
             implementation(projects.feature.mypage)
             implementation(projects.feature.remain)
             implementation(projects.feature.vote)
+            implementation(projects.feature.volunteer)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

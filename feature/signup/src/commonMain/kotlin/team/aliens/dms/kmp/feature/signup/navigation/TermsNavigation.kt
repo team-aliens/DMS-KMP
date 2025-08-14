@@ -18,7 +18,7 @@ fun NavController.navigateToTerms(
 fun NavGraphBuilder.terms(
     onBackPressed: () -> Unit,
     navigateToSignIn: () -> Unit,
-    termsUrl: String,
+    webViewUrl: String,
 ) {
     composable<SignUp.Route.Terms>(
         typeMap = SignUp.Route.NavTypeMap,
@@ -26,7 +26,7 @@ fun NavGraphBuilder.terms(
         Terms(
             onBackPressed = onBackPressed,
             navigateToSignIn = navigateToSignIn,
-            termsUrl = termsUrl,
+            webViewUrl = webViewUrl,
         )
     }
 }

@@ -88,8 +88,8 @@ android {
 
             buildConfigField(
                 type = "String",
-                name = "TERMS_URL",
-                value = getLocalProperty("TERMS_URL").toString(),
+                name = "WEB_VIEW_URL",
+                value = getLocalProperty("WEB_VIEW_URL").toString(),
             )
         }
 
@@ -102,8 +102,8 @@ android {
 
             buildConfigField(
                 type = "String",
-                name = "TERMS_URL",
-                value = getLocalProperty("TERMS_URL").toString(),
+                name = "WEB_VIEW_URL",
+                value = getLocalProperty("WEB_VIEW_URL").toString(),
             )
         }
     }

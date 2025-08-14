@@ -15,6 +15,7 @@ import platform.WebKit.WKWebView
 actual fun DmsWebView(
     modifier: Modifier,
     url: String,
+    jwtToken: String?,
 ) {
     val webView = remember { WKWebView() }
     val request = NSMutableURLRequest.requestWithURL(URL = NSURL(string = url))

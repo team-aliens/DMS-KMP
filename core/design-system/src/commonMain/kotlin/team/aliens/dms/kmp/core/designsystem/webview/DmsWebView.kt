@@ -7,4 +7,5 @@ import androidx.compose.ui.Modifier
 expect fun DmsWebView(
     modifier: Modifier = Modifier,
     url: String,
+    jwtToken: String? = null,
 )
