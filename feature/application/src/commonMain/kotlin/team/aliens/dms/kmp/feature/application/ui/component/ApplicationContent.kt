@@ -13,6 +13,7 @@ internal fun ApplicationContent(
     modifier: Modifier = Modifier,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateVolunteerApplication: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -35,6 +36,12 @@ internal fun ApplicationContent(
             description = "기숙사 생활 중 밖으로 나갈 일이 있다면, 외출 신청을 통해서 외출해 보세요.",
             buttonText = "외출 신청하기",
             onButtonClick = onNavigateOutingApplication,
+        )
+        ApplicationCard(
+            title = "봉사 활동",
+            description = "학생들이 직접 봉사 활동을 신청하고 신청한 활동에 참여할 수 있습니다.",
+            buttonText = "봉사 신청하기",
+            onButtonClick = onNavigateVolunteerApplication,
         )
     }
 }
