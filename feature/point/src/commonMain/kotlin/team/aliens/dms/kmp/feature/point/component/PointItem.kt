@@ -88,7 +88,7 @@ internal fun PointItem(
                     color = pointColor,
                 )
                 DmsText(
-                    text = "을 받았어요${endText}",
+                    text = "을 받았어요$endText",
                     style = DmsTypography.labelM,
                     color = DmsTheme.colors.inverseOnSurface,
                 )

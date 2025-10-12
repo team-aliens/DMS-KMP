@@ -8,6 +8,8 @@ class GetPointsUseCase(
 ) {
     suspend operator fun invoke(type: PointType?, page: Long?, size: Long?) =
         pointsRepository.getPoints(
-            type = type, page = page, size = size,
+            type = type,
+            page = page,
+            size = size,
         )
 }
