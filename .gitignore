@@ -73,3 +73,5 @@ google-services.json
 local.properties
 
 *.xcconfig
+
+*.aab
