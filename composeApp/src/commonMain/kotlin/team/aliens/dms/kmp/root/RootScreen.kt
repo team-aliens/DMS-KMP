@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.core.model.votes.VoteModel
 import team.aliens.dms.kmp.feature.application.navigation.application
 import team.aliens.dms.kmp.feature.home.navigation.HomeRoute
@@ -24,6 +25,7 @@ internal fun Root(
     onNavigateVolunteerApplication: () -> Unit,
     onNoticeDetailClick: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
+    onNavigatePointHistory: (PointType) -> Unit,
 ) {
     RootScreen(
         onNavigateRemainApplication = onNavigateRemainApplication,
@@ -31,6 +33,7 @@ internal fun Root(
         onNavigateVolunteerApplication = onNavigateVolunteerApplication,
         onNoticeDetailClick = onNoticeDetailClick,
         onNavigateVote = onNavigateVote,
+        onNavigatePointHistory = onNavigatePointHistory,
     )
 }
 
@@ -41,6 +44,7 @@ private fun RootScreen(
     onNavigateVolunteerApplication: () -> Unit,
     onNoticeDetailClick: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
+    onNavigatePointHistory: (PointType) -> Unit,
 ) {
     val navController: NavHostController = rememberNavController()
 
@@ -62,7 +66,7 @@ private fun RootScreen(
                 onNavigateVote = onNavigateVote,
             )
             notices(onNoticeDetailClick = onNoticeDetailClick)
-            myPage()
+            myPage(onNavigatePointHistory = onNavigatePointHistory)
         }
     }
 }

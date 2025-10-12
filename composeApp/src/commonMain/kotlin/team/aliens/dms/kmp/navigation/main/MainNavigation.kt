@@ -8,6 +8,8 @@ import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
+import team.aliens.dms.kmp.feature.point.navigation.navigateToPointHistory
+import team.aliens.dms.kmp.feature.point.navigation.pointHistory
 import team.aliens.dms.kmp.feature.volunteer.navigation.navigateToVolunteer
 import team.aliens.dms.kmp.feature.volunteer.navigation.volunteer
 import team.aliens.dms.kmp.feature.vote.navigation.navigateToVote
@@ -40,6 +42,7 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateVolunteerApplication = appState.navController::navigateToVolunteer,
             onNoticeDetailClick = appState.navController::navigateToNoticeDetails,
             onNavigateVote = appState.navController::navigateToVote,
+            onNavigatePointHistory = appState.navController::navigateToPointHistory,
         )
         noticeDetails(onNavigateBack = appState.navController::navigateUp)
         remainApplication(onNavigateBack = appState.navController::navigateUp)
@@ -51,5 +54,6 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateBack = appState.navController::navigateUp,
             webViewUrl = PlatformConfig.webViewUrl,
         )
+        pointHistory(onNavigateBack = appState.navController::navigateUp)
     }
 }
