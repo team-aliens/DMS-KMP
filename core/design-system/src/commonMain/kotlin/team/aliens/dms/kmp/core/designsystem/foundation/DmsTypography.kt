@@ -175,4 +175,117 @@ object DmsTypography {
             lineHeight = 16.sp,
             color = DmsTheme.colors.onBackground,
         )
+
+    val HeadlineB
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val HeadlineM
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Medium,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val TitleB
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val TitleM
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Medium,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val STitleB
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val STitleM
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Medium,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val LBodyB
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val LBodyM
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium,
+            color = DmsTheme.colors.onBackground,
+        )
+
+
+    val BodyB
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val BodyM
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val labelB
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val labelM
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val SLabelB
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = DmsTheme.colors.onBackground,
+        )
+
+    val SLabelM
+        @Composable get() = TextStyle(
+            fontFamily = pretendardFamily(),
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Medium,
+            color = DmsTheme.colors.onBackground,
+        )
 }

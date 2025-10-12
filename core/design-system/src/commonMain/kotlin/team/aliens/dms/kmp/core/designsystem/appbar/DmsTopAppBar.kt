@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,7 +60,8 @@ fun DmsTopAppBar(
             onBackPressed?.let {
                 DmsIconButton(
                     resource = DmsIcon.Backward,
-                    tint = DmsTheme.colors.onBackground,
+                    tint = DmsTheme.colors.scrim,
+                    contentPaddingValues = PaddingValues(2.dp),
                     onClick = it,
                 )
             }

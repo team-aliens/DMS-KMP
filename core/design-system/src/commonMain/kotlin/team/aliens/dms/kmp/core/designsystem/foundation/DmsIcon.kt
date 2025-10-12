@@ -5,6 +5,7 @@ import dmskmp.core.design_system.generated.resources.ic_add_notes
 import dmskmp.core.design_system.generated.resources.ic_add_notes_fill
 import dmskmp.core.design_system.generated.resources.ic_alarm
 import dmskmp.core.design_system.generated.resources.ic_arrow_back
+import dmskmp.core.design_system.generated.resources.ic_back_arrow
 import dmskmp.core.design_system.generated.resources.ic_backward
 import dmskmp.core.design_system.generated.resources.ic_breaking_news
 import dmskmp.core.design_system.generated.resources.ic_breaking_news_fill
@@ -47,7 +48,7 @@ object DmsIcon {
     val BreakingNewsFill = Res.drawable.ic_breaking_news_fill
     val PersonFill = Res.drawable.ic_person_fill
     val Notification = Res.drawable.ic_notification
-    val Backward = Res.drawable.ic_backward
+    val Backward = Res.drawable.ic_back_arrow
     val Forward = Res.drawable.ic_forward
     val Down = Res.drawable.ic_down
     val Up = Res.drawable.ic_up
