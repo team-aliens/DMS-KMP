@@ -240,7 +240,6 @@ object DmsTypography {
             color = DmsTheme.colors.onBackground,
         )
 
-
     val BodyB
         @Composable get() = TextStyle(
             fontFamily = pretendardFamily(),

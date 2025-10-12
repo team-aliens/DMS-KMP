@@ -1,8 +1,6 @@
 package team.aliens.dms.kmp.core.designsystem.tab
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Tab
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

@@ -6,7 +6,6 @@ import dmskmp.core.design_system.generated.resources.ic_add_notes_fill
 import dmskmp.core.design_system.generated.resources.ic_alarm
 import dmskmp.core.design_system.generated.resources.ic_arrow_back
 import dmskmp.core.design_system.generated.resources.ic_back_arrow
-import dmskmp.core.design_system.generated.resources.ic_backward
 import dmskmp.core.design_system.generated.resources.ic_breaking_news
 import dmskmp.core.design_system.generated.resources.ic_breaking_news_fill
 import dmskmp.core.design_system.generated.resources.ic_cancel

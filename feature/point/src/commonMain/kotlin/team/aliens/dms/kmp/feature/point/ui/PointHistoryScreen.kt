@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Tab
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,10 +20,8 @@ import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTab
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTabRow
-import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.feature.point.component.PointItem
 import team.aliens.dms.kmp.feature.point.model.PointTab
 import team.aliens.dms.kmp.feature.point.viewmodel.PointHistoryState
@@ -93,7 +90,7 @@ private fun PointHistory(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                val pointHistoryList = remember(page,state.allPointList) {
+                val pointHistoryList = remember(page, state.allPointList) {
                     when (tabData[page]) {
                         PointTab.All -> state.allPointList
                         PointTab.Bonus -> state.bonusPointList

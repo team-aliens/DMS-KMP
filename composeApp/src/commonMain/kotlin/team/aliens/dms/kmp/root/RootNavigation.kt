@@ -15,7 +15,7 @@ fun NavGraphBuilder.root(
     onNavigateVolunteerApplication: () -> Unit,
     onNoticeDetailClick: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
-    onNavigatePointHistory: (PointType) -> Unit
+    onNavigatePointHistory: (PointType) -> Unit,
 ) {
     composable<RootRoute> {
         Root(
