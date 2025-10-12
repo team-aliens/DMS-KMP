@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
+import team.aliens.dms.kmp.core.designsystem.util.clickable
 import team.aliens.dms.kmp.core.model.type.PointType
 
 @Composable
@@ -23,6 +24,7 @@ internal fun PointCards(
     modifier: Modifier = Modifier,
     bonusPoint: Int,
     minusPoint: Int,
+    onNavigatePointHistory: (PointType) -> Unit,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -32,11 +34,13 @@ internal fun PointCards(
             modifier = Modifier.weight(1f),
             point = bonusPoint,
             pointType = PointType.BONUS,
+            onClick = { onNavigatePointHistory(PointType.BONUS) },
         )
         PointCard(
             modifier = Modifier.weight(1f),
             point = minusPoint,
             pointType = PointType.MINUS,
+            onClick = { onNavigatePointHistory(PointType.MINUS) },
         )
     }
 }
@@ -46,13 +50,16 @@ private fun PointCard(
     modifier: Modifier = Modifier,
     point: Int,
     pointType: PointType,
+    onClick: () -> Unit,
 ) {
     val (text, textColor, backgroundColor) = when (pointType) {
         PointType.BONUS -> Triple("상점", DmsTheme.colors.secondary, DmsTheme.colors.primary)
         PointType.MINUS -> Triple("벌점", DmsTheme.colors.onErrorContainer, DmsTheme.colors.error)
+        else -> Triple("", DmsTheme.colors.onSurface, DmsTheme.colors.surface)
     }
+
     OutlinedCard(
-        modifier = modifier,
+        modifier = modifier.clickable(onClick = onClick),
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.outlinedCardColors(
             containerColor = backgroundColor,

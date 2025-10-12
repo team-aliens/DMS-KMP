@@ -13,6 +13,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.feature.mypage.component.OptionsContent
 import team.aliens.dms.kmp.feature.mypage.component.PhraseCard
 import team.aliens.dms.kmp.feature.mypage.component.PointCards
@@ -21,18 +22,22 @@ import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageState
 import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageViewModel
 
 @Composable
-internal fun MyPage() {
+internal fun MyPage(
+    onNavigatePointHistory: (PointType) -> Unit,
+) {
     val viewModel: MyPageViewModel = koinViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     MyPageScreen(
         state = state,
+        onNavigatePointHistory = onNavigatePointHistory,
     )
 }
 
 @Composable
 private fun MyPageScreen(
     state: MyPageState,
+    onNavigatePointHistory: (PointType) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -67,8 +72,11 @@ private fun MyPageScreen(
                 PointCards(
                     bonusPoint = state.myPage.bonusPoint,
                     minusPoint = state.myPage.minusPoint,
+                    onNavigatePointHistory = onNavigatePointHistory,
                 )
-                OptionsContent()
+                OptionsContent(
+                    onNavigatePointHistory = onNavigatePointHistory,
+                )
             }
         }
     }
