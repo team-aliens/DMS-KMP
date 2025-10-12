@@ -3,13 +3,18 @@ package team.aliens.dms.kmp.feature.mypage.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
+import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.feature.mypage.ui.MyPage
 
 @Serializable
 data object MyPageRoute
 
-fun NavGraphBuilder.myPage() {
+fun NavGraphBuilder.myPage(
+    onNavigatePointHistory: (PointType) -> Unit,
+) {
     composable<MyPageRoute> {
-        MyPage()
+        MyPage(
+            onNavigatePointHistory = onNavigatePointHistory,
+        )
     }
 }

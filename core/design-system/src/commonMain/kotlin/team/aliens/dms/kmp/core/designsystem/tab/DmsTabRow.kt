@@ -1,5 +1,6 @@
 package team.aliens.dms.kmp.core.designsystem.tab
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
@@ -7,6 +8,7 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
@@ -21,9 +23,16 @@ fun DmsTabRow(
         @Composable { tabPositions ->
             if (selectedTabIndex < tabPositions.size) {
                 TabRowDefaults.SecondaryIndicator(
-                    modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                    color = DmsTheme.colors.onBackground,
-                    height = 1.dp,
+                    modifier = Modifier
+                        .tabIndicatorOffset(tabPositions[selectedTabIndex])
+                        .clip(
+                            shape = RoundedCornerShape(
+                                topStart = 12.dp,
+                                topEnd = 12.dp,
+                            ),
+                        ),
+                    color = DmsTheme.colors.onPrimaryContainer,
+                    height = 2.dp,
                 )
             }
         },

@@ -10,7 +10,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -18,55 +17,49 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.util.clickable
+import team.aliens.dms.kmp.core.model.type.PointType
 
 @Composable
 internal fun OptionsContent(
     modifier: Modifier = Modifier,
+    onNavigatePointHistory: (PointType) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        val userOptions = remember {
-            listOf(
-                Option(
-                    title = "상벌점 내역 확인",
-                    onClick = { },
-                ),
-                Option(
-                    title = "비밀번호 변경",
-                    onClick = { },
-                ),
-                Option(
-                    title = "알림 설정",
-                    onClick = { },
-                ),
-            )
-        }
-        val signOutOption = remember {
-            listOf(
-                Option(
-                    title = "로그아웃",
-                    onClick = { },
-                ),
-            )
-        }
-        val withdrawalOption = remember {
-            listOf(
-                Option(
-                    title = "회원 탈퇴",
-                    onClick = {},
-                ),
-            )
-        }
-        val themeOption = remember {
-            listOf(
-                Option(
-                    title = "테마 변경",
-                    onClick = {},
-                ),
-            )
-        }
+        val userOptions = listOf(
+            Option(
+                title = "상벌점 내역 확인",
+                onClick = { onNavigatePointHistory(PointType.ALL) },
+            ),
+            Option(
+                title = "비밀번호 변경",
+                onClick = { },
+            ),
+            Option(
+                title = "알림 설정",
+                onClick = { },
+            ),
+        )
+        val signOutOption = listOf(
+            Option(
+                title = "로그아웃",
+                onClick = { },
+            ),
+        )
+        val withdrawalOption = listOf(
+            Option(
+                title = "회원 탈퇴",
+                onClick = {},
+            ),
+        )
+        val themeOption = listOf(
+            Option(
+                title = "테마 변경",
+                onClick = {},
+            ),
+        )
 
         OptionLayout(
             options = userOptions,

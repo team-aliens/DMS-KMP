@@ -7,6 +7,8 @@ import team.aliens.dms.kmp.core.network.meal.datasource.KtorMealDataSource
 import team.aliens.dms.kmp.core.network.meal.datasource.NetworkMealDataSource
 import team.aliens.dms.kmp.core.network.notice.datasource.KtorNoticeDataSource
 import team.aliens.dms.kmp.core.network.notice.datasource.NetworkNoticeDataSource
+import team.aliens.dms.kmp.core.network.points.datasource.KtorPointsDataSource
+import team.aliens.dms.kmp.core.network.points.datasource.NetworkPointsDataSource
 import team.aliens.dms.kmp.core.network.remains.datasource.KtorRemainsDataSource
 import team.aliens.dms.kmp.core.network.remains.datasource.NetworkRemainsDataSource
 import team.aliens.dms.kmp.core.network.student.datasource.KtorStudentDataSource
@@ -21,4 +23,5 @@ val networkDataSourceModule = module {
     single<NetworkStudentDataSource> { KtorStudentDataSource(get()) }
     single<NetworkRemainsDataSource> { KtorRemainsDataSource(get()) }
     single<NetworkVotesDataSource> { KtorVotesDataSource(get()) }
+    single<NetworkPointsDataSource> { KtorPointsDataSource(get()) }
 }

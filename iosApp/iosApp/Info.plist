@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>0.0.1</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>DEV_BASE_URL</key>
@@ -26,8 +26,6 @@
 	<true/>
 	<key>PROD_BASE_URL</key>
 	<string>$(PROD_BASE_URL)</string>
-	<key>WEB_VIEW_URL</key>
-	<string>$(WEB_VIEW_URL)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -52,5 +50,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>WEB_VIEW_URL</key>
+	<string>$(WEB_VIEW_URL)</string>
 </dict>
 </plist>
