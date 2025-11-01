@@ -46,6 +46,7 @@ kotlin {
             api(libs.kermit)
 
             implementation(projects.core.model)
+            implementation(projects.core.util)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
