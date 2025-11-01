@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
-import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor

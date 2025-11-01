@@ -83,7 +83,7 @@ internal fun MealScreen(
         onNextDay = viewModel::setNextDate,
         onPreviousDay = viewModel::setPreviousDate,
         onBackClick = onNavigateBack,
-        onCalendarClick = viewModel::showCalendarBottomSheet
+        onCalendarClick = viewModel::showCalendarBottomSheet,
     )
 }
 
@@ -109,7 +109,7 @@ private fun MealScreen(
         MealCardType.LUNCH -> meal.lunch to meal.kcalLunch
         MealCardType.DINNER -> meal.dinner to meal.kcalDinner
     }
-    val mealCardGradientColors = when(currentCardType) {
+    val mealCardGradientColors = when (currentCardType) {
         MealCardType.BREAKFAST -> listOf(Color(0xFF0F6EFE), Color(0xFFFFCB52))
         MealCardType.LUNCH -> listOf(Color(0xFF0F6EFE), Color(0xFFFFFFFF))
         MealCardType.DINNER -> listOf(Color(0xFF7A3BA1), Color(0xFFFFFFFF))
@@ -156,11 +156,11 @@ private fun MealScreen(
                     .blur(radius = 120.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded),
                 onDraw = {
                     drawCircle(backgroundGradient)
-                }
+                },
             )
             Column(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 DateChip(date = state.selectedDate)
 
@@ -238,7 +238,7 @@ private fun MealScreen(
 }
 
 internal enum class MealCardType(
-    val title:String,
+    val title: String,
     val iconRes: DrawableResource,
 ) {
     BREAKFAST(

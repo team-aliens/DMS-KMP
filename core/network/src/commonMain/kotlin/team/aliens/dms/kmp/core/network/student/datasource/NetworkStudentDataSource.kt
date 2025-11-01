@@ -16,7 +16,6 @@ import team.aliens.dms.kmp.core.network.student.model.response.GetCandidateModel
 import team.aliens.dms.kmp.core.network.student.model.response.GetMyPageResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetStudentsResponse
 import team.aliens.dms.kmp.core.network.student.model.response.ResetPasswordResponse
-import team.aliens.dms.kmp.core.network.student.model.response.SignUpResponse
 
 interface NetworkStudentDataSource {
     suspend fun signUp(request: SignUpRequest): Result<TokenDto>

@@ -28,7 +28,6 @@ import coil3.request.ImageRequest
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.painterResource
-import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme

@@ -1,7 +1,6 @@
 package team.aliens.dms.kmp.feature.vote.ui.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,9 +8,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -68,8 +64,8 @@ internal fun ApprovalContent(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            options.forEachIndexed { index,option ->
-                if(index == 0) {
+            options.forEachIndexed { index, option ->
+                if (index == 0) {
                     ApprovalItem(
                         modifier = Modifier.weight(1f),
                         imageResource = Res.drawable.ic_approve,
@@ -111,10 +107,10 @@ private fun ApprovalItem(
     title: String,
     onClick: () -> Unit,
 ) {
-    val (backgroundColor,borderColor, content) = if (isSelected) {
-        Triple(clickColor, clickBorderColor,clickContentColor)
+    val (backgroundColor, borderColor, content) = if (isSelected) {
+        Triple(clickColor, clickBorderColor, clickContentColor)
     } else {
-        Triple(DmsTheme.colors.surfaceTint, DmsTheme.colors.surfaceVariant,contentColor)
+        Triple(DmsTheme.colors.surfaceTint, DmsTheme.colors.surfaceVariant, contentColor)
     }
     Card(
         modifier = modifier
@@ -134,7 +130,10 @@ private fun ApprovalItem(
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.CenterVertically),
+            verticalArrangement = Arrangement.spacedBy(
+                space = 20.dp,
+                alignment = Alignment.CenterVertically,
+            ),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Icon(

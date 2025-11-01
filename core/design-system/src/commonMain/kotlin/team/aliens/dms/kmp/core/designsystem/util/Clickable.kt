@@ -70,12 +70,12 @@ fun Modifier.clickable(
 
                                 change.changedToUp() || change.isConsumed -> {
                                     // TODO: 클릭 처리 방식 변경 필요
-                                    /*                                    pressed = false
-                                                                        onPressed?.invoke(false)
-                                                                        if (change.changedToUp() && timeNow.toNanosecondOfDay() - lastClick >= disabledMillis) {
-                                                                            lastClick = timeNow.toNanosecondOfDay()
-                                                                            onClick()
-                                                                        }*/
+                                    /*pressed = false
+                                    onPressed?.invoke(false)
+                                    if (change.changedToUp() && timeNow.toNanosecondOfDay() - lastClick >= disabledMillis) {
+                                        lastClick = timeNow.toNanosecondOfDay()
+                                        onClick()
+                                    }*/
                                     val isInside = change.position.x in 0f..size.width.toFloat() &&
                                             change.position.y in 0f..size.height.toFloat()
 

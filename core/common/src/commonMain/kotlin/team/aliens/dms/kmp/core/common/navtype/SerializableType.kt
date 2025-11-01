@@ -14,7 +14,7 @@ inline fun <reified T : Any?> serializableType(
 
     override fun get(bundle: SavedState, key: String): T? {
         return bundle.read {
-            this.getString(key).let<String,T>(json::decodeFromString)
+            this.getString(key).let<String, T>(json::decodeFromString)
         }
     }
 

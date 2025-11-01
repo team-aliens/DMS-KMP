@@ -20,7 +20,7 @@ internal fun TitleContent(
     startTime: LocalDateTime,
     endTime: LocalDateTime,
 ) {
-    Column (
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 8.dp),

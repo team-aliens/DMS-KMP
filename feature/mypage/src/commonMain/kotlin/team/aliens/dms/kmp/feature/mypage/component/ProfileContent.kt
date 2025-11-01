@@ -20,8 +20,6 @@ import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import team.aliens.dms.kmp.core.common.ui.startPadding
-import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText

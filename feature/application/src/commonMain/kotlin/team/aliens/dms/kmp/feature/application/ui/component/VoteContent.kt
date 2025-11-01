@@ -13,8 +13,6 @@ import dmskmp.core.design_system.generated.resources.img_choice
 import dmskmp.core.design_system.generated.resources.img_model_student
 import dmskmp.core.design_system.generated.resources.img_percent
 import dmskmp.core.design_system.generated.resources.img_student_tag
-import dmskmp.core.design_system.generated.resources.img_volunteer
-import kotlinx.datetime.LocalDateTime
 import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
 import team.aliens.dms.kmp.core.model.type.VoteType
 import team.aliens.dms.kmp.core.model.votes.VoteModel
@@ -36,7 +34,7 @@ internal fun VoteContent(
         ),
     ) {
         items(votes) { vote ->
-            val icon = when(vote.voteType) {
+            val icon = when (vote.voteType) {
                 VoteType.STUDENT_VOTE -> Res.drawable.img_student_tag
                 VoteType.OPTION_VOTE -> Res.drawable.img_choice
                 VoteType.APPROVAL_VOTE -> Res.drawable.img_percent

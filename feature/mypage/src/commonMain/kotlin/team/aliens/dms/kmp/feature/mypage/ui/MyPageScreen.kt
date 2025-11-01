@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
@@ -22,10 +21,7 @@ import team.aliens.dms.kmp.core.designsystem.content.DmsPointContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.model.type.PointType
-import team.aliens.dms.kmp.feature.mypage.component.OptionsContent
-import team.aliens.dms.kmp.feature.mypage.component.PhraseCard
 import team.aliens.dms.kmp.feature.mypage.component.PhraseContent
-import team.aliens.dms.kmp.feature.mypage.component.PointCards
 import team.aliens.dms.kmp.feature.mypage.component.ProfileContent
 import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageState
 import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageViewModel
@@ -62,7 +58,7 @@ private fun MyPageScreen(
                     tint = DmsTheme.colors.scrim,
                     onClick = { },
                 )
-            }
+            },
         )
         Column(
             modifier = Modifier
@@ -87,7 +83,7 @@ private fun MyPageScreen(
                 modifier = Modifier,
                 plusPoint = state.myPage.bonusPoint,
                 minusPoint = state.myPage.minusPoint,
-                onClick = { }
+                onClick = { },
             )
             DmsItemButton(
                 iconRes = Res.drawable.img_calendar,

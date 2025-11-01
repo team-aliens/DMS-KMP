@@ -77,7 +77,7 @@ fun DmsApplicationCard(
             appliedTitle?.let {
                 AppliedTitleText(
                     modifier = Modifier.padding(end = 16.dp),
-                    appliedTitle = appliedTitle
+                    appliedTitle = appliedTitle,
                 )
             }
             Icon(

@@ -36,7 +36,6 @@ internal fun ApplicationContent(
         )
         DmsApplicationCard(
             title = "외출 신청하기",
-            //appliedTitle = "금요 귀가",
             iconRes = Res.drawable.img_outing,
             onClick = onNavigateOutingApplication,
         )

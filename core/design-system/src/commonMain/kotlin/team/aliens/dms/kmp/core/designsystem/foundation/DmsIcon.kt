@@ -33,8 +33,6 @@ import dmskmp.core.design_system.generated.resources.ic_setting
 import dmskmp.core.design_system.generated.resources.ic_symbol_dark
 import dmskmp.core.design_system.generated.resources.ic_symbol_light
 import dmskmp.core.design_system.generated.resources.ic_up
-import dmskmp.core.design_system.generated.resources.ic_visibility
-import dmskmp.core.design_system.generated.resources.ic_visibility_off
 
 object DmsIcon {
     val AddNotes = Res.drawable.ic_add_notes

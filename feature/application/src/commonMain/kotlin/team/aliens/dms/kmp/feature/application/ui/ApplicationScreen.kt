@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Tab
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,10 +16,8 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTab
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTabRow
-import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.model.votes.VoteModel
 import team.aliens.dms.kmp.feature.application.ui.component.ApplicationContent
 import team.aliens.dms.kmp.feature.application.ui.component.VoteContent

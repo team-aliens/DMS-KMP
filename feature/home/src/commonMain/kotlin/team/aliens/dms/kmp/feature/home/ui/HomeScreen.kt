@@ -12,8 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dmskmp.core.design_system.generated.resources.Res
 import dmskmp.core.design_system.generated.resources.img_calendar
@@ -67,24 +65,10 @@ private fun HomeScreen(
                 .verticalScroll(state = scrollState)
                 .padding(horizontal = 10.dp, vertical = 16.dp),
         ) {
-            val brush = Brush.verticalGradient(
-                listOf(
-                    Color.White.copy(alpha = 0.03f),
-                    Color(0xFF3D8AFF).copy(alpha = 0.15f),
-                ),
-            )
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .fillMaxHeight(0.5f)
-//                    .background(brush)
-//                    .align(Alignment.BottomCenter),
-//            )
             AnnouncementButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 4.dp),
-                //.dmsShadowModifier(DmsShadowType.Light20),
                 onClick = onNavigateNotice,
             )
             MealContent(

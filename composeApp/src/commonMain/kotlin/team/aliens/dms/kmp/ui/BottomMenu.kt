@@ -5,7 +5,6 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.feature.application.navigation.ApplicationRoute
 import team.aliens.dms.kmp.feature.home.navigation.HomeRoute
 import team.aliens.dms.kmp.feature.mypage.navigation.MyPageRoute
-import team.aliens.dms.kmp.feature.notice.navigation.NoticesRoute
 
 sealed class BottomMenu(
     val route: Any,

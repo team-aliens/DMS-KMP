@@ -4,13 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +21,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.FormatStringsInDatetimeFormats
 import kotlinx.datetime.format.byUnicodePattern
 import org.jetbrains.compose.resources.painterResource
-import team.aliens.dms.kmp.core.common.ui.endPadding
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
@@ -47,12 +43,16 @@ internal fun PointItem(
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         val (backgroundColor, icon, pointColor) = if (pointType == PointType.BONUS) {
-            Triple(DmsTheme.colors.onPrimary, Res.drawable.ic_plus, DmsTheme.colors.onPrimaryContainer)
+            Triple(
+                DmsTheme.colors.onPrimary,
+                Res.drawable.ic_plus,
+                DmsTheme.colors.onPrimaryContainer,
+            )
         } else {
-            Triple(DmsTheme.colors.onError , Res.drawable.ic_minus,DmsTheme.colors.onErrorContainer)
+            Triple(DmsTheme.colors.onError, Res.drawable.ic_minus, DmsTheme.colors.onErrorContainer)
         }
         Box(
             modifier = Modifier
