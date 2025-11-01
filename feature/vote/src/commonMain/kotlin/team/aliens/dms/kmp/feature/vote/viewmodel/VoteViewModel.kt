@@ -9,7 +9,6 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.common.exception.network.ConflictException
-import team.aliens.dms.kmp.core.common.utils.today
 import team.aliens.dms.kmp.core.domain.usecase.student.GetCandidateModelStudentsUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.GetStudentsUseCase
 import team.aliens.dms.kmp.core.domain.usecase.votes.GetVoteItemsUseCase
@@ -17,6 +16,8 @@ import team.aliens.dms.kmp.core.domain.usecase.votes.PostVoteUseCase
 import team.aliens.dms.kmp.core.model.student.StudentModel
 import team.aliens.dms.kmp.core.model.type.VoteType
 import team.aliens.dms.kmp.core.model.votes.VoteItemModel
+import team.aliens.dms.kmp.core.model.votes.VoteModel
+import team.aliens.dms.kmp.core.util.today
 import team.aliens.dms.kmp.feature.vote.navigation.VoteRoute
 
 internal class VoteViewModel(
@@ -37,14 +38,13 @@ internal class VoteViewModel(
     private fun initState() {
         setState {
             state.value.copy(
-                voteName = route.voteName,
-                voteType = route.voteType,
+                vote = route.vote,
             )
         }
     }
 
     private fun fetchVotesByType() {
-        when (route.voteType) {
+        when (route.vote.voteType) {
             VoteType.OPTION_VOTE -> getVoteItems()
             VoteType.STUDENT_VOTE -> getStudents()
             VoteType.APPROVAL_VOTE -> getVoteItems()
@@ -65,7 +65,7 @@ internal class VoteViewModel(
 
     private fun getVoteItems() {
         viewModelScope.launch(Dispatchers.IO) {
-            getVoteItemsUseCase(votingTopicId = route.voteTopicId)
+            getVoteItemsUseCase(votingTopicId = route.vote.id)
                 .onSuccess { setState { state.value.copy(options = it) } }
                 .onFailure {
                     Logger.a(it) { it.message.toString() }
@@ -98,7 +98,7 @@ internal class VoteViewModel(
     internal fun postVote() {
         viewModelScope.launch(Dispatchers.IO) {
             postVoteUseCase(
-                votingTopic = route.voteTopicId,
+                votingTopic = route.vote.id,
                 selectId = state.value.selectId!!,
             ).onSuccess {
                 setState { state.value.copy(buttonEnabled = false) }
@@ -115,11 +115,10 @@ internal class VoteViewModel(
 }
 
 internal data class VoteState(
-    val voteName: String = "",
+    val vote: VoteModel = VoteModel(),
     val options: List<VoteItemModel> = emptyList(),
     val students: List<StudentModel> = emptyList(),
     val modelStudent: List<StudentModel> = emptyList(),
-    val voteType: VoteType = VoteType.OPTION_VOTE,
     val selectId: String? = null,
     val buttonEnabled: Boolean = false,
 )

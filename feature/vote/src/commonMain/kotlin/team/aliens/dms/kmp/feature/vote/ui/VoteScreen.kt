@@ -1,9 +1,12 @@
 package team.aliens.dms.kmp.feature.vote.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -15,6 +18,7 @@ import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.feature.vote.ui.component.VoteContent
 import team.aliens.dms.kmp.feature.vote.viewmodel.VoteSideEffect
@@ -72,7 +76,11 @@ private fun VoteScreen(
     submitVote: () -> Unit,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .background(DmsTheme.colors.background)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
     ) {
         DmsTopAppBar(
             title = "투표",
@@ -82,8 +90,10 @@ private fun VoteScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f),
-            voteType = state.voteType,
-            title = state.voteName,
+            voteType = state.vote.voteType,
+            title = state.vote.topicName,
+            startTime = state.vote.startTime,
+            endTime = state.vote.endTime,
             options = state.options,
             students = state.students,
             modelStudents = state.modelStudent,

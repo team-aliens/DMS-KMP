@@ -1,7 +1,6 @@
 package team.aliens.dms.kmp.feature.vote.ui.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,16 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,11 +25,16 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
-import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
-import team.aliens.dms.kmp.core.designsystem.button.ButtonType
-import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
+import org.jetbrains.compose.resources.painterResource
+import team.aliens.dms.kmp.core.common.ui.horizontalPadding
+import team.aliens.dms.kmp.core.common.ui.startPadding
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
+import team.aliens.dms.kmp.core.designsystem.tab.DmsTab
+import team.aliens.dms.kmp.core.designsystem.tab.DmsTabRow
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.util.clickable
 import team.aliens.dms.kmp.core.model.student.StudentModel
@@ -41,66 +43,71 @@ import team.aliens.dms.kmp.core.model.student.StudentModel
 internal fun StudentContent(
     modifier: Modifier = Modifier,
     title: String,
+    startTime: LocalDateTime,
+    endTime: LocalDateTime,
     students: List<StudentModel>,
     selectItem: String,
     onSelect: (String) -> Unit,
 ) {
-    var selectGrade by remember { mutableStateOf(0) }
     val grades = listOf("1학년", "2학년", "3학년")
+    val pagerState = rememberPagerState(
+        pageCount = { grades.size },
+        initialPage = 0,
+    )
+    val tabIndex = pagerState.currentPage
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        Column(
-            modifier = Modifier
-                .padding(
-                    start = 24.dp,
-                    end = 24.dp,
-                    top = 20.dp,
-                    bottom = 16.dp,
-                ),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+        TitleContent(
+            title = title,
+            startTime = startTime,
+            endTime = endTime,
+        )
+        HorizontalDivider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = 0.4.dp,
+            color = DmsTheme.colors.onSurfaceVariant,
+        )
+        DmsTabRow(
+            selectedTabIndex = tabIndex,
         ) {
-            DmsText(
-                text = title,
-                style = DmsTypography.Header3,
-            )
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                itemsIndexed(grades) { index, grade ->
-                    val buttonType =
-                        if (index + 1 == selectGrade) ButtonType.Contained else ButtonType.Outlined
-                    DmsButton(
-                        text = grade,
-                        buttonType = buttonType,
-                        buttonColor = ButtonColor.Primary,
-                        onClick = { selectGrade = index + 1 },
+            grades.forEachIndexed { index, text ->
+                DmsTab(
+                    selected = tabIndex == index,
+                    onClick = {
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
+                    text = text,
+                )
+            }
+        }
+        HorizontalPager(
+            modifier = Modifier.fillMaxWidth(),
+            state = pagerState,
+            beyondViewportPageCount = 1,
+        ) { page ->
+            val selectGrade = page + 1
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                val filteredStudents = students.filter { it.gcn.startsWith("$selectGrade") }
+                items(
+                    items = filteredStudents,
+                    key = { student -> student.id },
+                ) { student ->
+                    StudentItem(
+                        profileImageUrl = student.profileImageUrl,
+                        name = student.name,
+                        gcn = student.gcn,
+                        isSelected = selectItem == student.id,
+                        onClick = { onSelect(student.id) },
                     )
                 }
             }
         }
-        HorizontalDivider(
-            modifier = Modifier.fillMaxWidth(),
-            color = DmsTheme.colors.surface,
-        )
-        LazyColumn {
-            val filteredStudents =
-                if (selectGrade == 0) {
-                    students
-                } else {
-                    students.filter { it.gcn.startsWith("$selectGrade") }
-                }
-            items(filteredStudents) { student ->
-                StudentItem(
-                    profileImageUrl = student.profileImageUrl,
-                    name = student.name,
-                    gcn = student.gcn,
-                    isSelected = selectItem == student.id,
-                    onClick = { onSelect(student.id) },
-                )
-            }
-        }
+
     }
 }
 
@@ -114,7 +121,7 @@ private fun StudentItem(
     onClick: () -> Unit,
 ) {
     val backgroundColor = if (isSelected) {
-        DmsTheme.colors.onPrimary
+        DmsTheme.colors.surfaceVariant
     } else {
         DmsTheme.colors.background
     }
@@ -125,13 +132,13 @@ private fun StudentItem(
             .clickable(onClick = onClick)
             .padding(
                 horizontal = 24.dp,
-                vertical = 14.dp,
+                vertical = 18.dp,
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
             modifier = Modifier
-                .size(28.dp)
+                .size(32.dp)
                 .clip(CircleShape),
             model = ImageRequest.Builder(context = LocalPlatformContext.current)
                 .data(profileImageUrl)
@@ -139,14 +146,17 @@ private fun StudentItem(
             contentDescription = null,
             contentScale = ContentScale.Crop,
         )
-        Spacer(modifier = Modifier.weight(1f))
         DmsText(
+            modifier = Modifier.startPadding(12.dp),
             text = "$gcn $name",
-            style = DmsTypography.Body1,
+            style = DmsTypography.BodyB,
+            color = DmsTheme.colors.inverseOnSurface,
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Icon(
+            painter = painterResource(DmsIcon.Forward),
+            tint = DmsTheme.colors.scrim,
+            contentDescription = null,
         )
     }
-    HorizontalDivider(
-        modifier = Modifier.fillMaxWidth(),
-        color = DmsTheme.colors.surface,
-    )
 }
