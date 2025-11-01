@@ -47,10 +47,15 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.kottie)
             implementation(libs.kotlinx.datetime)
 
+            implementation(libs.compottie)
+            implementation(libs.compottie.resources)
+
+            implementation(libs.compose.calendar)
+
             implementation(projects.core.common)
+            implementation(projects.core.util)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

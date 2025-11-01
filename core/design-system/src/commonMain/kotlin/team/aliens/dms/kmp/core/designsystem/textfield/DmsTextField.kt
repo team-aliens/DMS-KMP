@@ -57,20 +57,20 @@ fun DmsTextField(
     var isFocused by remember { mutableStateOf(false) }
     val labelColor by animateColorAsState(
         targetValue = if (isFocused || value.isNotEmpty()) {
-            DmsTheme.colors.inversePrimary
+            DmsTheme.colors.onPrimaryContainer
         } else {
-            DmsTheme.colors.onBackground
+            DmsTheme.colors.surfaceContainer
         },
     )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(2.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         label?.let { label ->
             DmsText(
                 text = label,
-                style = DmsTypography.Label,
+                style = DmsTypography.labelM,
                 color = labelColor,
             )
         }
@@ -140,11 +140,11 @@ private fun TextField(
 
     val lineColor by animateColorAsState(
         targetValue = if (isError) {
-            DmsTheme.colors.outline
+            DmsTheme.colors.onErrorContainer
         } else if (isFocused || value.isNotEmpty()) {
-            DmsTheme.colors.inversePrimary
+            DmsTheme.colors.onPrimaryContainer
         } else {
-            DmsTheme.colors.onSurface
+            DmsTheme.colors.onSurfaceVariant
         },
     )
 
@@ -156,7 +156,7 @@ private fun TextField(
             }
         },
         modifier = modifier,
-        textStyle = DmsTypography.Body1,
+        textStyle = DmsTypography.BodyM,
         singleLine = singleLine,
         enabled = enabled,
         readOnly = readOnly,
@@ -198,14 +198,14 @@ private fun TextField(
                     if (showVisibleIcon) {
                         DmsIconButton(
                             resource = icon,
-                            tint = DmsTheme.colors.inverseOnSurface,
+                            tint = DmsTheme.colors.inverseSurface,
                             onClick = { visible = !visible },
                         )
                     }
                     if (showClearIcon && value.isNotEmpty()) {
                         DmsIconButton(
                             resource = DmsIcon.Cancel,
-                            tint = DmsTheme.colors.inverseOnSurface,
+                            tint = DmsTheme.colors.inverseSurface,
                             onClick = { onValueChange("") },
                         )
                     }
@@ -213,7 +213,7 @@ private fun TextField(
             }
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
-                thickness = 1.dp,
+                thickness = 2.dp,
                 color = lineColor,
             )
         }

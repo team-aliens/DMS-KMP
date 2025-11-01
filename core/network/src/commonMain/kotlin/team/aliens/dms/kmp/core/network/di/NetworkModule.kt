@@ -41,6 +41,7 @@ import team.aliens.dms.kmp.core.common.exception.network.RequestTimeoutException
 import team.aliens.dms.kmp.core.common.exception.network.ServiceUnavailableException
 import team.aliens.dms.kmp.core.common.exception.network.TooManyRequestsException
 import team.aliens.dms.kmp.core.common.exception.network.UnAuthorizedException
+import team.aliens.dms.kmp.core.common.exception.network.UnprocessableEntityException
 import team.aliens.dms.kmp.core.common.exception.network.UnsupportedMediaTypeException
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 import team.aliens.dms.kmp.core.model.auth.AccessToken
@@ -91,6 +92,7 @@ val networkModule = module {
                             HttpStatusCode.BadRequest -> throw BadRequestException()
                             HttpStatusCode.Unauthorized -> throw UnAuthorizedException()
                             HttpStatusCode.Forbidden -> throw ForbiddenException()
+                            HttpStatusCode.UnprocessableEntity -> throw UnprocessableEntityException()
                             HttpStatusCode.NotFound -> throw NotFoundException()
                             HttpStatusCode.RequestTimeout -> throw RequestTimeoutException()
                             HttpStatusCode.Conflict -> throw ConflictException()

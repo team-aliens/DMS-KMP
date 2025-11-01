@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.common.utils
+package team.aliens.dms.kmp.core.common.util
 
 import kotlinx.datetime.DayOfWeek
 

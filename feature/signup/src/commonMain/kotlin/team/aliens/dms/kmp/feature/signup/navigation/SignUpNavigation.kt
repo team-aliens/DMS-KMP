@@ -6,6 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.common.navtype.SignUpDataNavType
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 
 @Serializable
@@ -37,6 +38,9 @@ sealed interface SignUp {
 
         @Serializable
         data class Terms(val signUpData: SignUpData) : SignUp
+
+        @Serializable
+        data object Complete : SignUp
     }
 }
 
@@ -57,8 +61,10 @@ fun NavGraphBuilder.signupGraph(
     navigateToSetId: (SignUpData) -> Unit,
     navigateToSetPassword: (SignUpData) -> Unit,
     navigateToTerms: (SignUpData) -> Unit,
-    navigateToSignIn: () -> Unit,
+    navigateToComplete: () -> Unit,
+    navigateToMain: () -> Unit,
     webViewUrl: String,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     navigation<SignUp.Route>(
         startDestination = SignUp.Route.EnterSchoolVerificationCodeRoute,
@@ -93,8 +99,12 @@ fun NavGraphBuilder.signupGraph(
         )
         terms(
             onBackPressed = onBackPressed,
-            navigateToSignIn = navigateToSignIn,
+            navigateToComplete = navigateToComplete,
             webViewUrl = webViewUrl,
+            onShowSnackBar = onShowSnackBar,
+        )
+        complete(
+            navigateToMain = navigateToMain,
         )
     }
 }

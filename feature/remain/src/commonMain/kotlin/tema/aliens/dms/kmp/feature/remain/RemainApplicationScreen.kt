@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -14,18 +16,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dmskmp.core.design_system.generated.resources.Res
+import dmskmp.core.design_system.generated.resources.img_bus
+import dmskmp.core.design_system.generated.resources.img_home
+import dmskmp.core.design_system.generated.resources.img_night_bus
+import dmskmp.core.design_system.generated.resources.img_small_home
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
 import team.aliens.dms.kmp.core.common.ui.verticalPadding
-import team.aliens.dms.kmp.core.common.utils.toKorean
+import team.aliens.dms.kmp.core.common.util.toKorean
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
 import team.aliens.dms.kmp.core.designsystem.float.DmsFloatingNotice
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import tema.aliens.dms.kmp.feature.remain.component.RemainOptionCard
 
 @Composable
 internal fun RemainApplication(
@@ -52,7 +59,9 @@ private fun RemainApplicationScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colors.background),
+            .background(DmsTheme.colors.background)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
     ) {
         DmsTopAppBar(
             title = "잔류 신청",
@@ -73,14 +82,23 @@ private fun RemainApplicationScreen(
                 .fillMaxWidth()
                 .topPadding(30.dp)
                 .horizontalPadding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             items(state.remainsOptions) { remainsOption ->
-                RemainOptionCard(
-                    isSelected = state.selectRemainsOptionId == remainsOption.id,
+                val icon = when (remainsOption.title) {
+                    "금요일 귀가" -> Res.drawable.img_night_bus
+                    "토요일 귀가" -> Res.drawable.img_bus
+                    "토요일 귀사" -> Res.drawable.img_home
+                    "주말 잔류" -> Res.drawable.img_small_home
+                    else -> Res.drawable.img_bus
+                }
+                val appliedTitle = if (remainsOption.isApplied) "신청됨" else null
+                DmsApplicationCard(
                     title = remainsOption.title,
                     description = remainsOption.description,
-                    isApplied = remainsOption.isApplied,
+                    isSelected = state.selectRemainsOptionId == remainsOption.id,
+                    iconRes = icon,
+                    appliedTitle = appliedTitle,
                     onClick = { setSelectRemainsOption(remainsOption.id) },
                 )
             }

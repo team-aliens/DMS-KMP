@@ -3,7 +3,7 @@ package team.aliens.dms.kmp.feature.signup.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
-import team.aliens.dms.kmp.core.common.utils.Regex
+import team.aliens.dms.kmp.core.common.util.Regex
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 

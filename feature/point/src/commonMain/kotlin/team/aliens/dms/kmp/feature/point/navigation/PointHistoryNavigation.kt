@@ -10,7 +10,7 @@ import team.aliens.dms.kmp.feature.point.ui.PointHistoryScreen
 
 @Serializable
 data class PointHistoryRoute(
-    val pointType: PointType,
+    val pointType: String,
 )
 
 fun NavController.navigateToPointHistory(
@@ -18,7 +18,7 @@ fun NavController.navigateToPointHistory(
     navOptions: NavOptions? = null,
 ) = navigate(
     route = PointHistoryRoute(
-        pointType = pointType,
+        pointType = pointType.name,
     ),
     navOptions = navOptions,
 )

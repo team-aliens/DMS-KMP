@@ -13,18 +13,22 @@ fun NavGraphBuilder.root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
-    onNoticeDetailClick: (String) -> Unit,
+    onNavigateNotice: () -> Unit,
+    onNavigateNoticeDetail: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
+    onNavigateMeal: () -> Unit,
 ) {
     composable<RootRoute> {
         Root(
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
             onNavigateVolunteerApplication = onNavigateVolunteerApplication,
-            onNoticeDetailClick = onNoticeDetailClick,
+            onNavigateNotice = onNavigateNotice,
+            onNavigateNoticeDetail = onNavigateNoticeDetail,
             onNavigateVote = onNavigateVote,
             onNavigatePointHistory = onNavigatePointHistory,
+            onNavigateMeal = onNavigateMeal,
         )
     }
 }

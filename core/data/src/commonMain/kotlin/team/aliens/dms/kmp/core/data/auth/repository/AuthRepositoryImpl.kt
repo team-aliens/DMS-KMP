@@ -1,5 +1,8 @@
 package team.aliens.dms.kmp.core.data.auth.repository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
 import team.aliens.dms.kmp.core.data.auth.mapper.toModel
 import team.aliens.dms.kmp.core.data.auth.model.EmailVerificationType
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
@@ -20,7 +23,7 @@ internal class AuthRepositoryImpl(
         accountId: String,
         password: String,
         deviceToken: String,
-    ): Result<Unit> {
+    ): Result<Unit> = kotlin.runCatching {
         val response = networkAuthDatasource.signIn(
             request = SignInRequest(
                 body = SignInRequest.Body(
@@ -30,12 +33,12 @@ internal class AuthRepositoryImpl(
                 ),
             ),
         )
-        response.getOrNull()?.let { token ->
+
+        withContext(Dispatchers.IO) {
             authPreferencesDataSource.storeTokens(
-                token = token.toModel(),
+                token = response.getOrThrow().toModel(),
             )
         }
-        return response.map { }
     }
 
     override suspend fun sendEmailVerificationCode(

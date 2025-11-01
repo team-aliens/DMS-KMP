@@ -5,58 +5,32 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
-import team.aliens.dms.kmp.core.common.utils.today
-import team.aliens.dms.kmp.core.domain.usecase.meal.GetMealUseCase
-import team.aliens.dms.kmp.core.model.meal.MealModel
+import team.aliens.dms.kmp.core.domain.usecase.student.GetMyPageUseCase
+import team.aliens.dms.kmp.core.model.mypage.MyPageModel
 
 internal class HomeViewModel(
-    private val getMealUseCase: GetMealUseCase,
-) : BaseViewModel<HomeState, HomeSideEffect>(HomeState.getDefaultState()) {
+    private val getMyPageUseCase: GetMyPageUseCase,
+) : BaseViewModel<HomeState, HomeSideEffect>(HomeState()) {
 
     init {
-        getMeal()
+        getMyPage()
     }
 
-    internal fun updateDate(date: LocalDate) {
-        setState { state.value.copy(selectedDate = date) }
-        getMeal()
-    }
-
-    private fun getMeal() {
+    private fun getMyPage() {
         viewModelScope.launch(Dispatchers.IO) {
-            getMealUseCase(date = state.value.selectedDate)
-                .onSuccess {
-                    setState { state.value.copy(meal = it) }
-                }
-                .onFailure {
-                    Logger.a(it) { it.message.toString() }
-                }
+            getMyPageUseCase().onSuccess {
+                setState { state.value.copy(myPage = it) }
+            }.onFailure {
+                Logger.a(it) { it.message.toString() }
+            }
         }
     }
 }
 
-data class HomeState(
-    val newNoticesExist: Boolean,
-    val selectedDate: LocalDate,
-    val meal: MealModel,
-) {
-    companion object {
-        fun getDefaultState() = HomeState(
-            newNoticesExist = false,
-            selectedDate = today,
-            meal = MealModel(
-                date = today,
-                breakfast = emptyList(),
-                kcalBreakfast = null,
-                lunch = emptyList(),
-                kcalLunch = null,
-                dinner = emptyList(),
-                kcalDinner = null,
-            ),
-        )
-    }
-}
+internal data class HomeState(
+    val newNoticesExist: Boolean = false,
+    val myPage: MyPageModel = MyPageModel(),
+)
 
-sealed interface HomeSideEffect
+internal sealed interface HomeSideEffect

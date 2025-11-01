@@ -18,16 +18,17 @@ internal fun SignUpInfoBanner(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         DmsText(
             text = title,
-            style = DmsTypography.Header3,
+            style = DmsTypography.TitleB,
+            color = DmsTheme.colors.onTertiaryContainer,
         )
         DmsText(
             text = description,
-            style = DmsTypography.Body1,
-            color = DmsTheme.colors.inverseOnSurface,
+            style = DmsTypography.BodyM,
+            color = DmsTheme.colors.inverseSurface,
         )
     }
 }

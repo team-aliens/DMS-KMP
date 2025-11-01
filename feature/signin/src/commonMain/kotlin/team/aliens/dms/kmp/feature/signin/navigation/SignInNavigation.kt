@@ -12,7 +12,11 @@ import team.aliens.dms.kmp.feature.signin.ui.SignIn
 data object SignInRoute
 
 fun NavController.navigateToSignIn(
-    navOptions: NavOptions? = null,
+    navOptions: NavOptions? = androidx.navigation.navOptions {
+        popUpTo(graph.id) {
+            inclusive = true
+        }
+    },
 ) = navigate(
     route = SignInRoute,
     navOptions = navOptions,

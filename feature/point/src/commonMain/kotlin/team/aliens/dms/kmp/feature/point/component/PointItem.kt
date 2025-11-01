@@ -2,14 +2,12 @@ package team.aliens.dms.kmp.feature.point.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,16 +43,16 @@ internal fun PointItem(
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        val (backgroundColor, icon) = if (pointType == PointType.BONUS) {
-            DmsTheme.colors.onPrimary to Res.drawable.ic_plus
+        val (backgroundColor, icon, pointColor) = if (pointType == PointType.BONUS) {
+            Triple(
+                DmsTheme.colors.onPrimary,
+                Res.drawable.ic_plus,
+                DmsTheme.colors.onPrimaryContainer,
+            )
         } else {
-            DmsTheme.colors.onError to Res.drawable.ic_minus
-        }
-        val (pointText, endText, pointColor) = if (pointType == PointType.BONUS) {
-            Triple("상점", "!", DmsTheme.colors.onPrimaryContainer)
-        } else {
-            Triple("벌점", ".", DmsTheme.colors.onErrorContainer)
+            Triple(DmsTheme.colors.onError, Res.drawable.ic_minus, DmsTheme.colors.onErrorContainer)
         }
         Box(
             modifier = Modifier
@@ -69,32 +67,17 @@ internal fun PointItem(
                 contentDescription = null,
             )
         }
-        Spacer(modifier = Modifier.width(12.dp))
-        Column {
-            DmsText(
-                text = "[$name]",
-                style = DmsTypography.labelB,
-                color = DmsTheme.colors.inverseOnSurface,
-            )
-            Row {
-                DmsText(
-                    text = pointText,
-                    style = DmsTypography.labelM,
-                    color = DmsTheme.colors.inverseOnSurface,
-                )
-                DmsText(
-                    text = " ${point}점",
-                    style = DmsTypography.labelB,
-                    color = pointColor,
-                )
-                DmsText(
-                    text = "을 받았어요$endText",
-                    style = DmsTypography.labelM,
-                    color = DmsTheme.colors.inverseOnSurface,
-                )
-            }
-        }
-        Spacer(modifier = Modifier.weight(1f))
+        DmsText(
+            modifier = Modifier.weight(1f),
+            text = name,
+            style = DmsTypography.BodyB,
+            color = DmsTheme.colors.inverseOnSurface,
+        )
+        DmsText(
+            text = " ${point}점",
+            style = DmsTypography.BodyB,
+            color = pointColor,
+        )
         DmsText(
             text = formatter.format(date),
             style = DmsTypography.labelM,

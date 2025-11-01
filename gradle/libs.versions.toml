@@ -1,5 +1,5 @@
 [versions]
-agp = "8.2.2"
+agp = "8.6.0"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
@@ -12,20 +12,21 @@ androidx-lifecycle = "2.8.2"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 coil = "3.1.0"
-compose-plugin = "1.6.11"
+compose-plugin = "1.9.0"
+composeCalendar = "2.9.0"
+compottie = "2.0.2"
 datastorePreferencesCore = "1.1.1"
 firebaseBom = "33.4.0"
 junit = "4.13.2"
 kermit = "2.0.5"
-koin = "4.0.0"
-kotlin = "2.1.10" #2.0.20
+koin = "4.1.1"
+kotlin = "2.2.20" #2.0.20
 kotlinx-coroutines = "1.9.0"
-kotlinxDatetime = "0.6.1"
+kotlinxDatetime = "0.7.1"
 kotlinxSerializationJson = "1.7.3"
-kottie = "2.0.0"
 ktor = "3.0.1"
-lifecycleViewmodelCompose = "2.8.2"
-navigationCompose = "2.8.0-alpha12"
+lifecycleViewmodelCompose = "2.9.5"
+navigationCompose = "2.9.1"
 jetbrainsKotlinJvm = "2.0.20"
 sqldelight = "2.0.2"
 ktlint = "12.1.1"
@@ -36,6 +37,9 @@ android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = 
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
 coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+compose-calendar = { module = "com.kizitonwose.calendar:compose-multiplatform", version.ref = "composeCalendar" }
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
 coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
@@ -59,7 +63,6 @@ androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-kottie = { module = "io.github.ismai117:kottie", version.ref = "kottie" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }

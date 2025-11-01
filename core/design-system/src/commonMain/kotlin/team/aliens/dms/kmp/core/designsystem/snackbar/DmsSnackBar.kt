@@ -18,6 +18,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
+import team.aliens.dms.kmp.core.designsystem.modifier.dmsDropShadow
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 
 @Composable
@@ -29,8 +30,14 @@ fun DmsSnackBar(
     Row(
         modifier = modifier
             .wrapContentWidth()
+            .dmsDropShadow(
+                shape = CircleShape,
+                color = DmsTheme.colors.onPrimaryContainer.copy(alpha = 0.1f),
+                blur = 20.dp,
+                offsetY = 0.dp,
+            )
             .background(
-                color = DmsTheme.colors.surface,
+                color = DmsTheme.colors.surfaceTint,
                 shape = CircleShape,
             )
             .padding(
@@ -38,7 +45,7 @@ fun DmsSnackBar(
                 horizontal = 16.dp,
             ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         Image(
             painter = painterResource(snackBarType.iconRes),
@@ -46,8 +53,8 @@ fun DmsSnackBar(
         )
         DmsText(
             text = message,
-            style = DmsTypography.Button2,
-            color = DmsTheme.colors.onBackground,
+            style = DmsTypography.BodyB,
+            color = DmsTheme.colors.tertiaryContainer,
         )
     }
 }

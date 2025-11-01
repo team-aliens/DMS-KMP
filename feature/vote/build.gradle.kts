@@ -59,6 +59,7 @@ kotlin {
             implementation(projects.core.domain)
             implementation(projects.core.common)
             implementation(projects.core.model)
+            implementation(projects.core.util)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

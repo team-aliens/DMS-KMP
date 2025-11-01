@@ -60,6 +60,7 @@ kotlin {
             implementation(projects.core.model)
             implementation(projects.core.common)
             implementation(projects.core.domain)
+            implementation(projects.core.util)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

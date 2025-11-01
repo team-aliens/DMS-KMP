@@ -5,18 +5,23 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dmskmp.core.design_system.generated.resources.Res
+import dmskmp.core.design_system.generated.resources.img_calendar
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
+import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
+import team.aliens.dms.kmp.core.designsystem.button.DmsItemButton
+import team.aliens.dms.kmp.core.designsystem.content.DmsPointContent
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.model.type.PointType
-import team.aliens.dms.kmp.feature.mypage.component.OptionsContent
-import team.aliens.dms.kmp.feature.mypage.component.PhraseCard
-import team.aliens.dms.kmp.feature.mypage.component.PointCards
+import team.aliens.dms.kmp.feature.mypage.component.PhraseContent
 import team.aliens.dms.kmp.feature.mypage.component.ProfileContent
 import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageState
 import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageViewModel
@@ -42,19 +47,27 @@ private fun MyPageScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colors.background),
+            .background(DmsTheme.colors.background)
+            .statusBarsPadding(),
     ) {
         DmsTopAppBar(
             title = "마이페이지",
+            actions = {
+                DmsIconButton(
+                    resource = DmsIcon.Setting,
+                    tint = DmsTheme.colors.scrim,
+                    onClick = { },
+                )
+            },
         )
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    horizontal = 24.dp,
-                    vertical = 12.dp,
+                    horizontal = 10.dp,
+                    vertical = 16.dp,
                 ),
-            verticalArrangement = Arrangement.spacedBy(64.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             ProfileContent(
                 gcn = state.myPage.gcn,
@@ -63,21 +76,20 @@ private fun MyPageScreen(
                 genderType = state.myPage.sex,
                 profileImageUrl = state.myPage.profileImageUrl,
             )
-            Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                PhraseCard(
-                    phrase = state.myPage.phrase,
-                )
-                PointCards(
-                    bonusPoint = state.myPage.bonusPoint,
-                    minusPoint = state.myPage.minusPoint,
-                    onNavigatePointHistory = onNavigatePointHistory,
-                )
-                OptionsContent(
-                    onNavigatePointHistory = onNavigatePointHistory,
-                )
-            }
+            PhraseContent(
+                phrase = state.myPage.phrase,
+            )
+            DmsPointContent(
+                modifier = Modifier,
+                plusPoint = state.myPage.bonusPoint,
+                minusPoint = state.myPage.minusPoint,
+                onClick = { },
+            )
+            DmsItemButton(
+                iconRes = Res.drawable.img_calendar,
+                text = "상벌점 이력 보러가기",
+                onClick = { onNavigatePointHistory(PointType.ALL) },
+            )
         }
     }
 }

@@ -76,6 +76,7 @@ kotlin {
             implementation(projects.feature.vote)
             implementation(projects.feature.volunteer)
             implementation(projects.feature.point)
+            implementation(projects.feature.meal)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

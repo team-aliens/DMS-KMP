@@ -1,7 +1,12 @@
 package team.aliens.dms.kmp.core.data.student.repository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
+import team.aliens.dms.kmp.core.data.auth.mapper.toModel
 import team.aliens.dms.kmp.core.data.student.mapper.toModel
+import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 import team.aliens.dms.kmp.core.model.mypage.MyPageModel
 import team.aliens.dms.kmp.core.model.student.EmailModel
 import team.aliens.dms.kmp.core.model.student.NameModel
@@ -20,6 +25,7 @@ import team.aliens.dms.kmp.core.network.student.model.request.SignUpRequest
 
 internal class StudentRepositoryImpl(
     private val networkStudentDataSource: NetworkStudentDataSource,
+    private val authPreferencesDataSource: AuthPreferencesDataSource,
 ) : StudentRepository {
     override suspend fun signUp(
         schoolVerificationCode: String,
@@ -32,22 +38,28 @@ internal class StudentRepositoryImpl(
         accountId: String,
         password: String,
         profileImageUrl: String?,
-    ): Result<Unit> = networkStudentDataSource.signUp(
-        request = SignUpRequest(
-            body = SignUpRequest.Body(
-                schoolCode = schoolVerificationCode,
-                schoolAnswer = schoolVerificationAnswer,
-                email = email,
-                emailVerificationCode = emailVerificationCode,
-                grade = grade,
-                classRoom = classRoom,
-                number = number,
-                accountId = accountId,
-                password = password,
-                profileImageUrl = profileImageUrl,
+    ): Result<Unit> = kotlin.runCatching {
+        val response = networkStudentDataSource.signUp(
+            request = SignUpRequest(
+                body = SignUpRequest.Body(
+                    schoolCode = schoolVerificationCode,
+                    schoolAnswer = schoolVerificationAnswer,
+                    email = email,
+                    emailVerificationCode = emailVerificationCode,
+                    grade = grade,
+                    classRoom = classRoom,
+                    number = number,
+                    accountId = accountId,
+                    password = password,
+                    profileImageUrl = profileImageUrl,
+                ),
             ),
-        ),
-    ).map { }
+        )
+
+        withContext(Dispatchers.IO) {
+            authPreferencesDataSource.storeTokens(token = response.getOrThrow().toModel())
+        }
+    }
 
     override suspend fun examineStudentNumber(
         schoolId: String,

@@ -35,10 +35,10 @@ object DmsCheckboxDefaults {
 
     @Composable
     fun Colors(
-        checkedColor: Color = DmsTheme.colors.secondary,
-        uncheckedColor: Color = DmsTheme.colors.inverseSurface,
+        checkedColor: Color = DmsTheme.colors.onPrimaryContainer,
+        uncheckedColor: Color = DmsTheme.colors.scrim,
         checkmarkColor: Color = DmsTheme.colors.surfaceTint,
-        disabledColor: Color = DmsTheme.colors.primaryContainer,
+        disabledColor: Color = DmsTheme.colors.scrim,
         disabledIndeterminateColor: Color = checkedColor.copy(alpha = DISABLED_CONTAINER_OPACITY),
     ): CheckboxColors = CheckboxDefaults.colors(
         checkedColor = checkedColor,

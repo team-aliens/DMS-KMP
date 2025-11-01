@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
 import team.aliens.dms.kmp.feature.signin.navigation.signIn
+import team.aliens.dms.kmp.feature.signup.navigation.navigateToComplete
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterEmail
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterEmailVerificationCode
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToEnterSchoolVerificationQuestion
@@ -58,8 +59,10 @@ fun NavGraphBuilder.authGraph(
             navigateToSetId = appState.navController::navigateToSetId,
             navigateToSetPassword = appState.navController::navigateToSetPassword,
             navigateToTerms = appState.navController::navigateToTerms,
-            navigateToSignIn = appState.navController::navigateToSignIn,
+            navigateToComplete = appState.navController::navigateToComplete,
+            navigateToMain = appState.navController::navigateToMain,
             webViewUrl = PlatformConfig.webViewUrl,
+            onShowSnackBar = appState::showSnackBar,
         )
     }
 }

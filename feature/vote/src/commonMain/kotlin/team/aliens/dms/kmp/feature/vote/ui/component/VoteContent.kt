@@ -3,6 +3,7 @@ package team.aliens.dms.kmp.feature.vote.ui.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import kotlinx.datetime.LocalDateTime
 import team.aliens.dms.kmp.core.model.student.StudentModel
 import team.aliens.dms.kmp.core.model.type.VoteType
 import team.aliens.dms.kmp.core.model.votes.VoteItemModel
@@ -12,6 +13,8 @@ internal fun VoteContent(
     modifier: Modifier = Modifier,
     voteType: VoteType,
     title: String,
+    startTime: LocalDateTime,
+    endTime: LocalDateTime,
     options: List<VoteItemModel>,
     students: List<StudentModel>,
     modelStudents: List<StudentModel>,
@@ -25,6 +28,8 @@ internal fun VoteContent(
             VoteType.OPTION_VOTE -> {
                 OptionContent(
                     title = title,
+                    startTime = startTime,
+                    endTime = endTime,
                     options = options,
                     selectItem = selectItem,
                     onSelect = onSelect,
@@ -34,6 +39,8 @@ internal fun VoteContent(
             VoteType.STUDENT_VOTE -> {
                 StudentContent(
                     title = title,
+                    startTime = startTime,
+                    endTime = endTime,
                     students = students,
                     selectItem = selectItem,
                     onSelect = onSelect,
@@ -52,6 +59,8 @@ internal fun VoteContent(
             VoteType.MODEL_STUDENT_VOTE -> {
                 StudentContent(
                     title = title,
+                    startTime = startTime,
+                    endTime = endTime,
                     students = modelStudents,
                     selectItem = selectItem,
                     onSelect = onSelect,

@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,12 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
-import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.numberfield.DmsNumberField
@@ -73,17 +74,24 @@ private fun EnterEmailVerificationCodeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colors.background),
+            .background(DmsTheme.colors.surfaceTint)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
     ) {
         DmsTopAppBar(
             title = "회원가입",
             onBackPressed = onBackPressed,
         )
+        DmsSymbol(
+            modifier = Modifier
+                .horizontalPadding(24.dp)
+                .topPadding(4.dp),
+        )
         EmailVerificationCodeInfoBanner(
             modifier = Modifier
                 .fillMaxWidth()
-                .startPadding(24.dp)
-                .topPadding(48.dp),
+                .horizontalPadding(24.dp)
+                .topPadding(20.dp),
             onTimerFinished = onTimerFinished,
         )
         DmsNumberField(
@@ -100,18 +108,17 @@ private fun EnterEmailVerificationCodeScreen(
                 .align(alignment = Alignment.CenterHorizontally)
                 .topPadding(20.dp),
             text = "인증코드 재발송",
-            buttonType = ButtonType.Text,
-            buttonColor = ButtonColor.Primary,
+            buttonType = ButtonType.Underline,
+            buttonColor = ButtonColor.Gray,
             onClick = { },
         )
         Spacer(modifier = Modifier.weight(1f))
         DmsButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp),
+            modifier = Modifier.fillMaxWidth(),
             text = "다음",
             buttonType = ButtonType.Contained,
             buttonColor = ButtonColor.Primary,
+            keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
         )
@@ -128,21 +135,29 @@ private fun EmailVerificationCodeInfoBanner(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         DmsText(
-            text = "이메일 인증번호를 입력해주세요",
-            style = DmsTypography.Header3,
+            text = "이메일 인증",
+            style = DmsTypography.TitleB,
+            color = DmsTheme.colors.onTertiaryContainer,
         )
-        Row {
+        Column {
             DmsText(
-                text = "이메일로 전송 번호 6자리를 ",
-                style = DmsTypography.Body1,
-                color = DmsTheme.colors.inverseOnSurface,
+                text = "이메일로 전송된 ",
+                style = DmsTypography.BodyM,
+                color = DmsTheme.colors.inverseSurface,
             )
-            DmsTimer { onTimerFinished(it) }
-            DmsText(
-                text = " 내로 입력해주세요.",
-                style = DmsTypography.Body1,
-                color = DmsTheme.colors.inverseOnSurface,
-            )
+            Row {
+                DmsText(
+                    text = "인증번호 6자리를 ",
+                    style = DmsTypography.BodyM,
+                    color = DmsTheme.colors.inverseSurface,
+                )
+                DmsTimer { onTimerFinished(it) }
+                DmsText(
+                    text = " 내로 입력해주세요.",
+                    style = DmsTypography.BodyM,
+                    color = DmsTheme.colors.inverseSurface,
+                )
+            }
         }
     }
 }

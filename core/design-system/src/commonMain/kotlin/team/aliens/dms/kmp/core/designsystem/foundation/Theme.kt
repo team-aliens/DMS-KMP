@@ -69,7 +69,7 @@ private val darkColorScheme = darkColorScheme(
     onTertiary = DmsColor.Dark.pressed,
 )
 
-val LocalColors = staticCompositionLocalOf { lightColorScheme }
+val LocalColors = staticCompositionLocalOf { lightColorScheme() }
 
 @Composable
 fun DmsTheme(
