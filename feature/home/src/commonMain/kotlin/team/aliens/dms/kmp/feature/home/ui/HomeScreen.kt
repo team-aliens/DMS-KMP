@@ -1,92 +1,71 @@
 package team.aliens.dms.kmp.feature.home.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.minus
-import kotlinx.datetime.plus
+import dmskmp.core.design_system.generated.resources.Res
+import dmskmp.core.design_system.generated.resources.img_calendar
 import org.koin.compose.viewmodel.koinViewModel
-import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
-import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
+import team.aliens.dms.kmp.core.designsystem.button.DmsItemButton
+import team.aliens.dms.kmp.core.designsystem.content.DmsPointContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.modifier.DmsShadowType
-import team.aliens.dms.kmp.core.designsystem.modifier.dmsShadowModifier
-import team.aliens.dms.kmp.feature.home.ui.component.AnnouncementCard
-import team.aliens.dms.kmp.feature.home.ui.component.MealContent
+import team.aliens.dms.kmp.core.model.type.PointType
+import team.aliens.dms.kmp.feature.home.component.AnnouncementButton
+import team.aliens.dms.kmp.feature.home.component.HomeTopAppBar
+import team.aliens.dms.kmp.feature.home.component.MealContent
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeState
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun Home() {
+internal fun Home(
+    onNavigateNotice: () -> Unit,
+    onNavigateNoticeDetail: (String) -> Unit,
+    onNavigatePointHistory: (PointType) -> Unit,
+    onNavigateMeal: () -> Unit,
+) {
     val viewModel: HomeViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
-    val (shouldShowCalendar, onShouldShowCalendarChange) = remember { mutableStateOf(false) }
-
-    if (shouldShowCalendar) {
-        ModalBottomSheet(
-            onDismissRequest = {
-                onShouldShowCalendarChange(false)
-            },
-        ) {
-//            DmsCalendar(
-//                modifier = Modifier.fillMaxWidth(),
-//                selectedDate = uiState.selectedDate,
-//                onSelectedDateChange = onSelectedDateChange,
-//            )
-        }
-    }
     HomeScreen(
         state = state,
-        onDateChange = viewModel::updateDate,
+        onNavigateNotice = onNavigateNotice,
+        onNavigatePointHistory = onNavigatePointHistory,
+        onNavigateMeal = onNavigateMeal,
     )
 }
 
 @Composable
 private fun HomeScreen(
     state: HomeState,
-    onDateChange: (LocalDate) -> Unit,
+    onNavigateNotice: () -> Unit,
+    onNavigatePointHistory: (PointType) -> Unit,
+    onNavigateMeal: () -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colors.background),
+            .background(DmsTheme.colors.background)
+            .statusBarsPadding(),
     ) {
-        DmsTopAppBar(
-            showLogo = true,
-            actions = {
-                DmsIconButton(
-                    resource = DmsIcon.Notification,
-                    tint = DmsTheme.colors.inversePrimary,
-                    size = 28.dp,
-                    onClick = { },
-                )
-            },
-        )
-        Box(
-            modifier = Modifier.fillMaxSize(),
+        HomeTopAppBar()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(state = scrollState)
+                .padding(horizontal = 10.dp, vertical = 16.dp),
         ) {
             val brush = Brush.verticalGradient(
                 listOf(
@@ -94,79 +73,42 @@ private fun HomeScreen(
                     Color(0xFF3D8AFF).copy(alpha = 0.15f),
                 ),
             )
-            Box(
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .fillMaxHeight(0.5f)
+//                    .background(brush)
+//                    .align(Alignment.BottomCenter),
+//            )
+            AnnouncementButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.5f)
-                    .background(brush)
-                    .align(Alignment.BottomCenter),
-            )
-            AnnouncementCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp)
-                    .dmsShadowModifier(DmsShadowType.Light20)
-                    .align(Alignment.TopCenter),
-                onClick = { },
+                    .padding(start = 4.dp),
+                //.dmsShadowModifier(DmsShadowType.Light20),
+                onClick = onNavigateNotice,
             )
             MealContent(
-                modifier = Modifier.align(Alignment.Center),
-                onNextDay = { onDateChange(state.selectedDate.plus(DatePeriod(days = 1))) },
-                onPreviousDay = { onDateChange(state.selectedDate.minus(DatePeriod(days = 1))) },
-                selectDate = state.selectedDate,
-                meal = state.meal,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                onMealClick = onNavigateMeal,
+            )
+            DmsPointContent(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                plusPoint = state.myPage.bonusPoint,
+                minusPoint = state.myPage.minusPoint,
+                onClick = { },
+            )
+            DmsItemButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                iconRes = Res.drawable.img_calendar,
+                text = "상벌점 이력 보러가기",
+                onClick = { onNavigatePointHistory(PointType.ALL) },
             )
         }
-    }
-}
-
-@Composable
-private fun DateCard(
-    modifier: Modifier = Modifier,
-    onNextDay: () -> Unit,
-    onPreviousDay: () -> Unit,
-    selectDate: LocalDate,
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 36.dp,
-                vertical = 14.dp,
-            ),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        DmsIconButton(
-            resource = DmsIcon.Backward,
-            tint = DmsTheme.colors.surfaceContainerLow,
-            size = 18.dp,
-            onClick = onPreviousDay,
-        )
-//        DmsText(
-//            modifier = Modifier
-//                .clip(RoundedCornerShape(8.dp))
-//                .border(
-//                    width = 1.dp,
-//                    color = DmsTheme.colors.onSurface,
-//                    shape = RoundedCornerShape(8.dp),
-//                )
-//                .clickable(
-//                    onClick = { },
-//                )
-//                .padding(
-//                    horizontal = 14.dp,
-//                    vertical = 8.dp,
-//                ),
-//            text = "${selectDate.monthNumber}월 ${selectDate.dayOfMonth}일 ${selectDate.dayOfWeek.text}요일",
-//            color = DmsTheme.colors.surfaceContainerLow,
-//            style = DmsTypography.Body1SemiBold,
-//      )
-        DmsIconButton(
-            resource = DmsIcon.Forward,
-            tint = DmsTheme.colors.surfaceContainerLow,
-            size = 18.dp,
-            onClick = onNextDay,
-        )
     }
 }
