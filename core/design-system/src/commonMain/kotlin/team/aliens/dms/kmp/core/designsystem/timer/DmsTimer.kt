@@ -45,8 +45,8 @@ fun DmsTimer(
     DmsText(
         modifier = modifier,
         text = formatTime(time / 1000),
-        style = DmsTypography.Body1,
-        color = DmsTheme.colors.inversePrimary,
+        style = DmsTypography.BodyB,
+        color = DmsTheme.colors.onPrimaryContainer,
     )
 }
 

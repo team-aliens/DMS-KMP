@@ -10,16 +10,26 @@ import dmskmp.core.design_system.generated.resources.ic_breaking_news
 import dmskmp.core.design_system.generated.resources.ic_breaking_news_fill
 import dmskmp.core.design_system.generated.resources.ic_cancel
 import dmskmp.core.design_system.generated.resources.ic_check
+import dmskmp.core.design_system.generated.resources.ic_check_circle
 import dmskmp.core.design_system.generated.resources.ic_delete
 import dmskmp.core.design_system.generated.resources.ic_down
 import dmskmp.core.design_system.generated.resources.ic_edit
+import dmskmp.core.design_system.generated.resources.ic_equal
+import dmskmp.core.design_system.generated.resources.ic_eye
+import dmskmp.core.design_system.generated.resources.ic_eye_off
+import dmskmp.core.design_system.generated.resources.ic_fill_check_circle
 import dmskmp.core.design_system.generated.resources.ic_forward
 import dmskmp.core.design_system.generated.resources.ic_home
 import dmskmp.core.design_system.generated.resources.ic_home_fill
+import dmskmp.core.design_system.generated.resources.ic_minus
+import dmskmp.core.design_system.generated.resources.ic_notice
 import dmskmp.core.design_system.generated.resources.ic_notification
+import dmskmp.core.design_system.generated.resources.ic_outing_pass
 import dmskmp.core.design_system.generated.resources.ic_person
 import dmskmp.core.design_system.generated.resources.ic_person_fill
+import dmskmp.core.design_system.generated.resources.ic_plus
 import dmskmp.core.design_system.generated.resources.ic_refresh
+import dmskmp.core.design_system.generated.resources.ic_setting
 import dmskmp.core.design_system.generated.resources.ic_symbol_dark
 import dmskmp.core.design_system.generated.resources.ic_symbol_light
 import dmskmp.core.design_system.generated.resources.ic_up
@@ -35,8 +45,8 @@ object DmsIcon {
     val Edit = Res.drawable.ic_edit
     val Home = Res.drawable.ic_home
     val Person = Res.drawable.ic_person
-    val Visibility = Res.drawable.ic_visibility
-    val VisibilityOff = Res.drawable.ic_visibility_off
+    val Visibility = Res.drawable.ic_eye
+    val VisibilityOff = Res.drawable.ic_eye_off
     val SymbolLight = Res.drawable.ic_symbol_light
     val SymbolDark = Res.drawable.ic_symbol_dark
     val Alarm = Res.drawable.ic_alarm
@@ -51,4 +61,12 @@ object DmsIcon {
     val Forward = Res.drawable.ic_forward
     val Down = Res.drawable.ic_down
     val Up = Res.drawable.ic_up
+    val OutingPass = Res.drawable.ic_outing_pass
+    val Notice = Res.drawable.ic_notice
+    val Equal = Res.drawable.ic_equal
+    val Plus = Res.drawable.ic_plus
+    val Minus = Res.drawable.ic_minus
+    val Setting = Res.drawable.ic_setting
+    val CheckCircle = Res.drawable.ic_check_circle
+    val CheckCircleFill = Res.drawable.ic_fill_check_circle
 }

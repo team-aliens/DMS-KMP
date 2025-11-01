@@ -6,10 +6,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -57,20 +59,20 @@ fun DmsTextField(
     var isFocused by remember { mutableStateOf(false) }
     val labelColor by animateColorAsState(
         targetValue = if (isFocused || value.isNotEmpty()) {
-            DmsTheme.colors.inversePrimary
+            DmsTheme.colors.onPrimaryContainer
         } else {
-            DmsTheme.colors.onBackground
+            DmsTheme.colors.surfaceContainer
         },
     )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(2.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         label?.let { label ->
             DmsText(
                 text = label,
-                style = DmsTypography.Label,
+                style = DmsTypography.labelM,
                 color = labelColor,
             )
         }
@@ -140,11 +142,11 @@ private fun TextField(
 
     val lineColor by animateColorAsState(
         targetValue = if (isError) {
-            DmsTheme.colors.outline
+            DmsTheme.colors.onErrorContainer
         } else if (isFocused || value.isNotEmpty()) {
-            DmsTheme.colors.inversePrimary
+            DmsTheme.colors.onPrimaryContainer
         } else {
-            DmsTheme.colors.onSurface
+            DmsTheme.colors.onSurfaceVariant
         },
     )
 
@@ -156,7 +158,7 @@ private fun TextField(
             }
         },
         modifier = modifier,
-        textStyle = DmsTypography.Body1,
+        textStyle = DmsTypography.BodyM,
         singleLine = singleLine,
         enabled = enabled,
         readOnly = readOnly,
@@ -198,14 +200,14 @@ private fun TextField(
                     if (showVisibleIcon) {
                         DmsIconButton(
                             resource = icon,
-                            tint = DmsTheme.colors.inverseOnSurface,
+                            tint = DmsTheme.colors.inverseSurface,
                             onClick = { visible = !visible },
                         )
                     }
                     if (showClearIcon && value.isNotEmpty()) {
                         DmsIconButton(
                             resource = DmsIcon.Cancel,
-                            tint = DmsTheme.colors.inverseOnSurface,
+                            tint = DmsTheme.colors.inverseSurface,
                             onClick = { onValueChange("") },
                         )
                     }
@@ -213,7 +215,7 @@ private fun TextField(
             }
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
-                thickness = 1.dp,
+                thickness = 2.dp,
                 color = lineColor,
             )
         }

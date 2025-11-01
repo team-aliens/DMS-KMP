@@ -1,20 +1,23 @@
 package team.aliens.dms.kmp.core.designsystem.numberfield
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
@@ -26,6 +29,7 @@ fun DmsNumberField(
     totalLength: Int,
     value: String,
     onValueChange: (String) -> Unit,
+    spaceSize: Dp = 12.dp,
     enabled: Boolean = true,
     isError: Boolean = false,
     errorMessage: String? = null,
@@ -49,40 +53,42 @@ fun DmsNumberField(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            LazyRow(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(spaceSize),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                items(totalLength) { index ->
+                repeat(totalLength) { index ->
                     val borderColor = if (isError) {
-                        DmsTheme.colors.outline
+                        DmsTheme.colors.onError
                     } else if (value.length > index) {
-                        DmsTheme.colors.inversePrimary
+                        DmsTheme.colors.primaryContainer
                     } else {
-                        DmsTheme.colors.onSurface
+                        DmsTheme.colors.background
+                    }
+                    val text = if (index <= value.length - 1) {
+                        value.getOrNull(index)
+                            .toString()
+                    } else {
+                        ""
                     }
                     Box(
                         modifier = Modifier
-                            .size(
-                                width = 40.dp,
-                                height = 52.dp,
-                            )
+                            .weight(1f)
+                            .clip(RoundedCornerShape(12.dp))
                             .border(
-                                width = 1.dp,
+                                width = 1.2.dp,
                                 color = borderColor,
                                 shape = RoundedCornerShape(12.dp),
-                            ),
+                            )
+                            .background(color = DmsTheme.colors.background)
+                            .padding(vertical = 12.dp),
                         contentAlignment = Alignment.Center,
                     ) {
                         DmsText(
-                            text = if (index <= value.length - 1) {
-                                value.getOrNull(index)
-                                    .toString()
-                            } else {
-                                ""
-                            },
-                            style = DmsTypography.Title3,
+                            text = text,
+                            style = DmsTypography.TitleB,
+                            color = DmsTheme.colors.onTertiaryContainer,
                         )
                     }
                 }
