@@ -3,11 +3,16 @@ package team.aliens.dms.kmp.navigation.main
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
+import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.PlatformConfig
+import team.aliens.dms.kmp.feature.meal.navigation.meal
+import team.aliens.dms.kmp.feature.meal.navigation.navigateToMeal
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
+import team.aliens.dms.kmp.feature.notice.navigation.navigateToNotices
 import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
+import team.aliens.dms.kmp.feature.notice.navigation.notices
 import team.aliens.dms.kmp.feature.point.navigation.navigateToPointHistory
 import team.aliens.dms.kmp.feature.point.navigation.pointHistory
 import team.aliens.dms.kmp.feature.volunteer.navigation.navigateToVolunteer
@@ -24,7 +29,11 @@ import tema.aliens.dms.kmp.feature.remain.navigation.remainApplication
 data object MainRoute
 
 fun NavController.navigateToMain(
-    navOptions: NavOptions? = null,
+    navOptions: NavOptions? = navOptions {
+        popUpTo(graph.id) {
+            inclusive = true
+        }
+    },
 ) = navigate(
     route = MainRoute,
     navOptions = navOptions,
@@ -40,9 +49,11 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateRemainApplication = appState.navController::navigateToRemainApplication,
             onNavigateOutingApplication = { },
             onNavigateVolunteerApplication = appState.navController::navigateToVolunteer,
-            onNoticeDetailClick = appState.navController::navigateToNoticeDetails,
+            onNavigateNotice = appState.navController::navigateToNotices,
+            onNavigateNoticeDetail = appState.navController::navigateToNoticeDetails,
             onNavigateVote = appState.navController::navigateToVote,
             onNavigatePointHistory = appState.navController::navigateToPointHistory,
+            onNavigateMeal = appState.navController::navigateToMeal,
         )
         noticeDetails(onNavigateBack = appState.navController::navigateUp)
         remainApplication(onNavigateBack = appState.navController::navigateUp)
@@ -55,5 +66,10 @@ internal fun NavGraphBuilder.mainGraph(
             webViewUrl = PlatformConfig.webViewUrl,
         )
         pointHistory(onNavigateBack = appState.navController::navigateUp)
+        notices(
+            onNavigateBack = appState.navController::navigateUp,
+            onNoticeDetailClick = appState.navController::navigateToNoticeDetails,
+        )
+        meal(onNavigateToBack = appState.navController::navigateUp)
     }
 }
