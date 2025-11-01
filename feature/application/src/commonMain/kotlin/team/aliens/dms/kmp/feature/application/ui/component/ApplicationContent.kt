@@ -7,6 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dmskmp.core.design_system.generated.resources.Res
+import dmskmp.core.design_system.generated.resources.img_home
+import dmskmp.core.design_system.generated.resources.img_outing
+import dmskmp.core.design_system.generated.resources.img_volunteer
+import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
 
 @Composable
 internal fun ApplicationContent(
@@ -19,29 +24,26 @@ internal fun ApplicationContent(
         modifier = modifier
             .fillMaxSize()
             .padding(
-                horizontal = 24.dp,
-                vertical = 28.dp,
+                horizontal = 10.dp,
+                vertical = 16.dp,
             ),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
-        ApplicationCard(
+        DmsApplicationCard(
             title = "잔류",
-            description = "주말 기숙사 잔류 여부를 확인하고, 잔류 신청을 통해서 잔류 또는 귀가를 신청해 보세요.",
-            buttonText = "잔류 신청하기",
-            onButtonClick = onNavigateRemainApplication,
+            iconRes = Res.drawable.img_home,
+            onClick = onNavigateRemainApplication,
         )
-        ApplicationCard(
-            title = "외출",
-            appliedTitle = "금요 귀가",
-            description = "기숙사 생활 중 밖으로 나갈 일이 있다면, 외출 신청을 통해서 외출해 보세요.",
-            buttonText = "외출 신청하기",
-            onButtonClick = onNavigateOutingApplication,
+        DmsApplicationCard(
+            title = "외출 신청하기",
+            //appliedTitle = "금요 귀가",
+            iconRes = Res.drawable.img_outing,
+            onClick = onNavigateOutingApplication,
         )
-        ApplicationCard(
-            title = "봉사 활동",
-            description = "학생들이 직접 봉사 활동을 신청하고 신청한 활동에 참여할 수 있습니다.",
-            buttonText = "봉사 신청하기",
-            onButtonClick = onNavigateVolunteerApplication,
+        DmsApplicationCard(
+            title = "봉사 활동 신청하기",
+            iconRes = Res.drawable.img_volunteer,
+            onClick = onNavigateVolunteerApplication,
         )
     }
 }
