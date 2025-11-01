@@ -20,8 +20,8 @@ fun DmsIconButton(
     resource: DrawableResource,
     tint: Color = DmsTheme.colors.onBackground,
     enabled: Boolean = true,
-    size: Dp = 24.dp,
-    contentPaddingValues: PaddingValues = PaddingValues(4.dp),
+    size: Dp = 26.dp,
+    contentPaddingValues: PaddingValues = PaddingValues(2.dp),
     contentDescription: String? = null,
     onClick: () -> Unit,
 ) {
