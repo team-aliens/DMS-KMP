@@ -2,9 +2,10 @@ package team.aliens.dms.kmp.core.designsystem.button
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -17,15 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
+import team.aliens.dms.kmp.core.designsystem.indicator.DmsDotsLoadingIndicator
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.util.DEFAULT_PRESS_DEPTH
 import team.aliens.dms.kmp.core.designsystem.util.MIN_PRESS_DEPTH
 import team.aliens.dms.kmp.core.designsystem.util.clickable
 import team.aliens.dms.kmp.core.designsystem.util.keyboardAsState
+import team.aliens.dms.kmp.core.designsystem.util.modifyIf
 
 data class ButtonState(
     val enabled: ButtonTheme,
@@ -37,15 +41,12 @@ enum class ButtonColor {
     Primary,
     Gray,
     Error,
-    Refuse,
 }
 
 enum class ButtonType {
     Contained,
-    Outlined,
     Text,
     Underline,
-    Rounded,
 }
 
 data class ButtonTheme(
@@ -58,16 +59,16 @@ data class ButtonTheme(
 private fun ButtonColor.containedColors() = when (this) {
     ButtonColor.Primary -> ButtonState(
         enabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.inversePrimary,
+            textColor = DmsTheme.colors.surface,
+            backgroundColor = DmsTheme.colors.onPrimaryContainer,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.secondaryContainer,
+            textColor = DmsTheme.colors.surface,
+            backgroundColor = DmsTheme.colors.inversePrimary,
         ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.primaryContainer,
+            textColor = DmsTheme.colors.surfaceVariant,
+            backgroundColor = DmsTheme.colors.onPrimary,
         ),
     )
 
@@ -88,90 +89,25 @@ private fun ButtonColor.containedColors() = when (this) {
 
     ButtonColor.Error -> ButtonState(
         enabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.outline,
+            textColor = DmsTheme.colors.surface,
+            backgroundColor = DmsTheme.colors.onErrorContainer,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.errorContainer,
+            textColor = DmsTheme.colors.surface,
+            backgroundColor = DmsTheme.colors.onErrorContainer,
         ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.onError,
+            textColor = DmsTheme.colors.inverseSurface,
+            backgroundColor = DmsTheme.colors.outlineVariant,
         ),
     )
-
-    ButtonColor.Refuse -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.outline,
-            backgroundColor = DmsTheme.colors.error,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.outline,
-            backgroundColor = DmsTheme.colors.onError,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.onError,
-            backgroundColor = DmsTheme.colors.error,
-        ),
-    )
-}
-
-@Composable
-private fun ButtonColor.outlinedColors() = when (this) {
-    ButtonColor.Primary -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.secondary,
-            borderColor = DmsTheme.colors.secondary,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.onSecondaryContainer,
-            borderColor = DmsTheme.colors.onSecondaryContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.primaryContainer,
-            borderColor = DmsTheme.colors.primaryContainer,
-        ),
-    )
-
-    ButtonColor.Gray -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.onTertiaryContainer,
-            borderColor = DmsTheme.colors.onTertiaryContainer,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceBright,
-            borderColor = DmsTheme.colors.surfaceBright,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceVariant,
-            borderColor = DmsTheme.colors.surfaceVariant,
-        ),
-    )
-
-    ButtonColor.Error -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.outline,
-            borderColor = DmsTheme.colors.outline,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.errorContainer,
-            borderColor = DmsTheme.colors.errorContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.onError,
-            borderColor = DmsTheme.colors.onError,
-        ),
-    )
-
-    else -> throw IllegalArgumentException("Unhandled ButtonColor: $this")
 }
 
 @Composable
 private fun ButtonColor.textColors() = when (this) {
     ButtonColor.Primary -> ButtonState(
         enabled = ButtonTheme(
-            textColor = DmsTheme.colors.secondary,
+            textColor = DmsTheme.colors.inverseSurface,
         ),
         pressed = ButtonTheme(
             textColor = DmsTheme.colors.onSecondaryContainer,
@@ -183,13 +119,13 @@ private fun ButtonColor.textColors() = when (this) {
 
     ButtonColor.Gray -> ButtonState(
         enabled = ButtonTheme(
-            textColor = DmsTheme.colors.onTertiaryContainer,
+            textColor = DmsTheme.colors.inverseSurface,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceBright,
+            textColor = DmsTheme.colors.tertiaryContainer,
         ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceVariant,
+            textColor = DmsTheme.colors.onSurfaceVariant,
         ),
     )
 
@@ -224,13 +160,13 @@ private fun ButtonColor.underlineColors() = when (this) {
 
     ButtonColor.Gray -> ButtonState(
         enabled = ButtonTheme(
-            textColor = DmsTheme.colors.onTertiaryContainer,
+            textColor = DmsTheme.colors.inverseSurface,
         ),
         pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceBright,
+            textColor = DmsTheme.colors.tertiaryContainer,
         ),
         disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceVariant,
+            textColor = DmsTheme.colors.onSurfaceVariant,
         ),
     )
 
@@ -247,69 +183,6 @@ private fun ButtonColor.underlineColors() = when (this) {
     )
 
     else -> throw IllegalArgumentException("Unhandled ButtonColor: $this")
-}
-
-@Composable
-private fun ButtonColor.roundedColors() = when (this) {
-    ButtonColor.Primary -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.secondary,
-            backgroundColor = DmsTheme.colors.onPrimary,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.secondaryContainer,
-            backgroundColor = DmsTheme.colors.inversePrimary,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.primaryContainer,
-            backgroundColor = DmsTheme.colors.primary,
-        ),
-    )
-
-    ButtonColor.Gray -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.onTertiaryContainer,
-            backgroundColor = DmsTheme.colors.surfaceVariant,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceBright,
-            backgroundColor = DmsTheme.colors.onTertiaryContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceVariant,
-            backgroundColor = DmsTheme.colors.surface,
-        ),
-    )
-
-    ButtonColor.Error -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.outline,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.onError,
-            backgroundColor = DmsTheme.colors.errorContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.error,
-            backgroundColor = DmsTheme.colors.onError,
-        ),
-    )
-
-    ButtonColor.Refuse -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.errorContainer,
-            backgroundColor = DmsTheme.colors.onError,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.errorContainer,
-            backgroundColor = DmsTheme.colors.onErrorContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.onError,
-            backgroundColor = DmsTheme.colors.error,
-        ),
-    )
 }
 
 @Composable
@@ -342,28 +215,34 @@ private fun BasicButton(
     } else {
         shape to DEFAULT_PRESS_DEPTH
     }
+    val padding = if (isKeyboardHideButton) {
+        PaddingValues(
+            vertical = 0.dp,
+            horizontal = 0.dp,
+        )
+    } else {
+        PaddingValues(
+            vertical = 12.dp,
+            horizontal = 24.dp,
+        )
+    }
 
     Box(
         modifier = modifier
+            .modifyIf(keyboardInteractionEnabled) {
+                padding(padding)
+            }
             .clip(shape = shapeByKeyboardShow)
-            .background(backgroundColor)
-            .then(
-                if (buttonType == ButtonType.Outlined) {
-                    Modifier.border(
-                        1.dp,
-                        color = borderColor,
-                        shapeByKeyboardShow,
-                    )
-                } else {
-                    Modifier
-                },
-            )
+            .background(color = backgroundColor, shape = shapeByKeyboardShow)
             .clickable(
                 pressDepth = pressDepth,
                 enabled = enabled,
                 onPressed = onPressed,
                 onClick = onClick,
-            ),
+            )
+            .modifyIf(keyboardInteractionEnabled) {
+                imePadding()
+            },
         contentAlignment = Alignment.Center,
     ) {
         content()
@@ -376,20 +255,19 @@ fun DmsButton(
     text: String,
     buttonType: ButtonType,
     enabled: Boolean = true,
-    shape: Shape = RoundedCornerShape(4.dp),
+    shape: Shape = RoundedCornerShape(16.dp),
     buttonColor: ButtonColor,
-    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
-    keyboardInteractionEnabled: Boolean = true,
+    contentPadding: PaddingValues? = null,
+    keyboardInteractionEnabled: Boolean = false,
+    isLoading: Boolean = false,
     onClick: () -> Unit,
 ) {
     var pressed by remember { mutableStateOf(false) }
 
     val buttonColors = when (buttonType) {
         ButtonType.Contained -> buttonColor.containedColors()
-        ButtonType.Outlined -> buttonColor.outlinedColors()
         ButtonType.Text -> buttonColor.textColors()
         ButtonType.Underline -> buttonColor.underlineColors()
-        ButtonType.Rounded -> buttonColor.roundedColors()
     }
 
     val backgroundColor by animateColorAsState(
@@ -419,26 +297,54 @@ fun DmsButton(
             buttonColors.enabled.textColor
         },
     )
+    val innerPadding =
+        if (buttonType == ButtonType.Text || buttonType == ButtonType.Underline) {
+            PaddingValues(
+                horizontal = 8.dp,
+                vertical = 6.dp,
+            )
+        } else {
+            PaddingValues(horizontal = 20.dp, vertical = 16.dp)
+        }
 
-    val buttonShape = if (buttonType == ButtonType.Rounded) RoundedCornerShape(24.dp) else shape
+    // val buttonShape = if (buttonType == ButtonType.Rounded) RoundedCornerShape(24.dp) else shape
 
     BasicButton(
         modifier = modifier,
         backgroundColor = backgroundColor,
         enabled = enabled,
-        shape = buttonShape,
+        shape = shape,
         borderColor = borderColor,
         buttonType = buttonType,
         onClick = onClick,
         onPressed = { pressed = it },
         keyboardInteractionEnabled = keyboardInteractionEnabled,
     ) {
-        DmsText(
-            modifier = Modifier.padding(contentPadding),
-            text = text,
-            style = if (buttonType == ButtonType.Underline) DmsTypography.Button3 else DmsTypography.Button0,
-            color = contentColor,
-            textDecoration = if (buttonType == ButtonType.Underline) TextDecoration.Underline else TextDecoration.None,
-        )
+        val padding = contentPadding ?: innerPadding
+        val textStyle = if (buttonType == ButtonType.Underline || buttonType == ButtonType.Text) {
+            DmsTypography.labelM
+        } else {
+            DmsTypography.BodyB
+        }
+        val size = with(LocalDensity.current) { textStyle.fontSize.toDp() * 1.2f }
+        Box(
+            modifier = Modifier
+                .padding(padding)
+                .height(size),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (isLoading) {
+                DmsDotsLoadingIndicator(
+                    activeColor = contentColor,
+                )
+            } else {
+                DmsText(
+                    text = text,
+                    style = textStyle,
+                    color = contentColor,
+                    textDecoration = if (buttonType == ButtonType.Underline) TextDecoration.Underline else TextDecoration.None,
+                )
+            }
+        }
     }
 }
