@@ -8,6 +8,7 @@ import io.ktor.client.request.parameter
 import io.ktor.client.request.patch
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import team.aliens.dms.kmp.core.network.auth.model.dto.TokenDto
 import team.aliens.dms.kmp.core.network.student.model.request.CheckEmailDuplicationRequest
 import team.aliens.dms.kmp.core.network.student.model.request.CheckIdDuplicationRequest
 import team.aliens.dms.kmp.core.network.student.model.request.EditProfileRequest
@@ -28,7 +29,7 @@ import team.aliens.dms.kmp.core.network.student.model.response.SignUpResponse
 internal class KtorStudentDataSource(
     private val client: HttpClient,
 ) : NetworkStudentDataSource {
-    override suspend fun signUp(request: SignUpRequest): Result<SignUpResponse> =
+    override suspend fun signUp(request: SignUpRequest): Result<TokenDto> =
         kotlin.runCatching {
             client.post("/students/signup").body()
         }
