@@ -1,9 +1,7 @@
 package team.aliens.dms.kmp.core.model.auth
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import team.aliens.dms.kmp.core.util.now
 
 data class TokenModel(
     val accessToken: AccessToken = AccessToken(),
@@ -17,12 +15,10 @@ sealed class Token {
 
 data class AccessToken(
     override val value: String = "",
-    override val expiration: LocalDateTime = Clock.System.now()
-        .toLocalDateTime(TimeZone.currentSystemDefault()),
+    override val expiration: LocalDateTime = now,
 ) : Token()
 
 data class RefreshToken(
     override val value: String = "",
-    override val expiration: LocalDateTime = Clock.System.now()
-        .toLocalDateTime(TimeZone.currentSystemDefault()),
+    override val expiration: LocalDateTime = now,
 ) : Token()
