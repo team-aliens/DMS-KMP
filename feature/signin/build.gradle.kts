@@ -52,6 +52,7 @@ kotlin {
             implementation(projects.core.designSystem)
             implementation(projects.core.common)
             implementation(projects.core.domain)
+            implementation(projects.core.util)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
