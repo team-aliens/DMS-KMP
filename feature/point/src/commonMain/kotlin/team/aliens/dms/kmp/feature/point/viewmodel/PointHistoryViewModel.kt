@@ -44,7 +44,7 @@ internal class PointHistoryViewModel(
     }
 
     private fun initTab() {
-        val initialTab = when (route.pointType) {
+        val initialTab = when (PointType.valueOf(route.pointType)) {
             PointType.ALL -> 0
             PointType.BONUS -> 1
             PointType.MINUS -> 2
