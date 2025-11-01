@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -20,6 +22,7 @@ import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
@@ -64,18 +67,25 @@ private fun EnterEmailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colors.background),
+            .background(DmsTheme.colors.surfaceTint)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
     ) {
         DmsTopAppBar(
             title = "회원가입",
             onBackPressed = onBackPressed,
         )
+        DmsSymbol(
+            modifier = Modifier
+                .horizontalPadding()
+                .topPadding(4.dp),
+        )
         SignUpInfoBanner(
             modifier = Modifier
                 .fillMaxWidth()
-                .startPadding(24.dp)
-                .topPadding(48.dp),
-            title = "이메일을 입력해주세요",
+                .horizontalPadding(24.dp)
+                .topPadding(20.dp),
+            title = "이메일을 입력",
             description = "인증 번호를 받을 이메일을 입력해주세요.",
         )
         DmsTextField(
@@ -85,17 +95,17 @@ private fun EnterEmailScreen(
                 .topPadding(44.dp),
             value = state.email,
             onValueChange = onEmailChange,
-            hint = "이메일 주소",
+            label = "이메일",
+            hint = "이메일 입력",
             showClearIcon = true,
         )
         Spacer(modifier = Modifier.weight(1f))
         DmsButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp),
+            modifier = Modifier.fillMaxWidth(),
             text = "다음",
             buttonType = ButtonType.Contained,
             buttonColor = ButtonColor.Primary,
+            keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
         )

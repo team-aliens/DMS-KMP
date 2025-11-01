@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,6 +28,7 @@ import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
@@ -76,18 +79,25 @@ private fun EnterStudentNumberScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colors.background),
+            .background(DmsTheme.colors.surfaceTint)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
     ) {
         DmsTopAppBar(
             title = "회원가입",
             onBackPressed = onBackPressed,
         )
+        DmsSymbol(
+            modifier = Modifier
+                .horizontalPadding(24.dp)
+                .topPadding(4.dp),
+        )
         SignUpInfoBanner(
             modifier = Modifier
                 .fillMaxWidth()
                 .startPadding(24.dp)
-                .topPadding(48.dp),
-            title = "학번을 입력해주세요",
+                .topPadding(20.dp),
+            title = "학번 입력",
             description = "숫자만 입력해주세요.",
         )
         StudentNumberInputs(
@@ -105,11 +115,11 @@ private fun EnterStudentNumberScreen(
         Spacer(modifier = Modifier.weight(1f))
         DmsButton(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp),
+                .fillMaxWidth(),
             text = "다음",
             buttonType = ButtonType.Contained,
             buttonColor = ButtonColor.Primary,
+            keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
         )
@@ -140,7 +150,8 @@ private fun StudentNumberInputs(
                 onGradeChange(grade)
                 if (grade.isNotEmpty()) classroomFocusRequest.requestFocus()
             },
-            hint = "학년",
+            label = "학년",
+            hint = "학년 입력",
             keyboardType = KeyboardType.Number,
         )
         DmsTextField(
@@ -152,7 +163,8 @@ private fun StudentNumberInputs(
                 onClassroomChange(classroom)
                 if (classroom.isNotEmpty()) numberFocusRequest.requestFocus()
             },
-            hint = "반",
+            label = "반",
+            hint = "반 입력",
             keyboardType = KeyboardType.Number,
         )
         DmsTextField(
@@ -161,7 +173,8 @@ private fun StudentNumberInputs(
                 .focusRequester(numberFocusRequest),
             value = number,
             onValueChange = onNumberChange,
-            hint = "번호",
+            label = "번호",
+            hint = "번호 입력",
             keyboardType = KeyboardType.Number,
         )
     }
