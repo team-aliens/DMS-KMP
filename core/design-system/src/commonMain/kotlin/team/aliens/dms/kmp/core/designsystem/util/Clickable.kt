@@ -76,8 +76,8 @@ fun Modifier.clickable(
                                         lastClick = timeNow.toNanosecondOfDay()
                                         onClick()
                                     }*/
-                                    val isInside = change.position.x in 0f..size.width.toFloat() &&
-                                            change.position.y in 0f..size.height.toFloat()
+                                    val isInside =
+                                        change.position.x in 0f..size.width.toFloat() && change.position.y in 0f..size.height.toFloat()
 
                                     pressed = false
                                     onPressed?.invoke(false)

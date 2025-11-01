@@ -106,7 +106,6 @@ internal fun StudentContent(
                 }
             }
         }
-
     }
 }
 
