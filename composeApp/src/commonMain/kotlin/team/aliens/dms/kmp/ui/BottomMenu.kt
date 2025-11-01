@@ -22,22 +22,15 @@ sealed class BottomMenu(
 
     data object Application : BottomMenu(
         route = ApplicationRoute,
-        icon = DmsIcon.AddNotes,
-        selectedIcon = DmsIcon.AddNotesFill,
+        icon = DmsIcon.CheckCircle,
+        selectedIcon = DmsIcon.CheckCircleFill,
         title = "신청",
-    )
-
-    data object Notice : BottomMenu(
-        route = NoticesRoute,
-        icon = DmsIcon.BreakingNews,
-        selectedIcon = DmsIcon.BreakingNewsFill,
-        title = "안내",
     )
 
     data object MyPage : BottomMenu(
         route = MyPageRoute,
         icon = DmsIcon.Person,
         selectedIcon = DmsIcon.PersonFill,
-        title = "내 페이지",
+        title = "마이페이지",
     )
 }
