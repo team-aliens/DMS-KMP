@@ -20,7 +20,7 @@ internal class AuthRepositoryImpl(
         accountId: String,
         password: String,
         deviceToken: String,
-    ): Result<Unit> {
+    ): Result<Unit> = kotlin.runCatching {
         val response = networkAuthDatasource.signIn(
             request = SignInRequest(
                 body = SignInRequest.Body(
@@ -30,12 +30,10 @@ internal class AuthRepositoryImpl(
                 ),
             ),
         )
-        response.getOrNull()?.let { token ->
-            authPreferencesDataSource.storeTokens(
-                token = token.toModel(),
-            )
-        }
-        return response.map { }
+
+        authPreferencesDataSource.storeTokens(
+            token = response.getOrThrow().toModel(),
+        )
     }
 
     override suspend fun sendEmailVerificationCode(
