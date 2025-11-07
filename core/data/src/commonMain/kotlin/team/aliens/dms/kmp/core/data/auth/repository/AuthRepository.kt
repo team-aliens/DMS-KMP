@@ -1,6 +1,6 @@
 package team.aliens.dms.kmp.core.data.auth.repository
 
-import team.aliens.dms.kmp.core.data.auth.model.EmailVerificationType
+import team.aliens.dms.kmp.core.model.type.EmailVerificationType
 import team.aliens.dms.kmp.core.model.auth.EmailModel
 import team.aliens.dms.kmp.core.model.auth.TokenModel
 
