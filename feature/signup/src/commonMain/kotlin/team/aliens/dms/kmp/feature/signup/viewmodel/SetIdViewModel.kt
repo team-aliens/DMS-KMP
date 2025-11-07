@@ -1,17 +1,22 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.common.exception.network.ConflictException
+import team.aliens.dms.kmp.core.domain.usecase.auth.CheckIdExistsUseCase
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
 internal class SetIdViewModel(
     savedStateHandle: SavedStateHandle,
+    private val checkIdExistsUseCase: CheckIdExistsUseCase,
 ) :
-    BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState.getDefaultState()) {
+    BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState()) {
 
-    private val route = savedStateHandle.toRoute<SignUpData>(
+    private val route = savedStateHandle.toRoute<SignUp.Route.SetId>(
         typeMap = SignUp.Route.NavTypeMap,
     )
 
@@ -26,28 +31,38 @@ internal class SetIdViewModel(
     }
 
     internal fun onNextClick() {
-        postSideEffect(
-            SetIdSideEffect.MoveToSetPassword(
-                signUpData = route.copy(accountId = state.value.id),
-            ),
-        )
+        viewModelScope.launch {
+            setState { state.value.copy(isLoading = true, buttonEnabled = false)}
+            checkIdExistsUseCase(
+                accountId = state.value.id,
+            ).onSuccess {
+                setState { state.value.copy(isLoading = false, buttonEnabled = true)}
+                postSideEffect(
+                    SetIdSideEffect.MoveToSetPassword(
+                        signUpData = route.signUpData.copy(accountId = state.value.id),
+                    ),
+                )
+            }.onFailure { exception ->
+                setState { state.value.copy(isLoading = false, buttonEnabled = true)}
+                when(exception) {
+                    is ConflictException -> postSideEffect(SetIdSideEffect.ShowConflictSnackBar)
+                    else -> postSideEffect(SetIdSideEffect.ShowErrorSnackBar)
+                }
+            }
+        }
     }
 }
 
-data class SetIdState(
-    val id: String,
-    val buttonEnabled: Boolean,
-) {
-    companion object {
-        fun getDefaultState() = SetIdState(
-            id = "",
-            buttonEnabled = false,
-        )
-    }
-}
+internal data class SetIdState(
+    val id: String = "",
+    val buttonEnabled: Boolean = false,
+    val isLoading: Boolean = false,
+)
 
-sealed interface SetIdSideEffect {
+internal sealed interface SetIdSideEffect {
     data class MoveToSetPassword(
         val signUpData: SignUpData,
     ) : SetIdSideEffect
+    data object ShowConflictSnackBar : SetIdSideEffect
+    data object ShowErrorSnackBar : SetIdSideEffect
 }

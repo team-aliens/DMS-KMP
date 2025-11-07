@@ -23,6 +23,7 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
@@ -34,6 +35,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.SetIdViewModel
 internal fun SetId(
     onBackPressed: () -> Unit,
     navigateToSetPassword: (SignUpData) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: SetIdViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -46,6 +48,9 @@ internal fun SetId(
                         effect.signUpData,
                     )
                 }
+
+                is SetIdSideEffect.ShowConflictSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "이미 존재하는 아이디에요")
+                is SetIdSideEffect.ShowErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "아이디를 확인해주세요")
             }
         }
     }
@@ -110,6 +115,7 @@ private fun SetIdScreen(
             keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
+            isLoading = state.isLoading,
         )
     }
 }

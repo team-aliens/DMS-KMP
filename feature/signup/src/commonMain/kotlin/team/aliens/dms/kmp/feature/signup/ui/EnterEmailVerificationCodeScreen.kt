@@ -27,6 +27,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.numberfield.DmsNumberField
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.timer.DmsTimer
 import team.aliens.dms.kmp.core.model.signup.SignUpData
@@ -40,6 +41,7 @@ const val EMAIL_VERIFICATION_CODE_LENGTH = 6
 internal fun EnterEmailVerificationCode(
     onBackPressed: () -> Unit,
     navigateToEnterStudentNumber: (SignUpData) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: EnterEmailVerificationCodeViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -50,6 +52,8 @@ internal fun EnterEmailVerificationCode(
                 is EnterEmailVerificationCodeSideEffect.MoveToEnterStudentNumber -> {
                     navigateToEnterStudentNumber(effect.signUpData)
                 }
+                is EnterEmailVerificationCodeSideEffect.ShowSendErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "이메일 인증 코드 전송에 실패했어요")
+                is EnterEmailVerificationCodeSideEffect.ShowCheckErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "이메일 인증 코드가 일치하지 않아요")
             }
         }
     }
@@ -92,6 +96,7 @@ private fun EnterEmailVerificationCodeScreen(
                 .fillMaxWidth()
                 .horizontalPadding(24.dp)
                 .topPadding(20.dp),
+            email = state.email,
             onTimerFinished = onTimerFinished,
         )
         DmsNumberField(
@@ -121,6 +126,7 @@ private fun EnterEmailVerificationCodeScreen(
             keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
+            isLoading = state.isLoading,
         )
     }
 }
@@ -128,6 +134,7 @@ private fun EnterEmailVerificationCodeScreen(
 @Composable
 private fun EmailVerificationCodeInfoBanner(
     modifier: Modifier = Modifier,
+    email: String,
     onTimerFinished: (Boolean) -> Unit,
 ) {
     Column(
@@ -141,7 +148,7 @@ private fun EmailVerificationCodeInfoBanner(
         )
         Column {
             DmsText(
-                text = "이메일로 전송된 ",
+                text = "$email 이메일로 전송된 ",
                 style = DmsTypography.BodyM,
                 color = DmsTheme.colors.inverseSurface,
             )

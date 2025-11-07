@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.ui.EnterEmailVerificationCode
 
@@ -18,6 +19,7 @@ fun NavController.navigateToEnterEmailVerificationCode(
 fun NavGraphBuilder.enterEmailVerificationCode(
     onBackPressed: () -> Unit,
     navigateToEnterStudentNumber: (SignUpData) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     composable<SignUp.Route.EnterEmailVerificationCode>(
         typeMap = SignUp.Route.NavTypeMap,
@@ -25,6 +27,7 @@ fun NavGraphBuilder.enterEmailVerificationCode(
         EnterEmailVerificationCode(
             onBackPressed = onBackPressed,
             navigateToEnterStudentNumber = navigateToEnterStudentNumber,
+            onShowSnackBar = onShowSnackBar,
         )
     }
 }

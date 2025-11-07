@@ -16,30 +16,32 @@ internal class TermsViewModel(
 ) :
     BaseViewModel<TermsState, TermsSideEffect>(TermsState()) {
 
-    private val route = savedStateHandle.toRoute<SignUpData>(
+    private val route = savedStateHandle.toRoute<SignUp.Route.Terms>(
         typeMap = SignUp.Route.NavTypeMap,
     )
 
     internal fun postSignUp() {
         viewModelScope.launch {
-            setState { state.value.copy(isLoading = true, buttonEnabled = false) }
-            signUpUseCase(
-                schoolVerificationCode = route.schoolCode,
-                schoolVerificationAnswer = route.schoolAnswer,
-                email = route.email,
-                emailVerificationCode = route.authCode,
-                grade = route.grade,
-                classRoom = route.classRoom,
-                number = route.number,
-                accountId = route.accountId,
-                password = route.password,
-                profileImageUrl = route.profileImageUrl,
-            ).onSuccess {
-                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
-                postSideEffect(TermsSideEffect.NavigateToComplete)
-            }.onFailure { exception ->
-                postSideEffect(TermsSideEffect.FailSignUp)
-                Logger.a(exception) { exception.message.toString() }
+            with(route.signUpData) {
+                setState { state.value.copy(isLoading = true, buttonEnabled = false) }
+                signUpUseCase(
+                    schoolVerificationCode = schoolCode,
+                    schoolVerificationAnswer = schoolAnswer,
+                    email = email,
+                    emailVerificationCode = authCode,
+                    grade = grade,
+                    classRoom = classRoom,
+                    number = number,
+                    accountId = accountId,
+                    password = password,
+                    profileImageUrl = profileImageUrl,
+                ).onSuccess {
+                    setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                    postSideEffect(TermsSideEffect.NavigateToComplete)
+                }.onFailure { exception ->
+                    postSideEffect(TermsSideEffect.FailSignUp)
+                    Logger.a(exception) { exception.message.toString() }
+                }
             }
         }
     }

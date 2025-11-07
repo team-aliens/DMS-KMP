@@ -22,6 +22,7 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
@@ -33,6 +34,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationQuest
 internal fun EnterSchoolVerificationQuestion(
     onBackPressed: () -> Unit,
     navigateToEnterEmail: (SignUpData) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: EnterSchoolVerificationQuestionViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -43,6 +45,9 @@ internal fun EnterSchoolVerificationQuestion(
                 is EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail -> {
                     navigateToEnterEmail(effect.signUpData)
                 }
+
+                is EnterSchoolVerificationQuestionSideEffect.ShowErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "올바르지 않은 답변이에요")
+                is EnterSchoolVerificationQuestionSideEffect.ShowQuestionErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "질문을 불러오지 못했어요")
             }
         }
     }

@@ -1,17 +1,22 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.common.exception.network.ConflictException
+import team.aliens.dms.kmp.core.domain.usecase.student.CheckEmailDuplicationUseCase
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
 internal class EnterEmailViewModel(
     savedStateHandle: SavedStateHandle,
+    private val checkEmailDuplicationUseCase: CheckEmailDuplicationUseCase,
 ) :
-    BaseViewModel<EnterEmailState, EnterEmailSideEffect>(EnterEmailState.getDefaultState()) {
+    BaseViewModel<EnterEmailState, EnterEmailSideEffect>(EnterEmailState()) {
 
-    private val route = savedStateHandle.toRoute<SignUpData>(
+    private val route = savedStateHandle.toRoute<SignUp.Route.EnterEmail>(
         typeMap = SignUp.Route.NavTypeMap,
     )
 
@@ -30,28 +35,37 @@ internal class EnterEmailViewModel(
     }
 
     internal fun onNextClick() {
-        postSideEffect(
-            EnterEmailSideEffect.MoveToEnterEmailVerificationCode(
-                signUpData = route.copy(
-                    email = state.value.email,
-                ),
-            ),
-        )
+        viewModelScope.launch {
+            setState { state.value.copy(isLoading = true, buttonEnabled = false) }
+            checkEmailDuplicationUseCase(state.value.email)
+                .onSuccess {
+                    setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                    postSideEffect(
+                        EnterEmailSideEffect.MoveToEnterEmailVerificationCode(
+                            signUpData = route.signUpData.copy(
+                                email = state.value.email,
+                            ),
+                        ),
+                    )
+                }.onFailure { exception ->
+                    setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                    when (exception) {
+                        is ConflictException -> postSideEffect(EnterEmailSideEffect.ShowConflictSnackBar)
+                        else -> postSideEffect(EnterEmailSideEffect.ShowErrorSnackBar)
+                    }
+                }
+        }
     }
 }
 
 data class EnterEmailState(
-    val email: String,
-    val buttonEnabled: Boolean,
-) {
-    companion object {
-        fun getDefaultState() = EnterEmailState(
-            email = "",
-            buttonEnabled = false,
-        )
-    }
-}
+    val email: String = "",
+    val buttonEnabled: Boolean = false,
+    val isLoading: Boolean = false,
+)
 
 sealed interface EnterEmailSideEffect {
     data class MoveToEnterEmailVerificationCode(val signUpData: SignUpData) : EnterEmailSideEffect
+    data object ShowConflictSnackBar : EnterEmailSideEffect
+    data object ShowErrorSnackBar : EnterEmailSideEffect
 }

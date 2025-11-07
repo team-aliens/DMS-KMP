@@ -22,6 +22,7 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
@@ -33,6 +34,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterEmailViewModel
 internal fun EnterEmail(
     onBackPressed: () -> Unit,
     navigateToEnterEmailVerificationCode: (SignUpData) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: EnterEmailViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -43,6 +45,9 @@ internal fun EnterEmail(
                 is EnterEmailSideEffect.MoveToEnterEmailVerificationCode -> {
                     navigateToEnterEmailVerificationCode(effect.signUpData)
                 }
+
+                is EnterEmailSideEffect.ShowConflictSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "이미 가입된 이메일입니다")
+                is EnterEmailSideEffect.ShowErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "이메일을 확인해주세요")
             }
         }
     }
@@ -106,6 +111,7 @@ private fun EnterEmailScreen(
             keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
+            isLoading = state.isLoading,
         )
     }
 }
