@@ -13,6 +13,8 @@ import team.aliens.dms.kmp.core.data.points.repository.PointsRepository
 import team.aliens.dms.kmp.core.data.points.repository.PointsRepositoryImpl
 import team.aliens.dms.kmp.core.data.remains.repository.RemainsRepository
 import team.aliens.dms.kmp.core.data.remains.repository.RemainsRepositoryImpl
+import team.aliens.dms.kmp.core.data.schools.repository.SchoolsRepository
+import team.aliens.dms.kmp.core.data.schools.repository.SchoolsRepositoryImpl
 import team.aliens.dms.kmp.core.data.student.repository.StudentRepository
 import team.aliens.dms.kmp.core.data.student.repository.StudentRepositoryImpl
 import team.aliens.dms.kmp.core.data.votes.repository.VotesRepository
@@ -26,4 +28,5 @@ val repositoryModule = module {
     singleOf(::RemainsRepositoryImpl) { bind<RemainsRepository>() }
     singleOf(::VotesRepositoryImpl) { bind<VotesRepository>() }
     singleOf(::PointsRepositoryImpl) { bind<PointsRepository>() }
+    singleOf(::SchoolsRepositoryImpl) { bind<SchoolsRepository>() }
 }
