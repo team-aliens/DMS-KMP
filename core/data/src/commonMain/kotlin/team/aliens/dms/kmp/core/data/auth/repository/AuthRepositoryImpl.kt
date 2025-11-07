@@ -1,13 +1,10 @@
 package team.aliens.dms.kmp.core.data.auth.repository
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.withContext
 import team.aliens.dms.kmp.core.data.auth.mapper.toModel
-import team.aliens.dms.kmp.core.data.auth.model.EmailVerificationType
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 import team.aliens.dms.kmp.core.model.auth.EmailModel
 import team.aliens.dms.kmp.core.model.auth.TokenModel
+import team.aliens.dms.kmp.core.model.type.EmailVerificationType
 import team.aliens.dms.kmp.core.network.auth.datasource.NetworkAuthDataSource
 import team.aliens.dms.kmp.core.network.auth.model.request.CheckEmailVerificationCodeRequest
 import team.aliens.dms.kmp.core.network.auth.model.request.CheckIdExistsRequest
@@ -34,11 +31,9 @@ internal class AuthRepositoryImpl(
             ),
         )
 
-        withContext(Dispatchers.IO) {
-            authPreferencesDataSource.storeTokens(
-                token = response.getOrThrow().toModel(),
-            )
-        }
+        authPreferencesDataSource.storeTokens(
+            token = response.getOrThrow().toModel(),
+        )
     }
 
     override suspend fun sendEmailVerificationCode(

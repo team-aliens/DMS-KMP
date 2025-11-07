@@ -23,6 +23,7 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.numberfield.DmsNumberField
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeSideEffect
@@ -35,6 +36,7 @@ const val SCHOOL_VERIFICATION_CODE_LENGTH = 8
 internal fun EnterSchoolVerificationCode(
     onBackPressed: () -> Unit,
     navigateToEnterSchoolVerificationQuestion: (SignUpData) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: EnterSchoolVerificationCodeViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -42,9 +44,14 @@ internal fun EnterSchoolVerificationCode(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is EnterSchoolVerificationCodeSideEffect.MoveToEnterSchoolVerificationQuestion -> {
-                    navigateToEnterSchoolVerificationQuestion(SignUpData(schoolCode = effect.schoolCode))
-                }
+                is EnterSchoolVerificationCodeSideEffect.MoveToEnterSchoolVerificationQuestion -> navigateToEnterSchoolVerificationQuestion(
+                    effect.signUpData,
+                )
+
+                is EnterSchoolVerificationCodeSideEffect.ShowErrorSnackBar -> onShowSnackBar(
+                    DmsSnackBarType.ERROR,
+                    "인증코드가 올바르지 않아요.",
+                )
             }
         }
     }
@@ -108,6 +115,7 @@ private fun EnterSchoolVerificationCodeScreen(
             keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
+            isLoading = state.isLoading,
         )
     }
 }

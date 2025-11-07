@@ -68,30 +68,37 @@ fun NavGraphBuilder.signupGraph(
 ) {
     navigation<SignUp.Route>(
         startDestination = SignUp.Route.EnterSchoolVerificationCodeRoute,
+        typeMap = SignUp.Route.NavTypeMap,
     ) {
         enterSchoolVerificationCode(
             onBackPressed = onBackPressed,
             navigateToEnterSchoolVerificationQuestion = navigateToEnterSchoolVerificationQuestion,
+            onShowSnackBar = onShowSnackBar,
         )
         enterSchoolVerificationQuestion(
             onBackPressed = onBackPressed,
             navigateToEnterEmail = navigateToEnterEmail,
+            onShowSnackBar = onShowSnackBar,
         )
         enterEmail(
             onBackPressed = onBackPressed,
             navigateToEnterEmailVerificationCode = navigateToEnterEmailVerificationCode,
+            onShowSnackBar = onShowSnackBar,
         )
         enterEmailVerificationCode(
             onBackPressed = onBackPressed,
             navigateToEnterStudentNumber = navigateToEnterStudentNumber,
+            onShowSnackBar = onShowSnackBar,
         )
         enterStudentNumber(
             onBackPressed = onBackPressed,
             navigateToSetId = navigateToSetId,
+            onShowSnackBar = onShowSnackBar,
         )
         setId(
             onBackPressed = onBackPressed,
             navigateToSetPassword = navigateToSetPassword,
+            onShowSnackBar = onShowSnackBar,
         )
         setPassword(
             onBackPressed = onBackPressed,

@@ -12,7 +12,7 @@ internal class SetPasswordViewModel(
 ) :
     BaseViewModel<SetPasswordState, SetPasswordSideEffect>(SetPasswordState.getDefaultState()) {
 
-    private val route = savedStateHandle.toRoute<SignUpData>(
+    private val route = savedStateHandle.toRoute<SignUp.Route.SetPassword>(
         typeMap = SignUp.Route.NavTypeMap,
     )
 
@@ -50,7 +50,7 @@ internal class SetPasswordViewModel(
     internal fun onNextClick() {
         postSideEffect(
             SetPasswordSideEffect.MoveToTerms(
-                signUpData = route.copy(password = state.value.password),
+                signUpData = route.signUpData.copy(password = state.value.password),
             ),
         )
     }

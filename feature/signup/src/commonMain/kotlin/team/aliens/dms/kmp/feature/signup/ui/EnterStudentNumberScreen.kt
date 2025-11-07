@@ -29,6 +29,7 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
@@ -40,6 +41,7 @@ import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberViewModel
 internal fun EnterStudentNumber(
     onBackPressed: () -> Unit,
     navigateToSetId: (SignUpData) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: EnterStudentNumberViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
@@ -47,11 +49,17 @@ internal fun EnterStudentNumber(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is EnterStudentNumberSideEffect.MoveToSetId -> {
-                    navigateToSetId(
-                        effect.signUpData,
-                    )
-                }
+                is EnterStudentNumberSideEffect.MoveToSetId -> navigateToSetId(effect.signUpData)
+
+                is EnterStudentNumberSideEffect.ShowConflictSnackBar -> onShowSnackBar(
+                    DmsSnackBarType.ERROR,
+                    "이미 가입된 학번이에요",
+                )
+
+                is EnterStudentNumberSideEffect.ShowErrorSnackBar -> onShowSnackBar(
+                    DmsSnackBarType.ERROR,
+                    "학번을 확인해주세요",
+                )
             }
         }
     }
@@ -121,6 +129,7 @@ private fun EnterStudentNumberScreen(
             keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
+            isLoading = state.isLoading,
         )
     }
 }

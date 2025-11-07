@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SignUpData(
+    val schoolId: String = "",
     val schoolCode: String = "",
     val schoolAnswer: String = "",
     val email: String = "",

@@ -1,19 +1,25 @@
 package team.aliens.dms.kmp.feature.signup.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.domain.usecase.schools.GetSchoolVerificationQuestionAnswerCheckUseCase
+import team.aliens.dms.kmp.core.domain.usecase.schools.GetSchoolVerificationQuestionCheckUseCase
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
 internal class EnterSchoolVerificationQuestionViewModel(
     savedStateHandle: SavedStateHandle,
+    private val getSchoolVerificationQuestionCheckUseCase: GetSchoolVerificationQuestionCheckUseCase,
+    private val getSchoolVerificationQuestionAnswerCheckUseCase: GetSchoolVerificationQuestionAnswerCheckUseCase,
 ) :
     BaseViewModel<EnterSchoolVerificationQuestionState, EnterSchoolVerificationQuestionSideEffect>(
-        EnterSchoolVerificationQuestionState.getDefaultState(),
+        EnterSchoolVerificationQuestionState(),
     ) {
 
-    private val route = savedStateHandle.toRoute<SignUpData>(
+    private val route = savedStateHandle.toRoute<SignUp.Route.EnterSchoolVerificationQuestion>(
         typeMap = SignUp.Route.NavTypeMap,
     )
 
@@ -22,11 +28,17 @@ internal class EnterSchoolVerificationQuestionViewModel(
     }
 
     private fun setSchoolVerificationQuestion() {
-        val schoolVerificationQuestion = "우리 학교 학생 수를 입력해주세요"
-        setState {
-            state.value.copy(
-                schoolVerificationQuestion = schoolVerificationQuestion,
-            )
+        viewModelScope.launch {
+            getSchoolVerificationQuestionCheckUseCase(schoolId = route.signUpData.schoolId)
+                .onSuccess { question ->
+                    setState {
+                        state.value.copy(
+                            schoolVerificationQuestion = question,
+                        )
+                    }
+                }.onFailure {
+                    postSideEffect(EnterSchoolVerificationQuestionSideEffect.ShowQuestionErrorSnackBar)
+                }
         }
     }
 
@@ -45,31 +57,39 @@ internal class EnterSchoolVerificationQuestionViewModel(
     }
 
     internal fun onNextClick() {
-        postSideEffect(
-            EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail(
-                signUpData = route.copy(
-                    schoolAnswer = state.value.schoolVerificationAnswer,
-                ),
-            ),
-        )
+        viewModelScope.launch {
+            setState { state.value.copy(isLoading = true) }
+            getSchoolVerificationQuestionAnswerCheckUseCase(
+                schoolId = route.signUpData.schoolId,
+                answer = state.value.schoolVerificationAnswer,
+            ).onSuccess {
+                setState { state.value.copy(isLoading = false) }
+                postSideEffect(
+                    EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail(
+                        signUpData = route.signUpData.copy(
+                            schoolAnswer = state.value.schoolVerificationAnswer,
+                        ),
+                    ),
+                )
+            }.onFailure {
+                setState { state.value.copy(isLoading = false) }
+                postSideEffect(EnterSchoolVerificationQuestionSideEffect.ShowErrorSnackBar)
+            }
+        }
     }
 }
 
 data class EnterSchoolVerificationQuestionState(
-    val schoolVerificationQuestion: String,
-    val schoolVerificationAnswer: String,
-    val buttonEnabled: Boolean,
-) {
-    companion object {
-        fun getDefaultState() = EnterSchoolVerificationQuestionState(
-            schoolVerificationQuestion = "",
-            schoolVerificationAnswer = "",
-            buttonEnabled = false,
-        )
-    }
-}
+    val schoolVerificationQuestion: String = "",
+    val schoolVerificationAnswer: String = "",
+    val buttonEnabled: Boolean = false,
+    val isLoading: Boolean = false,
+)
 
 sealed interface EnterSchoolVerificationQuestionSideEffect {
     data class MoveToEnterEmail(val signUpData: SignUpData) :
         EnterSchoolVerificationQuestionSideEffect
+
+    data object ShowErrorSnackBar : EnterSchoolVerificationQuestionSideEffect
+    data object ShowQuestionErrorSnackBar : EnterSchoolVerificationQuestionSideEffect
 }

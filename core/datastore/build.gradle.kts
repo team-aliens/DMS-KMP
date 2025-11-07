@@ -37,6 +37,7 @@ kotlin {
             implementation(libs.androidx.datastore.preferences.core)
             implementation(libs.koin.core)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.coroutines.core)
 
             implementation(projects.core.model)
         }
