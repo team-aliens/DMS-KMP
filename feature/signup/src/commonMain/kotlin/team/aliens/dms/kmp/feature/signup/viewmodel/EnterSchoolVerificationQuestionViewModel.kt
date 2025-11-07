@@ -74,7 +74,6 @@ internal class EnterSchoolVerificationQuestionViewModel(
                 postSideEffect(EnterSchoolVerificationQuestionSideEffect.ShowErrorSnackBar)
             }
         }
-
     }
 }
 

@@ -32,19 +32,19 @@ internal class SetIdViewModel(
 
     internal fun onNextClick() {
         viewModelScope.launch {
-            setState { state.value.copy(isLoading = true, buttonEnabled = false)}
+            setState { state.value.copy(isLoading = true, buttonEnabled = false) }
             checkIdExistsUseCase(
                 accountId = state.value.id,
             ).onSuccess {
-                setState { state.value.copy(isLoading = false, buttonEnabled = true)}
+                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
                 postSideEffect(
                     SetIdSideEffect.MoveToSetPassword(
                         signUpData = route.signUpData.copy(accountId = state.value.id),
                     ),
                 )
             }.onFailure { exception ->
-                setState { state.value.copy(isLoading = false, buttonEnabled = true)}
-                when(exception) {
+                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                when (exception) {
                     is ConflictException -> postSideEffect(SetIdSideEffect.ShowConflictSnackBar)
                     else -> postSideEffect(SetIdSideEffect.ShowErrorSnackBar)
                 }
@@ -63,6 +63,7 @@ internal sealed interface SetIdSideEffect {
     data class MoveToSetPassword(
         val signUpData: SignUpData,
     ) : SetIdSideEffect
+
     data object ShowConflictSnackBar : SetIdSideEffect
     data object ShowErrorSnackBar : SetIdSideEffect
 }

@@ -84,7 +84,6 @@ internal class EnterEmailVerificationCodeViewModel(
                 postSideEffect(EnterEmailVerificationCodeSideEffect.ShowCheckErrorSnackBar)
             }
         }
-
     }
 }
 

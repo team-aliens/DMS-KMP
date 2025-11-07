@@ -7,7 +7,6 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.student.SignUpUseCase
-import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
 internal class TermsViewModel(

@@ -27,7 +27,7 @@ fun NavGraphBuilder.enterStudentNumber(
         EnterStudentNumber(
             onBackPressed = onBackPressed,
             navigateToSetId = navigateToSetId,
-            onShowSnackBar = onShowSnackBar
+            onShowSnackBar = onShowSnackBar,
         )
     }
 }
