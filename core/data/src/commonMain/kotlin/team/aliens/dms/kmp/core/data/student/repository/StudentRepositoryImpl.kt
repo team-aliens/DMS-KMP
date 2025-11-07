@@ -1,8 +1,5 @@
 package team.aliens.dms.kmp.core.data.student.repository
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.data.auth.mapper.toModel
 import team.aliens.dms.kmp.core.data.student.mapper.toModel
@@ -56,9 +53,7 @@ internal class StudentRepositoryImpl(
             ),
         )
 
-        withContext(Dispatchers.IO) {
-            authPreferencesDataSource.storeTokens(token = response.getOrThrow().toModel())
-        }
+        authPreferencesDataSource.storeTokens(token = response.getOrThrow().toModel())
     }
 
     override suspend fun examineStudentNumber(
