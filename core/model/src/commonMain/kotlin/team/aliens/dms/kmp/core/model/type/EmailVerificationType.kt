@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.data.auth.model
+package team.aliens.dms.kmp.core.model.type
 
 enum class EmailVerificationType {
     SIGNUP, PASSWORD
