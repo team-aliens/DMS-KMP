@@ -8,6 +8,7 @@ import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.common.exception.network.ConflictException
 import team.aliens.dms.kmp.core.domain.usecase.student.ExamineStudentNumberUseCase
 import team.aliens.dms.kmp.core.model.signup.SignUpData
+import team.aliens.dms.kmp.core.util.guardAll
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
 internal class EnterStudentNumberViewModel(
@@ -45,10 +46,12 @@ internal class EnterStudentNumberViewModel(
 
     internal fun onNextClick() {
         viewModelScope.launch {
+            val (grade, classroom, number) = guardAll(
+                state.value.grade.toIntOrNull(),
+                state.value.classroom.toIntOrNull(),
+                state.value.number.toIntOrNull(),
+            ) ?: return@launch
             setState { state.value.copy(isLoading = true, buttonEnabled = false) }
-            val grade = state.value.grade.toIntOrNull() ?: return@launch
-            val classroom = state.value.classroom.toIntOrNull() ?: return@launch
-            val number = state.value.number.toIntOrNull() ?: return@launch
             examineStudentNumberUseCase(
                 schoolId = route.signUpData.schoolId,
                 grade = grade,

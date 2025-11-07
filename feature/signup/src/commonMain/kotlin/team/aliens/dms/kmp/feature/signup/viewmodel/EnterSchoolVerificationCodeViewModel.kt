@@ -38,7 +38,7 @@ internal class EnterSchoolVerificationCodeViewModel(
                         EnterSchoolVerificationCodeSideEffect.MoveToEnterSchoolVerificationQuestion(
                             signUpData = SignUpData().copy(
                                 schoolId = schoolId,
-                                schoolCode = schoolId,
+                                schoolCode = state.value.verificationCode,
                             ),
                         ),
                     )

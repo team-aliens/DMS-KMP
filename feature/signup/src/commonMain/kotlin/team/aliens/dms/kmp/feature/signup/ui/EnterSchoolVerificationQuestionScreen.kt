@@ -46,8 +46,15 @@ internal fun EnterSchoolVerificationQuestion(
                     navigateToEnterEmail(effect.signUpData)
                 }
 
-                is EnterSchoolVerificationQuestionSideEffect.ShowErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "올바르지 않은 답변이에요")
-                is EnterSchoolVerificationQuestionSideEffect.ShowQuestionErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "질문을 불러오지 못했어요")
+                is EnterSchoolVerificationQuestionSideEffect.ShowErrorSnackBar -> onShowSnackBar(
+                    DmsSnackBarType.ERROR,
+                    "올바르지 않은 답변이에요",
+                )
+
+                is EnterSchoolVerificationQuestionSideEffect.ShowQuestionErrorSnackBar -> onShowSnackBar(
+                    DmsSnackBarType.ERROR,
+                    "질문을 불러오지 못했어요",
+                )
             }
         }
     }
@@ -112,6 +119,7 @@ private fun EnterSchoolVerificationQuestionScreen(
             keyboardInteractionEnabled = true,
             onClick = onNextClick,
             enabled = state.buttonEnabled,
+            isLoading = state.isLoading,
         )
     }
 }

@@ -24,7 +24,6 @@ internal class EnterSchoolVerificationQuestionViewModel(
     )
 
     init {
-        println(route)
         setSchoolVerificationQuestion()
     }
 
@@ -59,10 +58,12 @@ internal class EnterSchoolVerificationQuestionViewModel(
 
     internal fun onNextClick() {
         viewModelScope.launch {
+            setState { state.value.copy(isLoading = true) }
             getSchoolVerificationQuestionAnswerCheckUseCase(
                 schoolId = route.signUpData.schoolId,
                 answer = state.value.schoolVerificationAnswer,
             ).onSuccess {
+                setState { state.value.copy(isLoading = false) }
                 postSideEffect(
                     EnterSchoolVerificationQuestionSideEffect.MoveToEnterEmail(
                         signUpData = route.signUpData.copy(
@@ -71,6 +72,7 @@ internal class EnterSchoolVerificationQuestionViewModel(
                     ),
                 )
             }.onFailure {
+                setState { state.value.copy(isLoading = false) }
                 postSideEffect(EnterSchoolVerificationQuestionSideEffect.ShowErrorSnackBar)
             }
         }
@@ -81,6 +83,7 @@ data class EnterSchoolVerificationQuestionState(
     val schoolVerificationQuestion: String = "",
     val schoolVerificationAnswer: String = "",
     val buttonEnabled: Boolean = false,
+    val isLoading: Boolean = false,
 )
 
 sealed interface EnterSchoolVerificationQuestionSideEffect {
