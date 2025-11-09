@@ -16,8 +16,7 @@ fun NavGraphBuilder.home(
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
-
-    ) {
+) {
     composable<HomeRoute> {
         Home(
             onNavigateNotice = onNavigateNotice,

@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dmskmp.core.design_system.generated.resources.Res
 import dmskmp.core.design_system.generated.resources.img_calendar
-import kotlinx.coroutines.flow.collect
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.button.DmsItemButton
 import team.aliens.dms.kmp.core.designsystem.content.DmsPointContent
@@ -44,8 +43,15 @@ internal fun Home(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeSideEffect.ShowOutingPassDialog -> onShowSnackBar(DmsSnackBarType.SUCCESS,"개발중인 기능이에요")
-                is HomeSideEffect.NavigateToNotification -> onShowSnackBar(DmsSnackBarType.SUCCESS,"개발중인 기능이에요")
+                is HomeSideEffect.ShowOutingPassDialog -> onShowSnackBar(
+                    DmsSnackBarType.SUCCESS,
+                    "개발중인 기능이에요",
+                )
+
+                is HomeSideEffect.NavigateToNotification -> onShowSnackBar(
+                    DmsSnackBarType.SUCCESS,
+                    "개발중인 기능이에요",
+                )
             }
         }
     }

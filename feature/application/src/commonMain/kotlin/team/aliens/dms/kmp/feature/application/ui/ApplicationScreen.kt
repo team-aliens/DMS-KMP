@@ -40,7 +40,7 @@ internal fun Application(
         state = state,
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
-        onNavigateVolunteerApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요")},
+        onNavigateVolunteerApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
         onNavigateVote = onNavigateVote,
     )
 }
