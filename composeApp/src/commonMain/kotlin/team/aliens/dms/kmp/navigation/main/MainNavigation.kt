@@ -54,6 +54,7 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateVote = appState.navController::navigateToVote,
             onNavigatePointHistory = appState.navController::navigateToPointHistory,
             onNavigateMeal = appState.navController::navigateToMeal,
+            onShowSnackBar = appState::showSnackBar,
         )
         noticeDetails(onNavigateBack = appState.navController::navigateUp)
         remainApplication(onNavigateBack = appState.navController::navigateUp)

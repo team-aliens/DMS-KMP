@@ -20,6 +20,7 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsItemButton
 import team.aliens.dms.kmp.core.designsystem.content.DmsPointContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.feature.mypage.component.PhraseContent
 import team.aliens.dms.kmp.feature.mypage.component.ProfileContent
@@ -29,6 +30,7 @@ import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageViewModel
 @Composable
 internal fun MyPage(
     onNavigatePointHistory: (PointType) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: MyPageViewModel = koinViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -36,6 +38,7 @@ internal fun MyPage(
     MyPageScreen(
         state = state,
         onNavigatePointHistory = onNavigatePointHistory,
+        onSettingClick = { onShowSnackBar(DmsSnackBarType.SUCCESS,"준비중인 기능이에요")}
     )
 }
 
@@ -43,6 +46,7 @@ internal fun MyPage(
 private fun MyPageScreen(
     state: MyPageState,
     onNavigatePointHistory: (PointType) -> Unit,
+    onSettingClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -56,7 +60,7 @@ private fun MyPageScreen(
                 DmsIconButton(
                     resource = DmsIcon.Setting,
                     tint = DmsTheme.colors.scrim,
-                    onClick = { },
+                    onClick = onSettingClick,
                 )
             },
         )
