@@ -114,6 +114,7 @@ private fun VoteScreen(
             buttonColor = ButtonColor.Primary,
             onClick = submitVote,
             enabled = state.buttonEnabled,
+            isLoading = state.isLoading,
         )
     }
 }

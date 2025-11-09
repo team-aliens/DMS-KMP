@@ -97,13 +97,15 @@ internal class VoteViewModel(
 
     internal fun postVote() {
         viewModelScope.launch(Dispatchers.IO) {
+            setState { state.value.copy(isLoading = true, buttonEnabled = false) }
             postVoteUseCase(
                 votingTopic = route.vote.id,
                 selectId = state.value.selectId!!,
             ).onSuccess {
-                setState { state.value.copy(buttonEnabled = false) }
+                setState { state.value.copy(buttonEnabled = false, isLoading = false) }
                 postSideEffect(VoteSideEffect.VoteSuccess)
             }.onFailure {
+                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
                 Logger.a(it) { it.message.toString() }
                 when (it) {
                     is ConflictException -> postSideEffect(VoteSideEffect.VoteConflict)
@@ -121,6 +123,7 @@ internal data class VoteState(
     val modelStudent: List<StudentModel> = emptyList(),
     val selectId: String? = null,
     val buttonEnabled: Boolean = false,
+    val isLoading: Boolean = false,
 )
 
 internal sealed interface VoteSideEffect {
