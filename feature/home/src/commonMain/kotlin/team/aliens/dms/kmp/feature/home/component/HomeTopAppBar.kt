@@ -19,6 +19,8 @@ import team.aliens.dms.kmp.core.designsystem.util.clickable
 @Composable
 internal fun HomeTopAppBar(
     modifier: Modifier = Modifier,
+    onOutingPassClick: () -> Unit,
+    onNotificationClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -30,7 +32,7 @@ internal fun HomeTopAppBar(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            modifier = Modifier.clickable(onClick = {}),
+            modifier = Modifier.clickable(onClick = onOutingPassClick),
             painter = painterResource(DmsIcon.OutingPass),
             tint = DmsTheme.colors.scrim,
             contentDescription = null,
@@ -40,7 +42,7 @@ internal fun HomeTopAppBar(
             resource = DmsIcon.Notification,
             tint = DmsTheme.colors.scrim,
             contentPaddingValues = PaddingValues(2.dp),
-            onClick = { },
+            onClick = onNotificationClick,
         )
     }
 }

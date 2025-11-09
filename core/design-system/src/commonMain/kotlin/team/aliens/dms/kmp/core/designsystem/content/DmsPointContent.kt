@@ -37,11 +37,11 @@ fun DmsPointContent(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(32.dp))
-            .clickable(onClick = onClick)
             .background(
                 color = DmsTheme.colors.surfaceTint,
                 shape = RoundedCornerShape(32.dp),
             )
+            .clickable(onClick = onClick)
             .padding(24.dp),
     ) {
         DmsText(

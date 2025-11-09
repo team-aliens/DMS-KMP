@@ -26,6 +26,14 @@ internal class HomeViewModel(
             }
         }
     }
+
+    internal fun showOutingPassDialog() {
+        postSideEffect(HomeSideEffect.ShowOutingPassDialog)
+    }
+
+    internal fun navigateToNotification() {
+        postSideEffect(HomeSideEffect.NavigateToNotification)
+    }
 }
 
 internal data class HomeState(
@@ -33,4 +41,7 @@ internal data class HomeState(
     val myPage: MyPageModel = MyPageModel(),
 )
 
-internal sealed interface HomeSideEffect
+internal sealed interface HomeSideEffect {
+    data object ShowOutingPassDialog : HomeSideEffect
+    data object NavigateToNotification : HomeSideEffect
+}

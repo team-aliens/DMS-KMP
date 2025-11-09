@@ -3,6 +3,7 @@ package team.aliens.dms.kmp.feature.application.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.votes.VoteModel
 import team.aliens.dms.kmp.feature.application.ui.Application
 
@@ -14,6 +15,7 @@ fun NavGraphBuilder.application(
     onNavigateOutingApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     composable<ApplicationRoute> {
         Application(
@@ -21,6 +23,7 @@ fun NavGraphBuilder.application(
             onNavigateOutingApplication = onNavigateOutingApplication,
             onNavigateVolunteerApplication = onNavigateVolunteerApplication,
             onNavigateVote = onNavigateVote,
+            onShowSnackBar = onShowSnackBar,
         )
     }
 }

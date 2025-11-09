@@ -49,13 +49,13 @@ fun DmsApplicationCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(32.dp))
+            .background(DmsTheme.colors.surfaceTint)
+            .clickable(onClick = onClick)
             .border(
                 width = 2.dp,
                 color = borderColor,
                 shape = RoundedCornerShape(32.dp),
             )
-            .background(DmsTheme.colors.surfaceTint)
-            .clickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {

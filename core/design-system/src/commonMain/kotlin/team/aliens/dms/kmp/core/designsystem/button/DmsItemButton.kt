@@ -50,12 +50,12 @@ fun DmsItemButton(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(32.dp))
+            .background(color = backgroundColor, shape = RoundedCornerShape(32.dp))
             .clickable(
                 enabled = enabled,
                 onClick = onClick,
                 onPressed = { pressed = it },
             )
-            .background(color = backgroundColor, shape = RoundedCornerShape(32.dp))
             .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,10 +20,12 @@ import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.button.DmsItemButton
 import team.aliens.dms.kmp.core.designsystem.content.DmsPointContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.feature.home.component.AnnouncementButton
 import team.aliens.dms.kmp.feature.home.component.HomeTopAppBar
 import team.aliens.dms.kmp.feature.home.component.MealContent
+import team.aliens.dms.kmp.feature.home.viewmodel.HomeSideEffect
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeState
 import team.aliens.dms.kmp.feature.home.viewmodel.HomeViewModel
 
@@ -32,15 +35,34 @@ internal fun Home(
     onNavigateNoticeDetail: (String) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: HomeViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                is HomeSideEffect.ShowOutingPassDialog -> onShowSnackBar(
+                    DmsSnackBarType.SUCCESS,
+                    "개발중인 기능이에요",
+                )
+
+                is HomeSideEffect.NavigateToNotification -> onShowSnackBar(
+                    DmsSnackBarType.SUCCESS,
+                    "개발중인 기능이에요",
+                )
+            }
+        }
+    }
 
     HomeScreen(
         state = state,
         onNavigateNotice = onNavigateNotice,
         onNavigatePointHistory = onNavigatePointHistory,
         onNavigateMeal = onNavigateMeal,
+        onOutingPassClick = viewModel::showOutingPassDialog,
+        onNotificationClick = viewModel::navigateToNotification,
     )
 }
 
@@ -50,6 +72,8 @@ private fun HomeScreen(
     onNavigateNotice: () -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onOutingPassClick: () -> Unit,
+    onNotificationClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -58,7 +82,10 @@ private fun HomeScreen(
             .background(DmsTheme.colors.background)
             .statusBarsPadding(),
     ) {
-        HomeTopAppBar()
+        HomeTopAppBar(
+            onOutingPassClick = onOutingPassClick,
+            onNotificationClick = onNotificationClick,
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()

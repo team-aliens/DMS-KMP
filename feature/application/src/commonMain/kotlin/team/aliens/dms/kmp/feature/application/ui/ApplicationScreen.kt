@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTab
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTabRow
 import team.aliens.dms.kmp.core.model.votes.VoteModel
@@ -31,14 +32,15 @@ internal fun Application(
     onNavigateOutingApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
 
     ApplicationScreen(
         state = state,
         onNavigateRemainApplication = onNavigateRemainApplication,
-        onNavigateOutingApplication = onNavigateOutingApplication,
-        onNavigateVolunteerApplication = onNavigateVolunteerApplication,
+        onNavigateOutingApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
+        onNavigateVolunteerApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
         onNavigateVote = onNavigateVote,
     )
 }

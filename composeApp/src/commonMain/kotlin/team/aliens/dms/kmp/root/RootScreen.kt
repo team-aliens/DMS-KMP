@@ -1,5 +1,7 @@
 package team.aliens.dms.kmp.root
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -9,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.core.model.votes.VoteModel
 import team.aliens.dms.kmp.feature.application.navigation.application
@@ -27,6 +30,7 @@ internal fun Root(
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     RootScreen(
         onNavigateRemainApplication = onNavigateRemainApplication,
@@ -37,6 +41,7 @@ internal fun Root(
         onNavigateVote = onNavigateVote,
         onNavigatePointHistory = onNavigatePointHistory,
         onNavigateMeal = onNavigateMeal,
+        onShowSnackBar = onShowSnackBar,
     )
 }
 
@@ -50,6 +55,7 @@ private fun RootScreen(
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val navController: NavHostController = rememberNavController()
 
@@ -62,20 +68,27 @@ private fun RootScreen(
             modifier = Modifier
                 .background(DmsTheme.colors.background)
                 .padding(paddingValues),
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None },
         ) {
             home(
                 onNavigateNotice = onNavigateNotice,
                 onNavigateNoticeDetail = onNavigateNoticeDetail,
                 onNavigatePointHistory = onNavigatePointHistory,
                 onNavigateMeal = onNavigateMeal,
+                onShowSnackBar = onShowSnackBar,
             )
             application(
                 onNavigateRemainApplication = onNavigateRemainApplication,
                 onNavigateOutingApplication = onNavigateOutingApplication,
                 onNavigateVolunteerApplication = onNavigateVolunteerApplication,
                 onNavigateVote = onNavigateVote,
+                onShowSnackBar = onShowSnackBar,
             )
-            myPage(onNavigatePointHistory = onNavigatePointHistory)
+            myPage(
+                onNavigatePointHistory = onNavigatePointHistory,
+                onShowSnackBar = onShowSnackBar,
+            )
         }
     }
 }
