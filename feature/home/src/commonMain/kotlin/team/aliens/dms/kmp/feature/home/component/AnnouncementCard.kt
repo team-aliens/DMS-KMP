@@ -46,7 +46,7 @@ internal fun AnnouncementButton(
         )
         DmsText(
             modifier = Modifier.padding(start = 8.dp),
-            text = "기숙사 상벌점에 관하여",
+            text = "새로운 공지사항을 확인하세요",
             style = DmsTypography.labelM,
             color = DmsTheme.colors.inverseSurface,
         )
