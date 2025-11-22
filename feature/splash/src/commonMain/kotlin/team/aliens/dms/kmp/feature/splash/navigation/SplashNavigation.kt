@@ -26,7 +26,7 @@ fun NavGraphBuilder.splash(
         Splash(
             navigateToLogin = navigateToSignIn,
             navigateToMain = navigateToMain,
-            navigateToOnboarding = navigateToOnboarding
+            navigateToOnboarding = navigateToOnboarding,
         )
     }
 }
