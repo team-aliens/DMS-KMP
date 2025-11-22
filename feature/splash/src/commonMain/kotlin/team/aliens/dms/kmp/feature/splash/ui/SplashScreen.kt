@@ -26,6 +26,7 @@ import team.aliens.dms.kmp.feature.splash.viewmodel.SplashViewModel
 
 @Composable
 internal fun Splash(
+    navigateToOnboarding: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToMain: () -> Unit,
 ) {
@@ -34,8 +35,9 @@ internal fun Splash(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect {
             when (it) {
-                SplashSideEffect.MoveToMain -> navigateToMain()
-                SplashSideEffect.MoveToLogin -> navigateToLogin()
+                SplashSideEffect.NavigateToOnBoarding -> navigateToOnboarding()
+                SplashSideEffect.NavigateToMain -> navigateToMain()
+                SplashSideEffect.NavigateToLogin -> navigateToLogin()
             }
         }
     }

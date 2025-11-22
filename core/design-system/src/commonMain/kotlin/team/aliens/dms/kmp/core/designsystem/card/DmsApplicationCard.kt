@@ -74,12 +74,6 @@ fun DmsApplicationCard(
                 color = DmsTheme.colors.inverseOnSurface,
             )
             Spacer(modifier = Modifier.weight(1f))
-            appliedTitle?.let {
-                AppliedTitleText(
-                    modifier = Modifier.padding(end = 16.dp),
-                    appliedTitle = appliedTitle,
-                )
-            }
             Icon(
                 painter = painterResource(DmsIcon.Forward),
                 tint = DmsTheme.colors.scrim,
