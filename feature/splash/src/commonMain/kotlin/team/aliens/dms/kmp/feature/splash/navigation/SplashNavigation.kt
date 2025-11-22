@@ -18,6 +18,7 @@ fun NavController.navigateToSplash(
 )
 
 fun NavGraphBuilder.splash(
+    navigateToOnboarding: () -> Unit,
     navigateToSignIn: () -> Unit,
     navigateToMain: () -> Unit,
 ) {
@@ -25,6 +26,7 @@ fun NavGraphBuilder.splash(
         Splash(
             navigateToLogin = navigateToSignIn,
             navigateToMain = navigateToMain,
+            navigateToOnboarding = navigateToOnboarding
         )
     }
 }
