@@ -4,6 +4,7 @@ import org.koin.dsl.module
 import team.aliens.dms.kmp.core.domain.usecase.auth.di.authModule
 import team.aliens.dms.kmp.core.domain.usecase.meal.di.mealModule
 import team.aliens.dms.kmp.core.domain.usecase.notice.di.noticeModule
+import team.aliens.dms.kmp.core.domain.usecase.onboarding.di.onboardingModule
 import team.aliens.dms.kmp.core.domain.usecase.points.di.pointsModule
 import team.aliens.dms.kmp.core.domain.usecase.remains.di.remainsModule
 import team.aliens.dms.kmp.core.domain.usecase.schools.di.schoolsModule
@@ -20,5 +21,6 @@ val domainModule = module {
         votesModule,
         pointsModule,
         schoolsModule,
+        onboardingModule,
     )
 }
