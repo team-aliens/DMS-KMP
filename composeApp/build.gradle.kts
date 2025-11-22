@@ -64,6 +64,7 @@ kotlin {
             implementation(projects.core.domain)
             implementation(projects.core.data)
             implementation(projects.core.model)
+            implementation(projects.core.util)
 
             implementation(projects.feature.splash)
             implementation(projects.feature.signin)
@@ -77,6 +78,7 @@ kotlin {
             implementation(projects.feature.volunteer)
             implementation(projects.feature.point)
             implementation(projects.feature.meal)
+            implementation(projects.feature.onboarding)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
