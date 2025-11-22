@@ -51,7 +51,7 @@ private fun Onboarding(
                 CompleteContent(onCompleteClick = onCompleteClick)
             } else {
                 IntroContent(
-                    onAnimatedEnt = { isLastStep = true },
+                    onAnimatedEnd = { isLastStep = true },
                 )
             }
         }

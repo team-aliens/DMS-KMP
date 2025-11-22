@@ -32,7 +32,7 @@ import team.aliens.dms.kmp.core.designsystem.text.DmsText
 @Composable
 internal fun IntroContent(
     modifier: Modifier = Modifier,
-    onAnimatedEnt: () -> Unit,
+    onAnimatedEnd: () -> Unit,
 ) {
     var step by remember { mutableStateOf(0) }
     var isPointVisible by remember { mutableStateOf(false) }
@@ -58,7 +58,7 @@ internal fun IntroContent(
         delay(300)
         step = 3
         delay(1200)
-        onAnimatedEnt()
+        onAnimatedEnd()
     }
 
     Box(

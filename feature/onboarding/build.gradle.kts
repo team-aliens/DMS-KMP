@@ -30,7 +30,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "signin"
+            baseName = "onboarding"
             isStatic = true
         }
     }
