@@ -6,6 +6,8 @@ import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.PlatformConfig
+import team.aliens.dms.kmp.feature.onboarding.navigation.navigateToOnboarding
+import team.aliens.dms.kmp.feature.onboarding.navigation.onboarding
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
 import team.aliens.dms.kmp.feature.signin.navigation.signIn
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToComplete
@@ -40,8 +42,12 @@ fun NavGraphBuilder.authGraph(
         startDestination = SplashRoute,
     ) {
         splash(
+            navigateToOnboarding = appState.navController::navigateToOnboarding,
             navigateToSignIn = appState.navController::navigateToSignIn,
             navigateToMain = appState.navController::navigateToMain,
+        )
+        onboarding(
+            navigateToSignIn = appState.navController::navigateToSignIn,
         )
         signIn(
             navigateToMain = appState.navController::navigateToMain,
