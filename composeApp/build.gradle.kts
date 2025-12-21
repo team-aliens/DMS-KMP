@@ -79,6 +79,7 @@ kotlin {
             implementation(projects.feature.point)
             implementation(projects.feature.meal)
             implementation(projects.feature.onboarding)
+            implementation(projects.feature.findId)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
