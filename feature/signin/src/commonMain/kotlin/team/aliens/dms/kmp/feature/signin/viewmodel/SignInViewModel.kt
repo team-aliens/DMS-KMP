@@ -66,6 +66,10 @@ internal class SignInViewModel(
             }
         }
     }
+
+    internal fun navigateFindId() = viewModelScope.launch {
+        postSideEffect(SignInSideEffect.NavigateToFindId)
+    }
 }
 
 internal data class SignInState(
@@ -79,6 +83,7 @@ internal data class SignInState(
 
 internal sealed interface SignInSideEffect {
     data object NavigateToMain : SignInSideEffect
+    data object NavigateToFindId : SignInSideEffect
     data class ShowSnackBar(
         val snackBarType: DmsSnackBarType,
         val message: String,
