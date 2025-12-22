@@ -65,6 +65,7 @@ internal class FindIdViewModel(
             return@launch
         }
 
+        setState { state.value.copy(isLoading = true)}
         findIdUseCase(
             schoolId = schoolId,
             studentName = state.value.name,
@@ -80,6 +81,7 @@ internal class FindIdViewModel(
                 else -> postSideEffect(FindIdSideEffect.ShowServerErrorSnackBar)
             }
         }
+        setState { state.value.copy(isLoading = false) }
     }
 
     internal fun navigateBack() = viewModelScope.launch {
