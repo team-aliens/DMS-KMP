@@ -34,7 +34,7 @@ fun DmsAlertDialog(
             colors = CardDefaults.cardColors(
                 containerColor = DmsTheme.colors.surface,
                 contentColor = DmsTheme.colors.surfaceContainer,
-            )
+            ),
         ) {
             Column(
                 modifier = Modifier

@@ -65,7 +65,7 @@ internal class FindIdViewModel(
             return@launch
         }
 
-        setState { state.value.copy(isLoading = true)}
+        setState { state.value.copy(isLoading = true) }
         findIdUseCase(
             schoolId = schoolId,
             studentName = state.value.name,
