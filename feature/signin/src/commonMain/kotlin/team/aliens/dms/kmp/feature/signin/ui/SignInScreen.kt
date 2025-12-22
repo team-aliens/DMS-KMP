@@ -62,7 +62,7 @@ internal fun SignIn(
         state = state,
         onAccountIdChange = viewModel::setAccountId,
         onPasswordChange = viewModel::setPassword,
-        onFindIdClick = viewModel::navigateFindId
+        onFindIdClick = viewModel::navigateFindId,
     )
 }
 

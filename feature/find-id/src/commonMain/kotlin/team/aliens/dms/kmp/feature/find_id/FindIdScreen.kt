@@ -14,9 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.flow.collect
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -44,13 +42,20 @@ internal fun FindIdScreen(
         viewModel.sideEffect.collect { effect ->
             when (effect) {
                 is FindIdSideEffect.NavigateBack -> onNavigateToBack()
-                is FindIdSideEffect.ShowServerErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "서버에 문제가 발생했습니다.")
-                is FindIdSideEffect.ShowNumberErrorSnackBar -> onShowSnackBar(DmsSnackBarType.ERROR, "학번을 확인해주세요.")
+                is FindIdSideEffect.ShowServerErrorSnackBar -> onShowSnackBar(
+                    DmsSnackBarType.ERROR,
+                    "서버에 문제가 발생했습니다.",
+                )
+
+                is FindIdSideEffect.ShowNumberErrorSnackBar -> onShowSnackBar(
+                    DmsSnackBarType.ERROR,
+                    "학번을 확인해주세요.",
+                )
             }
         }
     }
 
-    if(state.isShowIdDialog) {
+    if (state.isShowIdDialog) {
         DmsAlertDialog(
             title = "회원님의 아이디를 찾았습니다!",
             description = "회원님의 아이디는 ${state.email.email}입니다.",

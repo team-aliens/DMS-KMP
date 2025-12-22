@@ -17,7 +17,7 @@ internal class FindIdViewModel(
 
     internal fun setName(name: String) = viewModelScope.launch {
         setState {
-           state.value.copy(name = name)
+            state.value.copy(name = name)
         }
         setButtonEnabled()
     }
@@ -74,7 +74,7 @@ internal class FindIdViewModel(
         ).onSuccess { email ->
             setState { state.value.copy(email = email, isShowIdDialog = true) }
         }.onFailure { exception ->
-            when(exception) {
+            when (exception) {
                 is UnAuthorizedException -> postSideEffect(FindIdSideEffect.ShowNumberErrorSnackBar)
                 is NotFoundException -> postSideEffect(FindIdSideEffect.ShowNumberErrorSnackBar)
                 else -> postSideEffect(FindIdSideEffect.ShowServerErrorSnackBar)
