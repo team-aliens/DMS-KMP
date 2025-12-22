@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.feature.find_id.component
+package team.aliens.dms.kmp.feature.findid.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

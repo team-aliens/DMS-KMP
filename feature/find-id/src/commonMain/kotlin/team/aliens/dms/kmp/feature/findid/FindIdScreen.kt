@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.feature.find_id
+package team.aliens.dms.kmp.feature.findid
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
-import team.aliens.dms.kmp.feature.find_id.component.UserInfoInputContent
+import team.aliens.dms.kmp.feature.findid.component.UserInfoInputContent
 
 @Composable
 internal fun FindIdScreen(

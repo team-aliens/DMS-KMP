@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.feature.find_id
+package team.aliens.dms.kmp.feature.findid
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch

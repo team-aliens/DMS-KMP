@@ -62,7 +62,7 @@ kotlin {
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.feature.find_id"
+    namespace = "team.aliens.dms.kmp.feature.findid"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK

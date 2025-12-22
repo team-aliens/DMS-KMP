@@ -6,8 +6,8 @@ import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.PlatformConfig
-import team.aliens.dms.kmp.feature.find_id.navigation.findId
-import team.aliens.dms.kmp.feature.find_id.navigation.navigateToFindId
+import team.aliens.dms.kmp.feature.findid.navigation.findId
+import team.aliens.dms.kmp.feature.findid.navigation.navigateToFindId
 import team.aliens.dms.kmp.feature.onboarding.navigation.navigateToOnboarding
 import team.aliens.dms.kmp.feature.onboarding.navigation.onboarding
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
