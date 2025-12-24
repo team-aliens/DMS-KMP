@@ -9,8 +9,13 @@ import team.aliens.dms.kmp.core.network.schools.model.request.GetSchoolVerificat
 import team.aliens.dms.kmp.core.network.schools.model.request.GetSchoolVerificationQuestionCheckRequest
 import team.aliens.dms.kmp.core.network.schools.model.response.GetSchoolVerificationCodeCheckResponse
 import team.aliens.dms.kmp.core.network.schools.model.response.GetSchoolVerificationQuestionCheckResponse
+import team.aliens.dms.kmp.core.network.schools.model.response.GetSchoolsResponse
 
 internal class KtorSchoolsDataSource(private val client: HttpClient) : NetworkSchoolsDataSource {
+    override suspend fun getSchools(): Result<GetSchoolsResponse> = kotlin.runCatching {
+        client.get("/schools").body()
+    }
+
     override suspend fun getSchoolVerificationQuestionCheck(request: GetSchoolVerificationQuestionCheckRequest): Result<GetSchoolVerificationQuestionCheckResponse> =
         kotlin.runCatching {
             client.get("/schools/question/${request.path.schoolId}").body()

@@ -6,6 +6,8 @@ import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.PlatformConfig
+import team.aliens.dms.kmp.feature.findid.navigation.findId
+import team.aliens.dms.kmp.feature.findid.navigation.navigateToFindId
 import team.aliens.dms.kmp.feature.onboarding.navigation.navigateToOnboarding
 import team.aliens.dms.kmp.feature.onboarding.navigation.onboarding
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
@@ -52,7 +54,7 @@ fun NavGraphBuilder.authGraph(
         signIn(
             navigateToMain = appState.navController::navigateToMain,
             navigateToSignUp = appState.navController::navigateToSignUp,
-            navigateToFindId = { },
+            navigateToFindId = appState.navController::navigateToFindId,
             navigateToFindPassword = { },
             onShowSnackBar = appState::showSnackBar,
         )
@@ -68,6 +70,10 @@ fun NavGraphBuilder.authGraph(
             navigateToComplete = appState.navController::navigateToComplete,
             navigateToMain = appState.navController::navigateToMain,
             webViewUrl = PlatformConfig.webViewUrl,
+            onShowSnackBar = appState::showSnackBar,
+        )
+        findId(
+            onNavigateToBack = appState.navController::navigateUp,
             onShowSnackBar = appState::showSnackBar,
         )
     }

@@ -5,8 +5,10 @@ import team.aliens.dms.kmp.core.network.schools.model.request.GetSchoolVerificat
 import team.aliens.dms.kmp.core.network.schools.model.request.GetSchoolVerificationQuestionCheckRequest
 import team.aliens.dms.kmp.core.network.schools.model.response.GetSchoolVerificationCodeCheckResponse
 import team.aliens.dms.kmp.core.network.schools.model.response.GetSchoolVerificationQuestionCheckResponse
+import team.aliens.dms.kmp.core.network.schools.model.response.GetSchoolsResponse
 
 interface NetworkSchoolsDataSource {
+    suspend fun getSchools(): Result<GetSchoolsResponse>
     suspend fun getSchoolVerificationQuestionCheck(request: GetSchoolVerificationQuestionCheckRequest): Result<GetSchoolVerificationQuestionCheckResponse>
     suspend fun getSchoolVerificationQuestionAnswerCheck(request: GetSchoolVerificationQuestionAnswerCheckRequest): Result<Unit>
     suspend fun getSchoolVerificationCodeCheck(request: GetSchoolVerificationCodeCheckRequest): Result<GetSchoolVerificationCodeCheckResponse>

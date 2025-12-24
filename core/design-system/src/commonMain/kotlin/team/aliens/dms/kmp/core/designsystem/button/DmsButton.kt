@@ -312,7 +312,7 @@ fun DmsButton(
     BasicButton(
         modifier = modifier,
         backgroundColor = backgroundColor,
-        enabled = enabled,
+        enabled = enabled && !isLoading,
         shape = shape,
         borderColor = borderColor,
         buttonType = buttonType,
@@ -327,6 +327,7 @@ fun DmsButton(
             DmsTypography.BodyB
         }
         val size = with(LocalDensity.current) { textStyle.fontSize.toDp() * 1.2f }
+
         Box(
             modifier = Modifier
                 .padding(padding)

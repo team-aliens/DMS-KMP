@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EmailModel(
-    val email: String,
+    val email: String = "",
 )

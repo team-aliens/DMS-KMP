@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.di
 
 import org.koin.dsl.module
 import team.aliens.dms.kmp.feature.application.di.applicationModule
+import team.aliens.dms.kmp.feature.findid.di.findIdModule
 import team.aliens.dms.kmp.feature.home.di.homeModule
 import team.aliens.dms.kmp.feature.meal.di.mealModule
 import team.aliens.dms.kmp.feature.mypage.di.myPageModule
@@ -18,6 +19,7 @@ internal val featureModule = module {
     includes(
         splashModule,
         signInModule,
+        findIdModule,
         signUpModule,
         homeModule,
         applicationModule,
