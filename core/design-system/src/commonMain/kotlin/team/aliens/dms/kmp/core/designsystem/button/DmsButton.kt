@@ -312,7 +312,7 @@ fun DmsButton(
     BasicButton(
         modifier = modifier,
         backgroundColor = backgroundColor,
-        enabled = enabled || isLoading,
+        enabled = enabled && !isLoading,
         shape = shape,
         borderColor = borderColor,
         buttonType = buttonType,
