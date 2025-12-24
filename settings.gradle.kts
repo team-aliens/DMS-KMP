@@ -38,6 +38,7 @@ include(":core:domain")
 include(":core:common")
 include(":core:data")
 include(":core:model")
+include(":core:ui")
 include(":core:util")
 
 include(":feature:splash")
