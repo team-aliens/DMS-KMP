@@ -56,7 +56,9 @@ fun DmsTextField(
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val labelColor by animateColorAsState(
-        targetValue = if (isFocused || value.isNotEmpty()) {
+        targetValue = if (isError) {
+            DmsTheme.colors.onErrorContainer
+        } else if (isFocused || value.isNotEmpty()) {
             DmsTheme.colors.onPrimaryContainer
         } else {
             DmsTheme.colors.surfaceContainer
@@ -97,8 +99,8 @@ fun DmsTextField(
             errorMessage?.let { errorMessage ->
                 DmsText(
                     text = errorMessage,
-                    style = DmsTypography.Button2,
-                    color = DmsTheme.colors.outline,
+                    style = DmsTypography.labelM,
+                    color = DmsTheme.colors.errorContainer,
                 )
             }
         }
@@ -137,7 +139,6 @@ private fun TextField(
     } else {
         PasswordVisualTransformation() to DmsIcon.VisibilityOff
     }
-
     val lineColor by animateColorAsState(
         targetValue = if (isError) {
             DmsTheme.colors.onErrorContainer
