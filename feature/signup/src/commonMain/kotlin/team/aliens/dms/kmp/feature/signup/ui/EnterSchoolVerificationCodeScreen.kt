@@ -22,7 +22,7 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.numberfield.DmsNumberField
+import team.aliens.dms.kmp.core.designsystem.textfield.DmsNumberField
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
@@ -93,7 +93,7 @@ private fun EnterSchoolVerificationCodeScreen(
                 .horizontalPadding(24.dp)
                 .topPadding(20.dp),
             title = "학교 인증코드 입력",
-            description = "학교 인증코드는 8자리에요.",
+            description = "학교 인증코드는 ${SCHOOL_VERIFICATION_CODE_LENGTH}자리에요.",
         )
         DmsNumberField(
             modifier = Modifier
@@ -107,8 +107,7 @@ private fun EnterSchoolVerificationCodeScreen(
         )
         Spacer(modifier = Modifier.weight(1f))
         DmsButton(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             text = "다음",
             buttonType = ButtonType.Contained,
             buttonColor = ButtonColor.Primary,
