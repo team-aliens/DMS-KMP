@@ -51,6 +51,7 @@ internal fun SignIn(
             when (it) {
                 SignInSideEffect.NavigateToMain -> navigateToMain()
                 SignInSideEffect.NavigateToFindId -> navigateToFindId()
+                SignInSideEffect.NavigateToResetPassword -> navigateToFindPassword()
                 is SignInSideEffect.ShowSnackBar -> onShowSnackBar(it.snackBarType, it.message)
             }
         }
@@ -63,6 +64,7 @@ internal fun SignIn(
         onAccountIdChange = viewModel::setAccountId,
         onPasswordChange = viewModel::setPassword,
         onFindIdClick = viewModel::navigateFindId,
+        onResetPasswordClick = viewModel::navigateResetPassword,
     )
 }
 
@@ -74,6 +76,7 @@ private fun SignInScreen(
     onAccountIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onFindIdClick: () -> Unit,
+    onResetPasswordClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -104,7 +107,7 @@ private fun SignInScreen(
             password = state.password,
             onPasswordChange = onPasswordChange,
             onFindId = onFindIdClick,
-            onResetPassword = {},
+            onResetPassword = onResetPasswordClick,
         )
         Spacer(modifier = Modifier.weight(1f))
         SignupActions(onSignUp = navigateToSignUp)
