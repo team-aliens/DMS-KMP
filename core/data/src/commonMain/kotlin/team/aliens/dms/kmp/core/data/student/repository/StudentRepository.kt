@@ -38,7 +38,7 @@ interface StudentRepository {
 
     suspend fun resetPassword(
         accountId: String,
-        studentName: String,
+        name: String,
         email: String,
         emailVerificationCode: String,
         newPassword: String,
