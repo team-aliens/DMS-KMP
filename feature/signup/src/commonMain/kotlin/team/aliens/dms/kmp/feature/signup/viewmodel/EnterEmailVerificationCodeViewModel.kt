@@ -74,8 +74,8 @@ internal class EnterEmailVerificationCodeViewModel(
     }
 
     internal fun setTimerFinished(isFinished: Boolean) {
-        setState { state.value.copy(isTimerFinished = isFinished)}
-        if(isFinished) {
+        setState { state.value.copy(isTimerFinished = isFinished) }
+        if (isFinished) {
             setState {
                 state.value.copy(
                     buttonEnabled = false,
@@ -86,7 +86,8 @@ internal class EnterEmailVerificationCodeViewModel(
     }
 
     private fun setButtonEnabled() = setState {
-        val buttonEnabled = state.value.emailVerificationCode.length == EMAIL_VERIFICATION_CODE_LENGTH && !state.value.isTimerFinished
+        val buttonEnabled =
+            state.value.emailVerificationCode.length == EMAIL_VERIFICATION_CODE_LENGTH && !state.value.isTimerFinished
         state.value.copy(buttonEnabled = buttonEnabled)
     }
 

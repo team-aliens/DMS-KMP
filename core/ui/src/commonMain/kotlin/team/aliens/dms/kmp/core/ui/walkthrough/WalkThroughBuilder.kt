@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 
 data class WalkThroughStepEntry<T>(
     val type: T,
-    val content: @Composable () -> Unit
+    val content: @Composable () -> Unit,
 )
 
 class WalkThroughStepBuilder<T> {
@@ -17,7 +17,7 @@ class WalkThroughStepBuilder<T> {
 
     fun steps(
         types: List<T>,
-        builder: @Composable (type: T) -> Unit
+        builder: @Composable (type: T) -> Unit,
     ): List<WalkThroughStepEntry<T>> {
         types.mapTo(children) { type ->
             WalkThroughStepEntry(type) { builder(type) }

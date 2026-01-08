@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
-import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import resetpassword.ResetPasswordScreen
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 
 @Serializable
 data object ResetPasswordRoute

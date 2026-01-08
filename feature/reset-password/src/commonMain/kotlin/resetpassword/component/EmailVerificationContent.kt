@@ -17,8 +17,8 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
-import team.aliens.dms.kmp.core.designsystem.textfield.DmsNumberField
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
+import team.aliens.dms.kmp.core.designsystem.textfield.DmsNumberField
 import team.aliens.dms.kmp.core.designsystem.timer.DmsTimer
 import team.aliens.dms.kmp.core.model.message.TextFieldError
 import team.aliens.dms.kmp.core.model.message.isError
@@ -41,7 +41,7 @@ internal fun EmailVerificationContent(
             .horizontalPadding(24.dp),
         verticalArrangement = Arrangement.spacedBy(48.dp),
     ) {
-        Column{
+        Column {
             DmsSymbol()
             DmsText(
                 modifier = Modifier.topPadding(20.dp),
@@ -49,7 +49,7 @@ internal fun EmailVerificationContent(
                 style = DmsTypography.TitleB,
                 color = DmsTheme.colors.onTertiaryContainer,
             )
-            Column (
+            Column(
                 modifier = Modifier.topPadding(12.dp),
             ) {
                 DmsText(

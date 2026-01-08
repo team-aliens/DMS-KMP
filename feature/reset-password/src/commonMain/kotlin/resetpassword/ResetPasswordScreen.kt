@@ -27,9 +27,9 @@ import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.message.TextFieldError
-import ui.walkthrough.WalkThroughState
+import team.aliens.dms.kmp.core.ui.walkthrough.WalkThroughState
 import team.aliens.dms.kmp.core.ui.walkthrough.WalkThroughTemplate
-import ui.walkthrough.rememberWalkThroughState
+import team.aliens.dms.kmp.core.ui.walkthrough.rememberWalkThroughState
 
 internal const val EMAIL_VERIFICATION_CODE_LENGTH = 6
 

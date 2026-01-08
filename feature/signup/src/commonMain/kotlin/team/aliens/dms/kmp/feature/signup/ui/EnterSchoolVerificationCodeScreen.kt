@@ -22,8 +22,8 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.textfield.DmsNumberField
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
+import team.aliens.dms.kmp.core.designsystem.textfield.DmsNumberField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeSideEffect

@@ -31,7 +31,7 @@ actual class CountDownTimer actual constructor(
     }
 
     actual fun restart() {
-        if(isRunning.value) {
+        if (isRunning.value) {
             stop()
             start()
         } else {

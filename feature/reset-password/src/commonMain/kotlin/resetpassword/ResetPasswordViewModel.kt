@@ -155,7 +155,7 @@ internal class ResetPasswordViewModel(
     }
 
     internal fun setEmailVerificationTimerFinished(isFinished: Boolean) {
-        setState { state.value.copy(isEmailVerificationTimerFinished = isFinished)}
+        setState { state.value.copy(isEmailVerificationTimerFinished = isFinished) }
         if (isFinished) {
             setState {
                 state.value.copy(
@@ -181,7 +181,8 @@ internal class ResetPasswordViewModel(
     }
 
     internal fun setEmailVerificationCode(emailVerificationCode: String) {
-        val buttonEnabled = emailVerificationCode.length == EMAIL_VERIFICATION_CODE_LENGTH && !state.value.isEmailVerificationTimerFinished
+        val buttonEnabled =
+            emailVerificationCode.length == EMAIL_VERIFICATION_CODE_LENGTH && !state.value.isEmailVerificationTimerFinished
         setState {
             state.value.copy(
                 emailVerificationCode = emailVerificationCode,
