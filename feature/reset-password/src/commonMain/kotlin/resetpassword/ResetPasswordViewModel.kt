@@ -95,9 +95,14 @@ internal class ResetPasswordViewModel(
             type = EmailVerificationType.PASSWORD,
         ).onSuccess {
             postSideEffect(ResetPasswordSideEffect.MoveToNext)
-        }.onFailure {
-            setState { state.value.copy(emailVerificationCodeTextFieldError = ResetPasswordTextFieldError.InvalidEmailVerificationCode()) }
-            postSideEffect(ResetPasswordSideEffect.ShowServerErrorSnackBar)
+        }.onFailure { exception ->
+            when (exception) {
+                is NotFoundException -> {
+                    setState { state.value.copy(emailVerificationCodeTextFieldError = ResetPasswordTextFieldError.InvalidEmailVerificationCode()) }
+                }
+
+                else -> postSideEffect(ResetPasswordSideEffect.ShowServerErrorSnackBar)
+            }
         }
         setState { state.value.copy(isLoading = false) }
     }
