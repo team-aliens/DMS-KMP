@@ -103,6 +103,7 @@ internal class ResetPasswordViewModel(
     }
 
     private fun resetPassword() = viewModelScope.launch {
+        setState { state.value.copy(isLoading = true) }
         resetPasswordUseCase(
             accountId = state.value.accountId,
             name = state.value.name,
@@ -115,6 +116,7 @@ internal class ResetPasswordViewModel(
         }.onFailure {
             postSideEffect(ResetPasswordSideEffect.ShowServerErrorSnackBar)
         }
+        setState { state.value.copy(isLoading = false) }
     }
 
     internal fun moveNext(step: ResetPasswordStep?) = viewModelScope.launch {

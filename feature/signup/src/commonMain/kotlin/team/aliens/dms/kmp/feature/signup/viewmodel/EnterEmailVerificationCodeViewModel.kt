@@ -109,9 +109,9 @@ internal class EnterEmailVerificationCodeViewModel(
             setState { state.value.copy(textFieldError = SignUpTextFieldError.InvalidEmailVerificationCode()) }
             Logger.e(exception) { exception.message.toString() }
         }
-        setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+        setState { state.value.copy(isLoading = false) }
+        setButtonEnabled()
     }
-
 }
 
 data class EnterEmailVerificationCodeState(

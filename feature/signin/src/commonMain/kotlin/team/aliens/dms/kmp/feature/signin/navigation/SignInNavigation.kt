@@ -34,7 +34,7 @@ fun NavGraphBuilder.signIn(
             navigateToMain = navigateToMain,
             navigateToSignUp = navigateToSignUp,
             navigateToFindId = navigateToFindId,
-            navigateToFindPassword = navigateToFindPassword,
+            navigateToResetPassword = navigateToFindPassword,
             onShowSnackBar = onShowSnackBar,
         )
     }
