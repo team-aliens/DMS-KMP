@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BASE_URL</key>
+	<string>$(BASE_URL)</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -20,12 +22,8 @@
 	<string>0.0.2</string>
 	<key>CFBundleVersion</key>
 	<string>3</string>
-	<key>DEV_BASE_URL</key>
-	<string>$(DEV_BASE_URL)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>PROD_BASE_URL</key>
-	<string>$(PROD_BASE_URL)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

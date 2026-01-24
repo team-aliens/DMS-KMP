@@ -7,7 +7,7 @@ import team.aliens.dms.kmp.core.network.exception.CannotFindIOSWebViewUrlExcepti
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual object PlatformConfig {
     actual val baseUrl: String =
-        (NSBundle.mainBundle.objectForInfoDictionaryKey("DEV_BASE_URL") as? String)
+        (NSBundle.mainBundle.objectForInfoDictionaryKey("BASE_URL") as? String)
             ?: throw CannotFindIOSBaseurlException()
 
     actual val webViewUrl: String =
