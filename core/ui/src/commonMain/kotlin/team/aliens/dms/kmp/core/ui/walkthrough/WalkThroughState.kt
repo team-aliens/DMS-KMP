@@ -59,9 +59,10 @@ class WalkThroughState<T>(
 fun <T> rememberWalkThroughState(
     initialStep: Int = 0,
     onNavigateUp: () -> Unit = {},
-): WalkThroughState<T> = remember {
-    WalkThroughState(
-        initialStep = initialStep,
-        onNavigateUp = onNavigateUp,
-    )
-}
+): WalkThroughState<T> =
+    remember {
+        WalkThroughState(
+            initialStep = initialStep,
+            onNavigateUp = onNavigateUp,
+        )
+    }

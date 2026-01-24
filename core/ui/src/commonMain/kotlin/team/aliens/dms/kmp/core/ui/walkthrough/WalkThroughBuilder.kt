@@ -10,7 +10,10 @@ data class WalkThroughStepEntry<T>(
 class WalkThroughStepBuilder<T> {
     private val children: MutableList<WalkThroughStepEntry<T>> = mutableListOf()
 
-    fun step(type: T, builder: @Composable () -> Unit): List<WalkThroughStepEntry<T>> {
+    fun step(
+        type: T,
+        builder: @Composable () -> Unit,
+    ): List<WalkThroughStepEntry<T>> {
         children.add(WalkThroughStepEntry(type, builder))
         return children
     }

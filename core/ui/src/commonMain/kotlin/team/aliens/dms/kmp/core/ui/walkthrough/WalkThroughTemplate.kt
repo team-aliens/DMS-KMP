@@ -37,13 +37,17 @@ fun <T> WalkThroughTemplate(
         targetState = state.currentStep,
         transitionSpec = {
             if (targetState > initialState) {
-                (fadeIn(tween(durationMillis)) + slideInHorizontally(slideTweenSpec) { width -> width }) togetherWith (fadeOut(
-                    tween(durationMillis),
-                ) + slideOutHorizontally(slideTweenSpec) { width -> -width })
+                (fadeIn(tween(durationMillis)) + slideInHorizontally(slideTweenSpec) { width -> width }) togetherWith (
+                    fadeOut(
+                        tween(durationMillis),
+                    ) + slideOutHorizontally(slideTweenSpec) { width -> -width }
+                )
             } else {
-                (fadeIn(tween(durationMillis)) + slideInHorizontally(slideTweenSpec) { width -> -width }) togetherWith (fadeOut(
-                    tween(durationMillis),
-                ) + slideOutHorizontally(slideTweenSpec) { width -> width })
+                (fadeIn(tween(durationMillis)) + slideInHorizontally(slideTweenSpec) { width -> -width }) togetherWith (
+                    fadeOut(
+                        tween(durationMillis),
+                    ) + slideOutHorizontally(slideTweenSpec) { width -> width }
+                )
             }.using(SizeTransform(clip = false))
         },
     ) { index ->
