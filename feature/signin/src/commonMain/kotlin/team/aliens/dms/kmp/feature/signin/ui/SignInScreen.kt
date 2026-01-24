@@ -40,18 +40,19 @@ internal fun SignIn(
     navigateToMain: () -> Unit,
     navigateToSignUp: () -> Unit,
     navigateToFindId: () -> Unit,
-    navigateToFindPassword: () -> Unit,
+    navigateToResetPassword: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: SignInViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
-            when (it) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
                 SignInSideEffect.NavigateToMain -> navigateToMain()
                 SignInSideEffect.NavigateToFindId -> navigateToFindId()
-                is SignInSideEffect.ShowSnackBar -> onShowSnackBar(it.snackBarType, it.message)
+                SignInSideEffect.NavigateToResetPassword -> navigateToResetPassword()
+                is SignInSideEffect.ShowSnackBar -> onShowSnackBar(effect.snackBarType, effect.message)
             }
         }
     }
@@ -63,6 +64,7 @@ internal fun SignIn(
         onAccountIdChange = viewModel::setAccountId,
         onPasswordChange = viewModel::setPassword,
         onFindIdClick = viewModel::navigateFindId,
+        onResetPasswordClick = viewModel::navigateResetPassword,
     )
 }
 
@@ -74,6 +76,7 @@ private fun SignInScreen(
     onAccountIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onFindIdClick: () -> Unit,
+    onResetPasswordClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -104,7 +107,7 @@ private fun SignInScreen(
             password = state.password,
             onPasswordChange = onPasswordChange,
             onFindId = onFindIdClick,
-            onResetPassword = {},
+            onResetPassword = onResetPasswordClick,
         )
         Spacer(modifier = Modifier.weight(1f))
         SignupActions(onSignUp = navigateToSignUp)

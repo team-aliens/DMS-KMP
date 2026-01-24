@@ -13,9 +13,12 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 
+private const val ONE_MINUTE_MILLIS = 60_000L
+
 @Composable
 fun DmsTimer(
     modifier: Modifier = Modifier,
+    countdownTimer: CountDownTimer,
     timerTotalSeconds: Long = 180000L,
     timerInterval: Long = 1000L,
     onTimerFinished: (Boolean) -> Unit,
@@ -23,30 +26,35 @@ fun DmsTimer(
     var time by remember { mutableStateOf(timerTotalSeconds) }
     var timerFinished by remember { mutableStateOf(false) }
 
-    val countdownTimer = CountDownTimer()
-
     LaunchedEffect(Unit) {
-        countdownTimer.start(
-            durationMillis = timerTotalSeconds,
-            intervalMillis = timerInterval,
-            listener = object : CountDownTimerListener {
-                override fun onTick(timeLeft: Long) {
-                    time = timeLeft
-                }
+        countdownTimer.start()
+        countdownTimer.listener = object : CountDownTimerListener {
+            override fun onTick(timeLeft: Long) {
+                timerFinished = false
+                time = timeLeft
+            }
 
-                override fun onFinish() {
-                    timerFinished = true
-                    onTimerFinished(timerFinished)
-                }
-            },
-        )
+            override fun onFinish() {
+                timerFinished = true
+            }
+        }
+    }
+
+    LaunchedEffect(timerFinished) {
+        onTimerFinished(timerFinished)
+    }
+
+    val textColor = if (time <= ONE_MINUTE_MILLIS) {
+        DmsTheme.colors.onErrorContainer
+    } else {
+        DmsTheme.colors.onPrimaryContainer
     }
 
     DmsText(
         modifier = modifier,
         text = formatTime(time / 1000),
         style = DmsTypography.BodyB,
-        color = DmsTheme.colors.onPrimaryContainer,
+        color = textColor,
     )
 }
 

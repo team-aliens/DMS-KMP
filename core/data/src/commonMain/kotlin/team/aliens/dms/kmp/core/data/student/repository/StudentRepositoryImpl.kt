@@ -94,7 +94,7 @@ internal class StudentRepositoryImpl(
 
     override suspend fun resetPassword(
         accountId: String,
-        studentName: String,
+        name: String,
         email: String,
         emailVerificationCode: String,
         newPassword: String,
@@ -102,7 +102,7 @@ internal class StudentRepositoryImpl(
         request = ResetPasswordRequest(
             body = ResetPasswordRequest.Body(
                 accountId = accountId,
-                studentName = studentName,
+                name = name,
                 email = email,
                 emailVerificationCode = emailVerificationCode,
                 newPassword = newPassword,

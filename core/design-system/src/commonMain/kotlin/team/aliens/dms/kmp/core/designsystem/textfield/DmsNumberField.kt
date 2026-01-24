@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.core.designsystem.numberfield
+package team.aliens.dms.kmp.core.designsystem.textfield
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -51,7 +51,7 @@ fun DmsNumberField(
     ) { _ ->
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -60,7 +60,7 @@ fun DmsNumberField(
             ) {
                 repeat(totalLength) { index ->
                     val borderColor = if (isError) {
-                        DmsTheme.colors.onError
+                        DmsTheme.colors.errorContainer
                     } else if (value.length > index) {
                         DmsTheme.colors.primaryContainer
                     } else {
@@ -97,8 +97,8 @@ fun DmsNumberField(
                 errorMessage?.let {
                     DmsText(
                         text = it,
-                        style = DmsTypography.Button2,
-                        color = DmsTheme.colors.outline,
+                        style = DmsTypography.labelM,
+                        color = DmsTheme.colors.errorContainer,
                     )
                 }
             }

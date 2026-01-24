@@ -7,13 +7,13 @@ class ResetPasswordUseCase(
 ) {
     suspend operator fun invoke(
         accountId: String,
-        studentName: String,
+        name: String,
         email: String,
         emailVerificationCode: String,
         newPassword: String,
     ) = studentRepository.resetPassword(
         accountId = accountId,
-        studentName = studentName,
+        name = name,
         email = email,
         emailVerificationCode = emailVerificationCode,
         newPassword = newPassword,

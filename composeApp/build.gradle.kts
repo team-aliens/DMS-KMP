@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import team.aliens.dms.kmp.buildsrc.ProjectProperties
 import team.aliens.dms.kmp.buildsrc.Versions
@@ -16,7 +15,6 @@ plugins {
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
@@ -64,6 +62,7 @@ kotlin {
             implementation(projects.core.domain)
             implementation(projects.core.data)
             implementation(projects.core.model)
+            implementation(projects.core.ui)
             implementation(projects.core.util)
 
             implementation(projects.feature.splash)
@@ -80,6 +79,7 @@ kotlin {
             implementation(projects.feature.meal)
             implementation(projects.feature.onboarding)
             implementation(projects.feature.findId)
+            implementation(projects.feature.resetPassword)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

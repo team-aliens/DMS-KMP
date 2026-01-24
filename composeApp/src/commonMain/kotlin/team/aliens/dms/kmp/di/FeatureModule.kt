@@ -1,6 +1,7 @@
 package team.aliens.dms.kmp.di
 
 import org.koin.dsl.module
+import resetpassword.di.resetPasswordModule
 import team.aliens.dms.kmp.feature.application.di.applicationModule
 import team.aliens.dms.kmp.feature.findid.di.findIdModule
 import team.aliens.dms.kmp.feature.home.di.homeModule
@@ -20,6 +21,7 @@ internal val featureModule = module {
         splashModule,
         signInModule,
         findIdModule,
+        resetPasswordModule,
         signUpModule,
         homeModule,
         applicationModule,
