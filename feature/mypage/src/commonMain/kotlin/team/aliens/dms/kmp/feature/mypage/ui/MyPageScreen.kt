@@ -87,7 +87,6 @@ private fun MyPageScreen(
                 modifier = Modifier,
                 plusPoint = state.myPage.bonusPoint,
                 minusPoint = state.myPage.minusPoint,
-                onClick = { },
             )
             DmsItemButton(
                 iconRes = Res.drawable.img_calendar,

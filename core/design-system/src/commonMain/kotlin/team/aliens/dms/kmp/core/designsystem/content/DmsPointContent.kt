@@ -31,7 +31,6 @@ fun DmsPointContent(
     modifier: Modifier = Modifier,
     plusPoint: Int,
     minusPoint: Int,
-    onClick: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -41,7 +40,6 @@ fun DmsPointContent(
                 color = DmsTheme.colors.surfaceTint,
                 shape = RoundedCornerShape(32.dp),
             )
-            .clickable(onClick = onClick)
             .padding(24.dp),
     ) {
         DmsText(

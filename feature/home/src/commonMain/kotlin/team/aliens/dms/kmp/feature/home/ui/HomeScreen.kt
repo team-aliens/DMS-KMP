@@ -110,7 +110,6 @@ private fun HomeScreen(
                     .padding(top = 20.dp),
                 plusPoint = state.myPage.bonusPoint,
                 minusPoint = state.myPage.minusPoint,
-                onClick = { },
             )
             DmsItemButton(
                 modifier = Modifier
