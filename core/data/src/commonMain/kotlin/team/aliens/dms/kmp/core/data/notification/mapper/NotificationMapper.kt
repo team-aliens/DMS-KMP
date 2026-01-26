@@ -1,5 +1,7 @@
 package team.aliens.dms.kmp.core.data.notification.mapper
 
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import team.aliens.dms.kmp.core.data.points.mapper.toModel
 import team.aliens.dms.kmp.core.model.notification.NotificationTopicStatusModel
 import team.aliens.dms.kmp.core.model.notification.NotificationsModel
@@ -9,6 +11,8 @@ import team.aliens.dms.kmp.core.network.notification.dto.NotificationGroupTypeDt
 import team.aliens.dms.kmp.core.network.notification.dto.NotificationTypeDto
 import team.aliens.dms.kmp.core.network.notification.model.response.FetchNotificationTopicStatusResponse
 import team.aliens.dms.kmp.core.network.notification.model.response.FetchNotificationsResponse
+import team.aliens.dms.kmp.core.util.now
+import team.aliens.dms.kmp.core.util.toElapsedText
 
 internal fun FetchNotificationsResponse.toModel(): NotificationsModel =
     NotificationsModel(
@@ -24,7 +28,8 @@ private fun FetchNotificationsResponse.NotificationResponse.toModel(): Notificat
         title = title,
         content = content,
         createdAt = createdAt,
-        isRead = isRead
+        isRead = isRead,
+        elapsedText = LocalDateTime.parse(createdAt).toElapsedText(now)
     )
 
 
