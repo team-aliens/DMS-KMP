@@ -9,6 +9,7 @@ import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.notice.GetLatestNoticeUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.GetMyPageUseCase
 import team.aliens.dms.kmp.core.model.mypage.MyPageModel
+import team.aliens.dms.kmp.core.model.notice.LatestNoticeModel
 
 internal class HomeViewModel(
     private val getMyPageUseCase: GetMyPageUseCase,
@@ -37,7 +38,7 @@ internal class HomeViewModel(
     internal fun getLatestNotice() {
         viewModelScope.launch(Dispatchers.IO) {
             getLatestUseCase().onSuccess {
-                setState { state.value.copy(latestNoticeId = it.id) }
+                setState { state.value.copy(latestNotice = it) }
             }
         }
     }
@@ -46,7 +47,7 @@ internal class HomeViewModel(
 internal data class HomeState(
     val newNoticesExist: Boolean = false,
     val myPage: MyPageModel = MyPageModel(),
-    val latestNoticeId: String = ""
+    val latestNotice: LatestNoticeModel = LatestNoticeModel()
 )
 
 internal sealed interface HomeSideEffect {

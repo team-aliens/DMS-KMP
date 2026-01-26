@@ -96,7 +96,8 @@ private fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 4.dp),
-                onClick = { onNavigateNoticeDetail(state.latestNoticeId) },
+                title = state.latestNotice.id,
+                onClick = { onNavigateNoticeDetail(state.latestNotice.id) },
             )
             MealContent(
                 modifier = Modifier
