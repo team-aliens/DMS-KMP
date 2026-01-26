@@ -5,6 +5,7 @@ import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.remains.GetRemainsApplicationTimeUseCase
 import team.aliens.dms.kmp.core.domain.usecase.remains.GetRemainsOptionsUseCase
+import team.aliens.dms.kmp.core.domain.usecase.remains.SetRemainUseCase
 import team.aliens.dms.kmp.core.domain.usecase.remains.UpdateRemainsOptionUseCase
 import team.aliens.dms.kmp.core.model.remains.RemainsApplicationTimeModel
 import team.aliens.dms.kmp.core.model.remains.RemainsOptionModel
@@ -13,6 +14,7 @@ internal class RemainApplicationViewModel(
     private val getRemainsOptionsUseCase: GetRemainsOptionsUseCase,
     private val getRemainsApplicationTimeUseCase: GetRemainsApplicationTimeUseCase,
     private val updateRemainsOptionUseCase: UpdateRemainsOptionUseCase,
+    private val setRemainUseCase: SetRemainUseCase,
 ) : BaseViewModel<RemainApplicationState, RemainApplicationSideEffect>(RemainApplicationState()) {
 
     init {
@@ -52,6 +54,7 @@ internal class RemainApplicationViewModel(
             updateRemainsOptionUseCase(remainOptionId = remainOptionId).onSuccess {
                 val remainsOptions = state.value.remainsOptions.map { remainsOption ->
                     if (remainsOption.id == state.value.selectRemainsOptionId) {
+                        setRemainUseCase(remainsOption.title)
                         remainsOption.copy(isApplied = true)
                     } else {
                         remainsOption.copy(isApplied = false)
