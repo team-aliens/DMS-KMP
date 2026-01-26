@@ -31,7 +31,7 @@ import team.aliens.dms.kmp.feature.home.viewmodel.HomeViewModel
 
 @Composable
 internal fun Home(
-    onNavigateNotice: () -> Unit,
+    onNavigateNotification: () -> Unit,
     onNavigateNoticeDetail: (String) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
@@ -58,22 +58,22 @@ internal fun Home(
 
     HomeScreen(
         state = state,
-        onNavigateNotice = onNavigateNotice,
+        onNavigateNotification = onNavigateNotification,
+        onNavigateNoticeDetail = onNavigateNoticeDetail,
         onNavigatePointHistory = onNavigatePointHistory,
         onNavigateMeal = onNavigateMeal,
         onOutingPassClick = viewModel::showOutingPassDialog,
-        onNotificationClick = viewModel::navigateToNotification,
     )
 }
 
 @Composable
 private fun HomeScreen(
     state: HomeState,
-    onNavigateNotice: () -> Unit,
+    onNavigateNotification: () -> Unit,
+    onNavigateNoticeDetail: (String) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
     onOutingPassClick: () -> Unit,
-    onNotificationClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -84,7 +84,7 @@ private fun HomeScreen(
     ) {
         HomeTopAppBar(
             onOutingPassClick = onOutingPassClick,
-            onNotificationClick = onNotificationClick,
+            onNotificationClick = onNavigateNotification,
         )
         Column(
             modifier = Modifier
@@ -96,7 +96,7 @@ private fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 4.dp),
-                onClick = onNavigateNotice,
+                onClick = { onNavigateNoticeDetail(state.latestNoticeId) },
             )
             MealContent(
                 modifier = Modifier
