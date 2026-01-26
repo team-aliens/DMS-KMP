@@ -6,18 +6,15 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.periodUntil
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.todayIn
 import kotlin.time.Clock
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
 val today: LocalDate
-    inline get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+    inline get() = Clock.System.todayIn(TimeZone.currentSystemDefault())
 
 val now: LocalDateTime
     inline get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
@@ -26,15 +23,17 @@ val timeNow: LocalTime
     inline get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time
 
 fun LocalDateTime.toElapsedText(now: LocalDateTime): String {
-    val duration = now.toInstant(TimeZone.currentSystemDefault()) - this.toInstant(TimeZone.currentSystemDefault())
+    val startInstant = this.toInstant(TimeZone.currentSystemDefault())
+    val endInstant = now.toInstant(TimeZone.currentSystemDefault())
+    val period = startInstant.periodUntil(endInstant, TimeZone.currentSystemDefault())
 
     return when {
-        duration < 1.minutes -> "${duration.inWholeSeconds}초 전"
-        duration < 1.hours -> "${duration.inWholeMinutes}분 전"
-        duration < 1.days -> "${duration.inWholeHours}시간 전"
-        duration < 30.days -> "${duration.inWholeDays}일 전"
-        duration < 365.days -> "${duration.inWholeDays / 30}달 전"
-        else -> "${duration.inWholeDays / 365}년 전"
+        period.years > 0 -> "${period.years}년 전"
+        period.months > 0 -> "${period.months}달 전"
+        period.days > 0 -> "${period.days}일 전"
+        period.hours > 0 -> "${period.hours}시간 전"
+        period.minutes > 0 -> "${period.minutes}분 전"
+        else -> "${period.seconds}초 전"
     }
 }
 
