@@ -80,6 +80,7 @@ kotlin {
             implementation(projects.feature.onboarding)
             implementation(projects.feature.findId)
             implementation(projects.feature.resetPassword)
+            implementation(projects.feature.notification)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

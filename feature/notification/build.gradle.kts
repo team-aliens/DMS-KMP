@@ -54,6 +54,8 @@ kotlin {
 
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor3)
+            implementation(libs.kotlinx.collections.immutable)
+            implementation(libs.compose.material.icons.extended)
 
             implementation(projects.core.designSystem)
             implementation(projects.core.domain)

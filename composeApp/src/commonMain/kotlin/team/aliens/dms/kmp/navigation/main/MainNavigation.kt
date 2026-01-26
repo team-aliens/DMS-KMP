@@ -13,6 +13,7 @@ import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNotices
 import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.notices
+import team.aliens.dms.kmp.feature.notification.navigation.notification
 import team.aliens.dms.kmp.feature.point.navigation.navigateToPointHistory
 import team.aliens.dms.kmp.feature.point.navigation.pointHistory
 import team.aliens.dms.kmp.feature.volunteer.navigation.navigateToVolunteer
@@ -72,5 +73,11 @@ internal fun NavGraphBuilder.mainGraph(
             onNoticeDetailClick = appState.navController::navigateToNoticeDetails,
         )
         meal(onNavigateToBack = appState.navController::navigateUp)
+        notification(
+            onNavigateBack = appState.navController::navigateUp,
+            onNavigateNotificationDetailClick = appState.navController::navigateToNoticeDetails,
+            onNavigatePointHistory = appState.navController::navigateToPointHistory,
+            onShowSnackBar = appState::showSnackBar,
+        )
     }
 }
