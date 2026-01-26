@@ -1,6 +1,8 @@
 package team.aliens.dms.kmp.core.model.notification
 
 import kotlinx.serialization.Serializable
+import team.aliens.dms.kmp.core.model.type.NotificationType
+import team.aliens.dms.kmp.core.model.type.PointType
 
 @Serializable
 data class NotificationsModel(
@@ -9,8 +11,8 @@ data class NotificationsModel(
     @Serializable
     data class NotificationModel(
         val id: String,
-        val topic: String,
-        val pointDetailTopic: String?,
+        val topic: NotificationType,
+        val pointDetailTopic: PointType?,
         val linkId: String,
         val title: String,
         val content: String,
