@@ -4,6 +4,7 @@ import android.os.CountDownTimer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import team.aliens.dms.kmp.core.common.timer.CountDownTimerListener
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class CountDownTimer actual constructor(
