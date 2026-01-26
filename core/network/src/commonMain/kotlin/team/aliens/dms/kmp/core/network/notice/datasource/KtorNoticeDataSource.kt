@@ -6,6 +6,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import team.aliens.dms.kmp.core.network.notice.model.request.GetNoticeDetailRequest
 import team.aliens.dms.kmp.core.network.notice.model.request.GetNoticesRequest
+import team.aliens.dms.kmp.core.network.notice.model.response.GetLatestNoticeResponse
 import team.aliens.dms.kmp.core.network.notice.model.response.GetNoticeDetailResponse
 import team.aliens.dms.kmp.core.network.notice.model.response.GetNoticesResponse
 import team.aliens.dms.kmp.core.network.notice.model.response.GetWhetherNewNoticesExistResponse
@@ -26,5 +27,10 @@ internal class KtorNoticeDataSource(private val client: HttpClient) : NetworkNot
             client.get("/notices") {
                 parameter("order", request.query.order)
             }.body()
+        }
+
+    override suspend fun getLatestNotice(): Result<GetLatestNoticeResponse> =
+        runCatching {
+            client.get("/notices/latest").body()
         }
 }

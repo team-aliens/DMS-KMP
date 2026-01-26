@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.core.data.notice.repository
 
 import team.aliens.dms.kmp.core.data.notice.mapper.toDto
 import team.aliens.dms.kmp.core.data.notice.mapper.toModel
+import team.aliens.dms.kmp.core.model.notice.LatestNoticeModel
 import team.aliens.dms.kmp.core.model.notice.NoticeDetailModel
 import team.aliens.dms.kmp.core.model.notice.NoticeModel
 import team.aliens.dms.kmp.core.model.notice.NoticeStatusModel
@@ -33,4 +34,7 @@ internal class NoticeRepositoryImpl(
                 ),
             ),
         ).map { it.toModel() }
+
+    override suspend fun getLatestNotice(): Result<LatestNoticeModel> =
+        networkNoticeDataSource.getLatestNotice().map { it.toModel() }
 }

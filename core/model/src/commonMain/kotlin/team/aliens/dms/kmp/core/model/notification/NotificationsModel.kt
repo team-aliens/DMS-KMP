@@ -18,5 +18,6 @@ data class NotificationsModel(
         val content: String,
         val createdAt: String,
         val isRead: Boolean,
+        val elapsedText: String,
     )
 }
