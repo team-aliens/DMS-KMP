@@ -7,10 +7,8 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.notice.GetLatestNoticeUseCase
-import team.aliens.dms.kmp.core.domain.usecase.notice.GetNoticesUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.GetMyPageUseCase
 import team.aliens.dms.kmp.core.model.mypage.MyPageModel
-import team.aliens.dms.kmp.core.network.notice.model.response.GetLatestNoticeResponse
 
 internal class HomeViewModel(
     private val getMyPageUseCase: GetMyPageUseCase,

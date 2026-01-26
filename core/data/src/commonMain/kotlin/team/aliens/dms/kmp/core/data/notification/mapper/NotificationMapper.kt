@@ -1,7 +1,6 @@
 package team.aliens.dms.kmp.core.data.notification.mapper
 
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toLocalDateTime
 import team.aliens.dms.kmp.core.data.points.mapper.toModel
 import team.aliens.dms.kmp.core.model.notification.NotificationTopicStatusModel
 import team.aliens.dms.kmp.core.model.notification.NotificationsModel

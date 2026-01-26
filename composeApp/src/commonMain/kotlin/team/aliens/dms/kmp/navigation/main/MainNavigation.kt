@@ -13,6 +13,7 @@ import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNotices
 import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.notices
+import team.aliens.dms.kmp.feature.notification.navigation.navigateToNotification
 import team.aliens.dms.kmp.feature.notification.navigation.notification
 import team.aliens.dms.kmp.feature.point.navigation.navigateToPointHistory
 import team.aliens.dms.kmp.feature.point.navigation.pointHistory
@@ -50,7 +51,7 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateRemainApplication = appState.navController::navigateToRemainApplication,
             onNavigateOutingApplication = { },
             onNavigateVolunteerApplication = appState.navController::navigateToVolunteer,
-            onNavigateNotice = appState.navController::navigateToNotices,
+            onNavigateNotification = appState.navController::navigateToNotification,
             onNavigateNoticeDetail = appState.navController::navigateToNoticeDetails,
             onNavigateVote = appState.navController::navigateToVote,
             onNavigatePointHistory = appState.navController::navigateToPointHistory,
