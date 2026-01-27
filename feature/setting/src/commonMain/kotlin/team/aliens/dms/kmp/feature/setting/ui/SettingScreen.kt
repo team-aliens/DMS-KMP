@@ -17,7 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dmskmp.core.design_system.generated.resources.Res
+import dmskmp.core.design_system.generated.resources.img_3d_key
+import dmskmp.core.design_system.generated.resources.img_3d_out
 import dmskmp.core.design_system.generated.resources.img_calendar
+import dmskmp.core.design_system.generated.resources.img_repeat
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
