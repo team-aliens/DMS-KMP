@@ -30,7 +30,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "home"
+            baseName = "editpassword"
             isStatic = true
         }
     }
@@ -64,7 +64,7 @@ kotlin {
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.feature.home"
+    namespace = "team.aliens.dms.kmp.feature.editpassword"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK

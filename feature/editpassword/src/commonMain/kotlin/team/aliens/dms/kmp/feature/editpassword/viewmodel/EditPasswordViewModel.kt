@@ -1,50 +1,58 @@
 package team.aliens.dms.kmp.feature.editpassword.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
+import team.aliens.dms.kmp.core.common.util.Regex
+import team.aliens.dms.kmp.core.domain.usecase.user.EditPasswordUseCase
+import team.aliens.dms.kmp.feature.editpassword.navigation.EditPasswordRoute
 
 class EditPasswordViewModel(
-    private val userRepository: UserRepository,
-): BaseViewModel<EditPasswordState, EditPasswordSideEffect>(EditPasswordState()) {
+    savedStateHandle: SavedStateHandle,
+    private val editPasswordUseCase: EditPasswordUseCase,
+) : BaseViewModel<EditPasswordState, EditPasswordSideEffect>(EditPasswordState()) {
+
+    private val route = savedStateHandle.toRoute<EditPasswordRoute>()
 
     internal fun setNewPassword(password: String) {
-        setState { it.copy(newPassword = password) }
+        setState { state.value.copy(newPassword = password) }
         setButtonEnabled()
     }
 
     internal fun setCheckNewPassword(password: String) {
-        setState { it.copy(checkNewPassword = password) }
+        setState { state.value.copy(checkNewPassword = password) }
         setButtonEnabled()
     }
 
     private fun setButtonEnabled() = setState { // TODO :: textfield description message 처리 고려 (타입에 따른 메세지 분기처리, 한 프로퍼티로 처리 등등)
-        with(uiState.value) {
+        with(state.value) {
             val isSignInValueNotBlank = newPassword.isNotBlank() && checkNewPassword.isNotBlank() && newPassword == checkNewPassword
-            it.copy(buttonEnabled = isSignInValueNotBlank)
+            state.value.copy(buttonEnabled = isSignInValueNotBlank)
         }
     }
 
-    internal fun editPassword(currentPassword: String) = run {
-        if(!checkIfPasswordValid(uiState.value.checkNewPassword)) {
-            sendEffect(EditPasswordSideEffect.PasswordMismatch("비밀번호가 형식에 맞지 않습니다"))
+    internal fun editPassword() = run {
+        if (!Regex(Regex.PASSWORD).matches(state.value.checkNewPassword)) {
+            postSideEffect(EditPasswordSideEffect.PasswordMismatch("비밀번호가 형식에 맞지 않습니다"))
             return@run
         }
-        if (currentPassword == uiState.value.checkNewPassword) {
-            sendEffect(EditPasswordSideEffect.PasswordMismatch("기존 비밀번호는 변경 불가합니다"))
+        if (route.currentPassword == state.value.checkNewPassword) {
+            postSideEffect(EditPasswordSideEffect.PasswordMismatch("기존 비밀번호는 변경 불가합니다"))
             return@run
         }
         viewModelScope.launch {
-            setState { it.copy(isLoading = true, buttonEnabled = false) }
-            userRepository.editPassword(
-                currentPassword = currentPassword,
-                newPassword = uiState.value.checkNewPassword,
+            setState { state.value.copy(isLoading = true, buttonEnabled = false) }
+            editPasswordUseCase(
+                password = route.currentPassword,
+                newPassword = state.value.checkNewPassword,
             ).onSuccess {
-                setState { it.copy(isLoading = false, buttonEnabled = true) }
-                sendEffect(EditPasswordSideEffect.SuccessEditPassword)
+                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                postSideEffect(EditPasswordSideEffect.SuccessEditPassword)
             }.onFailure {
-                setState { it.copy(isLoading = false, buttonEnabled = true) }
-                sendEffect(EditPasswordSideEffect.FailEditPassword("비밀번호 변경에 실패했습니다"))
+                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                postSideEffect(EditPasswordSideEffect.FailEditPassword("비밀번호 변경에 실패했습니다"))
             }
         }
     }

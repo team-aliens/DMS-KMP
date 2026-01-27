@@ -10,12 +10,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.compose.viewmodel.koinViewModel
+import team.aliens.dms.kmp.core.common.ui.horizontalPadding
+import team.aliens.dms.kmp.core.common.ui.topPadding
+import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
+import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
+import team.aliens.dms.kmp.core.designsystem.button.ButtonType
+import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
+import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
+import team.aliens.dms.kmp.core.designsystem.text.DmsText
+import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
+import team.aliens.dms.kmp.feature.editpassword.viewmodel.EditPasswordSideEffect
+import team.aliens.dms.kmp.feature.editpassword.viewmodel.EditPasswordState
+import team.aliens.dms.kmp.feature.editpassword.viewmodel.EditPasswordViewModel
 
 @Composable
 internal fun EditPassword(
@@ -24,8 +40,8 @@ internal fun EditPassword(
     onNavigateSetting: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
-    val viewModel: EditPasswordViewModel = hiltViewModel()
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val viewModel: EditPasswordViewModel = koinViewModel()
+    val state by viewModel.state.collectAsState()
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(Unit) {
@@ -44,7 +60,7 @@ internal fun EditPassword(
 
     EditPasswordScreen(
         onBackPressed = onBackPressed,
-        onEditPasswordClick = { viewModel.EditPassword(currentPassword) },
+        onEditPasswordClick = viewModel::editPassword,
         state = state,
         onNewPasswordChange = viewModel::setNewPassword,
         onCheckNewPasswordChange = viewModel::setCheckNewPassword,
@@ -64,7 +80,7 @@ private fun EditPasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colorScheme.surfaceTint)
+            .background(DmsTheme.colors.surfaceTint)
             .systemBarsPadding()
             .pointerInput(Unit) { // TODO KMP 구현
                 detectTapGestures(
@@ -73,11 +89,26 @@ private fun EditPasswordScreen(
             },
     ) {
         DmsTopAppBar(onBackPressed = onBackPressed)
-        DmsSymbolContent(
+        DmsSymbol(
             modifier = Modifier
-                .topPadding(52.dp),
-            title = "비밀번호 재설정",
-            description = "비밀번호를 다시 설정해주세요.",
+                .topPadding(52.dp)
+                .horizontalPadding(24.dp),
+        )
+        DmsText(
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .horizontalPadding(24.dp),
+            text = "비밀번호 재설정",
+            style = DmsTypography.TitleB,
+            color = DmsTheme.colors.onTertiaryContainer,
+        )
+        DmsText(
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .horizontalPadding(24.dp),
+            text = "비밀번호를 다시 설정해주세요.",
+            style = DmsTypography.BodyM,
+            color = DmsTheme.colors.onSurfaceVariant,
         )
         DmsTextField(
             modifier = Modifier

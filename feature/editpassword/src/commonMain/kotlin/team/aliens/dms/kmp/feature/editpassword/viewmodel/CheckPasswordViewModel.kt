@@ -3,36 +3,36 @@ package team.aliens.dms.kmp.feature.editpassword.viewmodel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
-
+import team.aliens.dms.kmp.core.domain.usecase.user.ComparePasswordUseCase
 
 class CheckPasswordViewModel(
-    val userRepository: UserRepository
-): BaseViewModel<CheckPasswordState, CheckPasswordSideEffect>(CheckPasswordState()) {
+    private val comparePasswordUseCase: ComparePasswordUseCase,
+) : BaseViewModel<CheckPasswordState, CheckPasswordSideEffect>(CheckPasswordState()) {
 
-    internal fun resetPassword() {
+    internal fun checkPassword() {
         viewModelScope.launch {
-            setState { it.copy(isLoading = true, buttonEnabled = false) }
-            userRepository.comparePassword(
-                password = uiState.value.currentPassword,
+            setState { state.value.copy(isLoading = true, buttonEnabled = false) }
+            comparePasswordUseCase(
+                password = state.value.currentPassword,
             ).onSuccess {
-                setState { it.copy(isLoading = false, buttonEnabled = true) }
-                sendEffect(CheckPasswordSideEffect.SuccessCheckPassword)
+                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                postSideEffect(CheckPasswordSideEffect.SuccessCheckPassword)
             }.onFailure {
-                setState { it.copy(isLoading = false, buttonEnabled = true) }
-                sendEffect(CheckPasswordSideEffect.FailCheckPassword("비밀번호가 일치하지 않아요"))
+                setState { state.value.copy(isLoading = false, buttonEnabled = true) }
+                postSideEffect(CheckPasswordSideEffect.FailCheckPassword("비밀번호가 일치하지 않아요"))
             }
         }
     }
 
     internal fun setPassword(password: String) {
-        setState { it.copy(currentPassword = password) }
+        setState { state.value.copy(currentPassword = password) }
         setButtonEnabled()
     }
 
     private fun setButtonEnabled() = setState {
-        with(uiState.value) {
+        with(state.value) {
             val isSignInValueNotBlank = currentPassword.isNotBlank()
-            it.copy(buttonEnabled = isSignInValueNotBlank)
+            state.value.copy(buttonEnabled = isSignInValueNotBlank)
         }
     }
 }
@@ -43,7 +43,7 @@ data class CheckPasswordState(
     val isLoading: Boolean = false,
 )
 
-sealed class CheckPasswordSideEffect() {
+sealed class CheckPasswordSideEffect {
     data object SuccessCheckPassword : CheckPasswordSideEffect()
     data class FailCheckPassword(val message: String) : CheckPasswordSideEffect()
 }
