@@ -8,10 +8,12 @@ import team.aliens.dms.kmp.core.domain.usecase.auth.GetTokenUseCase
 import team.aliens.dms.kmp.core.domain.usecase.auth.ReissueTokenUseCase
 import team.aliens.dms.kmp.core.domain.usecase.auth.SendEmailVerificationCodeUseCase
 import team.aliens.dms.kmp.core.domain.usecase.auth.SignInUseCase
+import team.aliens.dms.kmp.core.domain.usecase.auth.SignOutUseCase
 
 internal val authModule = module {
     singleOf(::GetTokenUseCase)
     singleOf(::SignInUseCase)
+    singleOf(::SignOutUseCase)
     singleOf(::ReissueTokenUseCase)
     singleOf(::SendEmailVerificationCodeUseCase)
     singleOf(::CheckEmailVerificationCodeUseCase)

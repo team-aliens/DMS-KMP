@@ -81,6 +81,7 @@ kotlin {
             implementation(projects.feature.findId)
             implementation(projects.feature.resetPassword)
             implementation(projects.feature.notification)
+            implementation(projects.feature.setting)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
