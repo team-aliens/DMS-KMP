@@ -19,6 +19,7 @@ fun NavGraphBuilder.root(
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onNavigateSetting: () -> Unit
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     composable<RootRoute> {
@@ -31,6 +32,7 @@ fun NavGraphBuilder.root(
             onNavigateVote = onNavigateVote,
             onNavigatePointHistory = onNavigatePointHistory,
             onNavigateMeal = onNavigateMeal,
+            onNavigateSetting = onNavigateSetting,
             onShowSnackBar = onShowSnackBar,
         )
     }

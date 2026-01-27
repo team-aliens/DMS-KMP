@@ -30,6 +30,7 @@ internal fun Root(
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onNavigateSetting: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     RootScreen(
@@ -41,6 +42,7 @@ internal fun Root(
         onNavigateVote = onNavigateVote,
         onNavigatePointHistory = onNavigatePointHistory,
         onNavigateMeal = onNavigateMeal,
+        onNavigateSetting = onNavigateSetting,
         onShowSnackBar = onShowSnackBar,
     )
 }
@@ -55,6 +57,7 @@ private fun RootScreen(
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onNavigateSetting: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val navController: NavHostController = rememberNavController()
@@ -87,7 +90,7 @@ private fun RootScreen(
             )
             myPage(
                 onNavigatePointHistory = onNavigatePointHistory,
-                onShowSnackBar = onShowSnackBar,
+                onNavigateSetting = onNavigateSetting
             )
         }
     }

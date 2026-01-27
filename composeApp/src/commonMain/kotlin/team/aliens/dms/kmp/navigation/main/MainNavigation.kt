@@ -17,6 +17,9 @@ import team.aliens.dms.kmp.feature.notification.navigation.navigateToNotificatio
 import team.aliens.dms.kmp.feature.notification.navigation.notification
 import team.aliens.dms.kmp.feature.point.navigation.navigateToPointHistory
 import team.aliens.dms.kmp.feature.point.navigation.pointHistory
+import team.aliens.dms.kmp.feature.setting.navigation.navigateToSetting
+import team.aliens.dms.kmp.feature.setting.navigation.setting
+import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
 import team.aliens.dms.kmp.feature.volunteer.navigation.navigateToVolunteer
 import team.aliens.dms.kmp.feature.volunteer.navigation.volunteer
 import team.aliens.dms.kmp.feature.vote.navigation.navigateToVote
@@ -56,6 +59,7 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateVote = appState.navController::navigateToVote,
             onNavigatePointHistory = appState.navController::navigateToPointHistory,
             onNavigateMeal = appState.navController::navigateToMeal,
+            onNavigateSetting = appState.navController::navigateToSetting,
             onShowSnackBar = appState::showSnackBar,
         )
         noticeDetails(onNavigateBack = appState.navController::navigateUp)
@@ -78,6 +82,13 @@ internal fun NavGraphBuilder.mainGraph(
             onNavigateBack = appState.navController::navigateUp,
             onNavigateNotificationDetailClick = appState.navController::navigateToNoticeDetails,
             onNavigatePointHistory = appState.navController::navigateToPointHistory,
+            onShowSnackBar = appState::showSnackBar,
+        )
+        setting(
+            onBackPressed = appState.navController::navigateUp,
+            onNavigateResetPassword = { },
+            onNavigateSelectProfile = { },
+            onNavigateSignIn = appState.navController::navigateToSignIn,
             onShowSnackBar = appState::showSnackBar,
         )
     }

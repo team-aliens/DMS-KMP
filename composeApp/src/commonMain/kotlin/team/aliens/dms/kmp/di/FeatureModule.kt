@@ -14,6 +14,7 @@ import team.aliens.dms.kmp.feature.signin.di.signInModule
 import team.aliens.dms.kmp.feature.signup.di.signUpModule
 import team.aliens.dms.kmp.feature.splash.di.splashModule
 import team.aliens.dms.kmp.feature.volunteer.di.volunteerModule
+import team.aliens.dms.kmp.feature.setting.di.settingModule
 import team.aliens.dms.kmp.feature.vote.di.voteModule
 import tema.aliens.dms.kmp.feature.remain.di.remainsModule
 
@@ -34,5 +35,6 @@ internal val featureModule = module {
         pointsModule,
         mealModule,
         notificationModule,
+        settingModule,
     )
 }
