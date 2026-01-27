@@ -23,11 +23,9 @@ import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
-import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.feature.editpassword.viewmodel.EditPasswordSideEffect
 import team.aliens.dms.kmp.feature.editpassword.viewmodel.EditPasswordState
@@ -89,26 +87,12 @@ private fun EditPasswordScreen(
             },
     ) {
         DmsTopAppBar(onBackPressed = onBackPressed)
-        DmsSymbol(
+        DmsSymbolContent(
             modifier = Modifier
                 .topPadding(52.dp)
                 .horizontalPadding(24.dp),
-        )
-        DmsText(
-            modifier = Modifier
-                .padding(top = 20.dp)
-                .horizontalPadding(24.dp),
-            text = "비밀번호 재설정",
-            style = DmsTypography.TitleB,
-            color = DmsTheme.colors.onTertiaryContainer,
-        )
-        DmsText(
-            modifier = Modifier
-                .padding(top = 4.dp)
-                .horizontalPadding(24.dp),
-            text = "비밀번호를 다시 설정해주세요.",
-            style = DmsTypography.BodyM,
-            color = DmsTheme.colors.onSurfaceVariant,
+            title = "비밀번호 재설정",
+            description = "비밀번호를 다시 설정해주세요.",
         )
         DmsTextField(
             modifier = Modifier

@@ -21,18 +21,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
-import team.aliens.dms.kmp.core.common.ui.startPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
-import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberState
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterStudentNumberViewModel
@@ -94,16 +92,10 @@ private fun EnterStudentNumberScreen(
             title = "회원가입",
             onBackPressed = onBackPressed,
         )
-        DmsSymbol(
+        DmsSymbolContent(
             modifier = Modifier
                 .horizontalPadding(24.dp)
                 .topPadding(4.dp),
-        )
-        SignUpInfoBanner(
-            modifier = Modifier
-                .fillMaxWidth()
-                .startPadding(24.dp)
-                .topPadding(20.dp),
             title = "학번 입력",
             description = "숫자만 입력해주세요.",
         )

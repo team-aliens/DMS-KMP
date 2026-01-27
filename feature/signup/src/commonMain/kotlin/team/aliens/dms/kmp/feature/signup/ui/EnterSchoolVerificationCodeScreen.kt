@@ -20,12 +20,11 @@ import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsNumberField
 import team.aliens.dms.kmp.core.model.signup.SignUpData
-import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeState
 import team.aliens.dms.kmp.feature.signup.viewmodel.EnterSchoolVerificationCodeViewModel
@@ -82,16 +81,10 @@ private fun EnterSchoolVerificationCodeScreen(
             title = "회원가입",
             onBackPressed = onBackPressed,
         )
-        DmsSymbol(
+        DmsSymbolContent(
             modifier = Modifier
                 .horizontalPadding(24.dp)
                 .topPadding(4.dp),
-        )
-        SignUpInfoBanner(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalPadding(24.dp)
-                .topPadding(20.dp),
             title = "학교 인증코드 입력",
             description = "학교 인증코드는 ${SCHOOL_VERIFICATION_CODE_LENGTH}자리에요.",
         )

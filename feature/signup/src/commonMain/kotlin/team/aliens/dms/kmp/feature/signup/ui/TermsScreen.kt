@@ -26,13 +26,12 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.checkbox.DmsCheckbox
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.webview.DmsWebView
-import team.aliens.dms.kmp.feature.signup.component.SignUpInfoBanner
 import team.aliens.dms.kmp.feature.signup.viewmodel.TermsSideEffect
 import team.aliens.dms.kmp.feature.signup.viewmodel.TermsState
 import team.aliens.dms.kmp.feature.signup.viewmodel.TermsViewModel
@@ -91,17 +90,10 @@ private fun TermsScreen(
             title = "회원가입",
             onBackPressed = onBackPressed,
         )
-        DmsSymbol(
+        DmsSymbolContent(
             modifier = Modifier
                 .horizontalPadding(24.dp)
                 .topPadding(4.dp),
-        )
-        SignUpInfoBanner(
-            modifier = Modifier
-                .fillMaxWidth()
-                .topPadding(20.dp)
-                .horizontalPadding(24.dp)
-                .topPadding(48.dp),
             title = "약관 동의",
             description = "동의 후 DMS를 사용할 수 있습니다.",
         )

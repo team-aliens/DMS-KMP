@@ -23,11 +23,9 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.dialog.DmsAlertDialog
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
-import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.feature.findid.component.UserInfoInputContent
 
 @Composable
@@ -109,18 +107,11 @@ private fun FindIdScreen(
                 .background(DmsTheme.colors.surfaceTint)
                 .padding(paddingValues),
         ) {
-            DmsSymbol(
+            DmsSymbolContent(
                 modifier = Modifier
                     .topPadding(4.dp)
                     .horizontalPadding(24.dp),
-            )
-            DmsText(
-                modifier = Modifier
-                    .topPadding(20.dp)
-                    .horizontalPadding(24.dp),
-                text = "아이디 찾기",
-                style = DmsTypography.TitleB,
-                color = DmsTheme.colors.onTertiaryContainer,
+                title = "아이디 찾기",
             )
             UserInfoInputContent(
                 modifier = Modifier
