@@ -1,4 +1,4 @@
-package resetpassword.component
+package team.aliens.dms.kmp.core.designsystem.foundation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -6,16 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 
 @Composable
-internal fun ResetPasswordInfoContent(
+fun DmsSymbolContent(
     modifier: Modifier = Modifier,
     title: String,
-    description: String,
+    description: String? = null,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -30,11 +27,13 @@ internal fun ResetPasswordInfoContent(
                 style = DmsTypography.TitleB,
                 color = DmsTheme.colors.onTertiaryContainer,
             )
-            DmsText(
-                text = description,
-                style = DmsTypography.BodyM,
-                color = DmsTheme.colors.inverseSurface,
-            )
+            if (description != null) {
+                DmsText(
+                    text = description,
+                    style = DmsTypography.BodyM,
+                    color = DmsTheme.colors.inverseSurface,
+                )
+            }
         }
     }
 }
