@@ -21,6 +21,8 @@ import team.aliens.dms.kmp.core.data.student.repository.StudentRepository
 import team.aliens.dms.kmp.core.data.student.repository.StudentRepositoryImpl
 import team.aliens.dms.kmp.core.data.user.repository.UserRepository
 import team.aliens.dms.kmp.core.data.user.repository.UserRepositoryImpl
+import team.aliens.dms.kmp.core.data.image.repository.ImageRepository
+import team.aliens.dms.kmp.core.data.image.repository.ImageRepositoryImpl
 import team.aliens.dms.kmp.core.data.votes.repository.VotesRepository
 import team.aliens.dms.kmp.core.data.votes.repository.VotesRepositoryImpl
 
@@ -35,4 +37,5 @@ val repositoryModule = module {
     singleOf(::SchoolsRepositoryImpl) { bind<SchoolsRepository>() }
     singleOf(::OnboardingRepositoryImpl) { bind<OnboardingRepository>() }
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
+    singleOf(::ImageRepositoryImpl) { bind<ImageRepository>() }
 }
