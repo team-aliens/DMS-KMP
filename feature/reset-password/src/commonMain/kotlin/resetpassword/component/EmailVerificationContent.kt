@@ -14,7 +14,7 @@ import team.aliens.dms.kmp.core.common.ui.topPadding
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
-import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbol
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
@@ -42,12 +42,8 @@ internal fun EmailVerificationContent(
         verticalArrangement = Arrangement.spacedBy(48.dp),
     ) {
         Column {
-            DmsSymbol()
-            DmsText(
-                modifier = Modifier.topPadding(20.dp),
-                text = "이메일 인증",
-                style = DmsTypography.TitleB,
-                color = DmsTheme.colors.onTertiaryContainer,
+            DmsSymbolContent(
+                title = "이메일 인증",
             )
             Column(
                 modifier = Modifier.topPadding(12.dp),

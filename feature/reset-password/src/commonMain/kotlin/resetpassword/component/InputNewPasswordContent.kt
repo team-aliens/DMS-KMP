@@ -8,6 +8,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 import team.aliens.dms.kmp.core.model.message.TextFieldError
 import team.aliens.dms.kmp.core.model.message.isError
@@ -28,7 +29,7 @@ internal fun InputNewPasswordContent(
             .horizontalPadding(24.dp),
         verticalArrangement = Arrangement.spacedBy(48.dp),
     ) {
-        ResetPasswordInfoContent(
+        DmsSymbolContent(
             title = "비밀번호 재설정",
             description = "비밀번호를 다시 설정해주세요.",
         )

@@ -8,6 +8,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsSymbolContent
 import team.aliens.dms.kmp.core.designsystem.textfield.DmsTextField
 
 @Composable
@@ -25,7 +26,7 @@ internal fun InputUserInfoContent(
             .horizontalPadding(24.dp),
         verticalArrangement = Arrangement.spacedBy(48.dp),
     ) {
-        ResetPasswordInfoContent(
+        DmsSymbolContent(
             title = "비밀번호 찾기",
             description = "이름과 이메일을 입력해주세요!",
         )
