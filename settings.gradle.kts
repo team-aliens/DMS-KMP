@@ -40,6 +40,7 @@ include(":core:data")
 include(":core:model")
 include(":core:ui")
 include(":core:util")
+include(":core:media")
 
 include(":feature:splash")
 include(":feature:signin")

@@ -34,6 +34,8 @@ jetbrainsKotlinJvm = "2.0.20"
 sqldelight = "2.0.2"
 ktlint = "12.1.1"
 googleServices = "4.4.2"
+moko-permissions = "0.18.0"
+telephoto = "0.14.1"
 
 [libraries]
 android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
@@ -82,6 +84,8 @@ lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifec
 native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+moko-permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko-permissions" }
+telephoto-zoomable = { module = "me.saket.telephoto:zoomable", version.ref = "telephoto" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -27,22 +27,20 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "data"
+            baseName = "media"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.model)
-            implementation(projects.core.network)
-            implementation(projects.core.datastore)
-            implementation(projects.core.database)
-            implementation(projects.core.util)
-            implementation(projects.core.media)
-
-            implementation(libs.kotlinx.datetime)
             implementation(libs.koin.core)
+            implementation(libs.kotlinx.coroutines.core)
+
+            implementation(projects.core.model)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.core.ktx)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -51,7 +49,7 @@ kotlin {
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.core.data"
+    namespace = "team.aliens.dms.kmp.core.media"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
