@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
 }
 
@@ -29,7 +30,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "ui"
+            baseName = "profile"
             isStatic = true
         }
     }
@@ -42,26 +43,32 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.kotlinx.datetime)
+            implementation(libs.navigation.compose)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.compose.material.icons.extended)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
 
             implementation(projects.core.common)
+            implementation(projects.core.designSystem)
+            implementation(projects.core.model)
+            implementation(projects.core.domain)
             implementation(projects.core.util)
+            implementation(projects.core.ui)
 
-            api(libs.moko.permissions.compose)
+            implementation(libs.coil.compose)
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
+
         androidMain.dependencies {
-            implementation(libs.accompanist.permissions)
         }
+    }
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.core.ui"
+    namespace = "team.aliens.dms.kmp.feature.profile"
     compileSdk = ProjectProperties.COMPILE_SDK
-
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
     }

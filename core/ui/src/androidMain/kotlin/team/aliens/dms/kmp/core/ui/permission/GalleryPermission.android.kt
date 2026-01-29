@@ -1,0 +1,39 @@
+package team.aliens.dms.kmp.core.ui.permission
+
+import android.Manifest
+import android.os.Build
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+actual fun RequestGalleryPermission(
+    onPermissionGranted: () -> Unit,
+    onPermissionDenied: () -> Unit,
+    content: @Composable () -> Unit,
+) {
+    val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        Manifest.permission.READ_MEDIA_IMAGES
+    } else {
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    }
+
+    val permissionState = rememberPermissionState(permission)
+
+    LaunchedEffect(permissionState.status) {
+        if (permissionState.status.isGranted) {
+            onPermissionGranted()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        if (!permissionState.status.isGranted) {
+            permissionState.launchPermissionRequest()
+        }
+    }
+
+    content()
+}
