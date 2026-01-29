@@ -82,6 +82,7 @@ kotlin {
             implementation(projects.feature.resetPassword)
             implementation(projects.feature.notification)
             implementation(projects.feature.setting)
+            implementation(projects.feature.profile)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

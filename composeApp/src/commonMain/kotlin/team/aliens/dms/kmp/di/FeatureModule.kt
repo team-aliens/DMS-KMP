@@ -10,6 +10,7 @@ import team.aliens.dms.kmp.feature.meal.di.mealModule
 import team.aliens.dms.kmp.feature.mypage.di.myPageModule
 import team.aliens.dms.kmp.feature.notice.di.noticeModule
 import team.aliens.dms.kmp.feature.point.di.pointsModule
+import team.aliens.dms.kmp.feature.profile.di.profileModule
 import team.aliens.dms.kmp.feature.signin.di.signInModule
 import team.aliens.dms.kmp.feature.signup.di.signUpModule
 import team.aliens.dms.kmp.feature.splash.di.splashModule
@@ -36,5 +37,6 @@ internal val featureModule = module {
         mealModule,
         notificationModule,
         settingModule,
+        profileModule,
     )
 }
