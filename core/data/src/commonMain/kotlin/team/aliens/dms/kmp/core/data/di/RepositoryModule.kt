@@ -5,6 +5,8 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.data.auth.repository.AuthRepository
 import team.aliens.dms.kmp.core.data.auth.repository.AuthRepositoryImpl
+import team.aliens.dms.kmp.core.data.file.repository.FileRepository
+import team.aliens.dms.kmp.core.data.file.repository.FileRepositoryImpl
 import team.aliens.dms.kmp.core.data.meal.repository.MealRepository
 import team.aliens.dms.kmp.core.data.meal.repository.MealRepositoryImpl
 import team.aliens.dms.kmp.core.data.notice.repository.NoticeRepository
@@ -28,6 +30,7 @@ import team.aliens.dms.kmp.core.data.votes.repository.VotesRepositoryImpl
 
 val repositoryModule = module {
     singleOf(::AuthRepositoryImpl) { bind<AuthRepository>() }
+    singleOf(::FileRepositoryImpl) { bind<FileRepository>() }
     singleOf(::MealRepositoryImpl) { bind<MealRepository>() }
     singleOf(::NoticeRepositoryImpl) { bind<NoticeRepository>() }
     singleOf(::StudentRepositoryImpl) { bind<StudentRepository>() }
