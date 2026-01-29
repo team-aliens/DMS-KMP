@@ -48,6 +48,7 @@ kotlin {
             implementation(projects.core.common)
             implementation(projects.core.util)
 
+            api(libs.moko.permissions)
             api(libs.moko.permissions.compose)
         }
         commonTest.dependencies {
@@ -56,6 +57,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.accompanist.permissions)
         }
+    }
 }
 
 android {
