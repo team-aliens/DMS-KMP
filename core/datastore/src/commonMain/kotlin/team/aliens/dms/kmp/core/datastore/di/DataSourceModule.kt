@@ -5,6 +5,8 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSourceImpl
+import team.aliens.dms.kmp.core.datastore.devicetoken.DeviceTokenPreferencesDataSource
+import team.aliens.dms.kmp.core.datastore.devicetoken.DeviceTokenPreferencesDataSourceImpl
 import team.aliens.dms.kmp.core.datastore.onboarding.OnboardingPreferencesDataSource
 import team.aliens.dms.kmp.core.datastore.onboarding.OnboardingPreferencesDataSourceImpl
 import team.aliens.dms.kmp.core.datastore.remain.RemainPreferencesDataSource
@@ -14,4 +16,5 @@ internal val dataSourceModule = module {
     singleOf(::AuthPreferencesDataSourceImpl) { bind<AuthPreferencesDataSource>() }
     singleOf(::OnboardingPreferencesDataSourceImpl) { bind<OnboardingPreferencesDataSource>() }
     singleOf(::RemainPreferencesDataSourceImpl) { bind<RemainPreferencesDataSource>() }
+    singleOf(::DeviceTokenPreferencesDataSourceImpl) { bind<DeviceTokenPreferencesDataSource>() }
 }

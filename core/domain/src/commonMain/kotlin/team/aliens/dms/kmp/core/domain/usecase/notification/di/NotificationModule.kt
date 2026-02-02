@@ -5,12 +5,14 @@ import team.aliens.dms.kmp.core.domain.usecase.notification.BatchUpdateNotificat
 import team.aliens.dms.kmp.core.domain.usecase.notification.CancelFcmDeviceTokenRegistrationUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.FetchNotificationsUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.FetchNotificationTopicStatusUseCase
+import team.aliens.dms.kmp.core.domain.usecase.notification.GetDeviceTokenUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.RegisterFcmDeviceTokenUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.SubscribeNotificationTopicUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.UnsubscribeNotificationTopicUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.UpdateNotificationReadStatusUseCase
 
 val notificationModule = module {
+    factory { GetDeviceTokenUseCase(get()) }
     factory { RegisterFcmDeviceTokenUseCase(get()) }
     factory { CancelFcmDeviceTokenRegistrationUseCase(get()) }
     factory { SubscribeNotificationTopicUseCase(get()) }
