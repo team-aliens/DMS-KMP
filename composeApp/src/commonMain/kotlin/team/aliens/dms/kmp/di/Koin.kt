@@ -7,6 +7,7 @@ import team.aliens.dms.kmp.core.datastore.di.dataStoreModule
 import team.aliens.dms.kmp.core.domain.di.domainModule
 import team.aliens.dms.kmp.core.network.di.networkDataSourceModule
 import team.aliens.dms.kmp.core.network.di.networkModule
+import team.aliens.dms.kmp.core.notification.di.notificationPlatformModule
 
 fun appModule() =
     listOf(
@@ -17,6 +18,7 @@ fun appModule() =
         repositoryModule,
         featureModule,
         domainModule,
+        notificationPlatformModule,
     )
 
 fun initKoin() {

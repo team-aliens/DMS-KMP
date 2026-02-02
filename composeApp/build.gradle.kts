@@ -64,6 +64,7 @@ kotlin {
             implementation(projects.core.model)
             implementation(projects.core.ui)
             implementation(projects.core.util)
+            implementation(projects.core.notification)
 
             implementation(projects.feature.splash)
             implementation(projects.feature.signin)
@@ -127,6 +128,7 @@ android {
     dependencies {
         implementation(platform(libs.firebase.bom))
         implementation(libs.firebase.analytics)
+        implementation(libs.firebase.messaging)
 
         debugImplementation(compose.uiTooling)
     }
