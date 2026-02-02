@@ -59,6 +59,8 @@ kotlin {
             implementation(projects.core.ui)
 
             implementation(libs.coil.compose)
+            implementation(libs.telephoto.zoomable)
+            implementation(libs.kotlinx.datetime)
         }
 
         androidMain.dependencies {
