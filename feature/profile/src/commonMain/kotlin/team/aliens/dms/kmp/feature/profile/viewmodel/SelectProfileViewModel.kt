@@ -6,13 +6,14 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.image.GetGalleryImagesUseCase
+import team.aliens.dms.kmp.core.model.image.GalleryImageModel
 
 internal class SelectProfileViewModel(
     private val getGalleryImagesUseCase: GetGalleryImagesUseCase,
 ) : BaseViewModel<SelectProfileState, SelectProfileSideEffect>(SelectProfileState()) {
 
     internal fun loadImagesIfNeeded() {
-        if (state.value.uriList.isNotEmpty()) return
+        if (state.value.imageList.isNotEmpty()) return
         loadGalleryImages()
     }
 
@@ -23,8 +24,7 @@ internal class SelectProfileViewModel(
                 page = 0,
                 pageSize = 100,
             ).onSuccess { images ->
-                val uriList = images.map { it.uri }
-                setState { state.value.copy(uriList = uriList, isLoading = false) }
+                setState { state.value.copy(imageList = images, isLoading = false) }
             }.onFailure {
                 setState { state.value.copy(isLoading = false) }
                 postSideEffect(SelectProfileSideEffect.ShowError("이미지를 불러올 수 없습니다"))
@@ -32,13 +32,15 @@ internal class SelectProfileViewModel(
         }
     }
 
-    internal fun selectImage(uri: String) {
+    internal fun selectImage(id: String) {
         with(state.value) {
-            val isSelected = selectedUri == uri && selectedUri.isNotBlank()
-            val newSelectedUri = if (isSelected) "" else uri
+            val isSelected = selectedId == id && selectedId.isNotBlank()
+            val newSelectedId = if (isSelected) "" else id
+            val selectedImage = imageList.find { it.id == newSelectedId }
             setState {
                 state.value.copy(
-                    selectedUri = newSelectedUri,
+                    selectedId = newSelectedId,
+                    selectedUri = selectedImage?.uri ?: "",
                     buttonEnabled = !isSelected,
                 )
             }
@@ -46,21 +48,22 @@ internal class SelectProfileViewModel(
     }
 
     internal fun confirmSelection() {
-        val selectedUri = state.value.selectedUri
-        if (selectedUri.isNotBlank()) {
-            postSideEffect(SelectProfileSideEffect.ImageSelected(selectedUri))
+        val selectedId = state.value.selectedId
+        if (selectedId.isNotBlank()) {
+            postSideEffect(SelectProfileSideEffect.ImageSelected(selectedId))
         }
     }
 }
 
 internal data class SelectProfileState(
     val selectedUri: String = "",
+    val selectedId: String = "",
     val buttonEnabled: Boolean = false,
-    val uriList: List<String> = emptyList(),
+    val imageList: List<GalleryImageModel> = emptyList(),
     val isLoading: Boolean = false,
 )
 
 internal sealed interface SelectProfileSideEffect {
-    data class ImageSelected(val uri: String) : SelectProfileSideEffect
+    data class ImageSelected(val id: String) : SelectProfileSideEffect
     data class ShowError(val message: String) : SelectProfileSideEffect
 }

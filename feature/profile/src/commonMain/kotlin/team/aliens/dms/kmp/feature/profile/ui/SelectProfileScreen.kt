@@ -37,6 +37,7 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
+import team.aliens.dms.kmp.core.model.image.GalleryImageModel
 import team.aliens.dms.kmp.core.ui.permission.RequestGalleryPermission
 import team.aliens.dms.kmp.feature.profile.viewmodel.SelectProfileSideEffect
 import team.aliens.dms.kmp.feature.profile.viewmodel.SelectProfileState
@@ -45,7 +46,7 @@ import team.aliens.dms.kmp.feature.profile.viewmodel.SelectProfileViewModel
 @Composable
 internal fun SelectProfile(
     onBackPressed: () -> Unit,
-    onImageSelected: (String) -> Unit,
+    onImageSelected: (imageId: String) -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val viewModel: SelectProfileViewModel = koinViewModel()
@@ -54,7 +55,7 @@ internal fun SelectProfile(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is SelectProfileSideEffect.ImageSelected -> onImageSelected(effect.uri)
+                is SelectProfileSideEffect.ImageSelected -> onImageSelected(effect.id)
                 is SelectProfileSideEffect.ShowError -> onShowSnackBar(
                     DmsSnackBarType.ERROR,
                     effect.message,
@@ -112,13 +113,13 @@ private fun SelectProfileScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(
-                items = state.uriList,
-                key = { it },
-            ) { uri ->
+                items = state.imageList,
+                key = { it.id },
+            ) { image ->
                 ImageItem(
-                    uri = uri,
-                    isSelected = state.selectedUri == uri,
-                    onImageClick = { onImageClick(uri) },
+                    image = image,
+                    isSelected = state.selectedId == image.id,
+                    onImageClick = { onImageClick(image.id) },
                 )
             }
         }
@@ -127,7 +128,7 @@ private fun SelectProfileScreen(
 
 @Composable
 private fun ImageItem(
-    uri: String,
+    image: GalleryImageModel,
     isSelected: Boolean,
     onImageClick: () -> Unit,
 ) {
@@ -139,7 +140,7 @@ private fun ImageItem(
     ) {
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
-            model = uri,
+            model = image.uri,
             contentDescription = null,
             contentScale = ContentScale.Crop,
         )
