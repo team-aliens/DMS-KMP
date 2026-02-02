@@ -41,6 +41,7 @@ include(":core:model")
 include(":core:ui")
 include(":core:util")
 include(":core:media")
+include(":core:notification")
 
 include(":feature:splash")
 include(":feature:signin")
