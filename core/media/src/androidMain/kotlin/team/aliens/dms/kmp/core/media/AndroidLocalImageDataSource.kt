@@ -67,4 +67,11 @@ internal class AndroidLocalImageDataSource(
         contentResolver.openInputStream(uri)?.use { it.readBytes() }
             ?: throw IllegalStateException("Failed to read image bytes for id: $id")
     }
+
+    override suspend fun getImageUri(id: String): String {
+        return ContentUris.withAppendedId(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            id.toLong(),
+        ).toString()
+    }
 }

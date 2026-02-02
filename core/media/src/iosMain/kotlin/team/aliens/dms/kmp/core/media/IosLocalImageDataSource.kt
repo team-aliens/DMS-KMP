@@ -95,4 +95,6 @@ internal class IosLocalImageDataSource : LocalImageDataSource {
             )
         }
     }
+
+    override suspend fun getImageUri(id: String): String = "ph://$id"
 }

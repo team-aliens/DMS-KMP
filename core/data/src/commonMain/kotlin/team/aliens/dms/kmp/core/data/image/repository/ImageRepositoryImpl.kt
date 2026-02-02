@@ -21,6 +21,10 @@ internal class ImageRepositoryImpl(
         localImageDataSource.getImageBytes(id = id)
     }
 
+    override suspend fun getImageUri(id: String): Result<String> = runCatching {
+        localImageDataSource.getImageUri(id = id)
+    }
+
     override suspend fun cropImage(
         imageBytes: ByteArray,
         cropRect: CropRect,
