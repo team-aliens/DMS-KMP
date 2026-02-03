@@ -1,5 +1,6 @@
 package team.aliens.dms.kmp.core.domain.usecase.notification.di
 
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.domain.usecase.notification.BatchUpdateNotificationTopicUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.CancelFcmDeviceTokenRegistrationUseCase
@@ -11,14 +12,14 @@ import team.aliens.dms.kmp.core.domain.usecase.notification.SubscribeNotificatio
 import team.aliens.dms.kmp.core.domain.usecase.notification.UnsubscribeNotificationTopicUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.UpdateNotificationReadStatusUseCase
 
-val notificationModule = module {
-    factory { GetDeviceTokenUseCase(get()) }
-    factory { RegisterFcmDeviceTokenUseCase(get()) }
-    factory { CancelFcmDeviceTokenRegistrationUseCase(get()) }
-    factory { SubscribeNotificationTopicUseCase(get()) }
-    factory { UnsubscribeNotificationTopicUseCase(get()) }
-    factory { BatchUpdateNotificationTopicUseCase(get()) }
-    factory { FetchNotificationTopicStatusUseCase(get()) }
-    factory { FetchNotificationsUseCase(get()) }
-    factory { UpdateNotificationReadStatusUseCase(get()) }
+internal val notificationModule = module {
+    singleOf(::GetDeviceTokenUseCase)
+    singleOf(::RegisterFcmDeviceTokenUseCase)
+    singleOf(::CancelFcmDeviceTokenRegistrationUseCase)
+    singleOf(::SubscribeNotificationTopicUseCase)
+    singleOf(::UnsubscribeNotificationTopicUseCase)
+    singleOf(::BatchUpdateNotificationTopicUseCase)
+    singleOf(::FetchNotificationTopicStatusUseCase)
+    singleOf(::FetchNotificationsUseCase)
+    singleOf(::UpdateNotificationReadStatusUseCase)
 }
