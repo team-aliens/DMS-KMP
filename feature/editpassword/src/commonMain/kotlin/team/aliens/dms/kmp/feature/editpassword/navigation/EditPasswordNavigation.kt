@@ -6,9 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import kotlinx.serialization.Serializable
-import team.aliens.dms.kmp.core.common.navtype.VoteModelNavType
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
-import team.aliens.dms.kmp.core.model.votes.VoteModel
 import team.aliens.dms.kmp.feature.editpassword.ui.CheckPassword
 import team.aliens.dms.kmp.feature.editpassword.ui.EditPassword
 
@@ -16,11 +14,7 @@ import team.aliens.dms.kmp.feature.editpassword.ui.EditPassword
 data object CheckPasswordRoute
 
 @Serializable
-data class EditPasswordRoute(val currentPassword: String) {
-    companion object {
-        val NavTypeMap = mapOf(VoteModelNavType)
-    }
-}
+data class EditPasswordRoute(val currentPassword: String)
 
 fun NavController.navigateToCheckPassword(
     navOptions: NavOptions? = null,

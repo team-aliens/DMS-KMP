@@ -6,7 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
-import team.aliens.dms.kmp.core.common.util.logd
 import team.aliens.dms.kmp.core.domain.usecase.remains.GetRemainUseCase
 import team.aliens.dms.kmp.core.domain.usecase.votes.GetAllVotesUseCase
 import team.aliens.dms.kmp.core.model.votes.VoteModel
