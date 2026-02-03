@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.ktlint)
-    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -40,7 +39,6 @@ kotlin {
 
             implementation(projects.core.domain)
             implementation(projects.core.datastore)
-            implementation(projects.core.designSystem)
         }
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)

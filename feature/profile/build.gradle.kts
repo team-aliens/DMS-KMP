@@ -62,9 +62,6 @@ kotlin {
             implementation(libs.telephoto.zoomable)
             implementation(libs.kotlinx.datetime)
         }
-
-        androidMain.dependencies {
-        }
     }
 }
 

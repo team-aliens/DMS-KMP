@@ -7,8 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import dmskmp.core.design_system.generated.resources.Res
-import dmskmp.core.design_system.generated.resources.ic_notification
 
 internal class AndroidNotificationManager(
     private val context: Context,
@@ -27,7 +25,7 @@ internal class AndroidNotificationManager(
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(Res.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_launcher)
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
