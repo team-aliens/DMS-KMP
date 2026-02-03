@@ -34,8 +34,8 @@ import team.aliens.dms.kmp.feature.vote.navigation.vote
 import team.aliens.dms.kmp.root.RootRoute
 import team.aliens.dms.kmp.root.root
 import team.aliens.dms.kmp.ui.DmsAppState
-import tema.aliens.dms.kmp.feature.remain.navigation.navigateToRemainApplication
-import tema.aliens.dms.kmp.feature.remain.navigation.remainApplication
+import team.aliens.dms.kmp.feature.remain.navigation.navigateToRemainApplication
+import team.aliens.dms.kmp.feature.remain.navigation.remainApplication
 
 @Serializable
 data object MainRoute

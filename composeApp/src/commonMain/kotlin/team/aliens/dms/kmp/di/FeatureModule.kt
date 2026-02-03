@@ -1,7 +1,7 @@
 package team.aliens.dms.kmp.di
 
 import org.koin.dsl.module
-import resetpassword.di.resetPasswordModule
+import team.aliens.dms.kmp.feature.resetpassword.di.resetPasswordModule
 import team.aliens.dms.kmp.feature.notification.di.notificationModule
 import team.aliens.dms.kmp.feature.application.di.applicationModule
 import team.aliens.dms.kmp.feature.editpassword.di.editPasswordModule
@@ -18,7 +18,7 @@ import team.aliens.dms.kmp.feature.splash.di.splashModule
 import team.aliens.dms.kmp.feature.volunteer.di.volunteerModule
 import team.aliens.dms.kmp.feature.setting.di.settingModule
 import team.aliens.dms.kmp.feature.vote.di.voteModule
-import tema.aliens.dms.kmp.feature.remain.di.remainsModule
+import team.aliens.dms.kmp.feature.remain.di.remainsModule
 
 internal val featureModule = module {
     includes(
