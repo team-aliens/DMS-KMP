@@ -49,9 +49,7 @@ kotlin {
             implementation(projects.core.util)
         }
         androidMain.dependencies {
-            api(libs.moko.permissions)
-            api(libs.moko.permissions.compose)
-            implementation("dev.icerock.moko:permissions-gallery:0.20.1")
+            implementation(libs.accompanist.permissions)
         }
         iosMain.dependencies {
             api(libs.moko.permissions)

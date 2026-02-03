@@ -30,7 +30,7 @@ internal fun AnnouncementButton(
             .fillMaxWidth()
             .clip(CircleShape)
             .background(DmsTheme.colors.surfaceTint)
-            .clickable(enabled = title.isEmpty(), onClick = onClick)
+            .clickable(enabled = title.isNotBlank(), onClick = onClick)
             .padding(horizontal = 20.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
