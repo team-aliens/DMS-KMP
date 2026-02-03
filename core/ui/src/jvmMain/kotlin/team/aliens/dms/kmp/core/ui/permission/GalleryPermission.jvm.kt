@@ -10,8 +10,4 @@ actual fun RequestGalleryPermission(
     content: @Composable () -> Unit,
 ) {
     // JVM desktop은 갤러리 권한 불필요
-    LaunchedEffect(Unit) {
-        onPermissionGranted()
-    }
-    content()
 }
