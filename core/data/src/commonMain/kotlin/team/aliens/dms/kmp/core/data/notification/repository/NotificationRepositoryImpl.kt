@@ -11,7 +11,7 @@ import team.aliens.dms.kmp.core.network.notification.model.request.RegisterFcmDe
 import team.aliens.dms.kmp.core.network.notification.model.request.SubscribeNotificationTopicRequest
 import team.aliens.dms.kmp.core.network.notification.model.request.UnsubscribeNotificationTopicRequest
 
-class NotificationRepositoryImpl(
+internal class NotificationRepositoryImpl(
     private val networkNotificationDataSource: NetworkNotificationDataSource,
 ) : NotificationRepository {
     override suspend fun registerFcmDeviceToken(deviceToken: String): Result<Unit> =
