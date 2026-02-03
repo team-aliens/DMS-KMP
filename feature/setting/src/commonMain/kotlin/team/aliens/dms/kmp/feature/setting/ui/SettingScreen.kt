@@ -37,7 +37,7 @@ import team.aliens.dms.kmp.feature.setting.viewmodel.SettingViewModel
 @Composable
 internal fun Setting(
     onBackPressed: () -> Unit,
-    onNavigateResetPassword: () -> Unit,
+    onNavigateCheckPassword: () -> Unit,
     onNavigateSelectProfile: () -> Unit,
     onNavigateSignIn: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
@@ -113,7 +113,7 @@ internal fun Setting(
 
     SettingScreen(
         rotated = state.isOnNotification,
-        onNavigateResetPassword = onNavigateResetPassword,
+        onNavigateCheckPassword = onNavigateCheckPassword,
         onNavigateSelectProfile = onNavigateSelectProfile,
         onNotificationClick = { viewModel.updateNotificationStatus(state.isOnNotification) },
         onShowSignOutDialogChange = { onShouldShowSignOutDialogChange(true) },
@@ -125,7 +125,7 @@ internal fun Setting(
 @Composable
 private fun SettingScreen(
     rotated: Boolean,
-    onNavigateResetPassword: () -> Unit,
+    onNavigateCheckPassword: () -> Unit,
     onNavigateSelectProfile: () -> Unit,
     onNotificationClick: () -> Unit,
     onShowSignOutDialogChange: () -> Unit,
@@ -150,7 +150,7 @@ private fun SettingScreen(
             DmsItemButton(
                 iconRes = Res.drawable.img_3d_key,
                 text = "비밀번호 재설정",
-                onClick = onNavigateResetPassword,
+                onClick = onNavigateCheckPassword,
             )
             DmsItemButton(
                 iconRes = Res.drawable.img_calendar,

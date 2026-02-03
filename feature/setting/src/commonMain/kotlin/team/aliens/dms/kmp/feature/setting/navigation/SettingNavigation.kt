@@ -20,7 +20,7 @@ fun NavController.navigateToSetting(
 
 fun NavGraphBuilder.setting(
     onBackPressed: () -> Unit,
-    onNavigateResetPassword: () -> Unit,
+    onNavigateCheckPassword: () -> Unit,
     onNavigateSelectProfile: () -> Unit,
     onNavigateSignIn: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit
@@ -28,7 +28,7 @@ fun NavGraphBuilder.setting(
     composable<SettingRoute> {
         Setting(
             onBackPressed = onBackPressed,
-            onNavigateResetPassword = onNavigateResetPassword,
+            onNavigateCheckPassword = onNavigateCheckPassword,
             onNavigateSelectProfile = onNavigateSelectProfile,
             onNavigateSignIn = onNavigateSignIn,
             onShowSnackBar = onShowSnackBar,

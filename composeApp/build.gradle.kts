@@ -65,6 +65,7 @@ kotlin {
             implementation(projects.core.ui)
             implementation(projects.core.util)
             implementation(projects.core.notification)
+            implementation(projects.core.media)
 
             implementation(projects.feature.splash)
             implementation(projects.feature.signin)
@@ -84,6 +85,7 @@ kotlin {
             implementation(projects.feature.notification)
             implementation(projects.feature.setting)
             implementation(projects.feature.profile)
+            implementation(projects.feature.editpassword)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

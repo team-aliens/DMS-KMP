@@ -7,16 +7,23 @@ import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.network.PlatformConfig
+import team.aliens.dms.kmp.feature.editpassword.navigation.checkPassword
+import team.aliens.dms.kmp.feature.editpassword.navigation.editPassword
+import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToCheckPassword
+import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToEditPassword
 import team.aliens.dms.kmp.feature.meal.navigation.meal
 import team.aliens.dms.kmp.feature.meal.navigation.navigateToMeal
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
-import team.aliens.dms.kmp.feature.notice.navigation.navigateToNotices
 import team.aliens.dms.kmp.feature.notice.navigation.noticeDetails
 import team.aliens.dms.kmp.feature.notice.navigation.notices
 import team.aliens.dms.kmp.feature.notification.navigation.navigateToNotification
 import team.aliens.dms.kmp.feature.notification.navigation.notification
 import team.aliens.dms.kmp.feature.point.navigation.navigateToPointHistory
 import team.aliens.dms.kmp.feature.point.navigation.pointHistory
+import team.aliens.dms.kmp.feature.profile.navigation.adjustProfile
+import team.aliens.dms.kmp.feature.profile.navigation.navigateToAdjustProfile
+import team.aliens.dms.kmp.feature.profile.navigation.navigateToSelectProfile
+import team.aliens.dms.kmp.feature.profile.navigation.selectProfile
 import team.aliens.dms.kmp.feature.setting.navigation.navigateToSetting
 import team.aliens.dms.kmp.feature.setting.navigation.setting
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
@@ -86,9 +93,28 @@ internal fun NavGraphBuilder.mainGraph(
         )
         setting(
             onBackPressed = appState.navController::navigateUp,
-            onNavigateResetPassword = { },
-            onNavigateSelectProfile = { },
+            onNavigateCheckPassword = appState.navController::navigateToCheckPassword,
+            onNavigateSelectProfile = appState.navController::navigateToSelectProfile,
             onNavigateSignIn = appState.navController::navigateToSignIn,
+            onShowSnackBar = appState::showSnackBar,
+        )
+        checkPassword(
+            onBackPressed = appState.navController::navigateUp,
+            onNavigateEditPassword = appState.navController::navigateToEditPassword,
+            onShowSnackBar = appState::showSnackBar,
+        )
+        editPassword(
+            onBackPressed = appState.navController::navigateUp,
+            onNavigateSetting = appState.navController::navigateToSetting,
+            onShowSnackBar = appState::showSnackBar,
+        )
+        selectProfile(
+            onBackPressed = appState.navController::navigateUp,
+            onImageSelected = appState.navController::navigateToAdjustProfile,
+            onShowSnackBar = appState::showSnackBar,
+        )
+        adjustProfile(
+            onBackPressed = appState.navController::navigateUp,
             onShowSnackBar = appState::showSnackBar,
         )
     }
