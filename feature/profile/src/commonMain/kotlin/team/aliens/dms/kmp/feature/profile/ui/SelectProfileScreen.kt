@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
@@ -152,18 +151,20 @@ private fun ImageItem(
                     .border(3.dp, DmsTheme.colors.primary),
             )
         }
-        Icon(
-            imageVector = if (isSelected) Icons.Default.Check else Icons.Default.Check,
-            contentDescription = null,
-            tint = if (isSelected) DmsTheme.colors.primary else Color.White,
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(8.dp)
-                .size(24.dp)
-                .background(
-                    color = if (isSelected) Color.White else Color.Black.copy(alpha = 0.3f),
-                    shape = CircleShape,
-                ),
-        )
+        if (isSelected) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = null,
+                tint = DmsTheme.colors.primary,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(8.dp)
+                    .size(24.dp)
+                    .background(
+                        color = Color.White,
+                        shape = CircleShape,
+                    ),
+            )
+        }
     }
 }

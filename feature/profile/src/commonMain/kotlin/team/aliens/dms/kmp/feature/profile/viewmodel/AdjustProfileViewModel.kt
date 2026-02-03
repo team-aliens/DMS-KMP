@@ -43,7 +43,7 @@ internal class AdjustProfileViewModel(
         }
     }
 
-    fun updateZoomState(scale: Float, offsetX: Float, offsetY: Float) {
+    internal fun updateZoomState(scale: Float, offsetX: Float, offsetY: Float) {
         setState {
             state.value.copy(
                 zoomScale = scale,
@@ -53,7 +53,7 @@ internal class AdjustProfileViewModel(
         }
     }
 
-    fun uploadCroppedProfile(outputSize: Int = 512) {
+    internal fun uploadCroppedProfile(outputSize: Int = 512) {
         viewModelScope.launch(Dispatchers.IO) {
             setState { state.value.copy(isLoading = true) }
 
