@@ -1,4 +1,4 @@
-package tema.aliens.dms.kmp.feature.remain.component
+package team.aliens.dms.kmp.feature.remain.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package tema.aliens.dms.kmp.feature.remain
+package team.aliens.dms.kmp.feature.remain
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch

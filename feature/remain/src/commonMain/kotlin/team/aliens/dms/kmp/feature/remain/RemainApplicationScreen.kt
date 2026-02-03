@@ -1,4 +1,4 @@
-package tema.aliens.dms.kmp.feature.remain
+package team.aliens.dms.kmp.feature.remain
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
