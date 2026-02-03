@@ -1,35 +1,34 @@
 package team.aliens.dms.kmp.core.ui.permission
 
+import android.Manifest
+import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import dev.icerock.moko.permissions.Permission
-import dev.icerock.moko.permissions.compose.BindEffect
-import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
-import dev.icerock.moko.permissions.gallery.GALLERY
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 actual fun RequestGalleryPermission(
     onPermissionGranted: () -> Unit,
     onPermissionDenied: () -> Unit,
     content: @Composable () -> Unit,
 ) {
-    val factory = rememberPermissionsControllerFactory()
-    val controller = remember(factory) { factory.createPermissionsController() }
-
-    BindEffect(controller)
+    val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        Manifest.permission.READ_MEDIA_IMAGES
+    } else {
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    }
+    val permissionState = rememberPermissionState(permission = permission)
 
     LaunchedEffect(Unit) {
-        val isGranted = controller.isPermissionGranted(Permission.GALLERY)
-        if (isGranted) {
+        permissionState.launchPermissionRequest()
+    }
+
+    LaunchedEffect(permissionState.status.isGranted) {
+        if (permissionState.status.isGranted) {
             onPermissionGranted()
-        } else {
-            try {
-                controller.providePermission(Permission.GALLERY)
-                onPermissionGranted()
-            } catch (e: Exception) {
-                onPermissionDenied()
-            }
         }
     }
 

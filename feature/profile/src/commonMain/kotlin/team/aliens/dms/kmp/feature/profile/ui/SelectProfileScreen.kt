@@ -6,10 +6,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -18,7 +20,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -84,33 +85,29 @@ private fun SelectProfileScreen(
     onImageClick: (String) -> Unit,
     onConfirmClick: () -> Unit,
 ) {
-    Scaffold(
-        topBar = {
-            DmsTopAppBar(
-                title = "프로필 이미지 선택",
-                onBackPressed = onBackPressed,
-            )
-        },
-        bottomBar = {
-            DmsButton(
-                modifier = Modifier.fillMaxWidth(),
-                text = "선택 완료",
-                buttonType = ButtonType.Contained,
-                buttonColor = ButtonColor.Primary,
-                enabled = state.buttonEnabled,
-                onClick = onConfirmClick,
-            )
-        },
-        containerColor = DmsTheme.colors.surfaceTint,
-    ) { paddingValues ->
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .systemBarsPadding(),
+    ) {
+        DmsTopAppBar(
+            onBackPressed = onBackPressed,
+            actions = {
+                DmsButton(
+                    onClick = onConfirmClick,
+                    text = "선택",
+                    buttonType = ButtonType.Text,
+                    buttonColor = ButtonColor.Primary,
+                    enabled = state.buttonEnabled,
+                )
+            },
+        )
         LazyVerticalGrid(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(horizontal = 24.dp),
             columns = GridCells.Fixed(3),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            contentPadding = PaddingValues(4.dp),
+            modifier = Modifier.fillMaxSize(),
         ) {
             items(
                 items = state.imageList,
@@ -135,7 +132,6 @@ private fun ImageItem(
     Box(
         modifier = Modifier
             .aspectRatio(1f)
-            .clip(RoundedCornerShape(8.dp))
             .clickable(onClick = onImageClick),
     ) {
         AsyncImage(
@@ -152,19 +148,22 @@ private fun ImageItem(
             )
             Box(
                 modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(32.dp)
-                    .background(DmsTheme.colors.primary, CircleShape)
-                    .border(2.dp, Color.White, CircleShape),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(20.dp),
-                )
-            }
+                    .fillMaxSize()
+                    .border(3.dp, DmsTheme.colors.primary),
+            )
         }
+        Icon(
+            imageVector = if (isSelected) Icons.Default.Check else Icons.Default.Check,
+            contentDescription = null,
+            tint = if (isSelected) DmsTheme.colors.primary else Color.White,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(8.dp)
+                .size(24.dp)
+                .background(
+                    color = if (isSelected) Color.White else Color.Black.copy(alpha = 0.3f),
+                    shape = CircleShape,
+                ),
+        )
     }
 }

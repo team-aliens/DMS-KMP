@@ -16,41 +16,27 @@ internal class AndroidLocalImageDataSource(
         pageSize: Int,
     ): List<GalleryImageModel> = withContext(Dispatchers.IO) {
         val images = mutableListOf<GalleryImageModel>()
-        val projection = arrayOf(
-            MediaStore.Images.Media._ID,
-            MediaStore.Images.Media.DATE_ADDED,
-            MediaStore.Images.Media.WIDTH,
-            MediaStore.Images.Media.HEIGHT,
-        )
-
-        val sortOrder = "${MediaStore.Images.Media.DATE_ADDED} DESC"
-        val offset = page * pageSize
+        val contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        val projection = arrayOf(MediaStore.Images.Media._ID)
 
         contentResolver.query(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            contentUri,
             projection,
             null,
             null,
-            "$sortOrder LIMIT $pageSize OFFSET $offset",
+            "${MediaStore.Images.Media.DATE_ADDED} DESC",
         )?.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
-            val dateAddedColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED)
-            val widthColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH)
-            val heightColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT)
-
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
-                val uri = ContentUris.withAppendedId(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    id,
-                )
+                val imageUri = ContentUris.withAppendedId(contentUri, id)
                 images.add(
                     GalleryImageModel(
                         id = id.toString(),
-                        uri = uri.toString(),
-                        dateAdded = cursor.getLong(dateAddedColumn),
-                        width = cursor.getInt(widthColumn),
-                        height = cursor.getInt(heightColumn),
+                        uri = imageUri.toString(),
+                        dateAdded = 0L,
+                        width = 0,
+                        height = 0,
                     ),
                 )
             }
