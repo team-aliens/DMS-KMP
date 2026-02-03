@@ -1,4 +1,4 @@
-package resetpassword
+package team.aliens.dms.kmp.feature.resetpassword
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,10 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.compose.viewmodel.koinViewModel
-import resetpassword.component.EmailVerificationContent
-import resetpassword.component.InputIdContent
-import resetpassword.component.InputNewPasswordContent
-import resetpassword.component.InputUserInfoContent
 import team.aliens.dms.kmp.core.common.timer.CountDownTimer
 import team.aliens.dms.kmp.core.designsystem.appbar.DmsTopAppBar
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
@@ -30,6 +26,10 @@ import team.aliens.dms.kmp.core.model.message.TextFieldError
 import team.aliens.dms.kmp.core.ui.walkthrough.WalkThroughState
 import team.aliens.dms.kmp.core.ui.walkthrough.WalkThroughTemplate
 import team.aliens.dms.kmp.core.ui.walkthrough.rememberWalkThroughState
+import team.aliens.dms.kmp.feature.resetpassword.component.EmailVerificationContent
+import team.aliens.dms.kmp.feature.resetpassword.component.InputIdContent
+import team.aliens.dms.kmp.feature.resetpassword.component.InputNewPasswordContent
+import team.aliens.dms.kmp.feature.resetpassword.component.InputUserInfoContent
 
 internal const val EMAIL_VERIFICATION_CODE_LENGTH = 6
 

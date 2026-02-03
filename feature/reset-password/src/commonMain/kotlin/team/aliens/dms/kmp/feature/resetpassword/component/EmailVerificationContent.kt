@@ -1,4 +1,4 @@
-package resetpassword.component
+package team.aliens.dms.kmp.feature.resetpassword.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import resetpassword.EMAIL_VERIFICATION_CODE_LENGTH
 import team.aliens.dms.kmp.core.common.timer.CountDownTimer
 import team.aliens.dms.kmp.core.common.ui.horizontalPadding
 import team.aliens.dms.kmp.core.common.ui.topPadding
@@ -22,6 +21,7 @@ import team.aliens.dms.kmp.core.designsystem.textfield.DmsNumberField
 import team.aliens.dms.kmp.core.designsystem.timer.DmsTimer
 import team.aliens.dms.kmp.core.model.message.TextFieldError
 import team.aliens.dms.kmp.core.model.message.isError
+import team.aliens.dms.kmp.feature.resetpassword.EMAIL_VERIFICATION_CODE_LENGTH
 
 @Composable
 internal fun EmailVerificationContent(

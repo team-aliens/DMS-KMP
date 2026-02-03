@@ -1,8 +1,7 @@
-package resetpassword
+package team.aliens.dms.kmp.feature.resetpassword
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import resetpassword.model.ResetPasswordTextFieldError
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.common.exception.network.NotFoundException
 import team.aliens.dms.kmp.core.common.exception.network.TooManyRequestsException
@@ -13,6 +12,7 @@ import team.aliens.dms.kmp.core.domain.usecase.auth.SendEmailVerificationCodeUse
 import team.aliens.dms.kmp.core.domain.usecase.student.ResetPasswordUseCase
 import team.aliens.dms.kmp.core.model.message.TextFieldError
 import team.aliens.dms.kmp.core.model.type.EmailVerificationType
+import team.aliens.dms.kmp.feature.resetpassword.model.ResetPasswordTextFieldError
 
 internal class ResetPasswordViewModel(
     private val checkIdExistsUseCase: CheckIdExistsUseCase,

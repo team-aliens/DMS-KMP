@@ -1,4 +1,4 @@
-package resetpassword.model
+package team.aliens.dms.kmp.feature.resetpassword.model
 
 import team.aliens.dms.kmp.core.model.message.TextFieldError
 

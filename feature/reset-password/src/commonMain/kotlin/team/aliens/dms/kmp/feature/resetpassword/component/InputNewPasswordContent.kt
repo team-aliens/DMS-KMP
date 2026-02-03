@@ -1,4 +1,4 @@
-package resetpassword.component
+package team.aliens.dms.kmp.feature.resetpassword.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
