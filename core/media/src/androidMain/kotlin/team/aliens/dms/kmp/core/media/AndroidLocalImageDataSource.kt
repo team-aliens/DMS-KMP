@@ -17,26 +17,52 @@ internal class AndroidLocalImageDataSource(
     ): List<GalleryImageModel> = withContext(Dispatchers.IO) {
         val images = mutableListOf<GalleryImageModel>()
         val contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        val projection = arrayOf(MediaStore.Images.Media._ID)
+        val projection = arrayOf(
+            MediaStore.Images.Media._ID,
+            MediaStore.Images.Media.DATE_ADDED,
+            MediaStore.Images.Media.WIDTH,
+            MediaStore.Images.Media.HEIGHT,
+        )
 
-        contentResolver.query(
+        val bundle = android.os.Bundle().apply {
+            putInt(ContentResolver.QUERY_ARG_LIMIT, pageSize)
+            putInt(ContentResolver.QUERY_ARG_OFFSET, (page - 1) * pageSize)
+            putStringArray(
+                ContentResolver.QUERY_ARG_SORT_COLUMNS,
+                arrayOf(MediaStore.Images.Media.DATE_ADDED),
+            )
+            putInt(
+                ContentResolver.QUERY_ARG_SORT_DIRECTION,
+                ContentResolver.QUERY_SORT_DIRECTION_DESCENDING,
+            )
+        }
+
+        val cursor = contentResolver.query(
             contentUri,
             projection,
+            bundle,
             null,
-            null,
-            "${MediaStore.Images.Media.DATE_ADDED} DESC",
-        )?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
-            while (cursor.moveToNext()) {
-                val id = cursor.getLong(idColumn)
+        )
+
+        cursor?.use {
+            val idColumn = it.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+            val dateAddedColumn = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED)
+            val widthColumn = it.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH)
+            val heightColumn = it.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT)
+
+            while (it.moveToNext()) {
+                val id = it.getLong(idColumn)
+                val dateAdded = it.getLong(dateAddedColumn)
+                val width = it.getInt(widthColumn)
+                val height = it.getInt(heightColumn)
                 val imageUri = ContentUris.withAppendedId(contentUri, id)
                 images.add(
                     GalleryImageModel(
                         id = id.toString(),
                         uri = imageUri.toString(),
-                        dateAdded = 0L,
-                        width = 0,
-                        height = 0,
+                        dateAdded = dateAdded,
+                        width = width,
+                        height = height,
                     ),
                 )
             }
