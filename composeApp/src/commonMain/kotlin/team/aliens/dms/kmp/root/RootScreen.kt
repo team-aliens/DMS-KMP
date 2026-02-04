@@ -25,22 +25,24 @@ internal fun Root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
-    onNavigateNotice: () -> Unit,
+    onNavigateNotification: () -> Unit,
     onNavigateNoticeDetail: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onNavigateSetting: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     RootScreen(
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = onNavigateOutingApplication,
         onNavigateVolunteerApplication = onNavigateVolunteerApplication,
-        onNavigateNotice = onNavigateNotice,
+        onNavigateNotification = onNavigateNotification,
         onNavigateNoticeDetail = onNavigateNoticeDetail,
         onNavigateVote = onNavigateVote,
         onNavigatePointHistory = onNavigatePointHistory,
         onNavigateMeal = onNavigateMeal,
+        onNavigateSetting = onNavigateSetting,
         onShowSnackBar = onShowSnackBar,
     )
 }
@@ -50,11 +52,12 @@ private fun RootScreen(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
-    onNavigateNotice: () -> Unit,
+    onNavigateNotification: () -> Unit,
     onNavigateNoticeDetail: (String) -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
+    onNavigateSetting: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val navController: NavHostController = rememberNavController()
@@ -72,7 +75,7 @@ private fun RootScreen(
             exitTransition = { ExitTransition.None },
         ) {
             home(
-                onNavigateNotice = onNavigateNotice,
+                onNavigateNotification = onNavigateNotification,
                 onNavigateNoticeDetail = onNavigateNoticeDetail,
                 onNavigatePointHistory = onNavigatePointHistory,
                 onNavigateMeal = onNavigateMeal,
@@ -87,7 +90,7 @@ private fun RootScreen(
             )
             myPage(
                 onNavigatePointHistory = onNavigatePointHistory,
-                onShowSnackBar = onShowSnackBar,
+                onNavigateSetting = onNavigateSetting
             )
         }
     }

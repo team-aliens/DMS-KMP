@@ -16,6 +16,7 @@ import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
 @Composable
 internal fun ApplicationContent(
     modifier: Modifier = Modifier,
+    appliedTitle: String,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
@@ -33,6 +34,7 @@ internal fun ApplicationContent(
             title = "잔류",
             iconRes = Res.drawable.img_home,
             onClick = onNavigateRemainApplication,
+            appliedTitle = appliedTitle
         )
         DmsApplicationCard(
             title = "외출 신청하기",

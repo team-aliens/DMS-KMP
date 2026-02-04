@@ -11,7 +11,7 @@ import team.aliens.dms.kmp.feature.home.ui.Home
 data object HomeRoute
 
 fun NavGraphBuilder.home(
-    onNavigateNotice: () -> Unit,
+    onNavigateNotification: () -> Unit,
     onNavigateNoticeDetail: (String) -> Unit,
     onNavigatePointHistory: (PointType) -> Unit,
     onNavigateMeal: () -> Unit,
@@ -19,7 +19,7 @@ fun NavGraphBuilder.home(
 ) {
     composable<HomeRoute> {
         Home(
-            onNavigateNotice = onNavigateNotice,
+            onNavigateNotification = onNavigateNotification,
             onNavigateNoticeDetail = onNavigateNoticeDetail,
             onNavigatePointHistory = onNavigatePointHistory,
             onNavigateMeal = onNavigateMeal,

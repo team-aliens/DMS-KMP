@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import team.aliens.dms.kmp.core.common.ui.endPadding
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
@@ -67,13 +69,19 @@ fun DmsApplicationCard(
                 painter = painterResource(iconRes),
                 contentDescription = null,
             )
-            DmsText(
+            Text(
                 modifier = Modifier.padding(start = 8.dp),
                 text = title,
                 style = DmsTypography.BodyB,
                 color = DmsTheme.colors.inverseOnSurface,
             )
             Spacer(modifier = Modifier.weight(1f))
+            if (description == null && appliedTitle != null) {
+                AppliedTitleText(
+                    modifier = Modifier.endPadding(16.dp),
+                    appliedTitle = appliedTitle,
+                )
+            }
             Icon(
                 painter = painterResource(DmsIcon.Forward),
                 tint = DmsTheme.colors.scrim,
@@ -81,7 +89,7 @@ fun DmsApplicationCard(
             )
         }
         period?.let {
-            DmsText(
+            Text(
                 text = period,
                 style = DmsTypography.labelM,
                 color = DmsTheme.colors.onPrimaryContainer,
@@ -92,11 +100,12 @@ fun DmsApplicationCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                DmsText(
+                Text(
                     text = description,
                     style = DmsTypography.labelM,
                     color = DmsTheme.colors.inverseSurface,
                 )
+                Spacer(modifier = Modifier.weight(1f))
                 appliedTitle?.let {
                     AppliedTitleText(appliedTitle = appliedTitle)
                 }

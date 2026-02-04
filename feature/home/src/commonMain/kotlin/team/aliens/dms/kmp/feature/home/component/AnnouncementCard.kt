@@ -22,6 +22,7 @@ import team.aliens.dms.kmp.core.designsystem.util.clickable
 @Composable
 internal fun AnnouncementButton(
     modifier: Modifier = Modifier,
+    title: String,
     onClick: () -> Unit,
 ) {
     Row(
@@ -29,7 +30,7 @@ internal fun AnnouncementButton(
             .fillMaxWidth()
             .clip(CircleShape)
             .background(DmsTheme.colors.surfaceTint)
-            .clickable(onClick = onClick)
+            .clickable(enabled = title.isNotBlank(), onClick = onClick)
             .padding(horizontal = 20.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -46,7 +47,7 @@ internal fun AnnouncementButton(
         )
         DmsText(
             modifier = Modifier.padding(start = 8.dp),
-            text = "새로운 공지사항을 확인하세요",
+            text = title,
             style = DmsTypography.labelM,
             color = DmsTheme.colors.inverseSurface,
         )

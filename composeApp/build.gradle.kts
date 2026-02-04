@@ -64,6 +64,8 @@ kotlin {
             implementation(projects.core.model)
             implementation(projects.core.ui)
             implementation(projects.core.util)
+            implementation(projects.core.notification)
+            implementation(projects.core.media)
 
             implementation(projects.feature.splash)
             implementation(projects.feature.signin)
@@ -80,6 +82,10 @@ kotlin {
             implementation(projects.feature.onboarding)
             implementation(projects.feature.findId)
             implementation(projects.feature.resetPassword)
+            implementation(projects.feature.notification)
+            implementation(projects.feature.setting)
+            implementation(projects.feature.profile)
+            implementation(projects.feature.editpassword)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -124,6 +130,7 @@ android {
     dependencies {
         implementation(platform(libs.firebase.bom))
         implementation(libs.firebase.analytics)
+        implementation(libs.firebase.messaging)
 
         debugImplementation(compose.uiTooling)
     }

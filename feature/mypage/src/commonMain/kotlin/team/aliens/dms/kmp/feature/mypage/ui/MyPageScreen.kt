@@ -30,7 +30,7 @@ import team.aliens.dms.kmp.feature.mypage.viewmodel.MyPageViewModel
 @Composable
 internal fun MyPage(
     onNavigatePointHistory: (PointType) -> Unit,
-    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
+    onNavigateSetting: () -> Unit,
 ) {
     val viewModel: MyPageViewModel = koinViewModel()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -38,7 +38,7 @@ internal fun MyPage(
     MyPageScreen(
         state = state,
         onNavigatePointHistory = onNavigatePointHistory,
-        onSettingClick = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
+        onSettingClick = onNavigateSetting,
     )
 }
 
@@ -87,7 +87,6 @@ private fun MyPageScreen(
                 modifier = Modifier,
                 plusPoint = state.myPage.bonusPoint,
                 minusPoint = state.myPage.minusPoint,
-                onClick = { },
             )
             DmsItemButton(
                 iconRes = Res.drawable.img_calendar,

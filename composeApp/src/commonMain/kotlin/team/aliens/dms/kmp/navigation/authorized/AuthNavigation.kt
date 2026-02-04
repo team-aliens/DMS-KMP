@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
-import resetpassword.navigation.navigateToResetPassword
-import resetpassword.navigation.resetPassword
+import team.aliens.dms.kmp.feature.resetpassword.navigation.navigateToResetPassword
+import team.aliens.dms.kmp.feature.resetpassword.navigation.resetPassword
 import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.feature.findid.navigation.findId
 import team.aliens.dms.kmp.feature.findid.navigation.navigateToFindId

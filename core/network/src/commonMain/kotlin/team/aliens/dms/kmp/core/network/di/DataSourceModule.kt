@@ -3,10 +3,14 @@ package team.aliens.dms.kmp.core.network.di
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.network.auth.datasource.KtorAuthDataSource
 import team.aliens.dms.kmp.core.network.auth.datasource.NetworkAuthDataSource
+import team.aliens.dms.kmp.core.network.file.datasource.KtorFileDataSource
+import team.aliens.dms.kmp.core.network.file.datasource.NetworkFileDataSource
 import team.aliens.dms.kmp.core.network.meal.datasource.KtorMealDataSource
 import team.aliens.dms.kmp.core.network.meal.datasource.NetworkMealDataSource
 import team.aliens.dms.kmp.core.network.notice.datasource.KtorNoticeDataSource
 import team.aliens.dms.kmp.core.network.notice.datasource.NetworkNoticeDataSource
+import team.aliens.dms.kmp.core.network.notification.datasource.KtorNotificationDataSource
+import team.aliens.dms.kmp.core.network.notification.datasource.NetworkNotificationDataSource
 import team.aliens.dms.kmp.core.network.points.datasource.KtorPointsDataSource
 import team.aliens.dms.kmp.core.network.points.datasource.NetworkPointsDataSource
 import team.aliens.dms.kmp.core.network.remains.datasource.KtorRemainsDataSource
@@ -15,11 +19,14 @@ import team.aliens.dms.kmp.core.network.schools.datasource.KtorSchoolsDataSource
 import team.aliens.dms.kmp.core.network.schools.datasource.NetworkSchoolsDataSource
 import team.aliens.dms.kmp.core.network.student.datasource.KtorStudentDataSource
 import team.aliens.dms.kmp.core.network.student.datasource.NetworkStudentDataSource
+import team.aliens.dms.kmp.core.network.user.datasource.KtorUserDataSource
+import team.aliens.dms.kmp.core.network.user.datasource.NetworkUserDataSource
 import team.aliens.dms.kmp.core.network.votes.datasource.KtorVotesDataSource
 import team.aliens.dms.kmp.core.network.votes.datasource.NetworkVotesDataSource
 
 val networkDataSourceModule = module {
     single<NetworkAuthDataSource> { KtorAuthDataSource(get()) }
+    single<NetworkFileDataSource> { KtorFileDataSource(get()) }
     single<NetworkMealDataSource> { KtorMealDataSource(get()) }
     single<NetworkNoticeDataSource> { KtorNoticeDataSource(get()) }
     single<NetworkStudentDataSource> { KtorStudentDataSource(get()) }
@@ -27,4 +34,6 @@ val networkDataSourceModule = module {
     single<NetworkVotesDataSource> { KtorVotesDataSource(get()) }
     single<NetworkPointsDataSource> { KtorPointsDataSource(get()) }
     single<NetworkSchoolsDataSource> { KtorSchoolsDataSource(get()) }
+    single<NetworkNotificationDataSource> { KtorNotificationDataSource(get()) }
+    single<NetworkUserDataSource> { KtorUserDataSource(get()) }
 }

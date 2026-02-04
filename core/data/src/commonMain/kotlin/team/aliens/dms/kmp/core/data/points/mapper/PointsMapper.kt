@@ -26,7 +26,7 @@ private fun PointHistoryDto.toModel() = PointModel(
     score = score,
 )
 
-private fun PointTypeDto.toModel() = when (this) {
+internal fun PointTypeDto.toModel() = when (this) {
     PointTypeDto.ALL -> PointType.ALL
     PointTypeDto.BONUS -> PointType.BONUS
     PointTypeDto.MINUS -> PointType.MINUS

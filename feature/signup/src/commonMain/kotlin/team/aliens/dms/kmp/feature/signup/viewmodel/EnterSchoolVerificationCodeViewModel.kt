@@ -9,10 +9,7 @@ import team.aliens.dms.kmp.feature.signup.ui.SCHOOL_VERIFICATION_CODE_LENGTH
 
 internal class EnterSchoolVerificationCodeViewModel(
     private val getSchoolVerificationCodeCheckUseCase: GetSchoolVerificationCodeCheckUseCase,
-) :
-    BaseViewModel<EnterSchoolVerificationCodeState, EnterSchoolVerificationCodeSideEffect>(
-        EnterSchoolVerificationCodeState(),
-    ) {
+): BaseViewModel<EnterSchoolVerificationCodeState, EnterSchoolVerificationCodeSideEffect>(EnterSchoolVerificationCodeState(),) {
 
     internal fun setVerificationCode(verificationCode: String) {
         setState {

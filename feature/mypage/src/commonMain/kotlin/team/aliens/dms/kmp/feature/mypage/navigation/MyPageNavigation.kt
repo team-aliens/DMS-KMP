@@ -12,12 +12,12 @@ data object MyPageRoute
 
 fun NavGraphBuilder.myPage(
     onNavigatePointHistory: (PointType) -> Unit,
-    onShowSnackBar: (DmsSnackBarType, String) -> Unit,
+    onNavigateSetting: () -> Unit,
 ) {
     composable<MyPageRoute> {
         MyPage(
             onNavigatePointHistory = onNavigatePointHistory,
-            onShowSnackBar = onShowSnackBar,
+            onNavigateSetting = onNavigateSetting,
         )
     }
 }

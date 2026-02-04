@@ -75,3 +75,7 @@ local.properties
 *.xcconfig
 
 *.aab
+
+# skills and reference file
+/.claude
+.agents

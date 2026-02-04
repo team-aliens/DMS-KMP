@@ -48,6 +48,14 @@ kotlin {
             implementation(projects.core.common)
             implementation(projects.core.util)
         }
+        androidMain.dependencies {
+            implementation(libs.accompanist.permissions)
+        }
+        iosMain.dependencies {
+            api(libs.moko.permissions)
+            api(libs.moko.permissions.compose)
+            implementation("dev.icerock.moko:permissions-gallery:0.20.1")
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

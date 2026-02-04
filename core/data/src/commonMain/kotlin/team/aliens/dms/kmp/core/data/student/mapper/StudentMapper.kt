@@ -16,7 +16,7 @@ import team.aliens.dms.kmp.core.network.student.model.response.GetStudentsRespon
 import team.aliens.dms.kmp.core.network.student.model.response.ResetPasswordResponse
 
 internal fun ExamineStudentNumberResponse.toModel() = NameModel(
-    name = this.studentName,
+    name = this.name,
 )
 
 internal fun FindIdResponse.toModel() = EmailModel(
