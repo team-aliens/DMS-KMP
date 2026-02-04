@@ -9,11 +9,13 @@ import team.aliens.dms.kmp.core.domain.usecase.auth.SignOutUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.FetchNotificationTopicStatusUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.WithdrawUseCase
 import team.aliens.dms.kmp.core.model.notification.NotificationTopicStatusModel
+import team.aliens.dms.kmp.core.notification.DeviceTokenManager
 
 class SettingViewModel(
     private val signOutUseCase: SignOutUseCase,
     private val withdrawUseCase: WithdrawUseCase,
     private val fetchNotificationTopicStatusUseCase: FetchNotificationTopicStatusUseCase,
+    private val deviceTokenManager: DeviceTokenManager,
 ) : BaseViewModel<SettingState, SettingSideEffect>(SettingState()) {
 
     init {
@@ -35,6 +37,7 @@ class SettingViewModel(
 
     internal fun signOut() {
         viewModelScope.launch(Dispatchers.IO) {
+            deviceTokenManager.unregisterToken()
             signOutUseCase().onSuccess {
                 postSideEffect(SettingSideEffect.SignOutSuccess)
             }
