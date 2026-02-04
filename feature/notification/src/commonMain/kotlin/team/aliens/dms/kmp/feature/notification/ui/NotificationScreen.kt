@@ -205,15 +205,16 @@ internal fun NotificationItem(
     notification: NotificationsModel.NotificationModel,
     onNotificationClick: (PointType, String) -> Unit,
 ) {
+    val pointType = notification.pointDetailTopic ?: return
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = { onNotificationClick(notification.pointDetailTopic!!, notification.id) })
+            .clickable(onClick = { onNotificationClick(pointType, notification.id) })
             .padding(horizontal = 24.dp, vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            painter = painterResource(if (notification.pointDetailTopic == PointType.MINUS) DmsIcon.Minus else DmsIcon.Plus),
+            painter = painterResource(if (pointType == PointType.MINUS) DmsIcon.Minus else DmsIcon.Plus),
             contentDescription = null,
         )
         Column(
