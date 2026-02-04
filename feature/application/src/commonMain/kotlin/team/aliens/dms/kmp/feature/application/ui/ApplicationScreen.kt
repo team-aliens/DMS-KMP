@@ -37,10 +37,6 @@ internal fun Application(
 ) {
     val state by viewModel.state.collectAsState()
 
-    LaunchedEffect(state.appliedTitle) {
-        viewModel.getRemain()
-    }
-
     ApplicationScreen(
         state = state,
         onNavigateRemainApplication = onNavigateRemainApplication,
