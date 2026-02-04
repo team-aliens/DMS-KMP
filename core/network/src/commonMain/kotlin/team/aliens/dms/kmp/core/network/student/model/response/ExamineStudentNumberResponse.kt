@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ExamineStudentNumberResponse(
-    val studentName: String,
+    val name: String,
 )
