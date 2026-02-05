@@ -185,7 +185,7 @@ private fun NoticeItems(
     onNotificationDetailClick: (String, String) -> Unit,
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxSize(),
     ) {
         items(
             items = notices,
