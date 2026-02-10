@@ -7,7 +7,6 @@ import team.aliens.dms.kmp.core.datastore.auth.AuthPreferencesDataSource
 import team.aliens.dms.kmp.core.model.mypage.MyPageModel
 import team.aliens.dms.kmp.core.model.student.EmailModel
 import team.aliens.dms.kmp.core.model.student.NameModel
-import team.aliens.dms.kmp.core.model.student.ResetPasswordModel
 import team.aliens.dms.kmp.core.model.student.StudentModel
 import team.aliens.dms.kmp.core.network.student.datasource.NetworkStudentDataSource
 import team.aliens.dms.kmp.core.network.student.model.request.CheckEmailDuplicationRequest
@@ -28,7 +27,7 @@ internal class StudentRepositoryImpl(
         schoolVerificationCode: String,
         schoolVerificationAnswer: String,
         email: String,
-        emailVerificationCode: String,
+        authCode: String,
         grade: Int,
         classRoom: Int,
         number: Int,
@@ -42,7 +41,7 @@ internal class StudentRepositoryImpl(
                     schoolCode = schoolVerificationCode,
                     schoolAnswer = schoolVerificationAnswer,
                     email = email,
-                    emailVerificationCode = emailVerificationCode,
+                    authCode = authCode,
                     grade = grade,
                     classRoom = classRoom,
                     number = number,
@@ -98,7 +97,7 @@ internal class StudentRepositoryImpl(
         email: String,
         emailVerificationCode: String,
         newPassword: String,
-    ): Result<ResetPasswordModel> = networkStudentDataSource.resetPassword(
+    ): Result<Unit> = networkStudentDataSource.resetPassword(
         request = ResetPasswordRequest(
             body = ResetPasswordRequest.Body(
                 accountId = accountId,
@@ -108,7 +107,7 @@ internal class StudentRepositoryImpl(
                 newPassword = newPassword,
             ),
         ),
-    ).map { it.toModel() }
+    )
 
     override suspend fun checkIdDuplication(id: String): Result<Unit> =
         networkStudentDataSource.checkIdDuplication(

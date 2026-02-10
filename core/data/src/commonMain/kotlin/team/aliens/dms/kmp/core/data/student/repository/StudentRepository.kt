@@ -12,7 +12,7 @@ interface StudentRepository {
         schoolVerificationCode: String,
         schoolVerificationAnswer: String,
         email: String,
-        emailVerificationCode: String,
+        authCode: String,
         grade: Int,
         classRoom: Int,
         number: Int,
@@ -42,7 +42,7 @@ interface StudentRepository {
         email: String,
         emailVerificationCode: String,
         newPassword: String,
-    ): Result<ResetPasswordModel>
+    ): Result<Unit>
 
     suspend fun checkIdDuplication(id: String): Result<Unit>
 
