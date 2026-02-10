@@ -6,7 +6,6 @@ import androidx.navigation.toRoute
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.common.exception.network.ConflictException
-import team.aliens.dms.kmp.core.domain.usecase.auth.CheckIdExistsUseCase
 import team.aliens.dms.kmp.core.domain.usecase.student.CheckIdDuplicationUseCase
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
