@@ -12,9 +12,8 @@ import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
 internal class SetIdViewModel(
     savedStateHandle: SavedStateHandle,
-    private val checkIdDuplicationUseCase: CheckIdDuplicationUseCase
-) :
-    BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState()) {
+    private val checkIdDuplicationUseCase: CheckIdDuplicationUseCase,
+) : BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState()) {
 
     private val route = savedStateHandle.toRoute<SignUp.Route.SetId>(
         typeMap = SignUp.Route.NavTypeMap,
