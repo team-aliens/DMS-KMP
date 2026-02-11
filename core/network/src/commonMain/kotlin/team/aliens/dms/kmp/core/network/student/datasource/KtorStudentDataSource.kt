@@ -23,14 +23,15 @@ import team.aliens.dms.kmp.core.network.student.model.response.FindIdResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetCandidateModelStudentsResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetMyPageResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetStudentsResponse
-import team.aliens.dms.kmp.core.network.student.model.response.ResetPasswordResponse
 
 internal class KtorStudentDataSource(
     private val client: HttpClient,
 ) : NetworkStudentDataSource {
     override suspend fun signUp(request: SignUpRequest): Result<TokenDto> =
         kotlin.runCatching {
-            client.post("/students/signup").body()
+            client.post("/students/signup") {
+                setBody(request.body)
+            }.body()
         }
 
     override suspend fun examineStudentNumber(request: ExamineStudentNumberRequest): Result<ExamineStudentNumberResponse> =
@@ -45,7 +46,7 @@ internal class KtorStudentDataSource(
 
     override suspend fun findId(request: FindIdRequest): Result<FindIdResponse> =
         kotlin.runCatching {
-            client.get("/students/${request.path.schoolId}") {
+            client.get("/students/account-id/${request.path.schoolId}") {
                 parameter("name", request.query.name)
                 parameter("grade", request.query.grade)
                 parameter("class_room", request.query.classRoom)
@@ -53,11 +54,11 @@ internal class KtorStudentDataSource(
             }.body()
         }
 
-    override suspend fun resetPassword(request: ResetPasswordRequest): Result<ResetPasswordResponse> =
+    override suspend fun resetPassword(request: ResetPasswordRequest): Result<Unit> =
         kotlin.runCatching {
             client.patch("/students/password/initialization") {
                 setBody(request.body)
-            }.body()
+            }
         }
 
     override suspend fun checkIdDuplication(request: CheckIdDuplicationRequest): Result<Unit> =

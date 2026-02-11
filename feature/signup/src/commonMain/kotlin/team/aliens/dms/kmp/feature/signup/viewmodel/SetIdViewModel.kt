@@ -6,15 +6,14 @@ import androidx.navigation.toRoute
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.common.exception.network.ConflictException
-import team.aliens.dms.kmp.core.domain.usecase.auth.CheckIdExistsUseCase
+import team.aliens.dms.kmp.core.domain.usecase.student.CheckIdDuplicationUseCase
 import team.aliens.dms.kmp.core.model.signup.SignUpData
 import team.aliens.dms.kmp.feature.signup.navigation.SignUp
 
 internal class SetIdViewModel(
     savedStateHandle: SavedStateHandle,
-    private val checkIdExistsUseCase: CheckIdExistsUseCase,
-) :
-    BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState()) {
+    private val checkIdDuplicationUseCase: CheckIdDuplicationUseCase,
+) : BaseViewModel<SetIdState, SetIdSideEffect>(SetIdState()) {
 
     private val route = savedStateHandle.toRoute<SignUp.Route.SetId>(
         typeMap = SignUp.Route.NavTypeMap,
@@ -33,8 +32,8 @@ internal class SetIdViewModel(
     internal fun onNextClick() {
         viewModelScope.launch {
             setState { state.value.copy(isLoading = true, buttonEnabled = false) }
-            checkIdExistsUseCase(
-                accountId = state.value.id,
+            checkIdDuplicationUseCase(
+                id = state.value.id,
             ).onSuccess {
                 setState { state.value.copy(isLoading = false, buttonEnabled = true) }
                 postSideEffect(

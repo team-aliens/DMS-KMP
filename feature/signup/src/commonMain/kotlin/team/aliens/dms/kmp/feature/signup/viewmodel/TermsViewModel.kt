@@ -27,7 +27,7 @@ internal class TermsViewModel(
                     schoolVerificationCode = schoolCode,
                     schoolVerificationAnswer = schoolAnswer,
                     email = email,
-                    emailVerificationCode = authCode,
+                    authCode = authCode,
                     grade = grade,
                     classRoom = classRoom,
                     number = number,

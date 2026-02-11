@@ -9,6 +9,8 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCrashlytics)
+    alias(libs.plugins.firebasePerformance)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
 }
@@ -131,6 +133,8 @@ android {
         implementation(platform(libs.firebase.bom))
         implementation(libs.firebase.analytics)
         implementation(libs.firebase.messaging)
+        implementation(libs.firebase.crashlytics)
+        implementation(libs.firebase.performance)
 
         debugImplementation(compose.uiTooling)
     }

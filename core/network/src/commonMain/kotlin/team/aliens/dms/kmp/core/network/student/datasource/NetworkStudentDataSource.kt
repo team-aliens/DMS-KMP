@@ -15,13 +15,11 @@ import team.aliens.dms.kmp.core.network.student.model.response.FindIdResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetCandidateModelStudentsResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetMyPageResponse
 import team.aliens.dms.kmp.core.network.student.model.response.GetStudentsResponse
-import team.aliens.dms.kmp.core.network.student.model.response.ResetPasswordResponse
-
 interface NetworkStudentDataSource {
     suspend fun signUp(request: SignUpRequest): Result<TokenDto>
     suspend fun examineStudentNumber(request: ExamineStudentNumberRequest): Result<ExamineStudentNumberResponse>
     suspend fun findId(request: FindIdRequest): Result<FindIdResponse>
-    suspend fun resetPassword(request: ResetPasswordRequest): Result<ResetPasswordResponse>
+    suspend fun resetPassword(request: ResetPasswordRequest): Result<Unit>
     suspend fun checkIdDuplication(request: CheckIdDuplicationRequest): Result<Unit>
     suspend fun checkEmailDuplication(request: CheckEmailDuplicationRequest): Result<Unit>
     suspend fun getMyPage(): Result<GetMyPageResponse>

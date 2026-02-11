@@ -13,6 +13,7 @@
 		80192A322CB4F9D40098DCC1 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 80192A312CB4F9D40098DCC1 /* Lottie */; };
 		80B99D812C9FA5EA00669921 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 80B99D802C9FA5EA00669921 /* FirebaseAnalytics */; };
 		80B99D832C9FA62100669921 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 80B99D822C9FA62100669921 /* FirebaseCrashlytics */; };
+		80B99D852C9FA65000669921 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 80B99D842C9FA65000669921 /* FirebasePerformance */; };
 		80B99D872CA047AA00669921 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80B99D862CA047AA00669921 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 			files = (
 				80B99D812C9FA5EA00669921 /* FirebaseAnalytics in Frameworks */,
 				80B99D832C9FA62100669921 /* FirebaseCrashlytics in Frameworks */,
+				80B99D852C9FA65000669921 /* FirebasePerformance in Frameworks */,
 				80192A322CB4F9D40098DCC1 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +103,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
+				80B99D882CA1000000669921 /* Upload dSYMs */,
 			);
 			buildRules = (
 			);
@@ -110,6 +113,7 @@
 			packageProductDependencies = (
 				80B99D802C9FA5EA00669921 /* FirebaseAnalytics */,
 				80B99D822C9FA62100669921 /* FirebaseCrashlytics */,
+				80B99D842C9FA65000669921 /* FirebasePerformance */,
 				80192A312CB4F9D40098DCC1 /* Lottie */,
 			);
 			productName = iosApp;
@@ -184,6 +188,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+		};
+		80B99D882CA1000000669921 /* Upload dSYMs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Upload dSYMs";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -447,6 +473,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80B99D7F2C9FA5EA00669921 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		80B99D842C9FA65000669921 /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80B99D7F2C9FA5EA00669921 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

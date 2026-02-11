@@ -1,7 +1,9 @@
 import SwiftUI
 import ComposeApp
 import FirebaseCore
+import FirebaseCrashlytics
 import FirebaseMessaging
+import FirebasePerformance
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
