@@ -1,7 +1,7 @@
 package team.aliens.dms.kmp.core.notification
 
+import kotlinx.datetime.toKotlinInstant
 import platform.Foundation.NSDate
-import platform.Foundation.timeIntervalSince1970
 import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNUserNotificationCenter
@@ -31,7 +31,8 @@ internal class IosNotificationManager : NotificationManager {
         // iOS에서는 채널 개념이 없음 - 권한 요청은 별도로 처리
     }
 
+    @OptIn(kotlin.time.ExperimentalTime::class)
     private fun currentTimeMillis(): Long {
-        return (NSDate().timeIntervalSince1970 * 1000).toLong()
+        return NSDate().toKotlinInstant().toEpochMilliseconds()
     }
 }

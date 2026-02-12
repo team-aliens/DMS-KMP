@@ -36,6 +36,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.datetime)
 
             implementation(projects.core.domain)
             implementation(projects.core.datastore)
