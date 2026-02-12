@@ -76,7 +76,7 @@ fun DmsApplicationCard(
                 color = DmsTheme.colors.inverseOnSurface,
             )
             Spacer(modifier = Modifier.weight(1f))
-            if (description == null && appliedTitle != null) {
+            if (description == null && !appliedTitle.isNullOrEmpty()) {
                 AppliedTitleText(
                     modifier = Modifier.endPadding(16.dp),
                     appliedTitle = appliedTitle,
@@ -106,7 +106,7 @@ fun DmsApplicationCard(
                     color = DmsTheme.colors.inverseSurface,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                appliedTitle?.let {
+                if (!appliedTitle.isNullOrEmpty()) {
                     AppliedTitleText(appliedTitle = appliedTitle)
                 }
             }
@@ -131,3 +131,4 @@ private fun AppliedTitleText(
         color = DmsTheme.colors.onPrimaryContainer,
     )
 }
+
