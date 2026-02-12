@@ -16,7 +16,7 @@ import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
 @Composable
 internal fun ApplicationContent(
     modifier: Modifier = Modifier,
-    appliedTitle: String,
+    appliedTitle: String?,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,

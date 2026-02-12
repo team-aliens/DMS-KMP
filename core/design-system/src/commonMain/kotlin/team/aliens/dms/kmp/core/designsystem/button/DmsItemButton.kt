@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -30,8 +31,9 @@ import team.aliens.dms.kmp.core.designsystem.util.clickable
 @Composable
 fun DmsItemButton(
     modifier: Modifier = Modifier,
-    iconRes: DrawableResource,
+    iconRes: DrawableResource? = null,
     text: String,
+    textColor: Color = DmsTheme.colors.inverseOnSurface,
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
@@ -59,16 +61,18 @@ fun DmsItemButton(
             .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Image(
-            modifier = Modifier.size(24.dp),
-            painter = painterResource(iconRes),
-            contentDescription = null,
-        )
+        iconRes?.let {
+            Image(
+                modifier = Modifier.size(24.dp),
+                painter = painterResource(it),
+                contentDescription = null,
+            )
+        }
         DmsText(
             modifier = Modifier.padding(start = 8.dp),
             text = text,
             style = DmsTypography.BodyB,
-            color = DmsTheme.colors.inverseOnSurface,
+            color = textColor,
         )
         Spacer(modifier = Modifier.weight(1f))
         Icon(

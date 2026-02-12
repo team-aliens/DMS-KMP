@@ -8,6 +8,8 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import platform.Foundation.NSData
+import kotlinx.datetime.toKotlinInstant
+import platform.Foundation.NSSortDescriptor
 import platform.Photos.PHAsset
 import platform.Photos.PHAssetMediaTypeImage
 import platform.Photos.PHFetchOptions
@@ -18,22 +20,24 @@ import platform.Photos.PHImageRequestOptionsVersionCurrent
 import team.aliens.dms.kmp.core.model.image.GalleryImageModel
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlin.time.ExperimentalTime
 
 internal class IosLocalImageDataSource : LocalImageDataSource {
 
+    @OptIn(ExperimentalTime::class)
     override suspend fun getImages(
         page: Int,
         pageSize: Int,
     ): List<GalleryImageModel> = withContext(Dispatchers.IO) {
         val fetchOptions = PHFetchOptions().apply {
             sortDescriptors = listOf(
-                platform.Foundation.NSSortDescriptor("creationDate", ascending = false),
+                NSSortDescriptor("creationDate", ascending = false)
             )
         }
 
         val result = PHAsset.fetchAssetsWithMediaType(
             mediaType = PHAssetMediaTypeImage,
-            options = fetchOptions,
+            options = fetchOptions
         )
 
         val startIndex = page * pageSize
@@ -46,10 +50,10 @@ internal class IosLocalImageDataSource : LocalImageDataSource {
                 GalleryImageModel(
                     id = asset.localIdentifier,
                     uri = "ph://${asset.localIdentifier}",
-                    dateAdded = asset.creationDate?.timeIntervalSince1970?.toLong() ?: 0L,
+                    dateAdded = asset.creationDate?.toKotlinInstant()?.toEpochMilliseconds() ?: 0L,
                     width = asset.pixelWidth.toInt(),
                     height = asset.pixelHeight.toInt(),
-                ),
+                )
             )
         }
 
@@ -60,7 +64,7 @@ internal class IosLocalImageDataSource : LocalImageDataSource {
     override suspend fun getImageBytes(id: String): ByteArray = withContext(Dispatchers.IO) {
         val fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers(
             identifiers = listOf(id),
-            options = null,
+            options = null
         )
         val asset = fetchResult.firstObject() as? PHAsset
             ?: throw IllegalStateException("PHAsset not found for id: $id")
@@ -82,16 +86,16 @@ internal class IosLocalImageDataSource : LocalImageDataSource {
                             platform.posix.memcpy(
                                 pinned.addressOf(0),
                                 data.bytes,
-                                data.length,
+                                data.length
                             )
                         }
                         continuation.resume(bytes)
                     } else {
                         continuation.resumeWithException(
-                            IllegalStateException("Failed to load image data for id: $id"),
+                            IllegalStateException("Failed to load image data for id: $id")
                         )
                     }
-                },
+                }
             )
         }
     }

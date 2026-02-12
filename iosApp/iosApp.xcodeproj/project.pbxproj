@@ -15,6 +15,7 @@
 		80B99D832C9FA62100669921 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 80B99D822C9FA62100669921 /* FirebaseCrashlytics */; };
 		80B99D852C9FA65000669921 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 80B99D842C9FA65000669921 /* FirebasePerformance */; };
 		80B99D872CA047AA00669921 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80B99D862CA047AA00669921 /* GoogleService-Info.plist */; };
+		80B99D8C2CA2000000669921 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 80B99D8B2CA2000000669921 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 				80B99D812C9FA5EA00669921 /* FirebaseAnalytics in Frameworks */,
 				80B99D832C9FA62100669921 /* FirebaseCrashlytics in Frameworks */,
 				80B99D852C9FA65000669921 /* FirebasePerformance in Frameworks */,
+				80B99D8C2CA2000000669921 /* FirebaseMessaging in Frameworks */,
 				80192A322CB4F9D40098DCC1 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,6 +116,7 @@
 				80B99D802C9FA5EA00669921 /* FirebaseAnalytics */,
 				80B99D822C9FA62100669921 /* FirebaseCrashlytics */,
 				80B99D842C9FA65000669921 /* FirebasePerformance */,
+				80B99D8B2CA2000000669921 /* FirebaseMessaging */,
 				80192A312CB4F9D40098DCC1 /* Lottie */,
 			);
 			productName = iosApp;
@@ -171,24 +174,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F36B1CEB2AD83DDC00CB74D5 /* Compile Kotlin Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Compile Kotlin Framework";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
-		};
 		80B99D882CA1000000669921 /* Upload dSYMs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +195,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+		F36B1CEB2AD83DDC00CB74D5 /* Compile Kotlin Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Kotlin Framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -355,11 +358,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				BASE_URL = "dev-api-dms.dsmhs.kr";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = Z25H7B85Z8;
+				DEVELOPMENT_TEAM = 24P626D3A8;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -389,11 +393,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				BASE_URL = "dev-api-dms.dsmhs.kr";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = Z25H7B85Z8;
+				DEVELOPMENT_TEAM = 24P626D3A8;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -478,6 +483,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80B99D7F2C9FA5EA00669921 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebasePerformance;
+		};
+		80B99D8B2CA2000000669921 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80B99D7F2C9FA5EA00669921 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

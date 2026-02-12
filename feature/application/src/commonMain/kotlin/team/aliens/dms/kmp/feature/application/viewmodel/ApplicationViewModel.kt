@@ -45,7 +45,7 @@ internal class ApplicationViewModel(
 }
 
 data class ApplicationState(
-    val appliedTitle: String = "",
+    val appliedTitle: String? = null,
     val votes: List<VoteModel> = emptyList(),
 )
 
