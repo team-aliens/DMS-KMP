@@ -25,6 +25,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
 
     private func requestNotificationPermission(_ application: UIApplication) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            print("[APNs] 알림 권한: granted=\(granted), error=\(String(describing: error))")
             if granted {
                 DispatchQueue.main.async {
                     application.registerForRemoteNotifications()
@@ -38,12 +39,28 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
     ) {
         Messaging.messaging().apnsToken = deviceToken
+        Messaging.messaging().token { token, error in
+            if let token = token {
+                print("[FCM] APNs 등록 후 토큰 획득: \(token)")
+                KoinIosHelper.shared.registerDeviceToken(token: token)
+            } else if let error = error {
+                print("[FCM] 토큰 가져오기 실패: \(error)")
+            }
+        }
+    }
+
+    func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+        p//rint("[APNs] 등록 실패: \(error)")
     }
 
     // MARK: - MessagingDelegate
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         guard let token = fcmToken else { return }
+        print("[FCM] didReceiveRegistrationToken: \(token)")
         KoinIosHelper.shared.registerDeviceToken(token: token)
     }
 

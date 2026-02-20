@@ -1,5 +1,7 @@
 package team.aliens.dms.kmp.core.notification
 
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.withTimeoutOrNull
 import team.aliens.dms.kmp.core.datastore.devicetoken.DeviceTokenPreferencesDataSource
 import team.aliens.dms.kmp.core.domain.usecase.notification.CancelFcmDeviceTokenRegistrationUseCase
 import team.aliens.dms.kmp.core.domain.usecase.notification.RegisterFcmDeviceTokenUseCase
@@ -10,12 +12,21 @@ internal class IosDeviceTokenManager(
     private val cancelFcmDeviceTokenRegistrationUseCase: CancelFcmDeviceTokenRegistrationUseCase,
 ) : DeviceTokenManager {
 
+    private val tokenDeferred = CompletableDeferred<String>()
+
     override suspend fun registerToken(token: String?) {
-        // iOS에서는 token이 항상 AppDelegate에서 전달됨
         token?.let { deviceToken ->
+            if (!tokenDeferred.isCompleted) {
+                tokenDeferred.complete(deviceToken)
+            }
             deviceTokenPreferencesDataSource.storeDeviceToken(deviceToken)
-            registerFcmDeviceTokenUseCase(deviceToken)
+            runCatching { registerFcmDeviceTokenUseCase(deviceToken) }
         }
+    }
+
+    override suspend fun awaitToken(timeoutMs: Long): String? {
+        deviceTokenPreferencesDataSource.loadDeviceToken()?.let { return it }
+        return withTimeoutOrNull(timeoutMs) { tokenDeferred.await() }
     }
 
     override suspend fun unregisterToken() {
