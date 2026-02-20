@@ -56,6 +56,7 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.koin.core)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.coil.compose)
 
             implementation(projects.core.network)
             implementation(projects.core.datastore)
