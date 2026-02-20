@@ -44,7 +44,7 @@ internal class PhAssetFetcher(
                 networkAccessAllowed = true
             }
 
-            PHImageManager.defaultManager().requestImageDataForAsset(
+            val requestId = PHImageManager.defaultManager().requestImageDataForAsset(
                 asset = asset,
                 options = options,
                 resultHandler = { data: NSData?, _, _, _ ->
@@ -65,6 +65,10 @@ internal class PhAssetFetcher(
                     }
                 },
             )
+
+            continuation.invokeOnCancellation {
+                PHImageManager.defaultManager().cancelImageRequest(requestId)
+            }
         }
 
         return SourceFetchResult(
