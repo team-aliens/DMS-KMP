@@ -9,4 +9,6 @@ internal class JvmDeviceTokenManager : DeviceTokenManager {
     override suspend fun unregisterToken() {
         // JVM (Desktop)에서는 FCM 미지원
     }
+
+    override suspend fun awaitToken(timeoutMs: Long): String? = null
 }

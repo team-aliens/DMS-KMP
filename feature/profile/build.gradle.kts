@@ -59,6 +59,7 @@ kotlin {
             implementation(projects.core.ui)
 
             implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor3)
             implementation(libs.telephoto.zoomable)
             implementation(libs.kotlinx.datetime)
         }

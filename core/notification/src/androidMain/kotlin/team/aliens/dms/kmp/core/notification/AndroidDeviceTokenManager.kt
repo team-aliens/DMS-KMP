@@ -18,6 +18,10 @@ internal class AndroidDeviceTokenManager(
         registerFcmDeviceTokenUseCase(deviceToken)
     }
 
+    override suspend fun awaitToken(timeoutMs: Long): String? =
+        deviceTokenPreferencesDataSource.loadDeviceToken()
+            ?: runCatching { FirebaseMessaging.getInstance().token.await() }.getOrNull()
+
     override suspend fun unregisterToken() {
         deviceTokenPreferencesDataSource.loadDeviceToken()?.let { token ->
             cancelFcmDeviceTokenRegistrationUseCase(token)

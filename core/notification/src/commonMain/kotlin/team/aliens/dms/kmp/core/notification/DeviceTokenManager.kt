@@ -11,4 +11,9 @@ interface DeviceTokenManager {
      * 토큰 해제 (로그아웃 시)
      */
     suspend fun unregisterToken()
+
+    /**
+     * 저장된 토큰 반환. 없으면 토큰이 도착할 때까지 최대 [timeoutMs]ms 대기.
+     */
+    suspend fun awaitToken(timeoutMs: Long = 5_000L): String?
 }

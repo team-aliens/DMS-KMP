@@ -19,9 +19,11 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.0.2</string>
+	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>6</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>사진첩의 사진을 불러와 앱 내 기능을 사용하기 위해 권한을 요청합니다.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

@@ -9,11 +9,11 @@ import team.aliens.dms.kmp.core.common.exception.network.NotFoundException
 import team.aliens.dms.kmp.core.common.exception.network.UnprocessableEntityException
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.domain.usecase.auth.SignInUseCase
-import team.aliens.dms.kmp.core.domain.usecase.notification.GetDeviceTokenUseCase
+import team.aliens.dms.kmp.core.notification.DeviceTokenManager
 
 internal class SignInViewModel(
     private val signInUseCase: SignInUseCase,
-    private val getDeviceTokenUseCase: GetDeviceTokenUseCase,
+    private val deviceTokenManager: DeviceTokenManager,
 ) : BaseViewModel<SignInState, SignInSideEffect>(SignInState()) {
 
     internal fun setAccountId(accountId: String) {
@@ -48,7 +48,7 @@ internal class SignInViewModel(
         viewModelScope.launch {
             val state = state.value
             setState { state.copy(isLoading = true, buttonEnabled = false) }
-            val deviceToken = runCatching { getDeviceTokenUseCase() }.getOrNull() ?: ""
+            val deviceToken = deviceTokenManager.awaitToken() ?: ""
             signInUseCase.invoke(
                 accountId = state.accountId,
                 password = state.password,

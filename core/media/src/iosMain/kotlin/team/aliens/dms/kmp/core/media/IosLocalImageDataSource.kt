@@ -76,7 +76,7 @@ internal class IosLocalImageDataSource : LocalImageDataSource {
                 deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat
             }
 
-            PHImageManager.defaultManager().requestImageDataForAsset(
+            val requestId = PHImageManager.defaultManager().requestImageDataForAsset(
                 asset = asset,
                 options = options,
                 resultHandler = { data: NSData?, _, _, _ ->
@@ -97,6 +97,10 @@ internal class IosLocalImageDataSource : LocalImageDataSource {
                     }
                 }
             )
+
+            continuation.invokeOnCancellation {
+                PHImageManager.defaultManager().cancelImageRequest(requestId)
+            }
         }
     }
 
