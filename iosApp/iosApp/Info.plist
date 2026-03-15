@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진첩의 사진을 불러와 앱 내 기능을 사용하기 위해 권한을 요청합니다.</string>
+	<string>프로필 사진을 설정하거나 게시물에 이미지를 첨부하기 위해 사진 라이브러리에 접근합니다.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>
