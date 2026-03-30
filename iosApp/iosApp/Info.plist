@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>REPORT_FORM_URL</key>
+	<string>$(REPORT_FORM_URL)</string>
 	<key>BASE_URL</key>
 	<string>$(BASE_URL)</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
@@ -19,13 +21,13 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>2.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>6</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>프로필 사진을 설정하거나 게시물에 이미지를 첨부하기 위해 사진 라이브러리에 접근합니다.</string>
+	<string>12</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>프로필 사진을 설정하거나 게시물에 이미지를 첨부하기 위해 사진 라이브러리에 접근합니다.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

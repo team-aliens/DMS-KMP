@@ -7,4 +7,5 @@ import team.aliens.dms.kmp.core.network.exception.CannotFindJvmWebViewUrlExcepti
 actual object PlatformConfig {
     actual val baseUrl: String = System.getenv("") ?: throw CannotFindJvmBaseurlException()
     actual val webViewUrl: String = System.getenv("") ?: throw CannotFindJvmWebViewUrlException()
+    actual val reportFormUrl: String = System.getenv("REPORT_FORM_URL") ?: ""
 }

@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.core.network
 
 import platform.Foundation.NSBundle
 import team.aliens.dms.kmp.core.network.exception.CannotFindIOSBaseurlException
+import team.aliens.dms.kmp.core.network.exception.CannotFindIOSReportFormUrlException
 import team.aliens.dms.kmp.core.network.exception.CannotFindIOSWebViewUrlException
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
@@ -13,4 +14,8 @@ actual object PlatformConfig {
     actual val webViewUrl: String =
         (NSBundle.mainBundle.objectForInfoDictionaryKey("WEB_VIEW_URL") as? String)
             ?: throw CannotFindIOSWebViewUrlException()
+
+    actual val reportFormUrl: String =
+        (NSBundle.mainBundle.objectForInfoDictionaryKey("REPORT_FORM_URL") as? String)
+            ?: throw CannotFindIOSReportFormUrlException()
 }

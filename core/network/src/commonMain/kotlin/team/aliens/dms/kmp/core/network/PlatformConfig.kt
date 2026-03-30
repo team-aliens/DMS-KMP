@@ -4,4 +4,5 @@ package team.aliens.dms.kmp.core.network
 expect object PlatformConfig {
     val baseUrl: String
     val webViewUrl: String
+    val reportFormUrl: String
 }
