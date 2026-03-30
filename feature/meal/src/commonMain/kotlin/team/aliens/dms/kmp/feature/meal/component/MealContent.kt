@@ -1,6 +1,10 @@
 package team.aliens.dms.kmp.feature.meal.component
 
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,9 +18,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
@@ -29,20 +33,19 @@ internal fun MealContent(
     meal: List<String>,
 ) {
     val scrollState = rememberScrollState()
+    val infiniteTransition = rememberInfiniteTransition(label = "mealScroll")
+    val scrollOffset by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 3_000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "scrollOffset",
+    )
 
-    LaunchedEffect(meal) {
-        while (true) {
-            delay(2_000)
-            scrollState.animateScrollTo(
-                scrollState.maxValue,
-                animationSpec = tween(durationMillis = 3_000, easing = LinearEasing),
-            )
-            delay(1_000)
-            scrollState.animateScrollTo(
-                0,
-                animationSpec = tween(durationMillis = 3_000, easing = LinearEasing),
-            )
-        }
+    LaunchedEffect(scrollOffset) {
+        scrollState.scrollTo((scrollOffset * scrollState.maxValue).toInt())
     }
 
     Column(
