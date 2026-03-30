@@ -8,5 +8,5 @@ data class TokenDto(
     val accessTokenExpiredAt: String,
     val refreshToken: String,
     val refreshTokenExpiredAt: String,
-    val features: FeatureDto,
+    val features: FeatureDto? = null,
 )
