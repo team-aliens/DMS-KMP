@@ -12,11 +12,17 @@ import kotlinx.datetime.plus
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.domain.usecase.meal.GetMealUseCase
 import team.aliens.dms.kmp.core.model.meal.MealModel
+import team.aliens.dms.kmp.core.util.now
 import team.aliens.dms.kmp.core.util.today
+
+private const val DinnerEndHour: Int = 19
+
+private fun getInitialDate(): LocalDate =
+    if (now.hour >= DinnerEndHour) today.plus(DatePeriod(days = 1)) else today
 
 internal class MealViewModel(
     private val getMealUseCase: GetMealUseCase,
-) : BaseViewModel<MealState, MealSideEffect>(MealState()) {
+) : BaseViewModel<MealState, MealSideEffect>(MealState(selectedDate = getInitialDate())) {
 
     init {
         getMeal()
