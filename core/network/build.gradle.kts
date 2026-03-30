@@ -91,6 +91,12 @@ android {
                 name = "WEB_VIEW_URL",
                 value = getLocalProperty("WEB_VIEW_URL").toString(),
             )
+
+            buildConfigField(
+                type = "String",
+                name = "REPORT_FORM_URL",
+                value = getLocalProperty("REPORT_FORM_URL").toString(),
+            )
         }
 
         debug {
@@ -104,6 +110,12 @@ android {
                 type = "String",
                 name = "WEB_VIEW_URL",
                 value = getLocalProperty("WEB_VIEW_URL").toString(),
+            )
+
+            buildConfigField(
+                type = "String",
+                name = "REPORT_FORM_URL",
+                value = getLocalProperty("REPORT_FORM_URL").toString(),
             )
         }
     }
