@@ -33,6 +33,7 @@ import dmskmp.core.design_system.generated.resources.ic_setting
 import dmskmp.core.design_system.generated.resources.ic_symbol_dark
 import dmskmp.core.design_system.generated.resources.ic_symbol_light
 import dmskmp.core.design_system.generated.resources.ic_up
+import dmskmp.core.design_system.generated.resources.ic_warning_red
 
 object DmsIcon {
     val AddNotes = Res.drawable.ic_add_notes
@@ -67,4 +68,5 @@ object DmsIcon {
     val Setting = Res.drawable.ic_setting
     val CheckCircle = Res.drawable.ic_check_circle
     val CheckCircleFill = Res.drawable.ic_fill_check_circle
+    val WarningRed = Res.drawable.ic_warning_red
 }
