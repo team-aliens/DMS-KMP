@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dmskmp.core.design_system.generated.resources.Res
@@ -27,9 +28,11 @@ import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.button.DmsItemButton
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
+import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.feature.setting.ui.component.SettingRotateContent
 import team.aliens.dms.kmp.feature.setting.viewmodel.SettingSideEffect
 import team.aliens.dms.kmp.feature.setting.viewmodel.SettingViewModel
@@ -132,6 +135,8 @@ private fun SettingScreen(
     onShowWithdrawDialogChange: () -> Unit,
     onBackPressed: () -> Unit,
 ) {
+    val uriHandler = LocalUriHandler.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -167,6 +172,11 @@ private fun SettingScreen(
                 iconRes = Res.drawable.img_3d_out,
                 text = "로그아웃",
                 onClick = onShowSignOutDialogChange,
+            )
+            DmsItemButton(
+                iconRes = DmsIcon.WarningRed,
+                text = "제보함",
+                onClick = { uriHandler.openUri(PlatformConfig.reportFormUrl) },
             )
             DmsItemButton(
                 text = "회원 탈퇴",

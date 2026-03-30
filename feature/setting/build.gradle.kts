@@ -63,6 +63,7 @@ kotlin {
             implementation(projects.core.model)
             implementation(projects.core.util)
             implementation(projects.core.notification)
+            implementation(projects.core.network)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
