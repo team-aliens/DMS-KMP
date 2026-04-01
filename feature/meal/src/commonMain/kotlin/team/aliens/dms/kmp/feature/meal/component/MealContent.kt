@@ -33,20 +33,6 @@ internal fun MealContent(
     meal: List<String>,
 ) {
     val scrollState = rememberScrollState()
-    val infiniteTransition = rememberInfiniteTransition(label = "mealScroll")
-    val scrollOffset by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 3_000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse,
-        ),
-        label = "scrollOffset",
-    )
-
-    LaunchedEffect(scrollOffset) {
-        scrollState.scrollTo((scrollOffset * scrollState.maxValue).toInt())
-    }
 
     Column(
         modifier = modifier
