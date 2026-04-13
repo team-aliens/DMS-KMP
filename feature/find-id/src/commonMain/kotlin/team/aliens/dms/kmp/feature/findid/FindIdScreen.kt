@@ -56,7 +56,7 @@ internal fun FindIdScreen(
     if (state.isShowIdDialog) {
         DmsAlertDialog(
             title = "회원님의 아이디가 발송되었습니다!",
-            description = "회원님의 아이디는 ${state.email.email}에 발송되었습니다.",
+            description = "회원님의 아이디가 ${state.email.email}로 발송되었습니다.",
             onClose = viewModel::hideDialog,
         )
     }
