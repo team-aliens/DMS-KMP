@@ -151,7 +151,7 @@ private fun UserInformationInputs(
                 .padding(top = 32.dp),
             label = "비밀번호",
             value = password,
-            hint = "비빌번호 입력",
+            hint = "비밀번호 입력",
             onValueChange = onPasswordChange,
             showVisibleIcon = true,
         )
