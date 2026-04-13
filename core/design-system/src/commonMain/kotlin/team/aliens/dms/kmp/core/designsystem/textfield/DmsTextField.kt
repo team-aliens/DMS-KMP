@@ -22,8 +22,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -148,15 +155,24 @@ private fun TextField(
             DmsTheme.colors.onSurfaceVariant
         },
     )
+    val focusManager = LocalFocusManager.current
 
     BasicTextField(
         value = value.take(maxLength),
         onValueChange = { newValue ->
-            if (newValue.length <= maxLength) {
-                onValueChange(newValue)
+            val filtered = newValue.replace("\t", "")
+            if (filtered.length <= maxLength) {
+                onValueChange(filtered)
             }
         },
-        modifier = modifier,
+        modifier = modifier.onKeyEvent { keyEvent ->
+            if (keyEvent.key == Key.Tab && keyEvent.type == KeyEventType.KeyDown) {
+                focusManager.moveFocus(FocusDirection.Next)
+                true
+            } else {
+                false
+            }
+        },
         textStyle = DmsTypography.BodyM,
         singleLine = singleLine,
         enabled = enabled,

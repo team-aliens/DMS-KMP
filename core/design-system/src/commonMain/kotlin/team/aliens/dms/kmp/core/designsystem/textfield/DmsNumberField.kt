@@ -15,6 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
@@ -34,13 +41,23 @@ fun DmsNumberField(
     isError: Boolean = false,
     errorMessage: String? = null,
 ) {
+    val focusManager = LocalFocusManager.current
+
     BasicTextField(
-        modifier = modifier,
+        modifier = modifier.onKeyEvent { keyEvent ->
+            if (keyEvent.key == Key.Tab && keyEvent.type == KeyEventType.KeyDown) {
+                focusManager.moveFocus(FocusDirection.Next)
+                true
+            } else {
+                false
+            }
+        },
         value = value.take(totalLength),
         enabled = enabled,
         onValueChange = { newValue ->
-            if (newValue.length <= totalLength) {
-                onValueChange(newValue)
+            val filtered = newValue.replace("\t", "")
+            if (filtered.length <= totalLength) {
+                onValueChange(filtered)
             }
         },
         singleLine = true,
