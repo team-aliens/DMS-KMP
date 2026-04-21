@@ -10,21 +10,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.Month
-import team.aliens.dms.kmp.core.designsystem.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 
 @Composable
 fun LateStudyCalendarSection(
@@ -46,14 +43,12 @@ fun LateStudyCalendarSection(
         ) {
             Text(
                 text = "일정",
-                color = DmsTheme.colorScheme.onBackground,
-                style = DmsTheme.typography.bodyB,
+                color = DmsTheme.colors.scrim,
             )
 
             Text(
                 text = "(새벽 자습은 금, 토, 일요일은 불가능합니다)",
-                color = DmsTheme.colorScheme.inverseSurface,
-                style = DmsTheme.typography.labelM,
+                color = Gray600,
             )
         }
 
@@ -63,27 +58,24 @@ fun LateStudyCalendarSection(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                contentDescription = "이전 달",
-                tint = DmsTheme.colorScheme.onSurfaceVariant,
+            Text(
+                text = "<",
+                color = DmsTheme.colors.scrim,
                 modifier = Modifier.clickable(onClick = onPrevMonthClick),
             )
 
-            Spacer(modifier = Modifier.size(4.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
             Text(
                 text = "${currentMonth.year} ${currentMonth.monthNumber}월",
-                color = DmsTheme.colorScheme.onBackground,
-                style = DmsTheme.typography.bodyB,
+                color = DmsTheme.colors.scrim,
             )
 
-            Spacer(modifier = Modifier.size(4.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = "다음 달",
-                tint = DmsTheme.colorScheme.onSurfaceVariant,
+            Text(
+                text = ">",
+                color = DmsTheme.colors.scrim,
                 modifier = Modifier.clickable(onClick = onNextMonthClick),
             )
         }
@@ -113,10 +105,10 @@ private fun CalendarDayHeader() {
     ) {
         days.forEachIndexed { index, day ->
             val color = when (index) {
-                0 -> DmsTheme.colorScheme.errorContainer
-                6 -> DmsTheme.colorScheme.onPrimary
-                5 -> DmsTheme.colorScheme.onSurfaceVariant
-                else -> DmsTheme.colorScheme.onBackground
+                0 -> SundayColor
+                5 -> FridayColor
+                6 -> SaturdayColor
+                else -> DmsTheme.colors.scrim
             }
 
             Box(
@@ -126,110 +118,8 @@ private fun CalendarDayHeader() {
                 Text(
                     text = day,
                     color = color,
-                    style = DmsTheme.typography.caption,
                 )
             }
-        }
-    }
-}
-
-@Composable
-private fun CalendarDateCell(
-    date: LocalDate,
-    isCurrentMonth: Boolean,
-    isRangeStart: Boolean,
-    isRangeEnd: Boolean,
-    isInRange: Boolean,
-    isSingleSelected: Boolean,
-    isSelectable: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val isSelected = isRangeStart || isRangeEnd
-
-    val textColor = when {
-        isSelected || isInRange -> DmsTheme.colorScheme.background
-        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SUNDAY -> DmsTheme.colorScheme.onError
-        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SATURDAY -> DmsTheme.colorScheme.onPrimary
-        !isCurrentMonth -> DmsTheme.colorScheme.inverseSurface
-        date.dayOfWeek == DayOfWeek.SUNDAY -> DmsTheme.colorScheme.onError
-        date.dayOfWeek == DayOfWeek.SATURDAY -> DmsTheme.colorScheme.onPrimary
-        date.dayOfWeek == DayOfWeek.FRIDAY -> DmsTheme.colorScheme.onSurfaceVariant
-        else -> DmsTheme.colorScheme.onBackground
-    }
-
-    Box(
-        modifier = modifier.height(40.dp),
-        contentAlignment = Alignment.Center,
-    ) {
-        if (isRangeStart && !isSingleSelected) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .padding(start = 15.dp)
-                    .background(
-                        color = DmsTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f),
-                        shape = RoundedCornerShape(
-                            topStart = 999.dp,
-                            bottomStart = 999.dp,
-                        ),
-                    ),
-            )
-        }
-
-        if (isInRange) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .background(
-                        color = DmsTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f),
-                    ),
-            )
-        }
-
-        if (isRangeEnd && !isSingleSelected) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .padding(end = 15.dp)
-                    .background(
-                        color = DmsTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f),
-                        shape = RoundedCornerShape(
-                            topEnd = 999.dp,
-                            bottomEnd = 999.dp,
-                        ),
-                    ),
-            )
-        }
-
-        if (isSelected) {
-            Box(
-                modifier = Modifier
-                    .size(30.dp)
-                    .background(
-                        color = DmsTheme.colorScheme.onPrimaryContainer,
-                        shape = CircleShape,
-                    ),
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .size(32.dp)
-                .clickable(
-                    enabled = isSelectable,
-                    onClick = onClick,
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = date.dayOfMonth.toString(),
-                color = textColor,
-                style = DmsTheme.typography.caption,
-            )
         }
     }
 }
@@ -256,7 +146,9 @@ private fun CalendarGrid(
                         endDate != null &&
                         item.date > startDate &&
                         item.date < endDate
-                val isSingleSelected = startDate != null && endDate == null && item.date == startDate
+                val isSingleSelected = startDate != null &&
+                        endDate == null &&
+                        item.date == startDate
                 val isSelectable = item.isCurrentMonth && isSelectableDate(item.date)
 
                 CalendarDateCell(
@@ -268,11 +160,111 @@ private fun CalendarGrid(
                     isSingleSelected = isSingleSelected,
                     isSelectable = isSelectable,
                     onClick = {
-                        if (isSelectable) onDateClick(item.date)
+                        if (isSelectable) {
+                            onDateClick(item.date)
+                        }
                     },
                     modifier = Modifier.weight(1f),
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun CalendarDateCell(
+    date: LocalDate,
+    isCurrentMonth: Boolean,
+    isRangeStart: Boolean,
+    isRangeEnd: Boolean,
+    isInRange: Boolean,
+    isSingleSelected: Boolean,
+    isSelectable: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val isSelected = isRangeStart || isRangeEnd
+
+    val textColor = when {
+        isSelected || isInRange -> Color.White
+        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SUNDAY -> SundayColor.copy(alpha = 0.45f)
+        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SATURDAY -> SaturdayColor.copy(alpha = 0.45f)
+        !isCurrentMonth -> Gray400
+        date.dayOfWeek == DayOfWeek.SUNDAY -> SundayColor
+        date.dayOfWeek == DayOfWeek.SATURDAY -> SaturdayColor
+        date.dayOfWeek == DayOfWeek.FRIDAY -> FridayColor
+        else -> DmsTheme.colors.scrim
+    }
+
+    Box(
+        modifier = modifier.height(40.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (isRangeStart && !isSingleSelected) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .padding(start = 15.dp)
+                    .background(
+                        color = SelectedRangeColor,
+                        shape = RoundedCornerShape(
+                            topStart = 999.dp,
+                            bottomStart = 999.dp,
+                        ),
+                    ),
+            )
+        }
+
+        if (isInRange) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .background(SelectedRangeColor),
+            )
+        }
+
+        if (isRangeEnd && !isSingleSelected) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .padding(end = 15.dp)
+                    .background(
+                        color = SelectedRangeColor,
+                        shape = RoundedCornerShape(
+                            topEnd = 999.dp,
+                            bottomEnd = 999.dp,
+                        ),
+                    ),
+            )
+        }
+
+        if (isSelected) {
+            Box(
+                modifier = Modifier
+                    .size(30.dp)
+                    .background(
+                        color = SelectedCircleColor,
+                        shape = CircleShape,
+                    ),
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .clickable(
+                    enabled = isSelectable,
+                    onClick = onClick,
+                ),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = date.dayOfMonth.toString(),
+                color = textColor,
+            )
         }
     }
 }
@@ -363,14 +355,20 @@ data class CalendarYearMonth(
         val totalMonths = year * 12 + (monthNumber - 1) - months
         val newYear = totalMonths.floorDiv(12)
         val newMonth = totalMonths.mod(12) + 1
-        return CalendarYearMonth(newYear, newMonth)
+        return CalendarYearMonth(
+            year = newYear,
+            monthNumber = newMonth,
+        )
     }
 
     fun plusMonths(months: Int): CalendarYearMonth {
         val totalMonths = year * 12 + (monthNumber - 1) + months
         val newYear = totalMonths.floorDiv(12)
         val newMonth = totalMonths.mod(12) + 1
-        return CalendarYearMonth(newYear, newMonth)
+        return CalendarYearMonth(
+            year = newYear,
+            monthNumber = newMonth,
+        )
     }
 }
 
@@ -388,3 +386,11 @@ private val DayOfWeek.isoDayNumber: Int
         DayOfWeek.SATURDAY -> 6
         DayOfWeek.SUNDAY -> 7
     }
+
+private val SundayColor = Color(0xFFFF6B6B)
+private val FridayColor = Color(0xFF8E8E93)
+private val SaturdayColor = Color(0xFF4A90E2)
+private val Gray600 = Color(0xFF7A7A7A)
+private val Gray400 = Color(0xFFB8B8B8)
+private val SelectedCircleColor = Color(0xFF4A90E2)
+private val SelectedRangeColor = Color(0x664A90E2)
