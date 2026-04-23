@@ -1,4 +1,4 @@
-package team.aliens.dms.android.feature.latestudy.component
+package team.aliens.dms.kmp.feature.latestudy.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,9 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import team.aliens.dms.android.core.designsystem.DmsTheme
-import team.aliens.dms.android.core.designsystem.bodyB
-import team.aliens.dms.android.core.designsystem.bodyM
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 
 @Composable
 fun LateStudyTeacherSection(
@@ -24,15 +23,15 @@ fun LateStudyTeacherSection(
         Text(
             text = "담당 선생님",
             modifier = Modifier.padding(horizontal = 16.dp),
-            color = DmsTheme.colorScheme.onBackground,
-            style = DmsTheme.typography.bodyB,
+            color = DmsTheme.colors.onBackground,
+            style = DmsTypography.BodyB,
         )
 
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
-            textStyle = DmsTheme.typography.bodyM.copy(
-                color = DmsTheme.colorScheme.onBackground,
+            textStyle = DmsTypography.BodyM.copy(
+                color = DmsTheme.colors.onBackground,
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -42,7 +41,7 @@ fun LateStudyTeacherSection(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = DmsTheme.colorScheme.surfaceVariant,
+                            color = DmsTheme.colors.surfaceVariant,
                             shape = RoundedCornerShape(20.dp),
                         )
                         .padding(horizontal = 20.dp, vertical = 16.dp),
@@ -50,8 +49,8 @@ fun LateStudyTeacherSection(
                     if (value.isEmpty()) {
                         Text(
                             text = "홍길동",
-                            color = DmsTheme.colorScheme.inverseSurface,
-                            style = DmsTheme.typography.bodyM,
+                            color = DmsTheme.colors.inverseSurface,
+                            style = DmsTypography.BodyM,
                         )
                     }
                     innerTextField()
