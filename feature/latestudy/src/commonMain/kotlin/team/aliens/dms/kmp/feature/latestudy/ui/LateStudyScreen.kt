@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
-import team.aliens.dms.kmp.core.designsystem.button.DmsLayeredButton
+import team.aliens.dms.kmp.core.designsystem.button.DmsButton
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.feature.latestudy.component.CalendarYearMonth
@@ -86,6 +86,12 @@ fun LateStudyScreen(
     }
 
     var reason by remember { mutableStateOf("") }
+
+    val isEnabled = selectedTeacherId != null &&
+            selectedType != null &&
+            startDate != null &&
+            endDate != null &&
+            reason.isNotBlank()
 
     Column(
         modifier = Modifier
@@ -165,7 +171,7 @@ fun LateStudyScreen(
                         startDate = clickedDate
                     }
 
-                    endDate == null && clickedDate >= startDate!! -> {
+                    endDate == null && startDate != null && clickedDate >= startDate!! -> {
                         endDate = clickedDate
                     }
 
@@ -186,25 +192,14 @@ fun LateStudyScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        DmsLayeredButton(
+        DmsButton(
             modifier = Modifier.fillMaxWidth(),
             text = "신청하기",
             buttonType = ButtonType.Contained,
             buttonColor = ButtonColor.Primary,
-            enabled =
-                selectedTeacherId != null &&
-                        selectedType != null &&
-                        startDate != null &&
-                        endDate != null &&
-                        reason.isNotBlank(),
+            enabled = isEnabled,
             onClick = {
-                if (
-                    selectedTeacherId != null &&
-                    selectedType != null &&
-                    startDate != null &&
-                    endDate != null &&
-                    reason.isNotBlank()
-                ) {
+                if (isEnabled) {
                     onShowSnackBar(
                         DmsSnackBarType.SUCCESS,
                         "새벽 자습 신청이 완료되었습니다",
