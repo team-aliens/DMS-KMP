@@ -30,8 +30,8 @@ import team.aliens.dms.kmp.feature.latestudy.component.CalendarYearMonth
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudyCalendarSection
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudyReasonSection
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudySectionCard
-import team.aliens.dms.kmp.feature.latestudy.component.LateStudyTeacherSection
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudyTypeItem
+import team.aliens.dms.kmp.feature.latestudy.ui.component.LateStudyTeacherSection
 
 data class TeacherUiModel(
     val teacherId: String,
@@ -124,12 +124,6 @@ fun LateStudyScreen(
                 teacherKeyword = it
                 selectedTeacherId = null
                 selectedTeacherName = null
-            },
-            teachers = filteredTeachers,
-            onTeacherClick = { teacher ->
-                teacherKeyword = teacher.teacherName
-                selectedTeacherName = teacher.teacherName
-                selectedTeacherId = teacher.teacherId
             },
         )
 
