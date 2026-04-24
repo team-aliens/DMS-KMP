@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -60,15 +57,7 @@ fun LateStudyTypeItem(
                         color = DmsTheme.colors.onPrimaryContainer,
                         shape = CircleShape,
                     ),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "선택됨",
-                    tint = DmsTheme.colors.surface,
-                    modifier = Modifier.size(16.dp),
-                )
-            }
+            )
         } else {
             Box(
                 modifier = Modifier
