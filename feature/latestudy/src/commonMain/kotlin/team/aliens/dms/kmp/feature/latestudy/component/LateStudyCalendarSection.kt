@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -58,11 +59,12 @@ fun LateStudyCalendarSection(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "<",
-                color = DmsTheme.colors.scrim,
-                modifier = Modifier.clickable(onClick = onPrevMonthClick),
-            )
+            IconButton(onClick = onPrevMonthClick) {
+                Text(
+                    text = "<",
+                    color = DmsTheme.colors.scrim,
+                )
+            }
 
             Spacer(modifier = Modifier.width(8.dp))
 
@@ -73,11 +75,12 @@ fun LateStudyCalendarSection(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Text(
-                text = ">",
-                color = DmsTheme.colors.scrim,
-                modifier = Modifier.clickable(onClick = onNextMonthClick),
-            )
+            IconButton(onClick = onNextMonthClick) {
+                Text(
+                    text = ">",
+                    color = DmsTheme.colors.scrim,
+                )
+            }
         }
 
         CalendarDayHeader()
@@ -184,8 +187,129 @@ private fun CalendarDateCell(
     modifier: Modifier = Modifier,
 ) {
     val isSelected = isRangeStart || isRangeEnd
+    val textColor = calendarDateTextColor(
+        date = date,
+        isCurrentMonth = isCurrentMonth,
+        isSelected = isSelected,
+        isInRange = isInRange,
+    )
 
-    val textColor = when {
+    Box(
+        modifier = modifier.height(40.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        CalendarRangeBackground(
+            isRangeStart = isRangeStart,
+            isRangeEnd = isRangeEnd,
+            isInRange = isInRange,
+            isSingleSelected = isSingleSelected,
+        )
+
+        if (isSelected) {
+            SelectedDateBackground()
+        }
+
+        CalendarDateText(
+            date = date,
+            textColor = textColor,
+            isSelectable = isSelectable,
+            onClick = onClick,
+        )
+    }
+}
+
+@Composable
+private fun CalendarRangeBackground(
+    isRangeStart: Boolean,
+    isRangeEnd: Boolean,
+    isInRange: Boolean,
+    isSingleSelected: Boolean,
+) {
+    if (isRangeStart && !isSingleSelected) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(30.dp)
+                .padding(start = 15.dp)
+                .background(
+                    color = SelectedRangeColor,
+                    shape = RoundedCornerShape(
+                        topStart = 999.dp,
+                        bottomStart = 999.dp,
+                    ),
+                ),
+        )
+    }
+
+    if (isInRange) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(30.dp)
+                .background(SelectedRangeColor),
+        )
+    }
+
+    if (isRangeEnd && !isSingleSelected) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(30.dp)
+                .padding(end = 15.dp)
+                .background(
+                    color = SelectedRangeColor,
+                    shape = RoundedCornerShape(
+                        topEnd = 999.dp,
+                        bottomEnd = 999.dp,
+                    ),
+                ),
+        )
+    }
+}
+
+@Composable
+private fun SelectedDateBackground() {
+    Box(
+        modifier = Modifier
+            .size(30.dp)
+            .background(
+                color = SelectedCircleColor,
+                shape = CircleShape,
+            ),
+    )
+}
+
+@Composable
+private fun CalendarDateText(
+    date: LocalDate,
+    textColor: Color,
+    isSelectable: Boolean,
+    onClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .size(32.dp)
+            .clickable(
+                enabled = isSelectable,
+                onClick = onClick,
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = date.dayOfMonth.toString(),
+            color = textColor,
+        )
+    }
+}
+
+@Composable
+private fun calendarDateTextColor(
+    date: LocalDate,
+    isCurrentMonth: Boolean,
+    isSelected: Boolean,
+    isInRange: Boolean,
+): Color {
+    return when {
         isSelected || isInRange -> Color.White
         !isCurrentMonth && date.dayOfWeek == DayOfWeek.SUNDAY -> SundayColor.copy(alpha = 0.45f)
         !isCurrentMonth && date.dayOfWeek == DayOfWeek.SATURDAY -> SaturdayColor.copy(alpha = 0.45f)
@@ -194,78 +318,6 @@ private fun CalendarDateCell(
         date.dayOfWeek == DayOfWeek.SATURDAY -> SaturdayColor
         date.dayOfWeek == DayOfWeek.FRIDAY -> FridayColor
         else -> DmsTheme.colors.scrim
-    }
-
-    Box(
-        modifier = modifier.height(40.dp),
-        contentAlignment = Alignment.Center,
-    ) {
-        if (isRangeStart && !isSingleSelected) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .padding(start = 15.dp)
-                    .background(
-                        color = SelectedRangeColor,
-                        shape = RoundedCornerShape(
-                            topStart = 999.dp,
-                            bottomStart = 999.dp,
-                        ),
-                    ),
-            )
-        }
-
-        if (isInRange) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .background(SelectedRangeColor),
-            )
-        }
-
-        if (isRangeEnd && !isSingleSelected) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .padding(end = 15.dp)
-                    .background(
-                        color = SelectedRangeColor,
-                        shape = RoundedCornerShape(
-                            topEnd = 999.dp,
-                            bottomEnd = 999.dp,
-                        ),
-                    ),
-            )
-        }
-
-        if (isSelected) {
-            Box(
-                modifier = Modifier
-                    .size(30.dp)
-                    .background(
-                        color = SelectedCircleColor,
-                        shape = CircleShape,
-                    ),
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .size(32.dp)
-                .clickable(
-                    enabled = isSelectable,
-                    onClick = onClick,
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = date.dayOfMonth.toString(),
-                color = textColor,
-            )
-        }
     }
 }
 
@@ -280,10 +332,8 @@ private fun buildCalendarDates(
     val firstDayOfMonth = currentMonth.atDay(1)
     val firstDayOffset = firstDayOfMonth.dayOfWeek.isoDayNumber % 7
     val daysInMonth = currentMonth.lengthOfMonth()
-
     val previousMonth = currentMonth.minusMonths(1)
     val previousMonthLastDay = previousMonth.lengthOfMonth()
-
     val result = mutableListOf<CalendarDateUiModel>()
 
     repeat(firstDayOffset) { index ->
@@ -323,9 +373,7 @@ private fun isSelectableDate(date: LocalDate): Boolean {
     return when (date.dayOfWeek) {
         DayOfWeek.FRIDAY,
         DayOfWeek.SATURDAY,
-        DayOfWeek.SUNDAY,
-            -> false
-
+        DayOfWeek.SUNDAY -> false
         else -> true
     }
 }
