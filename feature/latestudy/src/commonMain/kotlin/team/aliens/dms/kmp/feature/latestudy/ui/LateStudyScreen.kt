@@ -87,8 +87,6 @@ fun LateStudyScreen(
 
     var reason by remember { mutableStateOf("") }
 
-    val actualEndDate = endDate ?: startDate
-
     val isEnabled = selectedTeacherId != null &&
             selectedType != null &&
             startDate != null &&
@@ -195,7 +193,6 @@ fun LateStudyScreen(
             enabled = isEnabled,
             onClick = {
                 if (isEnabled) {
-                    val actualEndDate = endDate ?: startDate
                     onShowSnackBar(
                         DmsSnackBarType.SUCCESS,
                         "새벽 자습 신청이 완료되었습니다",
