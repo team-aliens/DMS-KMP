@@ -2,7 +2,6 @@ package team.aliens.dms.kmp.feature.latestudy.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -10,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
@@ -34,7 +35,11 @@ fun LateStudyTypeItem(
             .background(
                 color = if (selected) DmsTheme.colors.primary else Color.Transparent,
             )
-            .clickable(onClick = onClick)
+            .selectable(
+                selected = selected,
+                onClick = onClick,
+                role = Role.RadioButton,
+            )
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -49,25 +54,23 @@ fun LateStudyTypeItem(
             style = DmsTypography.BodyM,
         )
 
-        if (selected) {
-            Box(
-                modifier = Modifier
-                    .size(20.dp)
-                    .background(
-                        color = DmsTheme.colors.onPrimaryContainer,
-                        shape = CircleShape,
-                    ),
-            )
-        } else {
-            Box(
-                modifier = Modifier
-                    .size(20.dp)
-                    .border(
-                        width = 2.dp,
-                        color = DmsTheme.colors.onSurfaceVariant,
-                        shape = CircleShape,
-                    ),
-            )
-        }
+        Box(
+            modifier = Modifier
+                .size(20.dp)
+                .then(
+                    if (selected) {
+                        Modifier.background(
+                            color = DmsTheme.colors.onPrimaryContainer,
+                            shape = CircleShape,
+                        )
+                    } else {
+                        Modifier.border(
+                            width = 2.dp,
+                            color = DmsTheme.colors.onSurfaceVariant,
+                            shape = CircleShape,
+                        )
+                    },
+                ),
+        )
     }
 }
