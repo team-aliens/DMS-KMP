@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,6 +25,7 @@ import kotlin.time.ExperimentalTime
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
@@ -35,30 +35,17 @@ import team.aliens.dms.kmp.feature.latestudy.component.CalendarYearMonth
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudyCalendarSection
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudyReasonSection
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudySectionCard
+import team.aliens.dms.kmp.feature.latestudy.component.LateStudyTeacherSection
 import team.aliens.dms.kmp.feature.latestudy.component.LateStudyTypeItem
-import team.aliens.dms.kmp.feature.latestudy.ui.component.LateStudyTeacherSection
-
-data class TeacherUiModel(
-    val teacherId: String,
-    val teacherName: String,
-)
+import team.aliens.dms.kmp.feature.latestudy.viewmodel.LateStudyViewModel
 
 @OptIn(ExperimentalTime::class)
 @Composable
 fun LateStudyScreen(
     onBack: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
+    viewModel: LateStudyViewModel = koinViewModel(),
 ) {
-    var selectedType by remember { mutableStateOf<String?>(null) }
-
-    val types = listOf(
-        "개인 공부",
-        "개인 프로젝트",
-        "팀 프로젝트",
-        "대회 프로젝트",
-        "기타",
-    )
-
     val today = Clock.System.now()
         .toLocalDateTime(TimeZone.currentSystemDefault())
         .date
@@ -75,32 +62,11 @@ fun LateStudyScreen(
     var startDate by remember { mutableStateOf<LocalDate?>(null) }
     var endDate by remember { mutableStateOf<LocalDate?>(null) }
 
-    var teacherKeyword by remember { mutableStateOf("") }
-    var selectedTeacherId by remember { mutableStateOf<String?>(null) }
-    var selectedTeacherName by remember { mutableStateOf<String?>(null) }
-
-    val teachers = remember {
-        mutableStateListOf(
-            TeacherUiModel("1", "김선생"),
-            TeacherUiModel("2", "이선생"),
-            TeacherUiModel("3", "박선생"),
-        )
-    }
-
-    val filteredTeachers = if (teacherKeyword.isBlank()) {
-        emptyList()
-    } else {
-        teachers.filter { teacher ->
-            teacher.teacherName.contains(teacherKeyword)
-        }
-    }
-
-    var reason by remember { mutableStateOf("") }
-
-    val isEnabled = selectedTeacherId != null &&
-            selectedType != null &&
+    val isEnabled = viewModel.selectedTeacherId != null &&
+            viewModel.selectedTypeId != null &&
             startDate != null &&
-            reason.isNotBlank()
+            viewModel.reason.isNotBlank() &&
+            !viewModel.isSubmitting
 
     Column(
         modifier = Modifier
@@ -129,12 +95,8 @@ fun LateStudyScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         LateStudyTeacherSection(
-            value = teacherKeyword,
-            onValueChange = {
-                teacherKeyword = it
-                selectedTeacherId = null
-                selectedTeacherName = null
-            },
+            value = viewModel.teacherKeyword,
+            onValueChange = viewModel::updateTeacherKeyword,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -148,11 +110,11 @@ fun LateStudyScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            types.forEach { type ->
+            viewModel.studyTypes.forEach { type ->
                 LateStudyTypeItem(
-                    text = type,
-                    selected = selectedType == type,
-                    onClick = { selectedType = type },
+                    text = type.name,
+                    selected = viewModel.selectedTypeId == type.id,
+                    onClick = { viewModel.selectStudyType(type.id) },
                 )
             }
         }
@@ -190,8 +152,8 @@ fun LateStudyScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         LateStudyReasonSection(
-            value = reason,
-            onValueChange = { reason = it },
+            value = viewModel.reason,
+            onValueChange = viewModel::updateReason,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -203,17 +165,29 @@ fun LateStudyScreen(
             buttonColor = ButtonColor.Primary,
             enabled = isEnabled,
             onClick = {
-                if (isEnabled) {
-                    onShowSnackBar(
-                        DmsSnackBarType.SUCCESS,
-                        "새벽 자습 신청이 완료되었습니다",
-                    )
-                } else {
-                    onShowSnackBar(
-                        DmsSnackBarType.ERROR,
-                        "모두 선택해주세요",
-                    )
+                val selectedStartDate = startDate
+
+                if (selectedStartDate == null) {
+                    onShowSnackBar(DmsSnackBarType.ERROR, "모두 선택해주세요")
+                    return@DmsButton
                 }
+
+                viewModel.submitLateStudy(
+                    startDate = selectedStartDate.toString(),
+                    endDate = (endDate ?: selectedStartDate).toString(),
+                    onSuccess = {
+                        onShowSnackBar(
+                            DmsSnackBarType.SUCCESS,
+                            "새벽 자습 신청이 완료되었습니다",
+                        )
+                    },
+                    onFailure = {
+                        onShowSnackBar(
+                            DmsSnackBarType.ERROR,
+                            "모두 선택해주세요",
+                        )
+                    },
+                )
             },
         )
 
