@@ -35,6 +35,8 @@ class LateStudyViewModel(
                 lateStudyRepository.fetchStudyTypes()
             }.onSuccess { response ->
                 studyTypes = response.types
+            }.onFailure {
+                it.printStackTrace()
             }
         }
     }
@@ -45,6 +47,8 @@ class LateStudyViewModel(
                 lateStudyRepository.fetchTeachers()
             }.onSuccess { response ->
                 teachers = response.teachers
+            }.onFailure {
+                it.printStackTrace()
             }
         }
     }
@@ -71,6 +75,8 @@ class LateStudyViewModel(
                         endDate = endDate,
                     ),
                 )
+            }.onFailure {
+                it.printStackTrace()
             }
         }
     }
