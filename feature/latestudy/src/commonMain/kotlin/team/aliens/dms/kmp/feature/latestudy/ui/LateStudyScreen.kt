@@ -1,6 +1,7 @@
 package team.aliens.dms.kmp.feature.latestudy.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +21,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
@@ -38,6 +43,7 @@ data class TeacherUiModel(
     val teacherName: String,
 )
 
+@OptIn(ExperimentalTime::class)
 @Composable
 fun LateStudyScreen(
     onBack: () -> Unit,
@@ -53,11 +59,15 @@ fun LateStudyScreen(
         "기타",
     )
 
+    val today = Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault())
+        .date
+
     var currentMonth by remember {
         mutableStateOf(
             CalendarYearMonth(
-                year = 2026,
-                monthNumber = 4,
+                year = today.year,
+                monthNumber = today.monthNumber,
             ),
         )
     }
@@ -105,7 +115,8 @@ fun LateStudyScreen(
             color = DmsTheme.colors.scrim,
             modifier = Modifier
                 .size(80.dp, 24.dp)
-                .padding(start = 4.dp),
+                .padding(start = 4.dp)
+                .clickable { onBack() },
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -164,7 +175,7 @@ fun LateStudyScreen(
                         startDate = clickedDate
                     }
 
-                    endDate == null && startDate != null && clickedDate >= startDate!! -> {
+                    endDate == null && clickedDate >= startDate!! -> {
                         endDate = clickedDate
                     }
 
