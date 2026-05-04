@@ -30,7 +30,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "home"
+            baseName = "latestudy"
             isStatic = true
         }
     }
