@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.feature.latestudy.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -66,13 +67,15 @@ fun LateStudyReasonSection(
                     color = DmsTheme.colors.scrim,
                 ),
                 decorationBox = { innerTextField ->
-                    if (value.isEmpty()) {
-                        Text(
-                            text = "새벽 자습을 신청한 이유를 작성해주세요",
-                            color = Gray600,
-                        )
+                    Box {
+                        if (value.isEmpty()) {
+                            Text(
+                                text = "새벽 자습을 신청한 이유를 작성해주세요",
+                                color = Gray600,
+                            )
+                        }
+                        innerTextField()
                     }
-                    innerTextField()
                 },
             )
         }
