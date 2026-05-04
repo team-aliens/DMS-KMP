@@ -45,14 +45,16 @@ fun LateStudyTeacherSection(
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 decorationBox = { innerTextField ->
-                    if (value.isEmpty()) {
-                        Text(
-                            text = "홍길동",
-                            color = DmsTheme.colors.inverseSurface,
-                            style = DmsTypography.BodyM,
-                        )
+                    Box {
+                        if (value.isEmpty()) {
+                            Text(
+                                text = "홍길동",
+                                color = DmsTheme.colors.inverseSurface,
+                                style = DmsTypography.BodyM,
+                            )
+                        }
+                        innerTextField()
                     }
-                    innerTextField()
                 },
             )
         }
