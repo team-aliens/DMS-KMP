@@ -26,6 +26,6 @@ class KtorLateStudyDataSource(
     override suspend fun submitLateStudy(request: SubmitLateStudyRequest) {
         httpClient.post("/daybreaks/study-application") {
             setBody(request)
-        }
+        }.body<Unit>()
     }
 }
