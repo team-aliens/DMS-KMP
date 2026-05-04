@@ -64,7 +64,7 @@ kotlin {
 }
 
 android {
-    namespace = "team.aliens.dms.kmp.feature.home"
+    namespace = "team.aliens.dms.kmp.feature.latestudy"
     compileSdk = ProjectProperties.COMPILE_SDK
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
