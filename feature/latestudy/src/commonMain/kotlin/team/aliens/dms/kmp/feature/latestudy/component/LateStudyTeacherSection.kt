@@ -1,4 +1,4 @@
-package team.aliens.dms.kmp.feature.latestudy.ui.component
+package team.aliens.dms.kmp.feature.latestudy.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
-import team.aliens.dms.kmp.feature.latestudy.component.LateStudySectionCard
 
 @Composable
 fun LateStudyTeacherSection(
