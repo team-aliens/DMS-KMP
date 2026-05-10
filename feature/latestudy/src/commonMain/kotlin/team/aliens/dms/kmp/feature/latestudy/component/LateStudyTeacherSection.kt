@@ -32,7 +32,7 @@ fun LateStudyTeacherSection(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 14.dp)
                 .background(
-                    color = DmsTheme.colors.surfaceVariant,
+                    color = DmsTheme.colors.background,
                     shape = RoundedCornerShape(20.dp),
                 )
                 .padding(horizontal = 20.dp, vertical = 16.dp),
