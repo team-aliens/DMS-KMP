@@ -184,7 +184,7 @@ fun LateStudyScreen(
                     onFailure = {
                         onShowSnackBar(
                             DmsSnackBarType.ERROR,
-                            "모두 선택해주세요",
+                            "신청 중 오류가 발생했습니다",
                         )
                     },
                 )
