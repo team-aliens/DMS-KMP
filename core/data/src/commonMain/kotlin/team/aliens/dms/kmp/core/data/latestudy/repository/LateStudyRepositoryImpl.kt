@@ -30,6 +30,8 @@ class LateStudyRepositoryImpl(
         dataSource.fetchMyStudyApplicationStatus().let {
             StudyApplicationStatusModel(
                 status = it.status,
+                startDate = it.startDate,
+                endDate = it.endDate,
             )
         }
 
