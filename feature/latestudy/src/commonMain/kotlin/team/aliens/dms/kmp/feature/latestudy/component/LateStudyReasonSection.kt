@@ -13,9 +13,9 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 
 private const val REASON_MAX_LENGTH = 200
 
@@ -34,13 +34,15 @@ fun LateStudyReasonSection(
         ) {
             Text(
                 text = "사유",
-                color = DmsTheme.colors.scrim,
+                color = DmsTheme.colors.onBackground,
+                style = DmsTypography.BodyB,
             )
 
             Text(
                 text = "${value.length}/$REASON_MAX_LENGTH",
-                color = Gray600,
+                color = DmsTheme.colors.inverseSurface,
                 modifier = Modifier.padding(top = 4.dp, end = 10.dp),
+                style = DmsTypography.BodyM,
             )
         }
 
@@ -63,15 +65,16 @@ fun LateStudyReasonSection(
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
-                textStyle = androidx.compose.ui.text.TextStyle(
-                    color = DmsTheme.colors.scrim,
+                textStyle = DmsTypography.BodyM.copy(
+                    color = DmsTheme.colors.onBackground,
                 ),
                 decorationBox = { innerTextField ->
                     Box {
                         if (value.isEmpty()) {
                             Text(
                                 text = "새벽 자습을 신청한 이유를 작성해주세요",
-                                color = Gray600,
+                                color = DmsTheme.colors.inverseSurface,
+                                style = DmsTypography.BodyM,
                             )
                         }
                         innerTextField()
@@ -81,5 +84,3 @@ fun LateStudyReasonSection(
         }
     }
 }
-
-private val Gray600 = Color(0xFF7A7A7A)
