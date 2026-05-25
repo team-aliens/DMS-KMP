@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import team.aliens.dms.kmp.core.common.exception.network.ConflictException
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
 import team.aliens.dms.kmp.core.model.latestudy.StudyTypeModel
 import team.aliens.dms.kmp.core.model.latestudy.TeacherModel
@@ -110,17 +111,12 @@ class LateStudyViewModel(
                     ),
                 )
                 onSuccess()
+            } catch (e: ConflictException) {
+                onFailure("이미 새벽 자습을 신청했습니다.")
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                if (
-                    e.message?.contains("409") == true ||
-                    e.message?.contains("Conflict", ignoreCase = true) == true
-                ) {
-                    onFailure("이미 새벽 자습을 신청했습니다.")
-                } else {
-                    onFailure("새벽 자습 신청에 실패했습니다.")
-                }
+                onFailure("새벽 자습 신청에 실패했습니다.")
             } finally {
                 isSubmitting = false
             }
