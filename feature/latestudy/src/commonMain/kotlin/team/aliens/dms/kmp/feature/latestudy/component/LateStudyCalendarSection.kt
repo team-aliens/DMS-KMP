@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 
 @Composable
 fun LateStudyCalendarSection(
@@ -44,12 +45,14 @@ fun LateStudyCalendarSection(
         ) {
             Text(
                 text = "일정",
-                color = DmsTheme.colors.scrim,
+                color = DmsTheme.colors.onBackground,
+                style = DmsTypography.BodyB,
             )
 
             Text(
                 text = "(새벽 자습은 금, 토, 일요일은 불가능합니다)",
-                color = Gray600,
+                color = DmsTheme.colors.inverseSurface,
+                style = DmsTypography.BodyM,
             )
         }
 
@@ -62,7 +65,8 @@ fun LateStudyCalendarSection(
             IconButton(onClick = onPrevMonthClick) {
                 Text(
                     text = "<",
-                    color = DmsTheme.colors.scrim,
+                    color = DmsTheme.colors.onBackground,
+                    style = DmsTypography.BodyM,
                 )
             }
 
@@ -70,7 +74,8 @@ fun LateStudyCalendarSection(
 
             Text(
                 text = "${currentMonth.year} ${currentMonth.monthNumber}월",
-                color = DmsTheme.colors.scrim,
+                color = DmsTheme.colors.onBackground,
+                style = DmsTypography.BodyB,
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -78,7 +83,8 @@ fun LateStudyCalendarSection(
             IconButton(onClick = onNextMonthClick) {
                 Text(
                     text = ">",
-                    color = DmsTheme.colors.scrim,
+                    color = DmsTheme.colors.onBackground,
+                    style = DmsTypography.BodyM,
                 )
             }
         }
@@ -108,10 +114,10 @@ private fun CalendarDayHeader() {
     ) {
         days.forEachIndexed { index, day ->
             val color = when (index) {
-                0 -> SundayColor
-                5 -> FridayColor
-                6 -> SaturdayColor
-                else -> DmsTheme.colors.scrim
+                0 -> DmsTheme.colors.error
+                5 -> DmsTheme.colors.inverseSurface
+                6 -> DmsTheme.colors.primary
+                else -> DmsTheme.colors.onBackground
             }
 
             Box(
@@ -121,6 +127,7 @@ private fun CalendarDayHeader() {
                 Text(
                     text = day,
                     color = color,
+                    style = DmsTypography.BodyM,
                 )
             }
         }
@@ -232,7 +239,7 @@ private fun CalendarRangeBackground(
                 .height(30.dp)
                 .padding(start = 15.dp)
                 .background(
-                    color = SelectedRangeColor,
+                    color = DmsTheme.colors.primary.copy(alpha = 0.4f),
                     shape = RoundedCornerShape(
                         topStart = 999.dp,
                         bottomStart = 999.dp,
@@ -246,7 +253,7 @@ private fun CalendarRangeBackground(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(30.dp)
-                .background(SelectedRangeColor),
+                .background(DmsTheme.colors.primary.copy(alpha = 0.4f)),
         )
     }
 
@@ -257,7 +264,7 @@ private fun CalendarRangeBackground(
                 .height(30.dp)
                 .padding(end = 15.dp)
                 .background(
-                    color = SelectedRangeColor,
+                    color = DmsTheme.colors.primary.copy(alpha = 0.4f),
                     shape = RoundedCornerShape(
                         topEnd = 999.dp,
                         bottomEnd = 999.dp,
@@ -273,7 +280,7 @@ private fun SelectedDateBackground() {
         modifier = Modifier
             .size(30.dp)
             .background(
-                color = SelectedCircleColor,
+                color = DmsTheme.colors.primary,
                 shape = CircleShape,
             ),
     )
@@ -298,6 +305,7 @@ private fun CalendarDateText(
         Text(
             text = date.dayOfMonth.toString(),
             color = textColor,
+            style = DmsTypography.BodyM,
         )
     }
 }
@@ -310,14 +318,14 @@ private fun calendarDateTextColor(
     isInRange: Boolean,
 ): Color {
     return when {
-        isSelected || isInRange -> Color.White
-        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SUNDAY -> SundayColor.copy(alpha = 0.45f)
-        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SATURDAY -> SaturdayColor.copy(alpha = 0.45f)
-        !isCurrentMonth -> Gray400
-        date.dayOfWeek == DayOfWeek.SUNDAY -> SundayColor
-        date.dayOfWeek == DayOfWeek.SATURDAY -> SaturdayColor
-        date.dayOfWeek == DayOfWeek.FRIDAY -> FridayColor
-        else -> DmsTheme.colors.scrim
+        isSelected || isInRange -> DmsTheme.colors.surface
+        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SUNDAY -> DmsTheme.colors.error.copy(alpha = 0.45f)
+        !isCurrentMonth && date.dayOfWeek == DayOfWeek.SATURDAY -> DmsTheme.colors.primary.copy(alpha = 0.45f)
+        !isCurrentMonth -> DmsTheme.colors.onSurfaceVariant
+        date.dayOfWeek == DayOfWeek.SUNDAY -> DmsTheme.colors.error
+        date.dayOfWeek == DayOfWeek.SATURDAY -> DmsTheme.colors.primary
+        date.dayOfWeek == DayOfWeek.FRIDAY -> DmsTheme.colors.inverseSurface
+        else -> DmsTheme.colors.onBackground
     }
 }
 
@@ -434,11 +442,3 @@ private val DayOfWeek.isoDayNumber: Int
         DayOfWeek.SATURDAY -> 6
         DayOfWeek.SUNDAY -> 7
     }
-
-private val SundayColor = Color(0xFFFF6B6B)
-private val FridayColor = Color(0xFF8E8E93)
-private val SaturdayColor = Color(0xFF4A90E2)
-private val Gray600 = Color(0xFF7A7A7A)
-private val Gray400 = Color(0xFFB8B8B8)
-private val SelectedCircleColor = Color(0xFF4A90E2)
-private val SelectedRangeColor = Color(0x664A90E2)

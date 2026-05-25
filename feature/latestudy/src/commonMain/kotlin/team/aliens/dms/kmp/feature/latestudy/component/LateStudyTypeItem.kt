@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
@@ -33,7 +32,11 @@ fun LateStudyTypeItem(
             .fillMaxWidth()
             .height(56.dp)
             .background(
-                color = if (selected) DmsTheme.colors.primary else Color.Transparent,
+                color = if (selected) {
+                    DmsTheme.colors.primary
+                } else {
+                    DmsTheme.colors.surfaceTint
+                },
             )
             .selectable(
                 selected = selected,
@@ -47,7 +50,7 @@ fun LateStudyTypeItem(
         Text(
             text = text,
             color = if (selected) {
-                DmsTheme.colors.onPrimaryContainer
+                DmsTheme.colors.surface
             } else {
                 DmsTheme.colors.onBackground
             },
@@ -60,7 +63,7 @@ fun LateStudyTypeItem(
                 .then(
                     if (selected) {
                         Modifier.background(
-                            color = DmsTheme.colors.onPrimaryContainer,
+                            color = DmsTheme.colors.surface,
                             shape = CircleShape,
                         )
                     } else {

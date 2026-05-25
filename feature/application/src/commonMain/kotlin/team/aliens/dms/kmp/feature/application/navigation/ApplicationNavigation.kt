@@ -13,6 +13,7 @@ data object ApplicationRoute
 fun NavGraphBuilder.application(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateLateStudyApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
@@ -21,6 +22,7 @@ fun NavGraphBuilder.application(
         Application(
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
+            onNavigateLateStudyApplication = onNavigateLateStudyApplication,
             onNavigateVolunteerApplication = onNavigateVolunteerApplication,
             onNavigateVote = onNavigateVote,
             onShowSnackBar = onShowSnackBar,

@@ -132,10 +132,7 @@ val networkModule = module {
             defaultRequest {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
-                url {
-                    protocol = URLProtocol.HTTPS
-                    host = PlatformConfig.baseUrl
-                }
+                url(PlatformConfig.baseUrl)
             }
 
             install(Auth) {

@@ -53,10 +53,13 @@ kotlin {
 
             api(projects.core.designSystem)
             implementation(projects.core.common)
+            implementation(projects.core.data)
             implementation(projects.core.domain)
             implementation(projects.core.model)
+            implementation(projects.core.network)
             implementation(projects.core.util)
         }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
@@ -65,10 +68,13 @@ kotlin {
 
 android {
     namespace = "team.aliens.dms.kmp.feature.latestudy"
+
     compileSdk = ProjectProperties.COMPILE_SDK
+
     defaultConfig {
         minSdk = ProjectProperties.MIN_SDK
     }
+
     compileOptions {
         sourceCompatibility = Versions.java
         targetCompatibility = Versions.java

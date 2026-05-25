@@ -27,36 +27,35 @@ fun LateStudyTeacherSection(
             style = DmsTypography.BodyB,
         )
 
-        Box(
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            textStyle = DmsTypography.BodyM.copy(
+                color = DmsTheme.colors.onBackground,
+            ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp)
-                .background(
-                    color = DmsTheme.colors.surfaceVariant,
-                    shape = RoundedCornerShape(20.dp),
-                )
-                .padding(horizontal = 20.dp, vertical = 16.dp),
-        ) {
-            BasicTextField(
-                value = value,
-                onValueChange = onValueChange,
-                textStyle = DmsTypography.BodyM.copy(
-                    color = DmsTheme.colors.onBackground,
-                ),
-                modifier = Modifier.fillMaxWidth(),
-                decorationBox = { innerTextField ->
-                    Box {
-                        if (value.isEmpty()) {
-                            Text(
-                                text = "홍길동",
-                                color = DmsTheme.colors.inverseSurface,
-                                style = DmsTypography.BodyM,
-                            )
-                        }
-                        innerTextField()
+                .padding(horizontal = 16.dp, vertical = 14.dp),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            color = DmsTheme.colors.surfaceVariant,
+                            shape = RoundedCornerShape(20.dp),
+                        )
+                        .padding(horizontal = 20.dp, vertical = 16.dp),
+                ) {
+                    if (value.isEmpty()) {
+                        Text(
+                            text = "홍길동",
+                            color = DmsTheme.colors.inverseSurface,
+                            style = DmsTypography.BodyM,
+                        )
                     }
-                },
-            )
-        }
+                    innerTextField()
+                }
+            },
+        )
     }
 }

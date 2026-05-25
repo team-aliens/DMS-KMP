@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import team.aliens.dms.kmp.core.common.exception.network.ConflictException
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
 import team.aliens.dms.kmp.core.model.latestudy.StudyTypeModel
 import team.aliens.dms.kmp.core.model.latestudy.TeacherModel
@@ -85,20 +87,20 @@ class LateStudyViewModel(
         startDate: String,
         endDate: String,
         onSuccess: () -> Unit,
-        onFailure: () -> Unit,
+        onFailure: (String) -> Unit,
     ) {
         val teacherId = selectedTeacherId
         val typeId = selectedTypeId
 
         if (teacherId == null || typeId == null || reason.isBlank()) {
-            onFailure()
+            onFailure("모두 선택해주세요")
             return
         }
 
         viewModelScope.launch {
             isSubmitting = true
 
-            runCatching {
+            try {
                 lateStudyRepository.submitLateStudy(
                     SubmitLateStudyRequest(
                         teacherId = teacherId,
@@ -108,13 +110,16 @@ class LateStudyViewModel(
                         endDate = endDate,
                     ),
                 )
-            }.onSuccess {
                 onSuccess()
-            }.onFailure {
-                onFailure()
+            } catch (e: ConflictException) {
+                onFailure("이미 새벽 자습을 신청했습니다.")
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                onFailure("새벽 자습 신청에 실패했습니다.")
+            } finally {
+                isSubmitting = false
             }
-
-            isSubmitting = false
         }
     }
 }

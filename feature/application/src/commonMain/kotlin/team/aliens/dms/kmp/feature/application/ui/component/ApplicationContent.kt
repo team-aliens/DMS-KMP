@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dmskmp.core.design_system.generated.resources.Res
 import dmskmp.core.design_system.generated.resources.img_home
+import dmskmp.core.design_system.generated.resources.img_latestudy
 import dmskmp.core.design_system.generated.resources.img_outing
 import dmskmp.core.design_system.generated.resources.img_volunteer
 import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
@@ -17,8 +18,10 @@ import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
 internal fun ApplicationContent(
     modifier: Modifier = Modifier,
     appliedTitle: String?,
+    lateStudyAppliedTitle: String?,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateLateStudyApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
 ) {
     Column(
@@ -34,13 +37,22 @@ internal fun ApplicationContent(
             title = "잔류",
             iconRes = Res.drawable.img_home,
             onClick = onNavigateRemainApplication,
-            appliedTitle = appliedTitle
+            appliedTitle = appliedTitle,
         )
+
         DmsApplicationCard(
             title = "외출 신청하기",
             iconRes = Res.drawable.img_outing,
             onClick = onNavigateOutingApplication,
         )
+
+        DmsApplicationCard(
+            title = "새벽 자습 신청하기",
+            iconRes = Res.drawable.img_latestudy,
+            onClick = onNavigateLateStudyApplication,
+            appliedTitle = lateStudyAppliedTitle,
+        )
+
         DmsApplicationCard(
             title = "봉사 활동 신청하기",
             iconRes = Res.drawable.img_volunteer,
