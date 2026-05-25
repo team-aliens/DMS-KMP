@@ -30,6 +30,7 @@ internal fun Application(
     viewModel: ApplicationViewModel = koinViewModel(),
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateLateStudyApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
@@ -39,9 +40,13 @@ internal fun Application(
     ApplicationScreen(
         state = state,
         onNavigateRemainApplication = onNavigateRemainApplication,
-        onNavigateOutingApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
-        onNavigateLateStudyApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
-        onNavigateVolunteerApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
+        onNavigateOutingApplication = {
+            onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요")
+        },
+        onNavigateLateStudyApplication = onNavigateLateStudyApplication,
+        onNavigateVolunteerApplication = {
+            onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요")
+        },
         onNavigateVote = onNavigateVote,
     )
 }
@@ -66,10 +71,12 @@ private fun ApplicationScreen(
             "신청",
             "투표",
         )
+
         val pagerState = rememberPagerState(
             pageCount = { tabData.size },
             initialPage = 0,
         )
+
         val tabIndex = pagerState.currentPage
         val coroutineScope = rememberCoroutineScope()
 
