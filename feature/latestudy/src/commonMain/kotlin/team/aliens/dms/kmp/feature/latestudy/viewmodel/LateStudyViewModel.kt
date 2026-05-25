@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.ktor.client.plugins.ClientRequestException
-import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
@@ -114,8 +112,10 @@ class LateStudyViewModel(
                 onSuccess()
             } catch (e: CancellationException) {
                 throw e
-            } catch (e: ClientRequestException) {
-                if (e.response.status == HttpStatusCode.Conflict) {
+            } catch (e: Exception) {
+                val message = e.message.orEmpty()
+
+                if (message.contains("409") || message.contains("Conflict")) {
                     onFailure("이미 새벽 자습을 신청했습니다.")
                 } else {
                     onFailure("새벽 자습 신청에 실패했습니다.")
