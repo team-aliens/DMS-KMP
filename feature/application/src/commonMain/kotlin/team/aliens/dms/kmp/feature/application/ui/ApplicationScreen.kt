@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -41,6 +40,7 @@ internal fun Application(
         state = state,
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
+        onNavigateLateStudyApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
         onNavigateVolunteerApplication = { onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요") },
         onNavigateVote = onNavigateVote,
     )
@@ -51,6 +51,7 @@ private fun ApplicationScreen(
     state: ApplicationState,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateLateStudyApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
 ) {
@@ -71,6 +72,7 @@ private fun ApplicationScreen(
         )
         val tabIndex = pagerState.currentPage
         val coroutineScope = rememberCoroutineScope()
+
         DmsTabRow(
             selectedTabIndex = tabIndex,
         ) {
@@ -86,6 +88,7 @@ private fun ApplicationScreen(
                 )
             }
         }
+
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),
             state = pagerState,
@@ -101,6 +104,7 @@ private fun ApplicationScreen(
                         appliedTitle = state.appliedTitle,
                         onNavigateOutingApplication = onNavigateOutingApplication,
                         onNavigateRemainApplication = onNavigateRemainApplication,
+                        onNavigateLateStudyApplication = onNavigateLateStudyApplication,
                         onNavigateVolunteerApplication = onNavigateVolunteerApplication,
                     )
                 } else {
