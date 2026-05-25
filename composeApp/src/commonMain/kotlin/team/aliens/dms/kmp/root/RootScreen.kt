@@ -24,6 +24,7 @@ import team.aliens.dms.kmp.ui.BottomNavigationBar
 internal fun Root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateLateStudyApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateNotification: () -> Unit,
     onNavigateNoticeDetail: (String) -> Unit,
@@ -36,6 +37,7 @@ internal fun Root(
     RootScreen(
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = onNavigateOutingApplication,
+        onNavigateLateStudyApplication = onNavigateLateStudyApplication,
         onNavigateVolunteerApplication = onNavigateVolunteerApplication,
         onNavigateNotification = onNavigateNotification,
         onNavigateNoticeDetail = onNavigateNoticeDetail,
@@ -51,6 +53,7 @@ internal fun Root(
 private fun RootScreen(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateLateStudyApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateNotification: () -> Unit,
     onNavigateNoticeDetail: (String) -> Unit,
@@ -84,13 +87,14 @@ private fun RootScreen(
             application(
                 onNavigateRemainApplication = onNavigateRemainApplication,
                 onNavigateOutingApplication = onNavigateOutingApplication,
+                onNavigateLateStudyApplication = onNavigateLateStudyApplication,
                 onNavigateVolunteerApplication = onNavigateVolunteerApplication,
                 onNavigateVote = onNavigateVote,
                 onShowSnackBar = onShowSnackBar,
             )
             myPage(
                 onNavigatePointHistory = onNavigatePointHistory,
-                onNavigateSetting = onNavigateSetting
+                onNavigateSetting = onNavigateSetting,
             )
         }
     }
