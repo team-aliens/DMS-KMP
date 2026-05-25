@@ -76,6 +76,7 @@ kotlin {
             implementation(projects.feature.signup)
             implementation(projects.feature.home)
             implementation(projects.feature.application)
+            implementation(projects.feature.latestudy)
             implementation(projects.feature.notice)
             implementation(projects.feature.mypage)
             implementation(projects.feature.remain)
