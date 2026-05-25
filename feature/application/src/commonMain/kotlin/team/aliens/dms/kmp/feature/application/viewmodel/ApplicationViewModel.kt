@@ -9,6 +9,7 @@ import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
 import team.aliens.dms.kmp.core.domain.usecase.remains.GetRemainUseCase
 import team.aliens.dms.kmp.core.domain.usecase.votes.GetAllVotesUseCase
+import team.aliens.dms.kmp.core.model.latestudy.StudyApplicationStatusModel
 import team.aliens.dms.kmp.core.model.votes.VoteModel
 
 internal class ApplicationViewModel(
@@ -46,13 +47,13 @@ internal class ApplicationViewModel(
     }
 
     private fun getLateStudyStatus() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 lateStudyRepository.fetchMyStudyApplicationStatus()
-            }.onSuccess {
+            }.onSuccess { status ->
                 setState {
                     state.value.copy(
-                        lateStudyAppliedTitle = it.status.toLateStudyAppliedTitle(),
+                        lateStudyAppliedTitle = status.toAppliedTitle(),
                     )
                 }
             }.onFailure {
@@ -60,14 +61,6 @@ internal class ApplicationViewModel(
             }
         }
     }
-
-    private fun String.toLateStudyAppliedTitle(): String? =
-        when (this) {
-            "PENDING" -> "신청 중"
-            "SECOND_APPROVED" -> "승인됨"
-            "REJECTED" -> "거절됨"
-            else -> null
-        }
 }
 
 data class ApplicationState(
@@ -77,3 +70,27 @@ data class ApplicationState(
 )
 
 sealed interface ApplicationSideEffect
+
+private fun StudyApplicationStatusModel.toAppliedTitle(): String? {
+    return when (status) {
+        "SECOND_APPROVED" -> buildRangeText("승인됨")
+        "PENDING" -> "신청 중"
+        "REJECTED" -> buildRangeText("거절됨") ?: "거절됨"
+        else -> null
+    }
+}
+
+private fun StudyApplicationStatusModel.buildRangeText(
+    suffix: String,
+): String? {
+    return when {
+        !startDate.isNullOrBlank() && !endDate.isNullOrBlank() -> {
+            if (startDate == endDate) "$startDate $suffix"
+            else "$startDate ~ $endDate $suffix"
+        }
+
+        !startDate.isNullOrBlank() -> "$startDate $suffix"
+        !endDate.isNullOrBlank() -> "$endDate $suffix"
+        else -> null
+    }
+}

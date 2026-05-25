@@ -109,6 +109,7 @@ private fun ApplicationScreen(
                 if (page == 0) {
                     ApplicationContent(
                         appliedTitle = state.appliedTitle,
+                        lateStudyAppliedTitle = state.lateStudyAppliedTitle,
                         onNavigateOutingApplication = onNavigateOutingApplication,
                         onNavigateRemainApplication = onNavigateRemainApplication,
                         onNavigateLateStudyApplication = onNavigateLateStudyApplication,

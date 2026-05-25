@@ -18,6 +18,7 @@ import team.aliens.dms.kmp.core.designsystem.card.DmsApplicationCard
 internal fun ApplicationContent(
     modifier: Modifier = Modifier,
     appliedTitle: String?,
+    lateStudyAppliedTitle: String?,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
@@ -49,6 +50,7 @@ internal fun ApplicationContent(
             title = "새벽 자습 신청하기",
             iconRes = Res.drawable.img_latestudy,
             onClick = onNavigateLateStudyApplication,
+            appliedTitle = lateStudyAppliedTitle,
         )
 
         DmsApplicationCard(
