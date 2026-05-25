@@ -11,6 +11,8 @@ import team.aliens.dms.kmp.feature.editpassword.navigation.checkPassword
 import team.aliens.dms.kmp.feature.editpassword.navigation.editPassword
 import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToCheckPassword
 import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToEditPassword
+import team.aliens.dms.kmp.feature.latestudy.navigation.lateStudy
+import team.aliens.dms.kmp.feature.latestudy.navigation.navigateToLateStudy
 import team.aliens.dms.kmp.feature.meal.navigation.meal
 import team.aliens.dms.kmp.feature.meal.navigation.navigateToMeal
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
@@ -24,6 +26,8 @@ import team.aliens.dms.kmp.feature.profile.navigation.adjustProfile
 import team.aliens.dms.kmp.feature.profile.navigation.navigateToAdjustProfile
 import team.aliens.dms.kmp.feature.profile.navigation.navigateToSelectProfile
 import team.aliens.dms.kmp.feature.profile.navigation.selectProfile
+import team.aliens.dms.kmp.feature.remain.navigation.navigateToRemainApplication
+import team.aliens.dms.kmp.feature.remain.navigation.remainApplication
 import team.aliens.dms.kmp.feature.setting.navigation.navigateToSetting
 import team.aliens.dms.kmp.feature.setting.navigation.setting
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
@@ -34,8 +38,6 @@ import team.aliens.dms.kmp.feature.vote.navigation.vote
 import team.aliens.dms.kmp.root.RootRoute
 import team.aliens.dms.kmp.root.root
 import team.aliens.dms.kmp.ui.DmsAppState
-import team.aliens.dms.kmp.feature.remain.navigation.navigateToRemainApplication
-import team.aliens.dms.kmp.feature.remain.navigation.remainApplication
 
 @Serializable
 data object MainRoute
@@ -60,6 +62,7 @@ internal fun NavGraphBuilder.mainGraph(
         root(
             onNavigateRemainApplication = appState.navController::navigateToRemainApplication,
             onNavigateOutingApplication = { },
+            onNavigateLateStudyApplication = appState.navController::navigateToLateStudy,
             onNavigateVolunteerApplication = appState.navController::navigateToVolunteer,
             onNavigateNotification = appState.navController::navigateToNotification,
             onNavigateNoticeDetail = appState.navController::navigateToNoticeDetails,
@@ -71,6 +74,10 @@ internal fun NavGraphBuilder.mainGraph(
         )
         noticeDetails(onNavigateBack = appState.navController::navigateUp)
         remainApplication(onNavigateBack = appState.navController::navigateUp)
+        lateStudy(
+            onNavigateBack = appState.navController::navigateUp,
+            onShowSnackBar = appState::showSnackBar,
+        )
         vote(
             onShowSnackBar = appState::showSnackBar,
             onNavigateBack = appState.navController::navigateUp,
