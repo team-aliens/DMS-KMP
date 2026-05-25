@@ -13,6 +13,7 @@ data object RootRoute
 fun NavGraphBuilder.root(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
+    onNavigateLateStudyApplication: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateNotification: () -> Unit,
     onNavigateNoticeDetail: (String) -> Unit,
@@ -26,6 +27,7 @@ fun NavGraphBuilder.root(
         Root(
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
+            onNavigateLateStudyApplication = onNavigateLateStudyApplication,
             onNavigateVolunteerApplication = onNavigateVolunteerApplication,
             onNavigateNotification = onNavigateNotification,
             onNavigateNoticeDetail = onNavigateNoticeDetail,
