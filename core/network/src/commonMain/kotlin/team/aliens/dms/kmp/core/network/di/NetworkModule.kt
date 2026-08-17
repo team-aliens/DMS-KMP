@@ -17,6 +17,8 @@ import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.request.accept
 import io.ktor.client.request.header
 import io.ktor.client.request.put
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -25,10 +27,14 @@ import io.ktor.http.contentType
 import io.ktor.http.encodedPath
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CancellationException
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.modules.SerializersModule
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.common.exception.UnknownException
@@ -89,7 +95,9 @@ val networkModule = module {
                 validateResponse { response ->
                     if (!response.status.isSuccess()) {
                         when (response.status) {
-                            HttpStatusCode.BadRequest -> throw BadRequestException()
+                            HttpStatusCode.BadRequest -> throw BadRequestException(
+                                errorCode = response.errorCode(),
+                            )
                             HttpStatusCode.Unauthorized -> throw UnAuthorizedException()
                             HttpStatusCode.Forbidden -> throw ForbiddenException()
                             HttpStatusCode.UnprocessableEntity -> throw UnprocessableEntityException()
@@ -205,3 +213,15 @@ val networkModule = module {
 
     includes(ignoreRequestModule)
 }
+
+private suspend fun HttpResponse.errorCode(): String? =
+    try {
+        Json.parseToJsonElement(bodyAsText())
+            .jsonObject["code"]
+            ?.jsonPrimitive
+            ?.contentOrNull
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        null
+    }

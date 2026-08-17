@@ -28,6 +28,7 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 @Composable
 fun LateStudyCalendarSection(
     currentMonth: CalendarYearMonth,
+    minimumDate: LocalDate,
     startDate: LocalDate?,
     endDate: LocalDate?,
     onPrevMonthClick: () -> Unit,
@@ -93,6 +94,7 @@ fun LateStudyCalendarSection(
 
         CalendarGrid(
             currentMonth = currentMonth,
+            minimumDate = minimumDate,
             startDate = startDate,
             endDate = endDate,
             onDateClick = onDateClick,
@@ -137,6 +139,7 @@ private fun CalendarDayHeader() {
 @Composable
 private fun CalendarGrid(
     currentMonth: CalendarYearMonth,
+    minimumDate: LocalDate,
     startDate: LocalDate?,
     endDate: LocalDate?,
     onDateClick: (LocalDate) -> Unit,
@@ -159,7 +162,10 @@ private fun CalendarGrid(
                 val isSingleSelected = startDate != null &&
                         endDate == null &&
                         item.date == startDate
-                val isSelectable = item.isCurrentMonth && isSelectableDate(item.date)
+                val isSelectable = item.isCurrentMonth && isSelectableDate(
+                    date = item.date,
+                    minimumDate = minimumDate,
+                )
 
                 CalendarDateCell(
                     date = item.date,
@@ -377,14 +383,15 @@ private fun buildCalendarDates(
     return result
 }
 
-private fun isSelectableDate(date: LocalDate): Boolean {
-    return when (date.dayOfWeek) {
-        DayOfWeek.FRIDAY,
-        DayOfWeek.SATURDAY,
-        DayOfWeek.SUNDAY -> false
-        else -> true
-    }
-}
+private fun isSelectableDate(
+    date: LocalDate,
+    minimumDate: LocalDate,
+): Boolean = date >= minimumDate && date.dayOfWeek in setOf(
+    DayOfWeek.MONDAY,
+    DayOfWeek.TUESDAY,
+    DayOfWeek.WEDNESDAY,
+    DayOfWeek.THURSDAY,
+)
 
 data class CalendarYearMonth(
     val year: Int,

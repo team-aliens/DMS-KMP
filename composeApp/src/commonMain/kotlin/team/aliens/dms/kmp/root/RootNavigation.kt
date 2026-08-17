@@ -1,11 +1,14 @@
 package team.aliens.dms.kmp.root
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.core.model.votes.VoteModel
+import team.aliens.dms.kmp.feature.latestudy.navigation.LATE_STUDY_STATUS_REFRESH_KEY
 
 @Serializable
 data object RootRoute
@@ -23,8 +26,16 @@ fun NavGraphBuilder.root(
     onNavigateSetting: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
-    composable<RootRoute> {
+    composable<RootRoute> { backStackEntry ->
+        val shouldRefreshLateStudyStatus by backStackEntry.savedStateHandle
+            .getStateFlow(LATE_STUDY_STATUS_REFRESH_KEY, false)
+            .collectAsState()
+
         Root(
+            shouldRefreshLateStudyStatus = shouldRefreshLateStudyStatus,
+            onLateStudyStatusRefreshed = {
+                backStackEntry.savedStateHandle[LATE_STUDY_STATUS_REFRESH_KEY] = false
+            },
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
             onNavigateLateStudyApplication = onNavigateLateStudyApplication,

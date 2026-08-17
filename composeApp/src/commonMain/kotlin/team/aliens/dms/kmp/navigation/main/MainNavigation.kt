@@ -11,6 +11,7 @@ import team.aliens.dms.kmp.feature.editpassword.navigation.checkPassword
 import team.aliens.dms.kmp.feature.editpassword.navigation.editPassword
 import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToCheckPassword
 import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToEditPassword
+import team.aliens.dms.kmp.feature.latestudy.navigation.LATE_STUDY_STATUS_REFRESH_KEY
 import team.aliens.dms.kmp.feature.latestudy.navigation.lateStudy
 import team.aliens.dms.kmp.feature.latestudy.navigation.navigateToLateStudy
 import team.aliens.dms.kmp.feature.meal.navigation.meal
@@ -76,6 +77,11 @@ internal fun NavGraphBuilder.mainGraph(
         remainApplication(onNavigateBack = appState.navController::navigateUp)
         lateStudy(
             onNavigateBack = appState.navController::navigateUp,
+            onSubmitted = {
+                appState.navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.set(LATE_STUDY_STATUS_REFRESH_KEY, true)
+            },
             onShowSnackBar = appState::showSnackBar,
         )
         vote(
