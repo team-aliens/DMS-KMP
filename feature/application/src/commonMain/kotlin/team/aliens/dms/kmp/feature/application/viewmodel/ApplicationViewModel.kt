@@ -5,6 +5,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
 import team.aliens.dms.kmp.core.designsystem.card.ApplicationBadgeStatus
@@ -99,14 +100,24 @@ private fun StudyApplicationStatusModel.toApplicationStatus(): LateStudyApplicat
 private fun StudyApplicationStatusModel.buildRangeText(
     suffix: String,
 ): String? {
+    val startDate = startDate
+    val endDate = endDate
+
     return when {
         !startDate.isNullOrBlank() && !endDate.isNullOrBlank() -> {
-            if (startDate == endDate) "$startDate $suffix"
-            else "$startDate ~ $endDate $suffix"
+            val formattedStartDate = startDate.toMonthDayOrNull() ?: return null
+            val formattedEndDate = endDate.toMonthDayOrNull() ?: return null
+
+            if (startDate == endDate) "$formattedStartDate $suffix"
+            else "$formattedStartDate ~ $formattedEndDate $suffix"
         }
 
-        !startDate.isNullOrBlank() -> "$startDate $suffix"
-        !endDate.isNullOrBlank() -> "$endDate $suffix"
+        !startDate.isNullOrBlank() -> startDate.toMonthDayOrNull()?.let { "$it $suffix" }
+        !endDate.isNullOrBlank() -> endDate.toMonthDayOrNull()?.let { "$it $suffix" }
         else -> null
     }
 }
+
+private fun String.toMonthDayOrNull(): String? = runCatching {
+    LocalDate.parse(this).let { "${it.monthNumber}.${it.dayOfMonth}" }
+}.getOrNull()
