@@ -27,6 +27,7 @@ import io.ktor.http.contentType
 import io.ktor.http.encodedPath
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CancellationException
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -213,9 +214,14 @@ val networkModule = module {
     includes(ignoreRequestModule)
 }
 
-private suspend fun HttpResponse.errorCode(): String? = runCatching {
-    Json.parseToJsonElement(bodyAsText())
-        .jsonObject["code"]
-        ?.jsonPrimitive
-        ?.contentOrNull
-}.getOrNull()
+private suspend fun HttpResponse.errorCode(): String? =
+    try {
+        Json.parseToJsonElement(bodyAsText())
+            .jsonObject["code"]
+            ?.jsonPrimitive
+            ?.contentOrNull
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        null
+    }
