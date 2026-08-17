@@ -22,6 +22,8 @@ import team.aliens.dms.kmp.ui.BottomNavigationBar
 
 @Composable
 internal fun Root(
+    shouldRefreshLateStudyStatus: Boolean,
+    onLateStudyStatusRefreshed: () -> Unit,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
@@ -35,6 +37,8 @@ internal fun Root(
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     RootScreen(
+        shouldRefreshLateStudyStatus = shouldRefreshLateStudyStatus,
+        onLateStudyStatusRefreshed = onLateStudyStatusRefreshed,
         onNavigateRemainApplication = onNavigateRemainApplication,
         onNavigateOutingApplication = onNavigateOutingApplication,
         onNavigateLateStudyApplication = onNavigateLateStudyApplication,
@@ -51,6 +55,8 @@ internal fun Root(
 
 @Composable
 private fun RootScreen(
+    shouldRefreshLateStudyStatus: Boolean,
+    onLateStudyStatusRefreshed: () -> Unit,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
@@ -85,6 +91,8 @@ private fun RootScreen(
                 onShowSnackBar = onShowSnackBar,
             )
             application(
+                shouldRefreshLateStudyStatus = shouldRefreshLateStudyStatus,
+                onLateStudyStatusRefreshed = onLateStudyStatusRefreshed,
                 onNavigateRemainApplication = onNavigateRemainApplication,
                 onNavigateOutingApplication = onNavigateOutingApplication,
                 onNavigateLateStudyApplication = onNavigateLateStudyApplication,
