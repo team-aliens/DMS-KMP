@@ -57,6 +57,7 @@ import team.aliens.dms.kmp.feature.latestudy.viewmodel.LateStudyViewModel
 @Composable
 fun LateStudyScreen(
     onBack: () -> Unit,
+    onSubmitted: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
     viewModel: LateStudyViewModel = koinViewModel(),
 ) {
@@ -150,6 +151,7 @@ fun LateStudyScreen(
 
         LateStudyCalendarSection(
             currentMonth = currentMonth,
+            minimumDate = today,
             startDate = startDate,
             endDate = endDate,
             onPrevMonthClick = { currentMonth = currentMonth.minusMonths(1) },
@@ -189,6 +191,7 @@ fun LateStudyScreen(
                     endDate = (endDate ?: selectedStartDate).toString(),
                     onSuccess = {
                         onShowSnackBar(DmsSnackBarType.SUCCESS, "새벽 자습 신청이 완료되었습니다")
+                        onSubmitted()
                         onBack()
                     },
                     onFailure = { message ->

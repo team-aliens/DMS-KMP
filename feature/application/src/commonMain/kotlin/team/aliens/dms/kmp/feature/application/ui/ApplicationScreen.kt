@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -28,6 +29,8 @@ import team.aliens.dms.kmp.feature.application.viewmodel.ApplicationViewModel
 @Composable
 internal fun Application(
     viewModel: ApplicationViewModel = koinViewModel(),
+    shouldRefreshLateStudyStatus: Boolean,
+    onLateStudyStatusRefreshed: () -> Unit,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
@@ -36,6 +39,13 @@ internal fun Application(
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(shouldRefreshLateStudyStatus) {
+        if (shouldRefreshLateStudyStatus) {
+            viewModel.refreshLateStudyStatus()
+            onLateStudyStatusRefreshed()
+        }
+    }
 
     ApplicationScreen(
         state = state,
@@ -109,7 +119,7 @@ private fun ApplicationScreen(
                 if (page == 0) {
                     ApplicationContent(
                         appliedTitle = state.appliedTitle,
-                        lateStudyAppliedTitle = state.lateStudyAppliedTitle,
+        lateStudyApplicationStatus = state.lateStudyApplicationStatus,
                         onNavigateOutingApplication = onNavigateOutingApplication,
                         onNavigateRemainApplication = onNavigateRemainApplication,
                         onNavigateLateStudyApplication = onNavigateLateStudyApplication,
