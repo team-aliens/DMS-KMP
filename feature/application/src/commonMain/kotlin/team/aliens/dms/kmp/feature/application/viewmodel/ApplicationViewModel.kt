@@ -7,6 +7,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
+import team.aliens.dms.kmp.core.designsystem.card.ApplicationBadgeStatus
 import team.aliens.dms.kmp.core.domain.usecase.remains.GetRemainUseCase
 import team.aliens.dms.kmp.core.domain.usecase.votes.GetAllVotesUseCase
 import team.aliens.dms.kmp.core.model.latestudy.StudyApplicationStatusModel
@@ -21,7 +22,7 @@ internal class ApplicationViewModel(
     init {
         getAllVotes()
         getRemain()
-        getLateStudyStatus()
+        refreshLateStudyStatus()
     }
 
     private fun getAllVotes() {
@@ -46,14 +47,14 @@ internal class ApplicationViewModel(
         }
     }
 
-    private fun getLateStudyStatus() {
+    fun refreshLateStudyStatus() {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 lateStudyRepository.fetchMyStudyApplicationStatus()
             }.onSuccess { status ->
                 setState {
                     state.value.copy(
-                        lateStudyAppliedTitle = status.toAppliedTitle(),
+                        lateStudyApplicationStatus = status.toApplicationStatus(),
                     )
                 }
             }.onFailure {
@@ -65,19 +66,34 @@ internal class ApplicationViewModel(
 
 data class ApplicationState(
     val appliedTitle: String? = null,
-    val lateStudyAppliedTitle: String? = null,
+    val lateStudyApplicationStatus: LateStudyApplicationStatus? = null,
     val votes: List<VoteModel> = emptyList(),
 )
 
 sealed interface ApplicationSideEffect
 
-private fun StudyApplicationStatusModel.toAppliedTitle(): String? {
-    return when (status) {
-        "SECOND_APPROVED" -> buildRangeText("승인됨")
-        "PENDING" -> "신청 중"
-        "REJECTED" -> buildRangeText("거절됨") ?: "거절됨"
-        else -> null
-    }
+data class LateStudyApplicationStatus(
+    val title: String,
+    val badgeStatus: ApplicationBadgeStatus,
+)
+
+private fun StudyApplicationStatusModel.toApplicationStatus(): LateStudyApplicationStatus? = when (status) {
+    "APPROVED", "SECOND_APPROVED" -> LateStudyApplicationStatus(
+        title = buildRangeText("승인됨") ?: "승인됨",
+        badgeStatus = ApplicationBadgeStatus.APPROVED,
+    )
+
+    "PENDING" -> LateStudyApplicationStatus(
+        title = "신청 중",
+        badgeStatus = ApplicationBadgeStatus.PENDING,
+    )
+
+    "REJECTED" -> LateStudyApplicationStatus(
+        title = buildRangeText("거절됨") ?: "거절됨",
+        badgeStatus = ApplicationBadgeStatus.REJECTED,
+    )
+
+    else -> null
 }
 
 private fun StudyApplicationStatusModel.buildRangeText(

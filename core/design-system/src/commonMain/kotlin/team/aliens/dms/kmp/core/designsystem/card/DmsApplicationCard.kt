@@ -29,6 +29,12 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.core.designsystem.util.clickable
 
+enum class ApplicationBadgeStatus {
+    APPROVED,
+    REJECTED,
+    PENDING,
+}
+
 @Composable
 fun DmsApplicationCard(
     modifier: Modifier = Modifier,
@@ -36,6 +42,7 @@ fun DmsApplicationCard(
     description: String? = null,
     period: String? = null,
     appliedTitle: String? = null,
+    appliedBadgeStatus: ApplicationBadgeStatus? = null,
     iconRes: DrawableResource,
     isSelected: Boolean = false,
     onClick: () -> Unit,
@@ -80,6 +87,7 @@ fun DmsApplicationCard(
                 AppliedTitleText(
                     modifier = Modifier.endPadding(16.dp),
                     appliedTitle = appliedTitle,
+                    badgeStatus = appliedBadgeStatus,
                 )
             }
             Icon(
@@ -107,7 +115,10 @@ fun DmsApplicationCard(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 if (!appliedTitle.isNullOrEmpty()) {
-                    AppliedTitleText(appliedTitle = appliedTitle)
+                    AppliedTitleText(
+                        appliedTitle = appliedTitle,
+                        badgeStatus = appliedBadgeStatus,
+                    )
                 }
             }
         }
@@ -118,17 +129,34 @@ fun DmsApplicationCard(
 private fun AppliedTitleText(
     modifier: Modifier = Modifier,
     appliedTitle: String,
+    badgeStatus: ApplicationBadgeStatus? = null,
 ) {
+    val backgroundColor = when (badgeStatus) {
+        ApplicationBadgeStatus.APPROVED,
+        null,
+        -> DmsTheme.colors.primary
+
+        ApplicationBadgeStatus.REJECTED -> DmsTheme.colors.error
+        ApplicationBadgeStatus.PENDING -> DmsTheme.colors.surfaceVariant
+    }
+    val textColor = when (badgeStatus) {
+        ApplicationBadgeStatus.APPROVED,
+        null,
+        -> DmsTheme.colors.onPrimaryContainer
+
+        ApplicationBadgeStatus.REJECTED -> DmsTheme.colors.onErrorContainer
+        ApplicationBadgeStatus.PENDING -> DmsTheme.colors.inverseSurface
+    }
+
     DmsText(
         modifier = modifier
             .background(
-                color = DmsTheme.colors.primary,
+                color = backgroundColor,
                 shape = RoundedCornerShape(6.dp),
             )
             .padding(horizontal = 22.dp, vertical = 8.dp),
         text = appliedTitle,
         style = DmsTypography.labelB,
-        color = DmsTheme.colors.onPrimaryContainer,
+        color = textColor,
     )
 }
-
