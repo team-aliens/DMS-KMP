@@ -11,6 +11,8 @@ import team.aliens.dms.kmp.feature.application.ui.Application
 data object ApplicationRoute
 
 fun NavGraphBuilder.application(
+    shouldRefreshLateStudyStatus: Boolean,
+    onLateStudyStatusRefreshed: () -> Unit,
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
@@ -20,6 +22,8 @@ fun NavGraphBuilder.application(
 ) {
     composable<ApplicationRoute> {
         Application(
+            shouldRefreshLateStudyStatus = shouldRefreshLateStudyStatus,
+            onLateStudyStatusRefreshed = onLateStudyStatusRefreshed,
             onNavigateRemainApplication = onNavigateRemainApplication,
             onNavigateOutingApplication = onNavigateOutingApplication,
             onNavigateLateStudyApplication = onNavigateLateStudyApplication,

@@ -10,15 +10,19 @@ import team.aliens.dms.kmp.feature.latestudy.ui.LateStudyScreen
 @Serializable
 data object LateStudyRoute
 
+const val LATE_STUDY_STATUS_REFRESH_KEY = "late_study_status_refresh"
+
 fun NavController.navigateToLateStudy() = navigate(LateStudyRoute)
 
 fun NavGraphBuilder.lateStudy(
     onNavigateBack: () -> Unit,
+    onSubmitted: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     composable<LateStudyRoute> {
         LateStudyScreen(
             onBack = onNavigateBack,
+            onSubmitted = onSubmitted,
             onShowSnackBar = onShowSnackBar,
         )
     }
