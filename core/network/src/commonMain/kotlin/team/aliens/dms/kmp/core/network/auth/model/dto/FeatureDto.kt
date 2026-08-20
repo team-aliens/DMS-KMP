@@ -4,9 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class FeatureDto(
-    val mealService: Boolean,
-    val noticeService: Boolean,
-    val pointService: Boolean,
-    val studyRoomService: Boolean,
-    val remainService: Boolean,
+    val mealService: Boolean = false,
+    val noticeService: Boolean = false,
+    val pointService: Boolean = false,
+    val remainService: Boolean = false,
 )
