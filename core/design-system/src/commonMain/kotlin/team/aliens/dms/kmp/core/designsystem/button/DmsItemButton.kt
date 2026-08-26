@@ -39,26 +39,28 @@ fun DmsItemButton(
 ) {
     var pressed by remember { mutableStateOf(false) }
     val backgroundColor by animateColorAsState(
-        targetValue = if (!enabled) {
-            DmsTheme.colors.onSurface
-        } else if (pressed) {
-            DmsTheme.colors.surfaceVariant
-        } else {
-            DmsTheme.colors.surfaceTint
-        },
+        targetValue =
+            if (!enabled) {
+                DmsTheme.colors.onSurface
+            } else if (pressed) {
+                DmsTheme.colors.surfaceVariant
+            } else {
+                DmsTheme.colors.surfaceTint
+            },
     )
 
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(32.dp))
-            .background(color = backgroundColor, shape = RoundedCornerShape(32.dp))
-            .clickable(
-                enabled = enabled,
-                onClick = onClick,
-                onPressed = { pressed = it },
-            )
-            .padding(horizontal = 16.dp, vertical = 24.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(32.dp))
+                .background(color = backgroundColor, shape = RoundedCornerShape(32.dp))
+                .clickable(
+                    enabled = enabled,
+                    onClick = onClick,
+                    onPressed = { pressed = it },
+                )
+                .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         iconRes?.let {

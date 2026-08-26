@@ -11,6 +11,9 @@ import androidx.datastore.preferences.core.Preferences
  * @return 키에 저장된 값
  * @throws Exception 지정된 키에 해당하는 값이 없을 경우
  */
-fun <T> Preferences.getValueOrThrow(key: Preferences.Key<T>, exception: Exception): T {
+fun <T> Preferences.getValueOrThrow(
+    key: Preferences.Key<T>,
+    exception: Exception,
+): T {
     return this[key] ?: throw exception
 }

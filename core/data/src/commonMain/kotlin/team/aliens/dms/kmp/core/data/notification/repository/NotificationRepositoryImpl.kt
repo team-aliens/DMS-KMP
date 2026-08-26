@@ -16,46 +16,58 @@ internal class NotificationRepositoryImpl(
 ) : NotificationRepository {
     override suspend fun registerFcmDeviceToken(deviceToken: String): Result<Unit> =
         networkNotificationDataSource.registerFcmDeviceToken(
-            RegisterFcmDeviceTokenRequest(body = RegisterFcmDeviceTokenRequest.Body(deviceToken = deviceToken))
+            RegisterFcmDeviceTokenRequest(body = RegisterFcmDeviceTokenRequest.Body(deviceToken = deviceToken)),
         )
 
     override suspend fun cancelFcmDeviceTokenRegistration(deviceToken: String): Result<Unit> =
         networkNotificationDataSource.cancelFcmDeviceTokenRegistration(
-            CancelFcmDeviceTokenRegistrationRequest(body = CancelFcmDeviceTokenRegistrationRequest.Body(deviceToken = deviceToken))
+            CancelFcmDeviceTokenRegistrationRequest(body = CancelFcmDeviceTokenRegistrationRequest.Body(deviceToken = deviceToken)),
         )
 
-    override suspend fun subscribeNotificationTopic(deviceToken: String, topic: NotificationType): Result<Unit> =
+    override suspend fun subscribeNotificationTopic(
+        deviceToken: String,
+        topic: NotificationType,
+    ): Result<Unit> =
         networkNotificationDataSource.subscribeNotificationTopic(
             SubscribeNotificationTopicRequest(
-                body = SubscribeNotificationTopicRequest.Body(
-                    deviceToken = deviceToken,
-                    topic = topic.name
-                )
-            )
+                body =
+                    SubscribeNotificationTopicRequest.Body(
+                        deviceToken = deviceToken,
+                        topic = topic.name,
+                    ),
+            ),
         )
 
-    override suspend fun unsubscribeNotificationTopic(deviceToken: String, topic: NotificationType): Result<Unit> =
+    override suspend fun unsubscribeNotificationTopic(
+        deviceToken: String,
+        topic: NotificationType,
+    ): Result<Unit> =
         networkNotificationDataSource.unsubscribeNotificationTopic(
             UnsubscribeNotificationTopicRequest(
-                body = UnsubscribeNotificationTopicRequest.Body(
-                    deviceToken = deviceToken,
-                    topic = topic.name
-                )
-            )
+                body =
+                    UnsubscribeNotificationTopicRequest.Body(
+                        deviceToken = deviceToken,
+                        topic = topic.name,
+                    ),
+            ),
         )
 
-    override suspend fun batchUpdateNotificationTopic(topics: List<NotificationTopicStatusModel.TopicGroup.TopicSubscription>): Result<Unit> =
+    override suspend fun batchUpdateNotificationTopic(
+        topics: List<NotificationTopicStatusModel.TopicGroup.TopicSubscription>,
+    ): Result<Unit> =
         networkNotificationDataSource.batchUpdateNotificationTopic(
             BatchUpdateNotificationTopicRequest(
-                body = BatchUpdateNotificationTopicRequest.Body(
-                    topics = topics.map {
-                        BatchUpdateNotificationTopicRequest.Body.BodyDetail(
-                            topic = it.topic.name,
-                            subscribed = it.isSubscribed
-                        )
-                    }
-                )
-            )
+                body =
+                    BatchUpdateNotificationTopicRequest.Body(
+                        topics =
+                            topics.map {
+                                BatchUpdateNotificationTopicRequest.Body.BodyDetail(
+                                    topic = it.topic.name,
+                                    subscribed = it.isSubscribed,
+                                )
+                            },
+                    ),
+            ),
         )
 
     override suspend fun fetchNotificationTopicStatus(deviceToken: String): Result<NotificationTopicStatusModel> =

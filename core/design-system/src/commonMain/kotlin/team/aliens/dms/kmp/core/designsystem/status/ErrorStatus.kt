@@ -38,10 +38,11 @@ fun ErrorStatus(
     ) {
         Image(
             modifier = Modifier.size(80.dp),
-            painter = rememberLottiePainter(
-                composition = composition,
-                progress = { progress },
-            ),
+            painter =
+                rememberLottiePainter(
+                    composition = composition,
+                    progress = { progress },
+                ),
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(12.dp))

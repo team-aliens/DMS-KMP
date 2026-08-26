@@ -44,14 +44,15 @@ fun DmsNumberField(
     val focusManager = LocalFocusManager.current
 
     BasicTextField(
-        modifier = modifier.onKeyEvent { keyEvent ->
-            if (keyEvent.key == Key.Tab && keyEvent.type == KeyEventType.KeyDown) {
-                focusManager.moveFocus(FocusDirection.Next)
-                true
-            } else {
-                false
-            }
-        },
+        modifier =
+            modifier.onKeyEvent { keyEvent ->
+                if (keyEvent.key == Key.Tab && keyEvent.type == KeyEventType.KeyDown) {
+                    focusManager.moveFocus(FocusDirection.Next)
+                    true
+                } else {
+                    false
+                }
+            },
         value = value.take(totalLength),
         enabled = enabled,
         onValueChange = { newValue ->
@@ -61,10 +62,11 @@ fun DmsNumberField(
             }
         },
         singleLine = true,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Next,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next,
+            ),
     ) { _ ->
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -76,30 +78,33 @@ fun DmsNumberField(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 repeat(totalLength) { index ->
-                    val borderColor = if (isError) {
-                        DmsTheme.colors.errorContainer
-                    } else if (value.length > index) {
-                        DmsTheme.colors.primaryContainer
-                    } else {
-                        DmsTheme.colors.background
-                    }
-                    val text = if (index <= value.length - 1) {
-                        value.getOrNull(index)
-                            .toString()
-                    } else {
-                        ""
-                    }
+                    val borderColor =
+                        if (isError) {
+                            DmsTheme.colors.errorContainer
+                        } else if (value.length > index) {
+                            DmsTheme.colors.primaryContainer
+                        } else {
+                            DmsTheme.colors.background
+                        }
+                    val text =
+                        if (index <= value.length - 1) {
+                            value.getOrNull(index)
+                                .toString()
+                        } else {
+                            ""
+                        }
                     Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .clip(RoundedCornerShape(12.dp))
-                            .border(
-                                width = 1.2.dp,
-                                color = borderColor,
-                                shape = RoundedCornerShape(12.dp),
-                            )
-                            .background(color = DmsTheme.colors.background)
-                            .padding(vertical = 12.dp),
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .clip(RoundedCornerShape(12.dp))
+                                .border(
+                                    width = 1.2.dp,
+                                    color = borderColor,
+                                    shape = RoundedCornerShape(12.dp),
+                                )
+                                .background(color = DmsTheme.colors.background)
+                                .padding(vertical = 12.dp),
                         contentAlignment = Alignment.Center,
                     ) {
                         DmsText(

@@ -8,7 +8,9 @@ import team.aliens.dms.kmp.core.model.type.OrderType
 
 interface NoticeRepository {
     suspend fun getWhetherNewNoticesExist(): Result<NoticeStatusModel>
+
     suspend fun getNoticeDetail(noticeId: String): Result<NoticeDetailModel>
+
     suspend fun getNotices(orderType: OrderType): Result<List<NoticeModel>>
 
     suspend fun getLatestNotice(): Result<LatestNoticeModel>

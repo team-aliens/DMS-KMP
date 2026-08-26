@@ -13,23 +13,26 @@ internal fun GetAllVotesResponse.toModel() = votingTopics.map { it.toModel() }
 
 internal fun GetVoteItemsResponse.toModel() = votingOptions.map { it.toModel() }
 
-private fun VoteDto.toModel() = VoteModel(
-    id = id,
-    topicName = topicName,
-    description = description,
-    startTime = startTime,
-    endTime = endTime,
-    voteType = voteType.toModel(),
-)
+private fun VoteDto.toModel() =
+    VoteModel(
+        id = id,
+        topicName = topicName,
+        description = description,
+        startTime = startTime,
+        endTime = endTime,
+        voteType = voteType.toModel(),
+    )
 
-private fun VoteItemDto.toModel() = VoteItemModel(
-    id = id,
-    votingOptionName = votingOptionName,
-)
+private fun VoteItemDto.toModel() =
+    VoteItemModel(
+        id = id,
+        votingOptionName = votingOptionName,
+    )
 
-private fun VoteTypeDto.toModel() = when (this) {
-    VoteTypeDto.MODEL_STUDENT_VOTE -> VoteType.MODEL_STUDENT_VOTE
-    VoteTypeDto.OPTION_VOTE -> VoteType.OPTION_VOTE
-    VoteTypeDto.STUDENT_VOTE -> VoteType.STUDENT_VOTE
-    VoteTypeDto.APPROVAL_VOTE -> VoteType.APPROVAL_VOTE
-}
+private fun VoteTypeDto.toModel() =
+    when (this) {
+        VoteTypeDto.MODEL_STUDENT_VOTE -> VoteType.MODEL_STUDENT_VOTE
+        VoteTypeDto.OPTION_VOTE -> VoteType.OPTION_VOTE
+        VoteTypeDto.STUDENT_VOTE -> VoteType.STUDENT_VOTE
+        VoteTypeDto.APPROVAL_VOTE -> VoteType.APPROVAL_VOTE
+    }

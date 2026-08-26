@@ -22,7 +22,7 @@ fun LateStudyTeacherSection(
 ) {
     LateStudySectionCard(modifier = modifier) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
         ) {
             Text(
                 text = "담당 선생님",

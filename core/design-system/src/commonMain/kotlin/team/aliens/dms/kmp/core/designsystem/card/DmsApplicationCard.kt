@@ -48,24 +48,26 @@ fun DmsApplicationCard(
     onClick: () -> Unit,
 ) {
     val borderColor by animateColorAsState(
-        targetValue = if (isSelected) {
-            DmsTheme.colors.onPrimaryContainer
-        } else {
-            DmsTheme.colors.surfaceTint
-        },
+        targetValue =
+            if (isSelected) {
+                DmsTheme.colors.onPrimaryContainer
+            } else {
+                DmsTheme.colors.surfaceTint
+            },
     )
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(32.dp))
-            .background(DmsTheme.colors.surfaceTint)
-            .clickable(onClick = onClick)
-            .border(
-                width = 2.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(32.dp),
-            )
-            .padding(horizontal = 16.dp, vertical = 24.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(32.dp))
+                .background(DmsTheme.colors.surfaceTint)
+                .clickable(onClick = onClick)
+                .border(
+                    width = 2.dp,
+                    color = borderColor,
+                    shape = RoundedCornerShape(32.dp),
+                )
+                .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Row(
@@ -131,30 +133,33 @@ private fun AppliedTitleText(
     appliedTitle: String,
     badgeStatus: ApplicationBadgeStatus? = null,
 ) {
-    val backgroundColor = when (badgeStatus) {
-        ApplicationBadgeStatus.APPROVED,
-        null,
-        -> DmsTheme.colors.primary
+    val backgroundColor =
+        when (badgeStatus) {
+            ApplicationBadgeStatus.APPROVED,
+            null,
+            -> DmsTheme.colors.primary
 
-        ApplicationBadgeStatus.REJECTED -> DmsTheme.colors.error
-        ApplicationBadgeStatus.PENDING -> DmsTheme.colors.surfaceVariant
-    }
-    val textColor = when (badgeStatus) {
-        ApplicationBadgeStatus.APPROVED,
-        null,
-        -> DmsTheme.colors.onPrimaryContainer
+            ApplicationBadgeStatus.REJECTED -> DmsTheme.colors.error
+            ApplicationBadgeStatus.PENDING -> DmsTheme.colors.surfaceVariant
+        }
+    val textColor =
+        when (badgeStatus) {
+            ApplicationBadgeStatus.APPROVED,
+            null,
+            -> DmsTheme.colors.onPrimaryContainer
 
-        ApplicationBadgeStatus.REJECTED -> DmsTheme.colors.onErrorContainer
-        ApplicationBadgeStatus.PENDING -> DmsTheme.colors.inverseSurface
-    }
+            ApplicationBadgeStatus.REJECTED -> DmsTheme.colors.onErrorContainer
+            ApplicationBadgeStatus.PENDING -> DmsTheme.colors.inverseSurface
+        }
 
     DmsText(
-        modifier = modifier
-            .background(
-                color = backgroundColor,
-                shape = RoundedCornerShape(6.dp),
-            )
-            .padding(horizontal = 22.dp, vertical = 8.dp),
+        modifier =
+            modifier
+                .background(
+                    color = backgroundColor,
+                    shape = RoundedCornerShape(6.dp),
+                )
+                .padding(horizontal = 22.dp, vertical = 8.dp),
         text = appliedTitle,
         style = DmsTypography.labelB,
         color = textColor,

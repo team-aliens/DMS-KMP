@@ -63,13 +63,14 @@ fun DmsTextField(
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val labelColor by animateColorAsState(
-        targetValue = if (isError) {
-            DmsTheme.colors.onErrorContainer
-        } else if (isFocused || value.isNotEmpty()) {
-            DmsTheme.colors.onPrimaryContainer
-        } else {
-            DmsTheme.colors.surfaceContainer
-        },
+        targetValue =
+            if (isError) {
+                DmsTheme.colors.onErrorContainer
+            } else if (isFocused || value.isNotEmpty()) {
+                DmsTheme.colors.onPrimaryContainer
+            } else {
+                DmsTheme.colors.surfaceContainer
+            },
     )
 
     Column(
@@ -84,9 +85,10 @@ fun DmsTextField(
             )
         }
         TextField(
-            modifier = Modifier.onFocusChanged { focusState ->
-                isFocused = focusState.isFocused
-            },
+            modifier =
+                Modifier.onFocusChanged { focusState ->
+                    isFocused = focusState.isFocused
+                },
             value = value,
             hint = hint,
             onValueChange = onValueChange,
@@ -134,26 +136,29 @@ private fun TextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val hintAlpha by animateFloatAsState(
-        targetValue = if (value.isEmpty()) {
-            1f
-        } else {
-            0f
-        },
+        targetValue =
+            if (value.isEmpty()) {
+                1f
+            } else {
+                0f
+            },
     )
     var visible by remember { mutableStateOf(false) }
-    val (visualTransformation, icon) = if (visible || !showVisibleIcon) {
-        VisualTransformation.None to DmsIcon.Visibility
-    } else {
-        PasswordVisualTransformation() to DmsIcon.VisibilityOff
-    }
-    val lineColor by animateColorAsState(
-        targetValue = if (isError) {
-            DmsTheme.colors.onErrorContainer
-        } else if (isFocused || value.isNotEmpty()) {
-            DmsTheme.colors.onPrimaryContainer
+    val (visualTransformation, icon) =
+        if (visible || !showVisibleIcon) {
+            VisualTransformation.None to DmsIcon.Visibility
         } else {
-            DmsTheme.colors.onSurfaceVariant
-        },
+            PasswordVisualTransformation() to DmsIcon.VisibilityOff
+        }
+    val lineColor by animateColorAsState(
+        targetValue =
+            if (isError) {
+                DmsTheme.colors.onErrorContainer
+            } else if (isFocused || value.isNotEmpty()) {
+                DmsTheme.colors.onPrimaryContainer
+            } else {
+                DmsTheme.colors.onSurfaceVariant
+            },
     )
     val focusManager = LocalFocusManager.current
 
@@ -165,23 +170,25 @@ private fun TextField(
                 onValueChange(filtered)
             }
         },
-        modifier = modifier.onKeyEvent { keyEvent ->
-            if (keyEvent.key == Key.Tab && keyEvent.type == KeyEventType.KeyDown) {
-                focusManager.moveFocus(FocusDirection.Next)
-                true
-            } else {
-                false
-            }
-        },
+        modifier =
+            modifier.onKeyEvent { keyEvent ->
+                if (keyEvent.key == Key.Tab && keyEvent.type == KeyEventType.KeyDown) {
+                    focusManager.moveFocus(FocusDirection.Next)
+                    true
+                } else {
+                    false
+                }
+            },
         textStyle = DmsTypography.BodyM,
         singleLine = singleLine,
         enabled = enabled,
         readOnly = readOnly,
         visualTransformation = visualTransformation,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = keyboardType,
-            imeAction = imeAction,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                keyboardType = keyboardType,
+                imeAction = imeAction,
+            ),
         keyboardActions = keyboardActions,
         interactionSource = interactionSource,
         cursorBrush = SolidColor(DmsTheme.colors.onBackground),
@@ -192,9 +199,10 @@ private fun TextField(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(vertical = 8.dp),
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .padding(vertical = 8.dp),
                     contentAlignment = Alignment.CenterStart,
                 ) {
                     innerTextField()

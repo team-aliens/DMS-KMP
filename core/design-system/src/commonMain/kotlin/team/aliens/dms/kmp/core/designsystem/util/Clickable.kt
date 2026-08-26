@@ -37,12 +37,13 @@ fun Modifier.clickable(
     val isPressed by interactionSource.collectIsPressedAsState()
     var isClickable by remember { mutableStateOf(true) }
     val scale by animateFloatAsState(
-        targetValue = if (isPressed) {
-            pressDepth
-        } else {
-            1f
-        },
-//        animationSpec = tween(delayMillis = DURATION_MILLIS),
+        targetValue =
+            if (isPressed) {
+                pressDepth
+            } else {
+                1f
+            },
+        //        animationSpec = tween(delayMillis = DURATION_MILLIS),
     )
     val coroutineScope = rememberCoroutineScope()
 

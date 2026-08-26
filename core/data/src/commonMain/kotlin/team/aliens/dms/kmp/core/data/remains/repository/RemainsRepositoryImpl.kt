@@ -12,9 +12,10 @@ internal class RemainsRepositoryImpl(
 ) : RemainsRepository {
     override suspend fun updateRemainsOption(remainOptionId: String): Result<Unit> =
         networkRemainsDataSource.updateRemainsOption(
-            request = UpdateRemainsOptionRequest(
-                path = UpdateRemainsOptionRequest.Path(remainOptionId = remainOptionId),
-            ),
+            request =
+                UpdateRemainsOptionRequest(
+                    path = UpdateRemainsOptionRequest.Path(remainOptionId = remainOptionId),
+                ),
         )
 
     override suspend fun getAppliedRemainsOption(): Result<AppliedRemainsOptionModel> =

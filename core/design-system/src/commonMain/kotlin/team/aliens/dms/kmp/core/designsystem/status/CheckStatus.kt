@@ -39,10 +39,11 @@ fun CheckStatus(
     ) {
         Image(
             modifier = Modifier.size(160.dp),
-            painter = rememberLottiePainter(
-                composition = composition,
-                progress = { progress },
-            ),
+            painter =
+                rememberLottiePainter(
+                    composition = composition,
+                    progress = { progress },
+                ),
             contentDescription = null,
         )
         DmsText(

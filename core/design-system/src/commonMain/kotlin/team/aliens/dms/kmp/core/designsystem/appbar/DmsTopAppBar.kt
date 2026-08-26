@@ -30,30 +30,33 @@ fun DmsTopAppBar(
     title: String? = null,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(Color.Transparent)
-            .padding(
-                horizontal = 24.dp,
-                vertical = 12.dp,
-            ),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(Color.Transparent)
+                .padding(
+                    horizontal = 24.dp,
+                    vertical = 12.dp,
+                ),
         contentAlignment = Alignment.Center,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
             horizontalArrangement = if (showLogo || onBackPressed != null) Arrangement.SpaceBetween else Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (showLogo) {
                 Image(
-                    painter = painterResource(
-                        if (isSystemInDarkTheme()) {
-                            DmsIcon.SymbolDark
-                        } else {
-                            DmsIcon.SymbolLight
-                        },
-                    ),
+                    painter =
+                        painterResource(
+                            if (isSystemInDarkTheme()) {
+                                DmsIcon.SymbolDark
+                            } else {
+                                DmsIcon.SymbolLight
+                            },
+                        ),
                     contentDescription = null,
                 )
             }

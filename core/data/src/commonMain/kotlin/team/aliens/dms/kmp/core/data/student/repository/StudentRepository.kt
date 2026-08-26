@@ -4,7 +4,6 @@ import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.model.mypage.MyPageModel
 import team.aliens.dms.kmp.core.model.student.EmailModel
 import team.aliens.dms.kmp.core.model.student.NameModel
-import team.aliens.dms.kmp.core.model.student.ResetPasswordModel
 import team.aliens.dms.kmp.core.model.student.StudentModel
 
 interface StudentRepository {

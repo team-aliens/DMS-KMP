@@ -10,38 +10,45 @@ import team.aliens.dms.kmp.core.network.schools.model.request.GetSchoolVerificat
 internal class SchoolsRepositoryImpl(
     private val networkSchoolsDataSource: NetworkSchoolsDataSource,
 ) : SchoolsRepository {
-    override suspend fun getSchools(): Result<List<SchoolModel>> =
-        networkSchoolsDataSource.getSchools().map { it.schools.toModel() }
+    override suspend fun getSchools(): Result<List<SchoolModel>> = networkSchoolsDataSource.getSchools().map { it.schools.toModel() }
 
     override suspend fun getSchoolVerificationQuestionCheck(schoolId: String): Result<String> =
         networkSchoolsDataSource.getSchoolVerificationQuestionCheck(
-            request = GetSchoolVerificationQuestionCheckRequest(
-                path = GetSchoolVerificationQuestionCheckRequest.Path(
-                    schoolId = schoolId,
+            request =
+                GetSchoolVerificationQuestionCheckRequest(
+                    path =
+                        GetSchoolVerificationQuestionCheckRequest.Path(
+                            schoolId = schoolId,
+                        ),
                 ),
-            ),
         ).map { it.question }
 
     override suspend fun getSchoolVerificationQuestionAnswerCheck(
         schoolId: String,
         answer: String,
-    ): Result<Unit> = networkSchoolsDataSource.getSchoolVerificationQuestionAnswerCheck(
-        request = GetSchoolVerificationQuestionAnswerCheckRequest(
-            path = GetSchoolVerificationQuestionAnswerCheckRequest.Path(
-                schoolId = schoolId,
-            ),
-            query = GetSchoolVerificationQuestionAnswerCheckRequest.Query(
-                answer = answer,
-            ),
-        ),
-    )
+    ): Result<Unit> =
+        networkSchoolsDataSource.getSchoolVerificationQuestionAnswerCheck(
+            request =
+                GetSchoolVerificationQuestionAnswerCheckRequest(
+                    path =
+                        GetSchoolVerificationQuestionAnswerCheckRequest.Path(
+                            schoolId = schoolId,
+                        ),
+                    query =
+                        GetSchoolVerificationQuestionAnswerCheckRequest.Query(
+                            answer = answer,
+                        ),
+                ),
+        )
 
     override suspend fun getSchoolVerificationCodeCheck(schoolCode: String): Result<String> =
         networkSchoolsDataSource.getSchoolVerificationCodeCheck(
-            request = GetSchoolVerificationCodeCheckRequest(
-                query = GetSchoolVerificationCodeCheckRequest.Query(
-                    schoolCode = schoolCode,
+            request =
+                GetSchoolVerificationCodeCheckRequest(
+                    query =
+                        GetSchoolVerificationCodeCheckRequest.Query(
+                            schoolCode = schoolCode,
+                        ),
                 ),
-            ),
         ).map { it.schoolId }
 }

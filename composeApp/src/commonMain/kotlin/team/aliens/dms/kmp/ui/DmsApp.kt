@@ -34,9 +34,10 @@ internal fun DmsApp(
             contentWindowInsets = WindowInsets(0.dp),
         ) { innerPadding ->
             NavHost(
-                modifier = Modifier
-                    .background(DmsTheme.colors.background)
-                    .padding(innerPadding),
+                modifier =
+                    Modifier
+                        .background(DmsTheme.colors.background)
+                        .padding(innerPadding),
                 navController = appState.navController,
                 startDestination = AuthRoute,
             ) {
@@ -45,11 +46,12 @@ internal fun DmsApp(
             }
         }
         SnackbarHost(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .statusBarsPadding()
-                .padding(top = 16.dp)
-                .zIndex(2f),
+            modifier =
+                Modifier
+                    .align(Alignment.TopCenter)
+                    .statusBarsPadding()
+                    .padding(top = 16.dp)
+                    .zIndex(2f),
             hostState = appState.snackBarHostState,
             snackbar = {
                 val visuals = it.visuals as? DmsSnackBarVisuals ?: return@SnackbarHost

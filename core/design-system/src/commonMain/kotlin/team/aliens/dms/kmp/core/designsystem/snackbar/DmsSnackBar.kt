@@ -28,22 +28,23 @@ fun DmsSnackBar(
     message: String,
 ) {
     Row(
-        modifier = modifier
-            .wrapContentWidth()
-            .dmsDropShadow(
-                shape = CircleShape,
-                color = DmsTheme.colors.onPrimaryContainer.copy(alpha = 0.1f),
-                blur = 20.dp,
-                offsetY = 0.dp,
-            )
-            .background(
-                color = DmsTheme.colors.surfaceTint,
-                shape = CircleShape,
-            )
-            .padding(
-                vertical = 12.dp,
-                horizontal = 16.dp,
-            ),
+        modifier =
+            modifier
+                .wrapContentWidth()
+                .dmsDropShadow(
+                    shape = CircleShape,
+                    color = DmsTheme.colors.onPrimaryContainer.copy(alpha = 0.1f),
+                    blur = 20.dp,
+                    offsetY = 0.dp,
+                )
+                .background(
+                    color = DmsTheme.colors.surfaceTint,
+                    shape = CircleShape,
+                )
+                .padding(
+                    vertical = 12.dp,
+                    horizontal = 16.dp,
+                ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {

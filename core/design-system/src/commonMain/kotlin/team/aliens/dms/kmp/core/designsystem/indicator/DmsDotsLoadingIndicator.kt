@@ -37,12 +37,14 @@ fun DmsDotsLoadingIndicator(
     val globalProgress by transition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = durationMillis,
-                easing = LinearEasing,
+        animationSpec =
+            infiniteRepeatable(
+                animation =
+                    tween(
+                        durationMillis = durationMillis,
+                        easing = LinearEasing,
+                    ),
             ),
-        ),
     )
 
     Row(
@@ -58,10 +60,11 @@ fun DmsDotsLoadingIndicator(
             val color = lerp(baseColor, activeColor, wave)
 
             Box(
-                modifier = Modifier
-                    .size(dotSize)
-                    .scale(scale)
-                    .background(color, CircleShape),
+                modifier =
+                    Modifier
+                        .size(dotSize)
+                        .scale(scale)
+                        .background(color, CircleShape),
             )
         }
     }

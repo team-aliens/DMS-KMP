@@ -8,7 +8,6 @@ import team.aliens.dms.kmp.core.notification.NotificationManager
 import team.aliens.dms.kmp.di.appModule
 
 class DmsAppApplication : Application() {
-
     private val notificationManager: NotificationManager by inject()
 
     override fun onCreate() {

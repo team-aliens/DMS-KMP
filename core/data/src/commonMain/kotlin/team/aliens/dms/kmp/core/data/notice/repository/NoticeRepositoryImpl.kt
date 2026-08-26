@@ -19,22 +19,25 @@ internal class NoticeRepositoryImpl(
 
     override suspend fun getNoticeDetail(noticeId: String): Result<NoticeDetailModel> =
         networkNoticeDataSource.getNoticeDetail(
-            request = GetNoticeDetailRequest(
-                path = GetNoticeDetailRequest.Path(
-                    noticeId = noticeId,
+            request =
+                GetNoticeDetailRequest(
+                    path =
+                        GetNoticeDetailRequest.Path(
+                            noticeId = noticeId,
+                        ),
                 ),
-            ),
         ).map { it.toModel() }
 
     override suspend fun getNotices(orderType: OrderType): Result<List<NoticeModel>> =
         networkNoticeDataSource.getNotices(
-            request = GetNoticesRequest(
-                query = GetNoticesRequest.Query(
-                    order = orderType.toDto(),
+            request =
+                GetNoticesRequest(
+                    query =
+                        GetNoticesRequest.Query(
+                            order = orderType.toDto(),
+                        ),
                 ),
-            ),
         ).map { it.toModel() }
 
-    override suspend fun getLatestNotice(): Result<LatestNoticeModel> =
-        networkNoticeDataSource.getLatestNotice().map { it.toModel() }
+    override suspend fun getLatestNotice(): Result<LatestNoticeModel> = networkNoticeDataSource.getLatestNotice().map { it.toModel() }
 }

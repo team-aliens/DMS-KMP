@@ -47,21 +47,24 @@ fun DmsCalendar(
     onSelectedDateChange: (newDate: LocalDate) -> Unit,
 ) {
     var updateDate by remember { mutableStateOf(selectDate) }
-    val calendarState = rememberCalendarState(
-        startMonth = YearMonth.now().minusYears(1),
-        endMonth = YearMonth.now().plusYears(1),
-        firstVisibleMonth = YearMonth.now(),
-    )
+    val calendarState =
+        rememberCalendarState(
+            startMonth = YearMonth.now().minusYears(1),
+            endMonth = YearMonth.now().plusYears(1),
+            firstVisibleMonth = YearMonth.now(),
+        )
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(DmsTheme.colors.surfaceTint)
-            .navigationBarsPadding(),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(DmsTheme.colors.surfaceTint)
+                .navigationBarsPadding(),
     ) {
         HorizontalCalendar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.4f),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.4f),
             state = calendarState,
             dayContent = { day ->
                 Day(
@@ -73,10 +76,11 @@ fun DmsCalendar(
         )
 
         DmsButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalPadding(24.dp)
-                .verticalPadding(12.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .horizontalPadding(24.dp)
+                    .verticalPadding(12.dp),
             text = "확인",
             buttonType = ButtonType.Contained,
             buttonColor = ButtonColor.Primary,
@@ -93,29 +97,33 @@ private fun Day(
     onDayClick: (LocalDate) -> Unit,
 ) {
     val isOtherMonthDay = day.position != DayPosition.MonthDate
-    val textColor = when {
-        isSelected -> DmsTheme.colors.surface
-        isOtherMonthDay -> DmsTheme.colors.onSurfaceVariant
-        else -> DmsTheme.colors.inverseSurface
-    }
-    val backgroundColor = when {
-        isSelected -> DmsTheme.colors.onPrimaryContainer
-        else -> Color.Transparent
-    }
+    val textColor =
+        when {
+            isSelected -> DmsTheme.colors.surface
+            isOtherMonthDay -> DmsTheme.colors.onSurfaceVariant
+            else -> DmsTheme.colors.inverseSurface
+        }
+    val backgroundColor =
+        when {
+            isSelected -> DmsTheme.colors.onPrimaryContainer
+            else -> Color.Transparent
+        }
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(onClick = { onDayClick(day.date) })
-            .padding(vertical = 12.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clickable(onClick = { onDayClick(day.date) })
+                .padding(vertical = 12.dp),
         contentAlignment = Alignment.Center,
     ) {
         Box(
-            modifier = Modifier
-                .size(26.dp)
-                .background(
-                    color = backgroundColor,
-                    shape = CircleShape,
-                ),
+            modifier =
+                Modifier
+                    .size(26.dp)
+                    .background(
+                        color = backgroundColor,
+                        shape = CircleShape,
+                    ),
             contentAlignment = Alignment.Center,
         ) {
             DmsText(

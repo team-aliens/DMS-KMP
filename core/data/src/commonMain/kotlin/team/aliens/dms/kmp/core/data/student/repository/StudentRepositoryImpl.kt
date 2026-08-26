@@ -34,42 +34,49 @@ internal class StudentRepositoryImpl(
         accountId: String,
         password: String,
         profileImageUrl: String?,
-    ): Result<Unit> = kotlin.runCatching {
-        val response = networkStudentDataSource.signUp(
-            request = SignUpRequest(
-                body = SignUpRequest.Body(
-                    schoolCode = schoolVerificationCode,
-                    schoolAnswer = schoolVerificationAnswer,
-                    email = email,
-                    authCode = authCode,
-                    grade = grade,
-                    classRoom = classRoom,
-                    number = number,
-                    accountId = accountId,
-                    password = password,
-                    profileImageUrl = profileImageUrl,
-                ),
-            ),
-        )
+    ): Result<Unit> =
+        kotlin.runCatching {
+            val response =
+                networkStudentDataSource.signUp(
+                    request =
+                        SignUpRequest(
+                            body =
+                                SignUpRequest.Body(
+                                    schoolCode = schoolVerificationCode,
+                                    schoolAnswer = schoolVerificationAnswer,
+                                    email = email,
+                                    authCode = authCode,
+                                    grade = grade,
+                                    classRoom = classRoom,
+                                    number = number,
+                                    accountId = accountId,
+                                    password = password,
+                                    profileImageUrl = profileImageUrl,
+                                ),
+                        ),
+                )
 
-        authPreferencesDataSource.storeTokens(token = response.getOrThrow().toModel())
-    }
+            authPreferencesDataSource.storeTokens(token = response.getOrThrow().toModel())
+        }
 
     override suspend fun examineStudentNumber(
         schoolId: String,
         grade: Int,
         classroom: Int,
         number: Int,
-    ): Result<NameModel> = networkStudentDataSource.examineStudentNumber(
-        request = ExamineStudentNumberRequest(
-            query = ExamineStudentNumberRequest.Query(
-                schoolId = schoolId,
-                grade = grade,
-                classroom = classroom,
-                number = number,
-            ),
-        ),
-    ).map { it.toModel() }
+    ): Result<NameModel> =
+        networkStudentDataSource.examineStudentNumber(
+            request =
+                ExamineStudentNumberRequest(
+                    query =
+                        ExamineStudentNumberRequest.Query(
+                            schoolId = schoolId,
+                            grade = grade,
+                            classroom = classroom,
+                            number = number,
+                        ),
+                ),
+        ).map { it.toModel() }
 
     override suspend fun findId(
         schoolId: String,
@@ -77,19 +84,23 @@ internal class StudentRepositoryImpl(
         grade: Int,
         classRoom: Int,
         number: Int,
-    ): Result<EmailModel> = networkStudentDataSource.findId(
-        request = FindIdRequest(
-            path = FindIdRequest.Path(
-                schoolId = schoolId,
-            ),
-            query = FindIdRequest.Query(
-                name = studentName,
-                grade = grade,
-                classRoom = classRoom,
-                number = number,
-            ),
-        ),
-    ).map { it.toModel() }
+    ): Result<EmailModel> =
+        networkStudentDataSource.findId(
+            request =
+                FindIdRequest(
+                    path =
+                        FindIdRequest.Path(
+                            schoolId = schoolId,
+                        ),
+                    query =
+                        FindIdRequest.Query(
+                            name = studentName,
+                            grade = grade,
+                            classRoom = classRoom,
+                            number = number,
+                        ),
+                ),
+        ).map { it.toModel() }
 
     override suspend fun resetPassword(
         accountId: String,
@@ -97,42 +108,48 @@ internal class StudentRepositoryImpl(
         email: String,
         emailVerificationCode: String,
         newPassword: String,
-    ): Result<Unit> = networkStudentDataSource.resetPassword(
-        request = ResetPasswordRequest(
-            body = ResetPasswordRequest.Body(
-                accountId = accountId,
-                name = name,
-                email = email,
-                emailVerificationCode = emailVerificationCode,
-                newPassword = newPassword,
-            ),
-        ),
-    )
+    ): Result<Unit> =
+        networkStudentDataSource.resetPassword(
+            request =
+                ResetPasswordRequest(
+                    body =
+                        ResetPasswordRequest.Body(
+                            accountId = accountId,
+                            name = name,
+                            email = email,
+                            emailVerificationCode = emailVerificationCode,
+                            newPassword = newPassword,
+                        ),
+                ),
+        )
 
     override suspend fun checkIdDuplication(id: String): Result<Unit> =
         networkStudentDataSource.checkIdDuplication(
-            request = CheckIdDuplicationRequest(
-                query = CheckIdDuplicationRequest.Query(id = id),
-            ),
+            request =
+                CheckIdDuplicationRequest(
+                    query = CheckIdDuplicationRequest.Query(id = id),
+                ),
         )
 
     override suspend fun checkEmailDuplication(email: String): Result<Unit> =
         networkStudentDataSource.checkEmailDuplication(
-            request = CheckEmailDuplicationRequest(
-                query = CheckEmailDuplicationRequest.Query(
-                    email = email,
+            request =
+                CheckEmailDuplicationRequest(
+                    query =
+                        CheckEmailDuplicationRequest.Query(
+                            email = email,
+                        ),
                 ),
-            ),
         )
 
-    override suspend fun getMyPage(): Result<MyPageModel> =
-        networkStudentDataSource.getMyPage().map { it.toModel() }
+    override suspend fun getMyPage(): Result<MyPageModel> = networkStudentDataSource.getMyPage().map { it.toModel() }
 
     override suspend fun editProfile(profileImageUrl: String): Result<Unit> =
         networkStudentDataSource.editProfile(
-            request = EditProfileRequest(
-                body = EditProfileRequest.Body(profileImageUrl = profileImageUrl),
-            ),
+            request =
+                EditProfileRequest(
+                    body = EditProfileRequest.Body(profileImageUrl = profileImageUrl),
+                ),
         )
 
     override suspend fun withdraw(): Result<Unit> = networkStudentDataSource.withdraw()
@@ -144,8 +161,9 @@ internal class StudentRepositoryImpl(
 
     override suspend fun getCandidateModelStudents(requestDate: LocalDate): Result<List<StudentModel>> =
         networkStudentDataSource.getCandidateModelStudents(
-            request = GetCandidateModelStudentsRequest(
-                query = GetCandidateModelStudentsRequest.Query(requestDate = requestDate),
-            ),
+            request =
+                GetCandidateModelStudentsRequest(
+                    query = GetCandidateModelStudentsRequest.Query(requestDate = requestDate),
+                ),
         ).map { it.toModel() }
 }

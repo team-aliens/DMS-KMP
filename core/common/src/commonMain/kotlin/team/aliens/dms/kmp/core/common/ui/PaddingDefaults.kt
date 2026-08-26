@@ -11,9 +11,7 @@ object PaddingDefaults {
     val ExtraLarge = 24.dp
 }
 
-fun Modifier.horizontalPadding(
-    value: Dp = PaddingDefaults.ExtraLarge,
-): Modifier = padding(horizontal = value)
+fun Modifier.horizontalPadding(value: Dp = PaddingDefaults.ExtraLarge): Modifier = padding(horizontal = value)
 
 fun Modifier.verticalPadding(value: Dp): Modifier = padding(vertical = value)
 
@@ -21,10 +19,6 @@ fun Modifier.startPadding(value: Dp): Modifier = padding(start = value)
 
 fun Modifier.endPadding(value: Dp): Modifier = padding(end = value)
 
-fun Modifier.topPadding(
-    value: Dp = PaddingDefaults.Medium,
-): Modifier = padding(top = value)
+fun Modifier.topPadding(value: Dp = PaddingDefaults.Medium): Modifier = padding(top = value)
 
-fun Modifier.bottomPadding(
-    value: Dp = PaddingDefaults.Large,
-): Modifier = padding(bottom = value)
+fun Modifier.bottomPadding(value: Dp = PaddingDefaults.Large): Modifier = padding(bottom = value)

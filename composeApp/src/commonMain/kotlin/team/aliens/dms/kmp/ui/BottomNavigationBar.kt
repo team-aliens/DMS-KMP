@@ -25,33 +25,34 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
 import team.aliens.dms.kmp.util.isRouteInHierarchy
 
-private val bottomMenus = listOf(
-    BottomMenu.Home,
-    BottomMenu.Application,
-    BottomMenu.MyPage,
-)
+private val bottomMenus =
+    listOf(
+        BottomMenu.Home,
+        BottomMenu.Application,
+        BottomMenu.MyPage,
+    )
 
 @Composable
-fun BottomNavigationBar(
-    navController: NavController = rememberNavController(),
-) {
+fun BottomNavigationBar(navController: NavController = rememberNavController()) {
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry.value?.destination
 
     BottomAppBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)),
         containerColor = DmsTheme.colors.surfaceTint,
     ) {
         bottomMenus.forEach { destination ->
             val selected = currentDestination.isRouteInHierarchy(destination.route::class)
             val color by animateColorAsState(
-                targetValue = if (selected) {
-                    DmsTheme.colors.inverseOnSurface
-                } else {
-                    DmsTheme.colors.scrim
-                },
+                targetValue =
+                    if (selected) {
+                        DmsTheme.colors.inverseOnSurface
+                    } else {
+                        DmsTheme.colors.scrim
+                    },
             )
 
             NavigationBarItem(
@@ -80,15 +81,16 @@ fun BottomNavigationBar(
                         )
                     }
                 },
-                colors = NavigationBarItemColors(
-                    selectedIconColor = DmsTheme.colors.inverseOnSurface,
-                    selectedTextColor = DmsTheme.colors.inverseOnSurface,
-                    selectedIndicatorColor = Color.Transparent,
-                    unselectedIconColor = DmsTheme.colors.scrim,
-                    unselectedTextColor = DmsTheme.colors.scrim,
-                    disabledIconColor = DmsTheme.colors.scrim,
-                    disabledTextColor = DmsTheme.colors.scrim,
-                ),
+                colors =
+                    NavigationBarItemColors(
+                        selectedIconColor = DmsTheme.colors.inverseOnSurface,
+                        selectedTextColor = DmsTheme.colors.inverseOnSurface,
+                        selectedIndicatorColor = Color.Transparent,
+                        unselectedIconColor = DmsTheme.colors.scrim,
+                        unselectedTextColor = DmsTheme.colors.scrim,
+                        disabledIconColor = DmsTheme.colors.scrim,
+                        disabledTextColor = DmsTheme.colors.scrim,
+                    ),
             )
         }
     }

@@ -8,11 +8,12 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun DmsSymbol(modifier: Modifier = Modifier) {
-    val symbol = if (isSystemInDarkTheme()) {
-        DmsIcon.SymbolDark
-    } else {
-        DmsIcon.SymbolLight
-    }
+    val symbol =
+        if (isSystemInDarkTheme()) {
+            DmsIcon.SymbolDark
+        } else {
+            DmsIcon.SymbolLight
+        }
 
     Image(
         modifier = modifier,

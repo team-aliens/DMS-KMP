@@ -25,15 +25,16 @@ fun DmsFloatingNotice(
     iconResource: DrawableResource = DmsIcon.Notification,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(
-                color = DmsTheme.colors.primary,
-                shape = RoundedCornerShape(30.dp),
-            ).padding(
-                horizontal = 22.dp,
-                vertical = 12.dp,
-            ),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(
+                    color = DmsTheme.colors.primary,
+                    shape = RoundedCornerShape(30.dp),
+                ).padding(
+                    horizontal = 22.dp,
+                    vertical = 12.dp,
+                ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(14.dp),
     ) {

@@ -24,7 +24,6 @@ import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.text.DmsText
-import team.aliens.dms.kmp.core.designsystem.util.clickable
 
 @Composable
 fun DmsPointContent(
@@ -33,14 +32,15 @@ fun DmsPointContent(
     minusPoint: Int,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(32.dp))
-            .background(
-                color = DmsTheme.colors.surfaceTint,
-                shape = RoundedCornerShape(32.dp),
-            )
-            .padding(24.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(32.dp))
+                .background(
+                    color = DmsTheme.colors.surfaceTint,
+                    shape = RoundedCornerShape(32.dp),
+                )
+                .padding(24.dp),
     ) {
         DmsText(
             text = "상벌점",
@@ -92,11 +92,12 @@ private fun PointItem(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            modifier = Modifier
-                .size(24.dp)
-                .clip(CircleShape)
-                .background(iconBackgroundColor)
-                .padding(6.dp),
+            modifier =
+                Modifier
+                    .size(24.dp)
+                    .clip(CircleShape)
+                    .background(iconBackgroundColor)
+                    .padding(6.dp),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -112,9 +113,10 @@ private fun PointItem(
         )
         Spacer(modifier = Modifier.weight(1f))
         DmsText(
-            modifier = Modifier
-                .background(color = buttonColor, shape = RoundedCornerShape(12.dp))
-                .padding(horizontal = 22.dp, vertical = 8.dp),
+            modifier =
+                Modifier
+                    .background(color = buttonColor, shape = RoundedCornerShape(12.dp))
+                    .padding(horizontal = 22.dp, vertical = 8.dp),
             text = "${point}점",
             style = DmsTypography.BodyB,
             color = textColor,

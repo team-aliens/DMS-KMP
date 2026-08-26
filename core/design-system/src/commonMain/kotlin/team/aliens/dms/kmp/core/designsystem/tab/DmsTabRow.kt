@@ -23,14 +23,16 @@ fun DmsTabRow(
         @Composable { tabPositions ->
             if (selectedTabIndex < tabPositions.size) {
                 TabRowDefaults.SecondaryIndicator(
-                    modifier = Modifier
-                        .tabIndicatorOffset(tabPositions[selectedTabIndex])
-                        .clip(
-                            shape = RoundedCornerShape(
-                                topStart = 12.dp,
-                                topEnd = 12.dp,
+                    modifier =
+                        Modifier
+                            .tabIndicatorOffset(tabPositions[selectedTabIndex])
+                            .clip(
+                                shape =
+                                    RoundedCornerShape(
+                                        topStart = 12.dp,
+                                        topEnd = 12.dp,
+                                    ),
                             ),
-                        ),
                     color = DmsTheme.colors.onPrimaryContainer,
                     height = 2.dp,
                 )

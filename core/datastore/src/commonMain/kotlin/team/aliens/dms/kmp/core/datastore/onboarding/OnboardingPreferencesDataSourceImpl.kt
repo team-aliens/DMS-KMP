@@ -15,9 +15,10 @@ internal class OnboardingPreferencesDataSourceImpl(
             }
         }
 
-    override suspend fun getOnboardingCompleted(): Result<Boolean> = kotlin.runCatching {
-        preferencesDataStore.data.firstOrNull()?.get(ONBOARDING_COMPLETED) ?: false
-    }
+    override suspend fun getOnboardingCompleted(): Result<Boolean> =
+        kotlin.runCatching {
+            preferencesDataStore.data.firstOrNull()?.get(ONBOARDING_COMPLETED) ?: false
+        }
 
     private companion object {
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")

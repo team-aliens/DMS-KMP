@@ -20,33 +20,39 @@ internal class AuthRepositoryImpl(
         accountId: String,
         password: String,
         deviceToken: String,
-    ): Result<Unit> = kotlin.runCatching {
-        val response = networkAuthDatasource.signIn(
-            request = SignInRequest(
-                body = SignInRequest.Body(
-                    accountId = accountId,
-                    password = password,
-                    deviceToken = deviceToken,
-                ),
-            ),
-        )
+    ): Result<Unit> =
+        kotlin.runCatching {
+            val response =
+                networkAuthDatasource.signIn(
+                    request =
+                        SignInRequest(
+                            body =
+                                SignInRequest.Body(
+                                    accountId = accountId,
+                                    password = password,
+                                    deviceToken = deviceToken,
+                                ),
+                        ),
+                )
 
-        authPreferencesDataSource.storeTokens(
-            token = response.getOrThrow().toModel(),
-        )
-    }
+            authPreferencesDataSource.storeTokens(
+                token = response.getOrThrow().toModel(),
+            )
+        }
 
     override suspend fun sendEmailVerificationCode(
         email: String,
         type: EmailVerificationType,
     ): Result<Unit> =
         networkAuthDatasource.sendEmailVerificationCode(
-            request = SendEmailVerificationCodeRequest(
-                body = SendEmailVerificationCodeRequest.Body(
-                    email = email,
-                    type = type.name,
+            request =
+                SendEmailVerificationCodeRequest(
+                    body =
+                        SendEmailVerificationCodeRequest.Body(
+                            email = email,
+                            type = type.name,
+                        ),
                 ),
-            ),
         )
 
     override suspend fun checkEmailVerificationCode(
@@ -55,35 +61,39 @@ internal class AuthRepositoryImpl(
         type: EmailVerificationType,
     ): Result<Unit> =
         networkAuthDatasource.checkEmailVerificationCode(
-            request = CheckEmailVerificationCodeRequest(
-                query = CheckEmailVerificationCodeRequest.Query(
-                    email = email,
-                    authCode = code,
-                    type = type.name,
+            request =
+                CheckEmailVerificationCodeRequest(
+                    query =
+                        CheckEmailVerificationCodeRequest.Query(
+                            email = email,
+                            authCode = code,
+                            type = type.name,
+                        ),
                 ),
-            ),
         )
 
     override suspend fun checkIdExists(accountId: String): Result<EmailModel> =
         networkAuthDatasource.checkIdExists(
-            request = CheckIdExistsRequest(
-                query = CheckIdExistsRequest.Query(
-                    accountId = accountId,
+            request =
+                CheckIdExistsRequest(
+                    query =
+                        CheckIdExistsRequest.Query(
+                            accountId = accountId,
+                        ),
                 ),
-            ),
         ).map { it.toModel() }
 
     override suspend fun fetchTokens(): Result<TokenModel?> = authPreferencesDataSource.loadTokens()
 
-    override suspend fun updateTokens(token: TokenModel): Result<Unit> =
-        authPreferencesDataSource.storeTokens(token = token)
+    override suspend fun updateTokens(token: TokenModel): Result<Unit> = authPreferencesDataSource.storeTokens(token = token)
 
     override suspend fun clearTokens(): Result<Unit> = authPreferencesDataSource.clearTokens()
 
     override suspend fun reissueToken(refreshToken: String): Result<Unit> {
-        val response = networkAuthDatasource.reissueToken(
-            request = ReissueRequest(header = ReissueRequest.Header(refreshToken = refreshToken)),
-        )
+        val response =
+            networkAuthDatasource.reissueToken(
+                request = ReissueRequest(header = ReissueRequest.Header(refreshToken = refreshToken)),
+            )
         response.getOrNull()?.let { token ->
             authPreferencesDataSource.storeTokens(
                 token = token.toModel(),
