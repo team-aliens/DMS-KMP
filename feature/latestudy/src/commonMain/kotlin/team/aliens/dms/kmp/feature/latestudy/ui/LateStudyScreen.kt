@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -41,6 +42,8 @@ import org.koin.compose.viewmodel.koinViewModel
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
+import team.aliens.dms.kmp.core.designsystem.button.DmsIconButton
+import team.aliens.dms.kmp.core.designsystem.foundation.DmsIcon
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTypography
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
@@ -84,124 +87,142 @@ fun LateStudyScreen(
             viewModel.reason.isNotBlank() &&
             !viewModel.isSubmitting
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(DmsTheme.colors.background)
-            .statusBarsPadding()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 14.dp, vertical = 16.dp),
+            .background(DmsTheme.colors.background),
     ) {
-        Text(
-            text = "< 뒤로가기",
-            color = DmsTheme.colors.onBackground,
-            style = DmsTypography.BodyM,
+        Column(
             modifier = Modifier
-                .padding(start = 4.dp)
-                .clickable { onBack() },
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(
-            text = "새벽 자습 신청",
-            color = DmsTheme.colors.onBackground,
-            style = DmsTypography.TitleB,
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TeacherSearchSection(
-            teacherKeyword = viewModel.teacherKeyword,
-            onKeywordChange = {
-                viewModel.updateTeacherKeyword(it)
-                isDropdownVisible = true
-            },
-            filteredTeachers = filteredTeachers,
-            isDropdownVisible = isDropdownVisible,
-            onTeacherClick = {
-                viewModel.selectTeacher(it)
-                isDropdownVisible = false
-                focusManager.clearFocus()
-            },
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        LateStudySectionCard {
-            Text(
-                text = "유형",
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                color = DmsTheme.colors.onBackground,
-                style = DmsTypography.BodyB,
+                .fillMaxSize()
+                .statusBarsPadding()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 10.dp),
+        ) {
+            DmsIconButton(
+                modifier = Modifier.padding(start = 2.dp),
+                resource = DmsIcon.Backward,
+                tint = DmsTheme.colors.scrim,
+                size = 48.dp,
+                contentPaddingValues = androidx.compose.foundation.layout.PaddingValues(12.dp),
+                contentDescription = "뒤로가기",
+                onClick = onBack,
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "새벽 자습 신청",
+                color = DmsTheme.colors.tertiaryContainer,
+                style = DmsTypography.LBodyB,
+                modifier = Modifier.padding(start = 14.dp, top = 8.dp),
+            )
 
-            viewModel.studyTypes.forEach { type ->
-                LateStudyTypeItem(
-                    text = type.name,
-                    selected = viewModel.selectedTypeId == type.id,
-                    onClick = { viewModel.selectStudyType(type.id) },
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TeacherSearchSection(
+                teacherKeyword = viewModel.teacherKeyword,
+                onKeywordChange = {
+                    viewModel.updateTeacherKeyword(it)
+                    isDropdownVisible = true
+                },
+                filteredTeachers = filteredTeachers,
+                isDropdownVisible = isDropdownVisible,
+                onTeacherClick = {
+                    viewModel.selectTeacher(it)
+                    isDropdownVisible = false
+                    focusManager.clearFocus()
+                },
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            LateStudySectionCard {
+                Text(
+                    text = "유형",
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp),
+                    color = DmsTheme.colors.inverseOnSurface,
+                    style = DmsTypography.BodyB,
                 )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                viewModel.studyTypes.forEach { type ->
+                    LateStudyTypeItem(
+                        text = type.name,
+                        selected = viewModel.selectedTypeId == type.id,
+                        onClick = { viewModel.selectStudyType(type.id) },
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            LateStudyCalendarSection(
+                currentMonth = currentMonth,
+                minimumDate = today,
+                startDate = startDate,
+                endDate = endDate,
+                onPrevMonthClick = { currentMonth = currentMonth.minusMonths(1) },
+                onNextMonthClick = { currentMonth = currentMonth.plusMonths(1) },
+                onDateClick = { clickedDate ->
+                    when {
+                        startDate == null -> startDate = clickedDate
+                        endDate == null && clickedDate >= startDate!! -> endDate = clickedDate
+                        else -> {
+                            startDate = clickedDate
+                            endDate = null
+                        }
+                    }
+                },
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            LateStudyReasonSection(
+                value = viewModel.reason,
+                onValueChange = viewModel::updateReason,
+            )
+
+            Spacer(modifier = Modifier.height(152.dp))
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
-
-        LateStudyCalendarSection(
-            currentMonth = currentMonth,
-            minimumDate = today,
-            startDate = startDate,
-            endDate = endDate,
-            onPrevMonthClick = { currentMonth = currentMonth.minusMonths(1) },
-            onNextMonthClick = { currentMonth = currentMonth.plusMonths(1) },
-            onDateClick = { clickedDate ->
-                when {
-                    startDate == null -> startDate = clickedDate
-                    endDate == null && clickedDate >= startDate!! -> endDate = clickedDate
-                    else -> {
-                        startDate = clickedDate
-                        endDate = null
-                    }
-                }
-            },
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        LateStudyReasonSection(
-            value = viewModel.reason,
-            onValueChange = viewModel::updateReason,
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        DmsButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = "신청하기",
-            buttonType = ButtonType.Contained,
-            buttonColor = ButtonColor.Primary,
-            enabled = isEnabled,
-            onClick = {
-                val selectedStartDate = startDate ?: return@DmsButton
-
-                viewModel.submitLateStudy(
-                    startDate = selectedStartDate.toString(),
-                    endDate = (endDate ?: selectedStartDate).toString(),
-                    onSuccess = {
-                        onShowSnackBar(DmsSnackBarType.SUCCESS, "새벽 자습 신청이 완료되었습니다")
-                        onSubmitted()
-                        onBack()
-                    },
-                    onFailure = { message ->
-                        onShowSnackBar(DmsSnackBarType.ERROR, message)
-                    },
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .background(
+                    color = DmsTheme.colors.surfaceTint,
+                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
                 )
-            },
-        )
+                .navigationBarsPadding()
+                .padding(horizontal = 24.dp, vertical = 24.dp),
+        ) {
+            DmsButton(
+                modifier = Modifier.fillMaxWidth(),
+                text = "신청하기",
+                buttonType = ButtonType.Contained,
+                buttonColor = ButtonColor.Primary,
+                enabled = isEnabled,
+                contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 20.dp),
+                onClick = {
+                    val selectedStartDate = startDate ?: return@DmsButton
 
-        Spacer(modifier = Modifier.height(12.dp))
+                    viewModel.submitLateStudy(
+                        startDate = selectedStartDate.toString(),
+                        endDate = (endDate ?: selectedStartDate).toString(),
+                        onSuccess = {
+                            onShowSnackBar(DmsSnackBarType.SUCCESS, "새벽 자습 신청이 완료되었습니다")
+                            onSubmitted()
+                            onBack()
+                        },
+                        onFailure = { message ->
+                            onShowSnackBar(DmsSnackBarType.ERROR, message)
+                        },
+                    )
+                },
+            )
+        }
     }
 }
 
