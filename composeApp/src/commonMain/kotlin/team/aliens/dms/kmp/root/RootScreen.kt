@@ -77,9 +77,10 @@ private fun RootScreen(
         NavHost(
             navController = navController,
             startDestination = HomeRoute,
-            modifier = Modifier
-                .background(DmsTheme.colors.background)
-                .padding(paddingValues),
+            modifier =
+                Modifier
+                    .background(DmsTheme.colors.background)
+                    .padding(paddingValues),
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None },
         ) {

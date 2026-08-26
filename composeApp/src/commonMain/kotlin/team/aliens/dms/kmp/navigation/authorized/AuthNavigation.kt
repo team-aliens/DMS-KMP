@@ -5,13 +5,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
-import team.aliens.dms.kmp.feature.resetpassword.navigation.navigateToResetPassword
-import team.aliens.dms.kmp.feature.resetpassword.navigation.resetPassword
 import team.aliens.dms.kmp.core.network.PlatformConfig
 import team.aliens.dms.kmp.feature.findid.navigation.findId
 import team.aliens.dms.kmp.feature.findid.navigation.navigateToFindId
 import team.aliens.dms.kmp.feature.onboarding.navigation.navigateToOnboarding
 import team.aliens.dms.kmp.feature.onboarding.navigation.onboarding
+import team.aliens.dms.kmp.feature.resetpassword.navigation.navigateToResetPassword
+import team.aliens.dms.kmp.feature.resetpassword.navigation.resetPassword
 import team.aliens.dms.kmp.feature.signin.navigation.navigateToSignIn
 import team.aliens.dms.kmp.feature.signin.navigation.signIn
 import team.aliens.dms.kmp.feature.signup.navigation.navigateToComplete
@@ -32,16 +32,13 @@ import team.aliens.dms.kmp.ui.DmsAppState
 @Serializable
 data object AuthRoute
 
-fun NavController.navigateToAuth(
-    navOptions: NavOptions? = null,
-) = navigate(
-    route = AuthRoute,
-    navOptions = navOptions,
-)
+fun NavController.navigateToAuth(navOptions: NavOptions? = null) =
+    navigate(
+        route = AuthRoute,
+        navOptions = navOptions,
+    )
 
-fun NavGraphBuilder.authGraph(
-    appState: DmsAppState,
-) {
+fun NavGraphBuilder.authGraph(appState: DmsAppState) {
     navigation<AuthRoute>(
         startDestination = SplashRoute,
     ) {

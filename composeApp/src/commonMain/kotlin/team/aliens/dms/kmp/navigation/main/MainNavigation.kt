@@ -44,19 +44,18 @@ import team.aliens.dms.kmp.ui.DmsAppState
 data object MainRoute
 
 fun NavController.navigateToMain(
-    navOptions: NavOptions? = navOptions {
-        popUpTo(graph.id) {
-            inclusive = true
-        }
-    },
+    navOptions: NavOptions? =
+        navOptions {
+            popUpTo(graph.id) {
+                inclusive = true
+            }
+        },
 ) = navigate(
     route = MainRoute,
     navOptions = navOptions,
 )
 
-internal fun NavGraphBuilder.mainGraph(
-    appState: DmsAppState,
-) {
+internal fun NavGraphBuilder.mainGraph(appState: DmsAppState) {
     navigation<MainRoute>(
         startDestination = RootRoute,
     ) {

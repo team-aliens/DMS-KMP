@@ -18,12 +18,13 @@ val databaseModule =
         single {
             DmsDatabase(
                 driver = get(),
-                MealEntityAdapter = MealEntity.Adapter(
-                    dateAdapter = dateAdapter,
-                    breakfastAdapter = mealAdapter,
-                    lunchAdapter = mealAdapter,
-                    dinnerAdapter = mealAdapter,
-                ),
+                MealEntityAdapter =
+                    MealEntity.Adapter(
+                        dateAdapter = dateAdapter,
+                        breakfastAdapter = mealAdapter,
+                        lunchAdapter = mealAdapter,
+                        dinnerAdapter = mealAdapter,
+                    ),
             )
         }
     }

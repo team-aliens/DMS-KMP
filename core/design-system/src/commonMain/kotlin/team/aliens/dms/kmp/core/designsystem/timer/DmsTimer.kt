@@ -28,27 +28,29 @@ fun DmsTimer(
 
     LaunchedEffect(Unit) {
         countdownTimer.start()
-        countdownTimer.listener = object : CountDownTimerListener {
-            override fun onTick(timeLeft: Long) {
-                timerFinished = false
-                time = timeLeft
-            }
+        countdownTimer.listener =
+            object : CountDownTimerListener {
+                override fun onTick(timeLeft: Long) {
+                    timerFinished = false
+                    time = timeLeft
+                }
 
-            override fun onFinish() {
-                timerFinished = true
+                override fun onFinish() {
+                    timerFinished = true
+                }
             }
-        }
     }
 
     LaunchedEffect(timerFinished) {
         onTimerFinished(timerFinished)
     }
 
-    val textColor = if (time <= ONE_MINUTE_MILLIS) {
-        DmsTheme.colors.onErrorContainer
-    } else {
-        DmsTheme.colors.onPrimaryContainer
-    }
+    val textColor =
+        if (time <= ONE_MINUTE_MILLIS) {
+            DmsTheme.colors.onErrorContainer
+        } else {
+            DmsTheme.colors.onPrimaryContainer
+        }
 
     DmsText(
         modifier = modifier,
@@ -61,9 +63,10 @@ fun DmsTimer(
 fun formatTime(seconds: Long): String {
     val minutes = seconds / 60
     val secs = seconds % 60
-    val time = when {
-        minutes > 0 -> "${minutes}분 ${secs}초"
-        else -> "${secs}초"
-    }
+    val time =
+        when {
+            minutes > 0 -> "${minutes}분 ${secs}초"
+            else -> "${secs}초"
+        }
     return time
 }

@@ -30,7 +30,6 @@ fun DmsCheckbox(
 }
 
 object DmsCheckboxDefaults {
-
     private const val DISABLED_CONTAINER_OPACITY = 0.38f
 
     @Composable
@@ -40,11 +39,12 @@ object DmsCheckboxDefaults {
         checkmarkColor: Color = DmsTheme.colors.surfaceTint,
         disabledColor: Color = DmsTheme.colors.scrim,
         disabledIndeterminateColor: Color = checkedColor.copy(alpha = DISABLED_CONTAINER_OPACITY),
-    ): CheckboxColors = CheckboxDefaults.colors(
-        checkedColor = checkedColor,
-        uncheckedColor = uncheckedColor,
-        checkmarkColor = checkmarkColor,
-        disabledColor = disabledColor,
-        disabledIndeterminateColor = disabledIndeterminateColor,
-    )
+    ): CheckboxColors =
+        CheckboxDefaults.colors(
+            checkedColor = checkedColor,
+            uncheckedColor = uncheckedColor,
+            checkmarkColor = checkmarkColor,
+            disabledColor = disabledColor,
+            disabledIndeterminateColor = disabledIndeterminateColor,
+        )
 }

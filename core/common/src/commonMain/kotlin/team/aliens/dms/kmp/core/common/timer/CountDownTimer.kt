@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface CountDownTimerListener {
     fun onTick(timeLeft: Long)
+
     fun onFinish()
 }
 

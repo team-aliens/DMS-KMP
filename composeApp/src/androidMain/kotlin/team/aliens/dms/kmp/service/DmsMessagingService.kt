@@ -10,7 +10,6 @@ import team.aliens.dms.kmp.core.notification.DeviceTokenManager
 import team.aliens.dms.kmp.core.notification.NotificationManager
 
 class DmsMessagingService : FirebaseMessagingService() {
-
     private val deviceTokenManager: DeviceTokenManager by inject()
     private val notificationManager: NotificationManager by inject()
 

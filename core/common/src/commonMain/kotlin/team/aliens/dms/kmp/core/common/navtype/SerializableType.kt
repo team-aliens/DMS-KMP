@@ -11,8 +11,10 @@ inline fun <reified T : Any?> serializableType(
     isNullableAllowed: Boolean = false,
     json: Json = Json,
 ) = object : NavType<T>(isNullableAllowed = isNullableAllowed) {
-
-    override fun get(bundle: SavedState, key: String): T? {
+    override fun get(
+        bundle: SavedState,
+        key: String,
+    ): T? {
         return bundle.read {
             this.getString(key).let<String, T>(json::decodeFromString)
         }
@@ -22,7 +24,11 @@ inline fun <reified T : Any?> serializableType(
 
     override fun serializeAsValue(value: T): String = Json.encodeToString(value)
 
-    override fun put(bundle: SavedState, key: String, value: T) {
+    override fun put(
+        bundle: SavedState,
+        key: String,
+        value: T,
+    ) {
         return bundle.write {
             this.putString(key, json.encodeToString(value))
         }

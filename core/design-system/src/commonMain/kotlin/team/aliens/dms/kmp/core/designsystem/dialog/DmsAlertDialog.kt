@@ -31,15 +31,17 @@ fun DmsAlertDialog(
     ) {
         Card(
             shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = DmsTheme.colors.surface,
-                contentColor = DmsTheme.colors.surfaceContainer,
-            ),
+            colors =
+                CardDefaults.cardColors(
+                    containerColor = DmsTheme.colors.surface,
+                    contentColor = DmsTheme.colors.surfaceContainer,
+                ),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 DmsText(

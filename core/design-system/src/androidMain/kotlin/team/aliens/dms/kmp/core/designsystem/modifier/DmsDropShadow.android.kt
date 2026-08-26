@@ -22,9 +22,10 @@ actual fun Modifier.dmsDropShadow(
     val shadowSize = Size(size.width + spread.toPx(), size.height + spread.toPx())
     val shadowOutline = shape.createOutline(shadowSize, layoutDirection, this)
 
-    val paint = Paint().apply {
-        this.color = color
-    }
+    val paint =
+        Paint().apply {
+            this.color = color
+        }
 
     if (blur.toPx() > 0) {
         paint.asFrameworkPaint().apply {

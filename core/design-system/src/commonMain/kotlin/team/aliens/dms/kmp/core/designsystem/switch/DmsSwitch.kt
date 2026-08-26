@@ -40,14 +40,15 @@ object DmsSwitchDefaults {
         uncheckedTrackColor: Color = DmsTheme.colors.onSurface,
         uncheckedBorderColor: Color = Color.Transparent,
         uncheckedIconColor: Color = DmsTheme.colors.onSurface,
-    ): SwitchColors = SwitchDefaults.colors(
-        checkedThumbColor = checkedThumbColor,
-        checkedTrackColor = checkedTrackColor,
-        checkedBorderColor = checkedBorderColor,
-        checkedIconColor = checkedIconColor,
-        uncheckedThumbColor = uncheckedThumbColor,
-        uncheckedTrackColor = uncheckedTrackColor,
-        uncheckedBorderColor = uncheckedBorderColor,
-        uncheckedIconColor = uncheckedIconColor,
-    )
+    ): SwitchColors =
+        SwitchDefaults.colors(
+            checkedThumbColor = checkedThumbColor,
+            checkedTrackColor = checkedTrackColor,
+            checkedBorderColor = checkedBorderColor,
+            checkedIconColor = checkedIconColor,
+            uncheckedThumbColor = uncheckedThumbColor,
+            uncheckedTrackColor = uncheckedTrackColor,
+            uncheckedBorderColor = uncheckedBorderColor,
+            uncheckedIconColor = uncheckedIconColor,
+        )
 }

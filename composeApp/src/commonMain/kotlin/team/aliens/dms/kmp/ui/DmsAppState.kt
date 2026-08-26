@@ -45,9 +45,10 @@ class DmsAppState(
         duration: Duration = 2.seconds,
     ) {
         coroutineScope.launch {
-            val job = launch {
-                snackBarHostState.showSnackbar(visuals)
-            }
+            val job =
+                launch {
+                    snackBarHostState.showSnackbar(visuals)
+                }
             delay(duration)
             job.cancel()
         }
@@ -58,10 +59,11 @@ class DmsAppState(
         message: String,
     ) {
         showSnackBar(
-            visuals = DmsSnackBarVisuals(
-                snackBarType = snackBarType,
-                message = message,
-            ),
+            visuals =
+                DmsSnackBarVisuals(
+                    snackBarType = snackBarType,
+                    message = message,
+                ),
         )
     }
 }

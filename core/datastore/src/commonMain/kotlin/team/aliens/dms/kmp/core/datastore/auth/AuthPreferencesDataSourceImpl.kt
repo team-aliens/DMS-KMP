@@ -15,48 +15,52 @@ import team.aliens.dms.kmp.core.model.auth.TokenModel
 internal class AuthPreferencesDataSourceImpl(
     private val jwtDataStore: PreferencesDataStore,
 ) : AuthPreferencesDataSource {
+    override suspend fun loadTokens(): Result<TokenModel?> =
+        kotlin.runCatching {
+            jwtDataStore.data.firstOrNull()?.let { preferences ->
+                val accessTokenValue = preferences[ACCESS_TOKEN] ?: return@let null
+                val accessTokenExpiration = preferences[ACCESS_TOKEN_EXPIRATION] ?: return@let null
+                val refreshTokenValue = preferences[REFRESH_TOKEN] ?: return@let null
+                val refreshTokenExpiration =
+                    preferences[REFRESH_TOKEN_EXPIRATION] ?: return@let null
 
-    override suspend fun loadTokens(): Result<TokenModel?> = kotlin.runCatching {
-        jwtDataStore.data.firstOrNull()?.let { preferences ->
-            val accessTokenValue = preferences[ACCESS_TOKEN] ?: return@let null
-            val accessTokenExpiration = preferences[ACCESS_TOKEN_EXPIRATION] ?: return@let null
-            val refreshTokenValue = preferences[REFRESH_TOKEN] ?: return@let null
-            val refreshTokenExpiration =
-                preferences[REFRESH_TOKEN_EXPIRATION] ?: return@let null
-
-            TokenModel(
-                accessToken = AccessToken(
-                    value = accessTokenValue,
-                    expiration = LocalDateTime.parse(accessTokenExpiration),
-                ),
-                refreshToken = RefreshToken(
-                    value = refreshTokenValue,
-                    expiration = LocalDateTime.parse(refreshTokenExpiration),
-                ),
-            )
-        }
-    }
-
-    override suspend fun storeTokens(token: TokenModel): Result<Unit> = runCatching {
-        transform(onFailure = { throw CannotStoreTokensException() }) {
-            jwtDataStore.edit { preferences ->
-                val accessToken = token.accessToken
-                val refreshToken = token.refreshToken
-                preferences[ACCESS_TOKEN] = accessToken.value
-                preferences[ACCESS_TOKEN_EXPIRATION] = accessToken.expiration.toString()
-                preferences[REFRESH_TOKEN] = refreshToken.value
-                preferences[REFRESH_TOKEN_EXPIRATION] = refreshToken.expiration.toString()
+                TokenModel(
+                    accessToken =
+                        AccessToken(
+                            value = accessTokenValue,
+                            expiration = LocalDateTime.parse(accessTokenExpiration),
+                        ),
+                    refreshToken =
+                        RefreshToken(
+                            value = refreshTokenValue,
+                            expiration = LocalDateTime.parse(refreshTokenExpiration),
+                        ),
+                )
             }
         }
-    }
 
-    override suspend fun clearTokens(): Result<Unit> = kotlin.runCatching {
-        transform(
-            onFailure = { throw CannotClearTokensException() },
-        ) {
-            jwtDataStore.edit { preferences -> preferences.clear() }
+    override suspend fun storeTokens(token: TokenModel): Result<Unit> =
+        runCatching {
+            transform(onFailure = { throw CannotStoreTokensException() }) {
+                jwtDataStore.edit { preferences ->
+                    val accessToken = token.accessToken
+                    val refreshToken = token.refreshToken
+                    preferences[ACCESS_TOKEN] = accessToken.value
+                    preferences[ACCESS_TOKEN_EXPIRATION] = accessToken.expiration.toString()
+                    preferences[REFRESH_TOKEN] = refreshToken.value
+                    preferences[REFRESH_TOKEN_EXPIRATION] = refreshToken.expiration.toString()
+                }
+            }
         }
-    }
+
+    override suspend fun clearTokens(): Result<Unit> =
+        kotlin.runCatching {
+            transform(
+                onFailure = { throw CannotClearTokensException() },
+            ) {
+                jwtDataStore.edit { preferences -> preferences.clear() }
+            }
+        }
 
     private companion object {
         val ACCESS_TOKEN = stringPreferencesKey("access-token")

@@ -12,31 +12,36 @@ import team.aliens.dms.kmp.core.network.notice.model.response.GetNoticeDetailRes
 import team.aliens.dms.kmp.core.network.notice.model.response.GetNoticesResponse
 import team.aliens.dms.kmp.core.network.notice.model.response.GetWhetherNewNoticesExistResponse
 
-internal fun GetWhetherNewNoticesExistResponse.toModel() = NoticeStatusModel(
-    whetherNewNotices = this.whetherNewNotices,
-)
+internal fun GetWhetherNewNoticesExistResponse.toModel() =
+    NoticeStatusModel(
+        whetherNewNotices = this.whetherNewNotices,
+    )
 
-internal fun GetNoticeDetailResponse.toModel() = NoticeDetailModel(
-    id = this.id,
-    title = this.title,
-    content = this.content,
-    createdAt = LocalDateTime.parse(this.createdAt),
-)
+internal fun GetNoticeDetailResponse.toModel() =
+    NoticeDetailModel(
+        id = this.id,
+        title = this.title,
+        content = this.content,
+        createdAt = LocalDateTime.parse(this.createdAt),
+    )
 
-internal fun OrderType.toDto() = when (this) {
-    OrderType.OLD -> OrderTypeDto.OLD
-    OrderType.NEW -> OrderTypeDto.NEW
-}
+internal fun OrderType.toDto() =
+    when (this) {
+        OrderType.OLD -> OrderTypeDto.OLD
+        OrderType.NEW -> OrderTypeDto.NEW
+    }
 
 internal fun GetNoticesResponse.toModel() = this.notices.map { it.toModel() }
 
-internal fun GetLatestNoticeResponse.toModel() = LatestNoticeModel(
-    id = this.id,
-    title = this.title,
-)
+internal fun GetLatestNoticeResponse.toModel() =
+    LatestNoticeModel(
+        id = this.id,
+        title = this.title,
+    )
 
-private fun GetNoticesResponse.Notice.toModel() = NoticeModel(
-    id = this.id,
-    title = this.title,
-    createdAt = LocalDateTime.parse(this.createdAt),
-)
+private fun GetNoticesResponse.Notice.toModel() =
+    NoticeModel(
+        id = this.id,
+        title = this.title,
+        createdAt = LocalDateTime.parse(this.createdAt),
+    )

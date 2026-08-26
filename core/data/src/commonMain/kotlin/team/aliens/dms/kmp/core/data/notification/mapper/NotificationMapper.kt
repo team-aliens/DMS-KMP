@@ -15,7 +15,7 @@ import team.aliens.dms.kmp.core.util.toElapsedText
 
 internal fun FetchNotificationsResponse.toModel(): NotificationsModel =
     NotificationsModel(
-        notifications = this.notifications.map { it.toModel() }
+        notifications = this.notifications.map { it.toModel() },
     )
 
 private fun FetchNotificationsResponse.NotificationResponse.toModel(): NotificationsModel.NotificationModel =
@@ -28,40 +28,40 @@ private fun FetchNotificationsResponse.NotificationResponse.toModel(): Notificat
         content = content,
         createdAt = createdAt,
         isRead = isRead,
-        elapsedText = LocalDateTime.parse(createdAt).toElapsedText(now)
+        elapsedText = LocalDateTime.parse(createdAt).toElapsedText(now),
     )
-
 
 internal fun FetchNotificationTopicStatusResponse.toModel(): NotificationTopicStatusModel =
     NotificationTopicStatusModel(
-        topicGroups = this.topicGroups.map { it.toModel() }
+        topicGroups = this.topicGroups.map { it.toModel() },
     )
 
 private fun FetchNotificationTopicStatusResponse.TopicGroupResponse.toModel(): NotificationTopicStatusModel.TopicGroup =
     NotificationTopicStatusModel.TopicGroup(
         topicGroup = this.topicGroup.toModel(),
         groupName = this.groupName,
-        topicSubscriptions = this.topicSubscriptions.map { it.toModel() }
+        topicSubscriptions = this.topicSubscriptions.map { it.toModel() },
     )
-
 
 private fun FetchNotificationTopicStatusResponse.TopicGroupResponse.TopicSubscriptionResponse.toModel(): NotificationTopicStatusModel.TopicGroup.TopicSubscription =
     NotificationTopicStatusModel.TopicGroup.TopicSubscription(
         topic = this.topic.toModel(),
-        isSubscribed = this.subscribed
+        isSubscribed = this.subscribed,
     )
 
-internal fun NotificationGroupTypeDto.toModel(): NotificationGroupType = when (this) {
-    NotificationGroupTypeDto.NOTICE -> NotificationGroupType.NOTICE
-    NotificationGroupTypeDto.POINT -> NotificationGroupType.POINT
-    NotificationGroupTypeDto.STUDY_ROOM -> NotificationGroupType.STUDY_ROOM
-    NotificationGroupTypeDto.OUTING -> NotificationGroupType.OUTING
-}
+internal fun NotificationGroupTypeDto.toModel(): NotificationGroupType =
+    when (this) {
+        NotificationGroupTypeDto.NOTICE -> NotificationGroupType.NOTICE
+        NotificationGroupTypeDto.POINT -> NotificationGroupType.POINT
+        NotificationGroupTypeDto.STUDY_ROOM -> NotificationGroupType.STUDY_ROOM
+        NotificationGroupTypeDto.OUTING -> NotificationGroupType.OUTING
+    }
 
-internal fun NotificationTypeDto.toModel(): NotificationType = when (this) {
-    NotificationTypeDto.NOTICE -> NotificationType.NOTICE
-    NotificationTypeDto.POINT -> NotificationType.POINT
-    NotificationTypeDto.STUDY_ROOM_TIME_SLOT -> NotificationType.STUDY_ROOM_TIME_SLOT
-    NotificationTypeDto.STUDY_ROOM_APPLY -> NotificationType.STUDY_ROOM_APPLY
-    NotificationTypeDto.OUTING -> NotificationType.OUTING
-}
+internal fun NotificationTypeDto.toModel(): NotificationType =
+    when (this) {
+        NotificationTypeDto.NOTICE -> NotificationType.NOTICE
+        NotificationTypeDto.POINT -> NotificationType.POINT
+        NotificationTypeDto.STUDY_ROOM_TIME_SLOT -> NotificationType.STUDY_ROOM_TIME_SLOT
+        NotificationTypeDto.STUDY_ROOM_APPLY -> NotificationType.STUDY_ROOM_APPLY
+        NotificationTypeDto.OUTING -> NotificationType.OUTING
+    }

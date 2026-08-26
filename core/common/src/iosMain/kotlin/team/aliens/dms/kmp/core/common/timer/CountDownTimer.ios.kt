@@ -22,20 +22,21 @@ actual class CountDownTimer actual constructor(
         timeLeft = durationMillis
 
         val intervalSeconds = intervalMillis / 1000.0
-        timer = NSTimer.scheduledTimerWithTimeInterval(
-            interval = intervalSeconds,
-            repeats = true,
-        ) {
-            timeLeft -= intervalMillis
-            if (timeLeft >= 0) {
-                listener?.onTick(timeLeft)
-            } else {
-                _isRunning.value = false
-                listener?.onFinish()
-                it?.invalidate()
-                stop()
+        timer =
+            NSTimer.scheduledTimerWithTimeInterval(
+                interval = intervalSeconds,
+                repeats = true,
+            ) {
+                timeLeft -= intervalMillis
+                if (timeLeft >= 0) {
+                    listener?.onTick(timeLeft)
+                } else {
+                    _isRunning.value = false
+                    listener?.onFinish()
+                    it?.invalidate()
+                    stop()
+                }
             }
-        }
     }
 
     actual fun restart() {

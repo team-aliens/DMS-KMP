@@ -8,7 +8,8 @@ import team.aliens.dms.kmp.core.database.datasource.meal.MealDatabaseDataSourceI
 import team.aliens.dms.kmp.core.database.datasource.notice.NoticeDatabaseDataSource
 import team.aliens.dms.kmp.core.database.datasource.notice.NoticeDatabaseDataSourceImpl
 
-internal val dataSourceModule = module {
-    singleOf(::MealDatabaseDataSourceImpl) { bind<MealDatabaseDataSource>() }
-    singleOf(::NoticeDatabaseDataSourceImpl) { bind<NoticeDatabaseDataSource>() }
-}
+internal val dataSourceModule =
+    module {
+        singleOf(::MealDatabaseDataSourceImpl) { bind<MealDatabaseDataSource>() }
+        singleOf(::NoticeDatabaseDataSourceImpl) { bind<NoticeDatabaseDataSource>() }
+    }

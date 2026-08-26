@@ -12,9 +12,10 @@ import team.aliens.dms.kmp.core.datastore.onboarding.OnboardingPreferencesDataSo
 import team.aliens.dms.kmp.core.datastore.remain.RemainPreferencesDataSource
 import team.aliens.dms.kmp.core.datastore.remain.RemainPreferencesDataSourceImpl
 
-internal val dataSourceModule = module {
-    singleOf(::AuthPreferencesDataSourceImpl) { bind<AuthPreferencesDataSource>() }
-    singleOf(::OnboardingPreferencesDataSourceImpl) { bind<OnboardingPreferencesDataSource>() }
-    singleOf(::RemainPreferencesDataSourceImpl) { bind<RemainPreferencesDataSource>() }
-    singleOf(::DeviceTokenPreferencesDataSourceImpl) { bind<DeviceTokenPreferencesDataSource>() }
-}
+internal val dataSourceModule =
+    module {
+        singleOf(::AuthPreferencesDataSourceImpl) { bind<AuthPreferencesDataSource>() }
+        singleOf(::OnboardingPreferencesDataSourceImpl) { bind<OnboardingPreferencesDataSource>() }
+        singleOf(::RemainPreferencesDataSourceImpl) { bind<RemainPreferencesDataSource>() }
+        singleOf(::DeviceTokenPreferencesDataSourceImpl) { bind<DeviceTokenPreferencesDataSource>() }
+    }

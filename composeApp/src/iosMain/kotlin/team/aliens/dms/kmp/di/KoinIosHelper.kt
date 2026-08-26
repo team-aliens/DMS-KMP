@@ -9,7 +9,6 @@ import org.koin.core.component.inject
 import team.aliens.dms.kmp.core.notification.DeviceTokenManager
 
 object KoinIosHelper : KoinComponent {
-
     private val deviceTokenManager: DeviceTokenManager by inject()
 
     fun registerDeviceToken(token: String) {

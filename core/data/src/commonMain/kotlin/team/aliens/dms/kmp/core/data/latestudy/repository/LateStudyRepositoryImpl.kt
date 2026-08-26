@@ -9,7 +9,6 @@ import team.aliens.dms.kmp.core.network.latestudy.model.request.SubmitLateStudyR
 class LateStudyRepositoryImpl(
     private val dataSource: NetworkLateStudyDataSource,
 ) : LateStudyRepository {
-
     override suspend fun fetchStudyTypes(): List<StudyTypeModel> =
         dataSource.fetchStudyTypes().types.map {
             StudyTypeModel(

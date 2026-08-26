@@ -8,16 +8,17 @@ import team.aliens.dms.kmp.coil.PhAssetFetcher
 import team.aliens.dms.kmp.core.designsystem.foundation.DmsTheme
 import team.aliens.dms.kmp.ui.DmsApp
 
-fun mainViewController() = ComposeUIViewController {
-    setSingletonImageLoaderFactory { context ->
-        ImageLoader.Builder(context)
-            .components {
-                add(KtorNetworkFetcherFactory())
-                add(PhAssetFetcher.Factory())
-            }
-            .build()
+fun mainViewController() =
+    ComposeUIViewController {
+        setSingletonImageLoaderFactory { context ->
+            ImageLoader.Builder(context)
+                .components {
+                    add(KtorNetworkFetcherFactory())
+                    add(PhAssetFetcher.Factory())
+                }
+                .build()
+        }
+        DmsTheme {
+            DmsApp()
+        }
     }
-    DmsTheme {
-        DmsApp()
-    }
-}

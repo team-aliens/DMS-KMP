@@ -45,57 +45,66 @@ actual fun DmsWebView(
             modifier = Modifier.fillMaxSize(),
             factory = {
                 WebView(context).apply {
-                    webViewClient = object : WebViewClient() {
-                        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                            super.onPageStarted(view, url, favicon)
-                            isLoading = true
-                        }
+                    webViewClient =
+                        object : WebViewClient() {
+                            override fun onPageStarted(
+                                view: WebView?,
+                                url: String?,
+                                favicon: Bitmap?,
+                            ) {
+                                super.onPageStarted(view, url, favicon)
+                                isLoading = true
+                            }
 
-                        override fun onPageFinished(view: WebView?, url: String?) {
-                            super.onPageFinished(view, url)
-                            isLoading = false
-                        }
+                            override fun onPageFinished(
+                                view: WebView?,
+                                url: String?,
+                            ) {
+                                super.onPageFinished(view, url)
+                                isLoading = false
+                            }
 
-                        override fun onReceivedError(
-                            view: WebView?,
-                            request: WebResourceRequest?,
-                            error: WebResourceError?,
-                        ) {
-                            super.onReceivedError(view, request, error)
-                            isLoading = false
-                            try {
-                                throw WebViewErrorException("WebView error: ${error?.description}")
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                                isError = true
+                            override fun onReceivedError(
+                                view: WebView?,
+                                request: WebResourceRequest?,
+                                error: WebResourceError?,
+                            ) {
+                                super.onReceivedError(view, request, error)
+                                isLoading = false
+                                try {
+                                    throw WebViewErrorException("WebView error: ${error?.description}")
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                    isError = true
+                                }
+                            }
+
+                            override fun shouldOverrideUrlLoading(
+                                view: WebView?,
+                                request: WebResourceRequest?,
+                            ): Boolean {
+                                request?.let {
+                                    view?.loadUrl(url, headers)
+                                    return true
+                                }
+                                return false
+                            }
+
+                            override fun shouldInterceptRequest(
+                                view: WebView?,
+                                request: WebResourceRequest?,
+                            ): WebResourceResponse? {
+                                Log.d("DmsWebView", request?.requestHeaders.toString())
+                                return super.shouldInterceptRequest(view, request)
                             }
                         }
-
-                        override fun shouldOverrideUrlLoading(
-                            view: WebView?,
-                            request: WebResourceRequest?,
-                        ): Boolean {
-                            request?.let {
-                                view?.loadUrl(url, headers)
-                                return true
-                            }
-                            return false
-                        }
-
-                        override fun shouldInterceptRequest(
-                            view: WebView?,
-                            request: WebResourceRequest?,
-                        ): WebResourceResponse? {
-                            Log.d("DmsWebView", request?.requestHeaders.toString())
-                            return super.shouldInterceptRequest(view, request)
-                        }
-                    }
                     webChromeClient = WebChromeClient()
                     settings.javaScriptEnabled = true
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                    )
+                    layoutParams =
+                        ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        )
                     settings.userAgentString = "userAgent"
                     settings.allowFileAccess = true
                     settings.domStorageEnabled = true
@@ -112,9 +121,10 @@ actual fun DmsWebView(
 
         if (isError) {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(DmsTheme.colors.background),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(DmsTheme.colors.background),
                 contentAlignment = Alignment.Center,
             ) {
                 ErrorStatus(title = "화면을 불러오지 못했어요.")

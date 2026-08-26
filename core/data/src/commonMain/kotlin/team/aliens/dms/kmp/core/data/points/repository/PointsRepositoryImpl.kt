@@ -14,13 +14,16 @@ internal class PointsRepositoryImpl(
         type: PointType?,
         page: Long?,
         size: Long?,
-    ): Result<PointHistoryModel> = networkPointsDataSource.getPoints(
-        request = GetPointsRequest(
-            query = GetPointsRequest.Query(
-                type = type?.toDto(),
-                page = page,
-                size = size,
-            ),
-        ),
-    ).map { it.toModel() }
+    ): Result<PointHistoryModel> =
+        networkPointsDataSource.getPoints(
+            request =
+                GetPointsRequest(
+                    query =
+                        GetPointsRequest.Query(
+                            type = type?.toDto(),
+                            page = page,
+                            size = size,
+                        ),
+                ),
+        ).map { it.toModel() }
 }
