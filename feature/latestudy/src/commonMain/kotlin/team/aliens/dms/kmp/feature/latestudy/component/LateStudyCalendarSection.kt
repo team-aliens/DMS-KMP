@@ -34,6 +34,7 @@ fun LateStudyCalendarSection(
     onPrevMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit,
     onDateClick: (LocalDate) -> Unit,
+    onPastDateClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     LateStudySectionCard(modifier = modifier) {
@@ -98,6 +99,7 @@ fun LateStudyCalendarSection(
             startDate = startDate,
             endDate = endDate,
             onDateClick = onDateClick,
+            onPastDateClick = onPastDateClick,
         )
 
         Spacer(modifier = Modifier.size(24.dp))
@@ -143,6 +145,7 @@ private fun CalendarGrid(
     startDate: LocalDate?,
     endDate: LocalDate?,
     onDateClick: (LocalDate) -> Unit,
+    onPastDateClick: () -> Unit,
 ) {
     val dates = buildCalendarDates(currentMonth)
 
@@ -162,10 +165,11 @@ private fun CalendarGrid(
                 val isSingleSelected = startDate != null &&
                         endDate == null &&
                         item.date == startDate
-                val isSelectable = item.isCurrentMonth && isSelectableDate(
+                val isSelectable = isSelectableDate(
                     date = item.date,
                     minimumDate = minimumDate,
                 )
+                val isPastDate = item.date < minimumDate
 
                 CalendarDateCell(
                     date = item.date,
@@ -174,12 +178,14 @@ private fun CalendarGrid(
                     isRangeEnd = isRangeEnd,
                     isInRange = isInRange,
                     isSingleSelected = isSingleSelected,
-                    isSelectable = isSelectable,
                     onClick = {
                         if (isSelectable) {
                             onDateClick(item.date)
+                        } else if (isPastDate) {
+                            onPastDateClick()
                         }
                     },
+                    isClickable = isSelectable || isPastDate,
                     modifier = Modifier.weight(1f),
                 )
             }
@@ -195,7 +201,7 @@ private fun CalendarDateCell(
     isRangeEnd: Boolean,
     isInRange: Boolean,
     isSingleSelected: Boolean,
-    isSelectable: Boolean,
+    isClickable: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -225,7 +231,7 @@ private fun CalendarDateCell(
         CalendarDateText(
             date = date,
             textColor = textColor,
-            isSelectable = isSelectable,
+            isSelectable = isClickable,
             onClick = onClick,
         )
     }

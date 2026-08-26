@@ -1,6 +1,8 @@
 package team.aliens.dms.kmp.feature.latestudy.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,12 +36,15 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import dmskmp.core.design_system.generated.resources.Res
+import dmskmp.core.design_system.generated.resources.ic_search
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.koin.compose.viewmodel.koinViewModel
+import org.jetbrains.compose.resources.painterResource
 import team.aliens.dms.kmp.core.designsystem.button.ButtonColor
 import team.aliens.dms.kmp.core.designsystem.button.ButtonType
 import team.aliens.dms.kmp.core.designsystem.button.DmsButton
@@ -175,6 +181,12 @@ fun LateStudyScreen(
                         }
                     }
                 },
+                onPastDateClick = {
+                    onShowSnackBar(
+                        DmsSnackBarType.ERROR,
+                        "오늘 이후의 평일만 새벽 자습 날짜로 선택할 수 있습니다.",
+                    )
+                },
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -264,32 +276,38 @@ private fun TeacherDropdown(
     keyword: String,
     onTeacherClick: (TeacherModel) -> Unit,
 ) {
-    val highlightColor = DmsTheme.colors.primary
+    val highlightColor = DmsTheme.colors.onPrimaryContainer
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp)
-            .offset(y = 120.dp)
+            .padding(horizontal = 16.dp)
+            .offset(y = 112.dp)
             .zIndex(10f),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .shadow(
-                    elevation = 12.dp,
-                    shape = RoundedCornerShape(28.dp),
+                    elevation = 8.dp,
+                    shape = RoundedCornerShape(32.dp),
                     clip = false,
-                    ambientColor = DmsTheme.colors.primary.copy(alpha = 0.25f),
-                    spotColor = DmsTheme.colors.primary.copy(alpha = 0.25f),
+                    ambientColor = DmsTheme.colors.onPrimaryContainer.copy(alpha = 0.15f),
+                    spotColor = DmsTheme.colors.onPrimaryContainer.copy(alpha = 0.15f),
                 )
                 .background(
-                    color = DmsTheme.colors.surfaceTint,
-                    shape = RoundedCornerShape(28.dp),
+                    color = DmsTheme.colors.surface,
+                    shape = RoundedCornerShape(32.dp),
+                )
+                .border(
+                    width = 1.dp,
+                    color = DmsTheme.colors.surfaceVariant,
+                    shape = RoundedCornerShape(32.dp),
                 )
                 .heightIn(max = 220.dp)
                 .verticalScroll(rememberScrollState())
                 .padding(vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             teachers.forEach { teacher ->
                 TeacherDropdownItem(
@@ -314,17 +332,23 @@ private fun TeacherDropdownItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 14.dp),
+            .padding(horizontal = 16.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
+        Image(
+            painter = painterResource(Res.drawable.ic_search),
+            contentDescription = null,
+            modifier = Modifier.size(24.dp),
+        )
+
         Text(
             text = highlightText(
                 text = teacher.name,
                 keyword = keyword,
                 highlightColor = highlightColor,
             ),
-            color = DmsTheme.colors.onBackground,
+            color = DmsTheme.colors.tertiaryContainer,
             style = DmsTypography.BodyM,
         )
     }
