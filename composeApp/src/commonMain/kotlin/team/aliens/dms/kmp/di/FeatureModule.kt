@@ -7,6 +7,7 @@ import team.aliens.dms.kmp.feature.application.di.applicationModule
 import team.aliens.dms.kmp.feature.editpassword.di.editPasswordModule
 import team.aliens.dms.kmp.feature.findid.di.findIdModule
 import team.aliens.dms.kmp.feature.home.di.homeModule
+import team.aliens.dms.kmp.feature.latestudy.di.lateStudyModule
 import team.aliens.dms.kmp.feature.meal.di.mealModule
 import team.aliens.dms.kmp.feature.mypage.di.myPageModule
 import team.aliens.dms.kmp.feature.notice.di.noticeModule
@@ -29,6 +30,7 @@ internal val featureModule = module {
         signUpModule,
         homeModule,
         applicationModule,
+        lateStudyModule,
         noticeModule,
         myPageModule,
         remainsModule,
