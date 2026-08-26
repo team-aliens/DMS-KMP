@@ -25,6 +25,8 @@ import team.aliens.dms.kmp.core.data.user.repository.UserRepository
 import team.aliens.dms.kmp.core.data.user.repository.UserRepositoryImpl
 import team.aliens.dms.kmp.core.data.image.repository.ImageRepository
 import team.aliens.dms.kmp.core.data.image.repository.ImageRepositoryImpl
+import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
+import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepositoryImpl
 import team.aliens.dms.kmp.core.data.notification.repository.NotificationRepository
 import team.aliens.dms.kmp.core.data.notification.repository.NotificationRepositoryImpl
 import team.aliens.dms.kmp.core.data.votes.repository.VotesRepository
@@ -43,5 +45,6 @@ val repositoryModule = module {
     singleOf(::OnboardingRepositoryImpl) { bind<OnboardingRepository>() }
     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
     singleOf(::ImageRepositoryImpl) { bind<ImageRepository>() }
+    singleOf(::LateStudyRepositoryImpl) { bind<LateStudyRepository>() }
     singleOf(::NotificationRepositoryImpl) { bind<NotificationRepository>() }
 }
