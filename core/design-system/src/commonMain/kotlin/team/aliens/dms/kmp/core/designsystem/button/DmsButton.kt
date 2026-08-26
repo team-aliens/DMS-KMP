@@ -56,134 +56,173 @@ data class ButtonTheme(
 )
 
 @Composable
-private fun ButtonColor.containedColors() = when (this) {
-    ButtonColor.Primary -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.surface,
-            backgroundColor = DmsTheme.colors.onPrimaryContainer,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surface,
-            backgroundColor = DmsTheme.colors.inversePrimary,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceVariant,
-            backgroundColor = DmsTheme.colors.onPrimary,
-        ),
-    )
+private fun ButtonColor.containedColors() =
+    when (this) {
+        ButtonColor.Primary ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = Color.White,
+                        backgroundColor = DmsTheme.colors.onPrimaryContainer,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = Color.White,
+                        backgroundColor = DmsTheme.colors.inversePrimary,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = Color.White,
+                        backgroundColor = DmsTheme.colors.onPrimary,
+                    ),
+            )
 
-    ButtonColor.Gray -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.inverseOnSurface,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.surfaceBright,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.surfaceTint,
-            backgroundColor = DmsTheme.colors.surfaceVariant,
-        ),
-    )
+        ButtonColor.Gray ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.surfaceTint,
+                        backgroundColor = DmsTheme.colors.inverseOnSurface,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.surfaceTint,
+                        backgroundColor = DmsTheme.colors.surfaceBright,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.surfaceTint,
+                        backgroundColor = DmsTheme.colors.surfaceVariant,
+                    ),
+            )
 
-    ButtonColor.Error -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.surface,
-            backgroundColor = DmsTheme.colors.onErrorContainer,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.surface,
-            backgroundColor = DmsTheme.colors.onErrorContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.inverseSurface,
-            backgroundColor = DmsTheme.colors.outlineVariant,
-        ),
-    )
-}
-
-@Composable
-private fun ButtonColor.textColors() = when (this) {
-    ButtonColor.Primary -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.inverseSurface,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.onSecondaryContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.primaryContainer,
-        ),
-    )
-
-    ButtonColor.Gray -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.inverseSurface,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.tertiaryContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.onSurfaceVariant,
-        ),
-    )
-
-    ButtonColor.Error -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.inversePrimary,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.primaryContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.onPrimary,
-        ),
-    )
-
-    else -> throw IllegalArgumentException("Unhandled ButtonColor: $this")
-}
+        ButtonColor.Error ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.surface,
+                        backgroundColor = DmsTheme.colors.onErrorContainer,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.surface,
+                        backgroundColor = DmsTheme.colors.onErrorContainer,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.inverseSurface,
+                        backgroundColor = DmsTheme.colors.outlineVariant,
+                    ),
+            )
+    }
 
 @Composable
-private fun ButtonColor.underlineColors() = when (this) {
-    ButtonColor.Primary -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.secondary,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.secondaryContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.primaryContainer,
-        ),
-    )
+private fun ButtonColor.textColors() =
+    when (this) {
+        ButtonColor.Primary ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.inverseSurface,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.onSecondaryContainer,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.primaryContainer,
+                    ),
+            )
 
-    ButtonColor.Gray -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.inverseSurface,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.tertiaryContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.onSurfaceVariant,
-        ),
-    )
+        ButtonColor.Gray ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.inverseSurface,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.tertiaryContainer,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.onSurfaceVariant,
+                    ),
+            )
 
-    ButtonColor.Error -> ButtonState(
-        enabled = ButtonTheme(
-            textColor = DmsTheme.colors.outline,
-        ),
-        pressed = ButtonTheme(
-            textColor = DmsTheme.colors.errorContainer,
-        ),
-        disabled = ButtonTheme(
-            textColor = DmsTheme.colors.onError,
-        ),
-    )
+        ButtonColor.Error ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.inversePrimary,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.primaryContainer,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.onPrimary,
+                    ),
+            )
 
-    else -> throw IllegalArgumentException("Unhandled ButtonColor: $this")
-}
+        else -> throw IllegalArgumentException("Unhandled ButtonColor: $this")
+    }
+
+@Composable
+private fun ButtonColor.underlineColors() =
+    when (this) {
+        ButtonColor.Primary ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.secondary,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.secondaryContainer,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.primaryContainer,
+                    ),
+            )
+
+        ButtonColor.Gray ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.inverseSurface,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.tertiaryContainer,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.onSurfaceVariant,
+                    ),
+            )
+
+        ButtonColor.Error ->
+            ButtonState(
+                enabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.outline,
+                    ),
+                pressed =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.errorContainer,
+                    ),
+                disabled =
+                    ButtonTheme(
+                        textColor = DmsTheme.colors.onError,
+                    ),
+            )
+
+        else -> throw IllegalArgumentException("Unhandled ButtonColor: $this")
+    }
 
 @Composable
 private fun BasicButton(
@@ -210,39 +249,42 @@ private fun BasicButton(
 
     val keyboardShow by keyboardAsState()
     val isKeyboardHideButton = keyboardShow && keyboardInteractionEnabled
-    val (shapeByKeyboardShow, pressDepth) = if (isKeyboardHideButton) {
-        RoundedCornerShape(0.dp) to MIN_PRESS_DEPTH
-    } else {
-        shape to DEFAULT_PRESS_DEPTH
-    }
-    val padding = if (isKeyboardHideButton) {
-        PaddingValues(
-            vertical = 0.dp,
-            horizontal = 0.dp,
-        )
-    } else {
-        PaddingValues(
-            vertical = 12.dp,
-            horizontal = 24.dp,
-        )
-    }
+    val (shapeByKeyboardShow, pressDepth) =
+        if (isKeyboardHideButton) {
+            RoundedCornerShape(0.dp) to MIN_PRESS_DEPTH
+        } else {
+            shape to DEFAULT_PRESS_DEPTH
+        }
+    val padding =
+        if (isKeyboardHideButton) {
+            PaddingValues(
+                vertical = 0.dp,
+                horizontal = 0.dp,
+            )
+        } else {
+            PaddingValues(
+                vertical = 12.dp,
+                horizontal = 24.dp,
+            )
+        }
 
     Box(
-        modifier = modifier
-            .modifyIf(keyboardInteractionEnabled) {
-                padding(padding)
-            }
-            .clip(shape = shapeByKeyboardShow)
-            .background(color = backgroundColor, shape = shapeByKeyboardShow)
-            .clickable(
-                pressDepth = pressDepth,
-                enabled = enabled,
-                onPressed = onPressed,
-                onClick = onClick,
-            )
-            .modifyIf(keyboardInteractionEnabled) {
-                imePadding()
-            },
+        modifier =
+            modifier
+                .modifyIf(keyboardInteractionEnabled) {
+                    padding(padding)
+                }
+                .clip(shape = shapeByKeyboardShow)
+                .background(color = backgroundColor, shape = shapeByKeyboardShow)
+                .clickable(
+                    pressDepth = pressDepth,
+                    enabled = enabled,
+                    onPressed = onPressed,
+                    onClick = onClick,
+                )
+                .modifyIf(keyboardInteractionEnabled) {
+                    imePadding()
+                },
         contentAlignment = Alignment.Center,
     ) {
         content()
@@ -264,38 +306,42 @@ fun DmsButton(
 ) {
     var pressed by remember { mutableStateOf(false) }
 
-    val buttonColors = when (buttonType) {
-        ButtonType.Contained -> buttonColor.containedColors()
-        ButtonType.Text -> buttonColor.textColors()
-        ButtonType.Underline -> buttonColor.underlineColors()
-    }
+    val buttonColors =
+        when (buttonType) {
+            ButtonType.Contained -> buttonColor.containedColors()
+            ButtonType.Text -> buttonColor.textColors()
+            ButtonType.Underline -> buttonColor.underlineColors()
+        }
 
     val backgroundColor by animateColorAsState(
-        targetValue = if (!enabled) {
-            buttonColors.disabled.backgroundColor ?: Color.Transparent
-        } else if (pressed) {
-            buttonColors.pressed.backgroundColor ?: Color.Transparent
-        } else {
-            buttonColors.enabled.backgroundColor ?: Color.Transparent
-        },
+        targetValue =
+            if (!enabled) {
+                buttonColors.disabled.backgroundColor ?: Color.Transparent
+            } else if (pressed) {
+                buttonColors.pressed.backgroundColor ?: Color.Transparent
+            } else {
+                buttonColors.enabled.backgroundColor ?: Color.Transparent
+            },
     )
     val borderColor by animateColorAsState(
-        targetValue = if (!enabled) {
-            buttonColors.disabled.borderColor ?: Color.Transparent
-        } else if (pressed) {
-            buttonColors.pressed.borderColor ?: Color.Transparent
-        } else {
-            buttonColors.enabled.borderColor ?: Color.Transparent
-        },
+        targetValue =
+            if (!enabled) {
+                buttonColors.disabled.borderColor ?: Color.Transparent
+            } else if (pressed) {
+                buttonColors.pressed.borderColor ?: Color.Transparent
+            } else {
+                buttonColors.enabled.borderColor ?: Color.Transparent
+            },
     )
     val contentColor by animateColorAsState(
-        targetValue = if (!enabled) {
-            buttonColors.disabled.textColor
-        } else if (pressed) {
-            buttonColors.pressed.textColor
-        } else {
-            buttonColors.enabled.textColor
-        },
+        targetValue =
+            if (!enabled) {
+                buttonColors.disabled.textColor
+            } else if (pressed) {
+                buttonColors.pressed.textColor
+            } else {
+                buttonColors.enabled.textColor
+            },
     )
     val innerPadding =
         if (buttonType == ButtonType.Text || buttonType == ButtonType.Underline) {
@@ -321,17 +367,19 @@ fun DmsButton(
         keyboardInteractionEnabled = keyboardInteractionEnabled,
     ) {
         val padding = contentPadding ?: innerPadding
-        val textStyle = if (buttonType == ButtonType.Underline || buttonType == ButtonType.Text) {
-            DmsTypography.labelM
-        } else {
-            DmsTypography.BodyB
-        }
+        val textStyle =
+            if (buttonType == ButtonType.Underline || buttonType == ButtonType.Text) {
+                DmsTypography.labelM
+            } else {
+                DmsTypography.BodyB
+            }
         val size = with(LocalDensity.current) { textStyle.fontSize.toDp() * 1.2f }
 
         Box(
-            modifier = Modifier
-                .padding(padding)
-                .height(size),
+            modifier =
+                Modifier
+                    .padding(padding)
+                    .height(size),
             contentAlignment = Alignment.Center,
         ) {
             if (isLoading) {
