@@ -29,32 +29,32 @@ fun LateStudyReasonSection(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = "사유",
-                color = DmsTheme.colors.onBackground,
+                color = DmsTheme.colors.inverseOnSurface,
                 style = DmsTypography.BodyB,
             )
 
             Text(
                 text = "${value.length}/$REASON_MAX_LENGTH",
                 color = DmsTheme.colors.inverseSurface,
-                modifier = Modifier.padding(top = 4.dp, end = 10.dp),
-                style = DmsTypography.BodyM,
+                modifier = Modifier,
+                style = DmsTypography.SLabelM,
             )
         }
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 24.dp)
                 .background(
-                    color = DmsTheme.colors.background,
-                    shape = RoundedCornerShape(20.dp),
+                    color = DmsTheme.colors.onSurface,
+                    shape = RoundedCornerShape(32.dp),
                 )
-                .height(180.dp)
+                .height(220.dp)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
         ) {
             BasicTextField(
@@ -66,7 +66,7 @@ fun LateStudyReasonSection(
                 },
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = DmsTypography.BodyM.copy(
-                    color = DmsTheme.colors.onBackground,
+                    color = DmsTheme.colors.tertiaryContainer,
                 ),
                 decorationBox = { innerTextField ->
                     Box {
