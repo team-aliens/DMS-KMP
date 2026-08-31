@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -64,12 +65,12 @@ fun LateStudyReasonSection(
                         onValueChange(newValue)
                     }
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxSize(),
                 textStyle = DmsTypography.BodyM.copy(
                     color = DmsTheme.colors.tertiaryContainer,
                 ),
                 decorationBox = { innerTextField ->
-                    Box {
+                    Box(modifier = Modifier.fillMaxSize()) {
                         if (value.isEmpty()) {
                             Text(
                                 text = "새벽 자습을 신청한 이유를 작성해주세요",
