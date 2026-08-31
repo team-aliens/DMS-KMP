@@ -117,7 +117,10 @@ fun LateStudyScreen(
                 size = 48.dp,
                 contentPaddingValues = androidx.compose.foundation.layout.PaddingValues(12.dp),
                 contentDescription = "뒤로가기",
-                onClick = onBack,
+                onClick = {
+                    focusManager.clearFocus()
+                    onBack()
+                },
             )
 
             Text(
@@ -160,7 +163,10 @@ fun LateStudyScreen(
                     LateStudyTypeItem(
                         text = type.name,
                         selected = viewModel.selectedTypeId == type.id,
-                        onClick = { viewModel.selectStudyType(type.id) },
+                        onClick = {
+                            focusManager.clearFocus()
+                            viewModel.selectStudyType(type.id)
+                        },
                     )
                 }
 
@@ -174,9 +180,16 @@ fun LateStudyScreen(
                 minimumDate = today,
                 startDate = startDate,
                 endDate = endDate,
-                onPrevMonthClick = { currentMonth = currentMonth.minusMonths(1) },
-                onNextMonthClick = { currentMonth = currentMonth.plusMonths(1) },
+                onPrevMonthClick = {
+                    focusManager.clearFocus()
+                    currentMonth = currentMonth.minusMonths(1)
+                },
+                onNextMonthClick = {
+                    focusManager.clearFocus()
+                    currentMonth = currentMonth.plusMonths(1)
+                },
                 onDateClick = { clickedDate ->
+                    focusManager.clearFocus()
                     when {
                         startDate == null -> startDate = clickedDate
                         endDate == null && clickedDate >= startDate!! -> endDate = clickedDate
@@ -187,6 +200,7 @@ fun LateStudyScreen(
                     }
                 },
                 onPastDateClick = {
+                    focusManager.clearFocus()
                     onShowSnackBar(
                         DmsSnackBarType.ERROR,
                         "오늘 이후의 평일만 새벽 자습 날짜로 선택할 수 있습니다.",
@@ -223,6 +237,7 @@ fun LateStudyScreen(
                 enabled = isEnabled,
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 20.dp),
                 onClick = {
+                    focusManager.clearFocus()
                     val selectedStartDate = startDate ?: return@DmsButton
 
                     viewModel.submitLateStudy(
