@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 import team.aliens.dms.kmp.core.common.exception.network.BadRequestException
 import team.aliens.dms.kmp.core.common.exception.network.ConflictException
@@ -99,8 +97,7 @@ class LateStudyViewModel(
     }
 
     fun submitLateStudy(
-        startDate: String,
-        endDate: String,
+        dates: List<String>,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit,
     ) {
@@ -112,18 +109,14 @@ class LateStudyViewModel(
             return
         }
 
-        val selectedStartDate = startDate.toLocalDateOrNull()
-        val selectedEndDate = endDate.toLocalDateOrNull()
-        if (selectedStartDate == null || selectedEndDate == null) {
+        val selectedDates = dates.map { it.toLocalDateOrNull() }
+        if (selectedDates.any { it == null }) {
             onFailure("신청 정보를 다시 확인해주세요.")
             return
         }
 
         val validationMessage =
-            validateLateStudyPeriod(
-                startDate = selectedStartDate,
-                endDate = selectedEndDate,
-            )
+            validateLateStudyDates(selectedDates.filterNotNull())
         if (validationMessage != null) {
             onFailure(validationMessage)
             return
@@ -138,8 +131,7 @@ class LateStudyViewModel(
                         teacherId = teacherId,
                         typeId = typeId,
                         reason = reason,
-                        startDate = startDate,
-                        endDate = endDate,
+                        dates = dates,
                     ),
                 )
                 onSuccess()
@@ -174,24 +166,20 @@ private fun Exception.toLateStudyErrorMessage(): String =
     }
 
 @OptIn(ExperimentalTime::class)
-private fun validateLateStudyPeriod(
-    startDate: LocalDate,
-    endDate: LocalDate,
+private fun validateLateStudyDates(
+    dates: List<LocalDate>,
 ): String? {
-    if (startDate > endDate) return "시작 날짜는 종료 날짜보다 늦을 수 없습니다."
+    if (dates.isEmpty()) return "날짜를 하나 이상 선택해주세요."
 
     val today =
         Clock.System.now()
             .toLocalDateTime(TimeZone.currentSystemDefault())
             .date
-    if (startDate < today || endDate < today) return "과거 날짜는 신청할 수 없습니다."
-
-    var date = startDate
-    while (date <= endDate) {
+    dates.forEach { date ->
+        if (date < today) return "과거 날짜는 신청할 수 없습니다."
         if (date.dayOfWeek !in LATE_STUDY_ALLOWED_DAYS) {
             return "새벽 자습은 월요일부터 목요일까지만 신청할 수 있습니다."
         }
-        date = date.plus(1, DateTimeUnit.DAY)
     }
 
     return null
