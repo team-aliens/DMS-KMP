@@ -188,11 +188,12 @@ fun LateStudyScreen(
                 },
                 onDateClick = { clickedDate ->
                     focusManager.clearFocus()
-                    selectedDates = if (clickedDate in selectedDates) {
-                        selectedDates - clickedDate
-                    } else {
-                        selectedDates + clickedDate
-                    }
+                    selectedDates =
+                        if (clickedDate in selectedDates) {
+                            selectedDates - clickedDate
+                        } else {
+                            selectedDates + clickedDate
+                        }
                 },
                 onDateRangeSelect = { dates ->
                     selectedDates += dates
