@@ -12,9 +12,5 @@ data class SubmitLateStudyRequest(
     val typeId: String,
     val reason: String,
 
-    @SerialName("start_date")
-    val startDate: String,
-
-    @SerialName("end_date")
-    val endDate: String,
+    val dates: List<String>,
 )
