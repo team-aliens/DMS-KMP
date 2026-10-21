@@ -80,8 +80,7 @@ fun LateStudyScreen(
     var currentMonth by remember {
         mutableStateOf(CalendarYearMonth(today.year, today.monthNumber))
     }
-    var startDate by remember { mutableStateOf<LocalDate?>(null) }
-    var endDate by remember { mutableStateOf<LocalDate?>(null) }
+    var selectedDates by remember { mutableStateOf<Set<LocalDate>>(emptySet()) }
     var isDropdownVisible by remember { mutableStateOf(false) }
 
     val filteredTeachers = remember(viewModel.teacherKeyword, viewModel.teachers) {
@@ -91,7 +90,7 @@ fun LateStudyScreen(
 
     val isEnabled = viewModel.selectedTeacherId != null &&
             viewModel.selectedTypeId != null &&
-            startDate != null &&
+            selectedDates.isNotEmpty() &&
             viewModel.reason.isNotBlank() &&
             !viewModel.isSubmitting
 
@@ -178,8 +177,7 @@ fun LateStudyScreen(
             LateStudyCalendarSection(
                 currentMonth = currentMonth,
                 minimumDate = today,
-                startDate = startDate,
-                endDate = endDate,
+                selectedDates = selectedDates,
                 onPrevMonthClick = {
                     focusManager.clearFocus()
                     currentMonth = currentMonth.minusMonths(1)
@@ -190,14 +188,14 @@ fun LateStudyScreen(
                 },
                 onDateClick = { clickedDate ->
                     focusManager.clearFocus()
-                    when {
-                        startDate == null -> startDate = clickedDate
-                        endDate == null && clickedDate >= startDate!! -> endDate = clickedDate
-                        else -> {
-                            startDate = clickedDate
-                            endDate = null
-                        }
+                    selectedDates = if (clickedDate in selectedDates) {
+                        selectedDates - clickedDate
+                    } else {
+                        selectedDates + clickedDate
                     }
+                },
+                onDateRangeSelect = { dates ->
+                    selectedDates += dates
                 },
                 onPastDateClick = {
                     focusManager.clearFocus()
@@ -238,11 +236,10 @@ fun LateStudyScreen(
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 20.dp),
                 onClick = {
                     focusManager.clearFocus()
-                    val selectedStartDate = startDate ?: return@DmsButton
-
                     viewModel.submitLateStudy(
-                        startDate = selectedStartDate.toString(),
-                        endDate = (endDate ?: selectedStartDate).toString(),
+                        dates = selectedDates
+                            .sorted()
+                            .map(LocalDate::toString),
                         onSuccess = {
                             onShowSnackBar(DmsSnackBarType.SUCCESS, "새벽 자습 신청이 완료되었습니다")
                             onSubmitted()
