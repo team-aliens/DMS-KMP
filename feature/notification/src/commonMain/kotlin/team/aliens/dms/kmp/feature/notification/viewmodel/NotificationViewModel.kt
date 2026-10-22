@@ -27,7 +27,7 @@ internal class NotificationViewModel(
     private fun fetchNotifications() {
         viewModelScope.launch(Dispatchers.IO) {
             fetchNotificationsUseCase().onSuccess { notifications ->
-                val notification = notifications.notifications.filter { it.topic != NotificationType.NOTICE }
+                val notification = notifications.notifications.filter { it.topic == NotificationType.POINT }
 
                 setState { state.value.copy(
                     notifications = notification,
