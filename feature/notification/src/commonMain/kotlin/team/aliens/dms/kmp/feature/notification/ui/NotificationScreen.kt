@@ -43,6 +43,7 @@ import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTab
 import team.aliens.dms.kmp.core.designsystem.tab.DmsTabRow
 import team.aliens.dms.kmp.core.designsystem.util.clickable
+import team.aliens.dms.kmp.core.model.notice.NoticeModel
 import team.aliens.dms.kmp.core.model.notification.NotificationsModel
 import team.aliens.dms.kmp.core.model.type.PointType
 import team.aliens.dms.kmp.feature.notification.ui.component.NoticeItem
@@ -76,6 +77,9 @@ internal fun Notification(
                 is NotificationSideEffect.FailFetchNotification -> onShowSnackBar(
                     DmsSnackBarType.ERROR, "알림 조회를 실패했어요"
                 )
+                is NotificationSideEffect.FailFetchNotice -> onShowSnackBar(
+                    DmsSnackBarType.ERROR, "공지 조회를 실패했어요"
+                )
                 is NotificationSideEffect.FailUpdateNotification -> onShowSnackBar(
                     DmsSnackBarType.ERROR, "업데이트 실패 했어요"
                 )
@@ -94,10 +98,7 @@ internal fun Notification(
             }
         },
         onBackClick = onNavigateBack,
-        onNotificationDetailClick = { linkId, notificationId ->
-            viewModel.updateNotificationReadStatus(notificationId)
-            onNavigateNotificationDetailClick(linkId)
-        },
+        onNotificationDetailClick = onNavigateNotificationDetailClick,
         onNotificationClick = { point, notificationId ->
             viewModel.updateNotificationReadStatus(notificationId)
             onNavigatePointHistory(point)
@@ -113,7 +114,7 @@ private fun NotificationScreen(
     tabIndex: Int,
     onTabClick: (Int) -> Unit,
     onBackClick: () -> Unit,
-    onNotificationDetailClick: (String, String) -> Unit,
+    onNotificationDetailClick: (String) -> Unit,
     onNotificationClick: (PointType, String) -> Unit,
 ) {
     Column(
@@ -181,8 +182,8 @@ internal fun NotificationItems(
 @Composable
 private fun NoticeItems(
     modifier: Modifier = Modifier,
-    notices: List<NotificationsModel.NotificationModel>,
-    onNotificationDetailClick: (String, String) -> Unit,
+    notices: List<NoticeModel>,
+    onNotificationDetailClick: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
