@@ -25,12 +25,10 @@ class LateStudyRepositoryImpl(
             )
         }
 
-    override suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusModel =
-        dataSource.fetchMyStudyApplicationStatus().let {
+    override suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusModel? =
+        dataSource.fetchMyStudyApplicationStatus()?.let {
             StudyApplicationStatusModel(
                 status = it.status,
-                startDate = it.startDate,
-                endDate = it.endDate,
             )
         }
 

@@ -5,7 +5,6 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
 import team.aliens.dms.kmp.core.common.base.BaseViewModel
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
 import team.aliens.dms.kmp.core.designsystem.card.ApplicationBadgeStatus
@@ -55,7 +54,7 @@ internal class ApplicationViewModel(
             }.onSuccess { status ->
                 setState {
                     state.value.copy(
-                        lateStudyApplicationStatus = status.toApplicationStatus(),
+                        lateStudyApplicationStatus = status?.toApplicationStatus(),
                     )
                 }
             }.onFailure {
@@ -79,8 +78,13 @@ data class LateStudyApplicationStatus(
 )
 
 private fun StudyApplicationStatusModel.toApplicationStatus(): LateStudyApplicationStatus? = when (status) {
-    "APPROVED", "SECOND_APPROVED" -> LateStudyApplicationStatus(
-        title = buildRangeText("승인됨") ?: "승인됨",
+    "FIRST_APPROVED" -> LateStudyApplicationStatus(
+        title = "1차 승인",
+        badgeStatus = ApplicationBadgeStatus.APPROVED,
+    )
+
+    "SECOND_APPROVED" -> LateStudyApplicationStatus(
+        title = "최종 승인",
         badgeStatus = ApplicationBadgeStatus.APPROVED,
     )
 
@@ -90,34 +94,9 @@ private fun StudyApplicationStatusModel.toApplicationStatus(): LateStudyApplicat
     )
 
     "REJECTED" -> LateStudyApplicationStatus(
-        title = buildRangeText("거절됨") ?: "거절됨",
+        title = "거절됨",
         badgeStatus = ApplicationBadgeStatus.REJECTED,
     )
 
     else -> null
 }
-
-private fun StudyApplicationStatusModel.buildRangeText(
-    suffix: String,
-): String? {
-    val startDate = startDate
-    val endDate = endDate
-
-    return when {
-        !startDate.isNullOrBlank() && !endDate.isNullOrBlank() -> {
-            val formattedStartDate = startDate.toMonthDayOrNull() ?: return null
-            val formattedEndDate = endDate.toMonthDayOrNull() ?: return null
-
-            if (startDate == endDate) "$formattedStartDate $suffix"
-            else "$formattedStartDate ~ $formattedEndDate $suffix"
-        }
-
-        !startDate.isNullOrBlank() -> startDate.toMonthDayOrNull()?.let { "$it $suffix" }
-        !endDate.isNullOrBlank() -> endDate.toMonthDayOrNull()?.let { "$it $suffix" }
-        else -> null
-    }
-}
-
-private fun String.toMonthDayOrNull(): String? = runCatching {
-    LocalDate.parse(this).let { "${it.monthNumber}.${it.dayOfMonth}" }
-}.getOrNull()

@@ -159,7 +159,7 @@ private fun AppliedTitleText(
                     color = backgroundColor,
                     shape = RoundedCornerShape(6.dp),
                 )
-                .padding(horizontal = 22.dp, vertical = 8.dp),
+                .padding(horizontal = 12.dp, vertical = 7.dp),
         text = appliedTitle,
         style = DmsTypography.labelB,
         color = textColor,
