@@ -10,7 +10,7 @@ interface LateStudyRepository {
 
     suspend fun fetchTeachers(): List<TeacherModel>
 
-    suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusModel
+    suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusModel?
 
     suspend fun submitLateStudy(request: SubmitLateStudyRequest)
 }
