@@ -10,7 +10,7 @@ interface NetworkLateStudyDataSource {
 
     suspend fun fetchTeachers(): FetchTeachersResponse
 
-    suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusResponse
+    suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusResponse?
 
     suspend fun submitLateStudy(request: SubmitLateStudyRequest)
 }
