@@ -5,6 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import team.aliens.dms.kmp.core.common.exception.network.NotFoundException
 import team.aliens.dms.kmp.core.network.latestudy.model.request.SubmitLateStudyRequest
 import team.aliens.dms.kmp.core.network.latestudy.model.response.FetchStudyTypesResponse
 import team.aliens.dms.kmp.core.network.latestudy.model.response.FetchTeachersResponse
@@ -20,8 +21,12 @@ class KtorLateStudyDataSource(
     override suspend fun fetchTeachers(): FetchTeachersResponse =
         httpClient.get("/teachers/general").body()
 
-    override suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusResponse =
-        httpClient.get("/daybreaks/study-application/my").body()
+    override suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusResponse? =
+        try {
+            httpClient.get("/daybreaks/study-application/my").body()
+        } catch (_: NotFoundException) {
+            null
+        }
 
     override suspend fun submitLateStudy(request: SubmitLateStudyRequest) {
         httpClient.post("/daybreaks/study-application") {
