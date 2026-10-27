@@ -29,10 +29,18 @@ class LateStudyRepositoryImpl(
         dataSource.fetchMyStudyApplicationStatus()?.let {
             StudyApplicationStatusModel(
                 status = it.status,
+                dates = it.dates,
+                teacherName = it.teacherName,
+                typeName = it.typeName,
+                reason = it.reason,
             )
         }
 
     override suspend fun submitLateStudy(request: SubmitLateStudyRequest) {
         dataSource.submitLateStudy(request)
+    }
+
+    override suspend fun cancelMyStudyApplication() {
+        dataSource.cancelMyStudyApplication()
     }
 }
