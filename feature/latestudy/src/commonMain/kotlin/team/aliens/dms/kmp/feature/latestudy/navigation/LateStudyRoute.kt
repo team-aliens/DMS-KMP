@@ -36,13 +36,13 @@ fun NavGraphBuilder.lateStudy(
 
 fun NavGraphBuilder.lateStudyDetail(
     onNavigateBack: () -> Unit,
-    onCancelled: () -> Unit,
+    onCancel: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
 ) {
     composable<LateStudyDetailRoute> {
         LateStudyDetailScreen(
             onBack = onNavigateBack,
-            onCancelled = onCancelled,
+            onCancel = onCancel,
             onShowSnackBar = onShowSnackBar,
         )
     }
