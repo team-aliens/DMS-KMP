@@ -6,9 +6,11 @@ import org.koin.dsl.module
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.feature.latestudy.ui.LateStudyScreen
 import team.aliens.dms.kmp.feature.latestudy.viewmodel.LateStudyViewModel
+import team.aliens.dms.kmp.feature.latestudy.viewmodel.LateStudyDetailViewModel
 
 val lateStudyModule = module {
     viewModelOf(::LateStudyViewModel)
+    viewModelOf(::LateStudyDetailViewModel)
 }
 
 @Composable
