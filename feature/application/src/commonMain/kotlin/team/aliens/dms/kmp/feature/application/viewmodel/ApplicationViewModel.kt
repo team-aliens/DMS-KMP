@@ -98,10 +98,5 @@ private fun StudyApplicationStatusModel.toApplicationStatus(): LateStudyApplicat
         badgeStatus = ApplicationBadgeStatus.REJECTED,
     )
 
-    "EXPIRED" -> LateStudyApplicationStatus(
-        title = "기간 만료",
-        badgeStatus = ApplicationBadgeStatus.REJECTED,
-    )
-
     else -> null
 }
