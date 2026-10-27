@@ -13,4 +13,6 @@ interface NetworkLateStudyDataSource {
     suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusResponse?
 
     suspend fun submitLateStudy(request: SubmitLateStudyRequest)
+
+    suspend fun cancelMyStudyApplication()
 }
