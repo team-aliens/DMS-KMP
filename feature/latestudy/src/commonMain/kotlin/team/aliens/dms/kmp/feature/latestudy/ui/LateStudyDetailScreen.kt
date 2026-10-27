@@ -50,7 +50,7 @@ import kotlin.time.ExperimentalTime
 @Composable
 fun LateStudyDetailScreen(
     onBack: () -> Unit,
-    onCancelled: () -> Unit,
+    onCancel: () -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
     viewModel: LateStudyDetailViewModel = koinViewModel(),
 ) {
@@ -72,7 +72,7 @@ fun LateStudyDetailScreen(
                             onSuccess = {
                                 showCancelDialog = false
                                 onShowSnackBar(DmsSnackBarType.SUCCESS, "새벽 자습 신청을 취소했습니다")
-                                onCancelled()
+                                onCancel()
                             },
                             onFailure = { message ->
                                 showCancelDialog = false
