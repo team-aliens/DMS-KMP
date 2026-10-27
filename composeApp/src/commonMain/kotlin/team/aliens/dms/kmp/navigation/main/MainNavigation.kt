@@ -88,7 +88,7 @@ internal fun NavGraphBuilder.mainGraph(appState: DmsAppState) {
         )
         lateStudyDetail(
             onNavigateBack = appState.navController::navigateUp,
-            onCancelled = {
+            onCancel = {
                 appState.navController.previousBackStackEntry
                     ?.savedStateHandle
                     ?.set(LATE_STUDY_STATUS_REFRESH_KEY, true)
