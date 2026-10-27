@@ -1,7 +1,6 @@
 package team.aliens.dms.kmp.feature.latestudy.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -147,10 +146,14 @@ fun LateStudyDetailScreen(
                 else -> LateStudyDetailContent(application)
             }
 
-            Spacer(modifier = Modifier.height(132.dp))
+            Spacer(
+                modifier = Modifier.height(
+                    if (application?.status == "PENDING") 132.dp else 24.dp,
+                ),
+            )
         }
 
-        if (application != null) {
+        if (application?.status == "PENDING") {
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -167,7 +170,8 @@ fun LateStudyDetailScreen(
                     text = "신청 취소하기",
                     buttonType = ButtonType.Contained,
                     buttonColor = ButtonColor.Error,
-                    enabled = application.status == "PENDING" && !viewModel.isCancelling,
+                    shape = RoundedCornerShape(32.dp),
+                    enabled = !viewModel.isCancelling,
                     isLoading = viewModel.isCancelling,
                     contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 20.dp),
                     onClick = { showCancelDialog = true },
@@ -212,7 +216,7 @@ private fun DetailReason(value: String) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(180.dp)
+                .height(220.dp)
                 .background(DmsTheme.colors.onSurface, RoundedCornerShape(32.dp))
                 .padding(horizontal = 16.dp, vertical = 16.dp),
         ) {
@@ -257,7 +261,7 @@ private fun ReadOnlyCalendar(dates: List<String>) {
                 onClick = { currentMonth = currentMonth.plusMonths(1) },
             )
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(modifier = Modifier.fillMaxWidth()) {
             listOf("일", "월", "화", "수", "목", "금", "토").forEachIndexed { index, day ->
                 Text(
                     text = day,
@@ -267,18 +271,40 @@ private fun ReadOnlyCalendar(dates: List<String>) {
                         else -> DmsTheme.colors.tertiaryContainer
                     },
                     style = DmsTypography.BodyM,
-                    modifier = Modifier.size(32.dp),
+                    modifier = Modifier.weight(1f),
                 )
             }
         }
         calendarDates.chunked(7).forEach { week ->
             Row(modifier = Modifier.fillMaxWidth()) {
-                week.forEach { item ->
+                week.forEachIndexed { index, item ->
                     val selected = item.date in parsedDates
+                    val connectedToPrevious = selected && index > 0 && week[index - 1].date in parsedDates
+                    val connectedToNext = selected && index < week.lastIndex && week[index + 1].date in parsedDates
                     Box(
                         modifier = Modifier.weight(1f).height(44.dp),
                         contentAlignment = Alignment.Center,
                     ) {
+                        if (connectedToPrevious || connectedToNext) {
+                            if (connectedToPrevious) {
+                                Box(
+                                    modifier = Modifier
+                                        .align(Alignment.CenterStart)
+                                        .fillMaxWidth(0.5f)
+                                        .height(28.dp)
+                                        .background(DmsTheme.colors.primaryContainer),
+                                )
+                            }
+                            if (connectedToNext) {
+                                Box(
+                                    modifier = Modifier
+                                        .align(Alignment.CenterEnd)
+                                        .fillMaxWidth(0.5f)
+                                        .height(28.dp)
+                                        .background(DmsTheme.colors.primaryContainer),
+                                )
+                            }
+                        }
                         Box(
                             modifier = Modifier
                                 .size(if (selected) 32.dp else 0.dp)
