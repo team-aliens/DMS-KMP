@@ -5,8 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import team.aliens.dms.kmp.core.common.exception.UnknownException
+import team.aliens.dms.kmp.core.common.exception.network.NetworkException
 import team.aliens.dms.kmp.core.common.exception.network.BadRequestException
 import team.aliens.dms.kmp.core.common.exception.network.ForbiddenException
 import team.aliens.dms.kmp.core.common.exception.network.InternalServerErrorException
@@ -34,9 +37,17 @@ class LateStudyDetailViewModel(
     private fun fetchApplication() {
         viewModelScope.launch {
             isLoading = true
-            runCatching { lateStudyRepository.fetchMyStudyApplicationStatus() }
-                .onSuccess { application = it }
-            isLoading = false
+            try {
+                application = lateStudyRepository.fetchMyStudyApplicationStatus()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: NetworkException) {
+                logFetchFailure(e)
+            } catch (e: UnknownException) {
+                logFetchFailure(e)
+            } finally {
+                isLoading = false
+            }
         }
     }
 
@@ -53,7 +64,9 @@ class LateStudyDetailViewModel(
                 onSuccess()
             } catch (e: CancellationException) {
                 throw e
-            } catch (e: Exception) {
+            } catch (e: NetworkException) {
+                onFailure(e.toCancelErrorMessage())
+            } catch (e: UnknownException) {
                 onFailure(e.toCancelErrorMessage())
             } finally {
                 isCancelling = false
@@ -62,7 +75,11 @@ class LateStudyDetailViewModel(
     }
 }
 
-private fun Exception.toCancelErrorMessage(): String =
+private fun LateStudyDetailViewModel.logFetchFailure(throwable: Throwable) {
+    Logger.a(throwable) { "새벽 자습 신청 내역 조회에 실패했습니다." }
+}
+
+private fun Throwable.toCancelErrorMessage(): String =
     when (this) {
         is BadRequestException -> "승인된 신청은 취소할 수 없습니다."
         is UnAuthorizedException -> "로그인이 만료되었습니다. 다시 로그인해주세요."
