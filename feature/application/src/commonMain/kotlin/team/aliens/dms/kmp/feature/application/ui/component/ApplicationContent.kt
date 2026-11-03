@@ -23,6 +23,7 @@ internal fun ApplicationContent(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
+    onNavigateLateStudyDetail: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
 ) {
     Column(
@@ -50,7 +51,11 @@ internal fun ApplicationContent(
         DmsApplicationCard(
             title = "새벽 자습 신청하기",
             iconRes = Res.drawable.img_latestudy,
-            onClick = onNavigateLateStudyApplication,
+            onClick = if (lateStudyApplicationStatus == null) {
+                onNavigateLateStudyApplication
+            } else {
+                onNavigateLateStudyDetail
+            },
             appliedTitle = lateStudyApplicationStatus?.title,
             appliedBadgeStatus = lateStudyApplicationStatus?.badgeStatus,
         )

@@ -13,7 +13,9 @@ import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToCheckPasswo
 import team.aliens.dms.kmp.feature.editpassword.navigation.navigateToEditPassword
 import team.aliens.dms.kmp.feature.latestudy.navigation.LATE_STUDY_STATUS_REFRESH_KEY
 import team.aliens.dms.kmp.feature.latestudy.navigation.lateStudy
+import team.aliens.dms.kmp.feature.latestudy.navigation.lateStudyDetail
 import team.aliens.dms.kmp.feature.latestudy.navigation.navigateToLateStudy
+import team.aliens.dms.kmp.feature.latestudy.navigation.navigateToLateStudyDetail
 import team.aliens.dms.kmp.feature.meal.navigation.meal
 import team.aliens.dms.kmp.feature.meal.navigation.navigateToMeal
 import team.aliens.dms.kmp.feature.notice.navigation.navigateToNoticeDetails
@@ -63,6 +65,7 @@ internal fun NavGraphBuilder.mainGraph(appState: DmsAppState) {
             onNavigateRemainApplication = appState.navController::navigateToRemainApplication,
             onNavigateOutingApplication = { },
             onNavigateLateStudyApplication = appState.navController::navigateToLateStudy,
+            onNavigateLateStudyDetail = appState.navController::navigateToLateStudyDetail,
             onNavigateVolunteerApplication = appState.navController::navigateToVolunteer,
             onNavigateNotification = appState.navController::navigateToNotification,
             onNavigateNoticeDetail = appState.navController::navigateToNoticeDetails,
@@ -80,6 +83,16 @@ internal fun NavGraphBuilder.mainGraph(appState: DmsAppState) {
                 appState.navController.previousBackStackEntry
                     ?.savedStateHandle
                     ?.set(LATE_STUDY_STATUS_REFRESH_KEY, true)
+            },
+            onShowSnackBar = appState::showSnackBar,
+        )
+        lateStudyDetail(
+            onNavigateBack = appState.navController::navigateUp,
+            onCancel = {
+                appState.navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.set(LATE_STUDY_STATUS_REFRESH_KEY, true)
+                appState.navController.navigateUp()
             },
             onShowSnackBar = appState::showSnackBar,
         )

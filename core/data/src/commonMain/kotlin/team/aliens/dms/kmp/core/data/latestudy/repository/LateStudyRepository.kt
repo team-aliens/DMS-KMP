@@ -13,4 +13,6 @@ interface LateStudyRepository {
     suspend fun fetchMyStudyApplicationStatus(): StudyApplicationStatusModel?
 
     suspend fun submitLateStudy(request: SubmitLateStudyRequest)
+
+    suspend fun cancelMyStudyApplication()
 }

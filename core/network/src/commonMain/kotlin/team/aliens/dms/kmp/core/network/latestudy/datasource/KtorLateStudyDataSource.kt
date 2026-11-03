@@ -2,6 +2,7 @@ package team.aliens.dms.kmp.core.network.latestudy.datasource
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -32,5 +33,9 @@ class KtorLateStudyDataSource(
         httpClient.post("/daybreaks/study-application") {
             setBody(request)
         }.body<Unit>()
+    }
+
+    override suspend fun cancelMyStudyApplication() {
+        httpClient.delete("/daybreaks/study-application/my").body<Unit>()
     }
 }

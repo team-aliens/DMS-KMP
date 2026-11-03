@@ -34,6 +34,7 @@ internal fun Application(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
+    onNavigateLateStudyDetail: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
     onShowSnackBar: (DmsSnackBarType, String) -> Unit,
@@ -54,6 +55,7 @@ internal fun Application(
             onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요")
         },
         onNavigateLateStudyApplication = onNavigateLateStudyApplication,
+        onNavigateLateStudyDetail = onNavigateLateStudyDetail,
         onNavigateVolunteerApplication = {
             onShowSnackBar(DmsSnackBarType.SUCCESS, "준비중인 기능이에요")
         },
@@ -67,6 +69,7 @@ private fun ApplicationScreen(
     onNavigateRemainApplication: () -> Unit,
     onNavigateOutingApplication: () -> Unit,
     onNavigateLateStudyApplication: () -> Unit,
+    onNavigateLateStudyDetail: () -> Unit,
     onNavigateVolunteerApplication: () -> Unit,
     onNavigateVote: (VoteModel) -> Unit,
 ) {
@@ -123,6 +126,7 @@ private fun ApplicationScreen(
                         onNavigateOutingApplication = onNavigateOutingApplication,
                         onNavigateRemainApplication = onNavigateRemainApplication,
                         onNavigateLateStudyApplication = onNavigateLateStudyApplication,
+                        onNavigateLateStudyDetail = onNavigateLateStudyDetail,
                         onNavigateVolunteerApplication = onNavigateVolunteerApplication,
                     )
                 } else {
