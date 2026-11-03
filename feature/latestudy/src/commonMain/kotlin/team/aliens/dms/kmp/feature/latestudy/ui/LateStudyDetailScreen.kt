@@ -137,7 +137,11 @@ fun LateStudyDetailScreen(
 
                 application == null ->
                     Text(
-                        text = "확인할 수 있는 새벽 자습 신청 내역이 없습니다.",
+                        text = if (viewModel.hasFetchError) {
+                            "새벽 자습 신청 내역을 조회하지 못했습니다."
+                        } else {
+                            "확인할 수 있는 새벽 자습 신청 내역이 없습니다."
+                        },
                         color = DmsTheme.colors.inverseSurface,
                         style = DmsTypography.BodyM,
                         modifier = Modifier.padding(16.dp),
@@ -360,4 +364,3 @@ private fun detailCalendarColor(date: LocalDate, isCurrentMonth: Boolean) = when
     date.dayOfWeek == DayOfWeek.FRIDAY -> DmsTheme.colors.onSurfaceVariant
     else -> DmsTheme.colors.tertiaryContainer
 }
-
