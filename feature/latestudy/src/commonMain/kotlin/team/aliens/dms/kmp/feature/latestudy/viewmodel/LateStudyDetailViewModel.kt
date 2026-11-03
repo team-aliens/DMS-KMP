@@ -9,10 +9,10 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import team.aliens.dms.kmp.core.common.exception.UnknownException
-import team.aliens.dms.kmp.core.common.exception.network.NetworkException
 import team.aliens.dms.kmp.core.common.exception.network.BadRequestException
 import team.aliens.dms.kmp.core.common.exception.network.ForbiddenException
 import team.aliens.dms.kmp.core.common.exception.network.InternalServerErrorException
+import team.aliens.dms.kmp.core.common.exception.network.NetworkException
 import team.aliens.dms.kmp.core.common.exception.network.NotFoundException
 import team.aliens.dms.kmp.core.common.exception.network.UnAuthorizedException
 import team.aliens.dms.kmp.core.data.latestudy.repository.LateStudyRepository
@@ -27,6 +27,9 @@ class LateStudyDetailViewModel(
     var isLoading by mutableStateOf(true)
         private set
 
+    var hasFetchError by mutableStateOf(false)
+        private set
+
     var isCancelling by mutableStateOf(false)
         private set
 
@@ -39,11 +42,14 @@ class LateStudyDetailViewModel(
             isLoading = true
             try {
                 application = lateStudyRepository.fetchMyStudyApplicationStatus()
+                hasFetchError = false
             } catch (e: CancellationException) {
                 throw e
             } catch (e: NetworkException) {
+                hasFetchError = true
                 logFetchFailure(e)
             } catch (e: UnknownException) {
+                hasFetchError = true
                 logFetchFailure(e)
             } finally {
                 isLoading = false
