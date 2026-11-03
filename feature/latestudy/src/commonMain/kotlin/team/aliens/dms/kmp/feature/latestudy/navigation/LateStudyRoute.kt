@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
-import team.aliens.dms.kmp.feature.latestudy.ui.LateStudyScreen
 import team.aliens.dms.kmp.feature.latestudy.ui.LateStudyDetailScreen
+import team.aliens.dms.kmp.feature.latestudy.ui.LateStudyScreen
 
 @Serializable
 data object LateStudyRoute
