@@ -5,8 +5,8 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import team.aliens.dms.kmp.core.designsystem.snackbar.DmsSnackBarType
 import team.aliens.dms.kmp.feature.latestudy.ui.LateStudyScreen
-import team.aliens.dms.kmp.feature.latestudy.viewmodel.LateStudyViewModel
 import team.aliens.dms.kmp.feature.latestudy.viewmodel.LateStudyDetailViewModel
+import team.aliens.dms.kmp.feature.latestudy.viewmodel.LateStudyViewModel
 
 val lateStudyModule = module {
     viewModelOf(::LateStudyViewModel)
